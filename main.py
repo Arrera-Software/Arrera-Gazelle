@@ -14,6 +14,7 @@ superBouton = Button(screen,text="Setting")
 def bootSetting():
     superBouton.pack_forget()
     arreraSetting.windows(screen)
+    arreraSetting.mainView()
     #arreraSetting.mainView()
 
 superBouton.config(command=bootSetting)
