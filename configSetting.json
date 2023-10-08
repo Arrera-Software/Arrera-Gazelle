@@ -3,8 +3,8 @@
     "color2":"black",
     "textColor1":"black",
     "textColor2":"white",
-    "colorInterface":"0",
-    "multiUser":"0",
+    "colorInterface":"1",
+    "multiUser":"1",
     "nbUser":"0",
     "setIcon":"0"
 }

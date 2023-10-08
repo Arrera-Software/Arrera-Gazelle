@@ -63,38 +63,46 @@ class ArreraSettingAssistant :
         #Label
         labelTitreMenu = Label(self.cadreMenu,text="Menu",font=("arial","20"),bg=self.colorSecondaire,fg=self.textColorSecondaire)
         labelcadresPresentations = [
-            Label(cadresPresentations[0],text="Gestion utilisateur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[1],text="Gestion theme",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[2],text="Gestion recherche",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[3],text="Gestion meteo",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[4],text="Gestion GPS",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[5],text="Gestion software",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)]
+            Label(cadresPresentations[0],text="Gestion recherche",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[1],text="Gestion meteo",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[2],text="Gestion GPS",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[3],text="Gestion software",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[4],text="Gestion utilisateur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[5],text="Gestion theme",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)]
+        if self.multiUser == False :
+            labelcadresPresentations[4].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
+        if self.changeColor == False :
+            labelcadresPresentations[5].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
         #cadresPresentations
-        #0
-        buttonManageUser = Button(cadresPresentations[0],text="Utilisateur\nmanageur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+         #0
+        menuRecherche1 = OptionMenu(cadresPresentations[0],self.varParametre,*listMoteur)
+        btnValiderMoteur1 = Button(cadresPresentations[0],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #1
-        menuTheme1 = OptionMenu(cadresPresentations[1],self.varParametre,*listTheme)
-        btnValiderTheme1 = Button(cadresPresentations[1],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnMeteo1 = Button(cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #2
-        menuRecherche1 = OptionMenu(cadresPresentations[2],self.varParametre,*listMoteur)
-        btnValiderMoteur1 = Button(cadresPresentations[2],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnGPSHome = Button(cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnGPSWork = Button(cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #3
-        btnMeteo1 = Button(cadresPresentations[3],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnSoftware1 = Button(cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #4
-        btnGPSHome = Button(cadresPresentations[4],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
-        btnGPSWork = Button(cadresPresentations[4],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        if self.multiUser == True :
+            buttonManageUser = Button(cadresPresentations[4],text="Utilisateur\nmanageur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #5
-        btnSoftware1 = Button(cadresPresentations[5],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        if self.changeColor == True:
+            menuTheme1 = OptionMenu(cadresPresentations[5],self.varParametre,*listTheme)
+            btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+       
         #bouton
         #cadre menu
-        boutonAcceuil = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil")
-        boutonUser = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur")
-        boutonTheme = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme")
-        boutonMeteo = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo")
-        boutonGPS = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS")
-        boutonRecherche = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche")
-        boutonSoftware = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software")
-        boutonInternet = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet")
+        boutonMenu = [
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur"),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme")]
         boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter")
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -115,30 +123,43 @@ class ArreraSettingAssistant :
         cadresPresentations[5].place(x=180,y=400)
         #Affichage des cadre composant du cadre acceuil
         labelcadresPresentations[0].place(x=0,y=0)
-        labelcadresPresentations[1].place(x=0,y=0)
-        labelcadresPresentations[2].place(x=0,y=0)
-        labelcadresPresentations[3].place(x=0,y=0)
-        labelcadresPresentations[4].place(x=0,y=0)
-        labelcadresPresentations[5].place(x=0,y=0)
-        buttonManageUser.place(relx=0.5, rely=0.5, anchor="center")
-        menuTheme1.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
-        btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
-        menuRecherche1.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
+        menuRecherche1.place(relx=0.5,y=(labelcadresPresentations[0].winfo_reqheight()+45), anchor="center")
         btnValiderMoteur1.place(relx=0.5, rely=1.0, anchor="s")
+        labelcadresPresentations[1].place(x=0,y=0)
         btnMeteo1.place(relx=0.5, rely=0.5, anchor="center")
+        labelcadresPresentations[2].place(x=0,y=0)
         btnGPSHome.place(relx=0.5, rely=1.0, anchor="s")
-        btnGPSWork.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
+        btnGPSWork.place(relx=0.5,y=(labelcadresPresentations[2].winfo_reqheight()+45), anchor="center")
+        labelcadresPresentations[3].place(x=0,y=0)
         btnSoftware1.place(relx=0.5, rely=0.5, anchor="center")
+        if self.multiUser == True :
+            labelcadresPresentations[4].place(x=0,y=0)
+            buttonManageUser.place(relx=0.5, rely=0.5, anchor="center")
+        else :
+            labelcadresPresentations[4].place(relx=0.5, rely=0.5, anchor="center")
+        if self.changeColor == True :   
+            labelcadresPresentations[5].place(x=0,y=0)
+            menuTheme1.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
+            btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
+        else :
+            labelcadresPresentations[5].place(relx=0.5, rely=0.5, anchor="center")
         #Affichage cadre menu 
         labelTitreMenu.place(x=xBoutonMenu,y=0)
-        boutonAcceuil.place(x=xBoutonMenu,y=50)
-        boutonUser.place(x=xBoutonMenu,y=100)
-        boutonTheme.place(x=xBoutonMenu,y=150)
-        boutonMeteo.place(x=xBoutonMenu,y=200)
-        boutonGPS.place(x=xBoutonMenu,y=250)
-        boutonRecherche.place(x=xBoutonMenu,y=300)
-        boutonSoftware.place(x=xBoutonMenu,y=350)
-        boutonInternet.place(x=xBoutonMenu,y=400)
+        boutonMenu[0].place(x=xBoutonMenu,y=50)
+        boutonMenu[1].place(x=xBoutonMenu,y=100)
+        boutonMenu[2].place(x=xBoutonMenu,y=150)
+        boutonMenu[3].place(x=xBoutonMenu,y=200)
+        boutonMenu[4].place(x=xBoutonMenu,y=250)
+        boutonMenu[5].place(x=xBoutonMenu,y=300)
+        if self.multiUser == True :
+            boutonMenu[6].place(x=xBoutonMenu,y=350)
+        if self.changeColor == True :
+            if self.multiUser == True :
+                boutonMenu[7].place(x=xBoutonMenu,y=400)
+            else :
+                boutonMenu[7].place(x=xBoutonMenu,y=350)
+
+        
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
         self.cadreMenu.pack(side="left")
