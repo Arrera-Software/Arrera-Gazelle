@@ -11,9 +11,16 @@ screen.minsize(150,150)
 screen.config(bg="red")
 superBouton = Button(screen,text="Setting")
 
+def fncQuitter():
+    screen.title("Test Setting")
+    screen.maxsize(150,150)
+    screen.minsize(150,150)
+    superBouton.pack()
+
 def bootSetting():
     superBouton.pack_forget()
     arreraSetting.windows(screen)
+    arreraSetting.passageFonctionQuitter(fncQuitter)
     arreraSetting.mainView()
     #arreraSetting.mainView()
 

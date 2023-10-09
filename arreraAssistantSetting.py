@@ -7,6 +7,7 @@ class ArreraSettingAssistant :
         self.changeColor = bool 
         self.icon = bool 
         self.fileIcon = str
+        self.fnc = None
         #overture des fichier
         settingFile = jsonWork(configSettingFile)
         self.fileConfig = jsonWork(configFile)
@@ -95,15 +96,15 @@ class ArreraSettingAssistant :
         #bouton
         #cadre menu
         boutonMenu = [
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur"),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme")]
-        boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter")
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=self.mainView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo",command=self.meteoView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=self.gpsView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=self.rechercheView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=self.softwareView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=self.internetView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=self.userView),
+            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=self.themeView)]
+        boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter",command=self.quittePara)
         #formatage de la fenetre
         windows.maxsize(500,600)
         windows.minsize(500,600)
@@ -171,6 +172,9 @@ class ArreraSettingAssistant :
         self.cadreAcceuil.pack(side="left")
         return True 
     
+    def gpsView(self)->bool:
+        return True 
+    
     def userView(self)->bool  :
         return True 
     
@@ -184,5 +188,19 @@ class ArreraSettingAssistant :
         return True 
     
     def softwareView(self)->bool  :
+        return True 
+    
+    def internetView(self)->bool :
+        return True
+    
+    def passageFonctionQuitter(self,fonctionQuitter):
+        self.fnc = fonctionQuitter
+    
+    def quittePara(self)->bool :
+        self.cadreAcceuil.destroy()
+        self.cadreMenu.destroy()
+        self.fnc()
+        
+            
         return True 
         
