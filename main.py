@@ -16,6 +16,7 @@ def fncQuitter():
     screen.maxsize(150,150)
     screen.minsize(150,150)
     superBouton.pack()
+    screen.update()
 
 def bootSetting():
     superBouton.pack_forget()
