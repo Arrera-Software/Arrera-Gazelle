@@ -9,22 +9,41 @@ screen.title("Test Setting")
 screen.maxsize(150,150)
 screen.minsize(150,150)
 screen.config(bg="red")
-superBouton = Button(screen,text="Setting")
+mainBTN = Button(screen,text="Acceuil")
+meteoBTN = Button(screen,text="Meteo")
+
+def activeWindows():
+    arreraSetting.windows(screen)
 
 def fncQuitter():
     screen.title("Test Setting")
     screen.maxsize(150,150)
     screen.minsize(150,150)
-    superBouton.pack()
+    mainBTN.pack()
+    meteoBTN.pack()
     screen.update()
 
-def bootSetting():
-    superBouton.pack_forget()
-    arreraSetting.windows(screen)
-    arreraSetting.passageFonctionQuitter(fncQuitter)
-    arreraSetting.mainView()
-    #arreraSetting.mainView()
+arreraSetting.passageFonctionQuitter(fncQuitter)
 
-superBouton.config(command=bootSetting)
-superBouton.pack()
+def unViewBTN():
+    mainBTN.pack_forget()
+    meteoBTN.pack_forget()
+
+def mainSetting():
+    unViewBTN()
+    activeWindows()
+    arreraSetting.mainView()
+    screen.update()
+
+def meteoSetting():
+    unViewBTN()
+    activeWindows()
+    arreraSetting.meteoView()
+    screen.update()
+   
+
+mainBTN.config(command=mainSetting)
+meteoBTN.config(command=meteoSetting)
+mainBTN.pack()
+meteoBTN.pack()
 screen.mainloop()
