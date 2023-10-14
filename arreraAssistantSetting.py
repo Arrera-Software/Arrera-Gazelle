@@ -1,5 +1,6 @@
 from tkinter import *
 from travailJSON import *
+from objetPara.paraMeteo import*
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
@@ -32,7 +33,7 @@ class ArreraSettingAssistant :
         if settingFile.lectureJSON("setIcon") == "1" : 
             self.icon = True
         else :
-            self.icon = False 
+            self.icon = False
         #fichier fileconfig 
         self.icon = self.fileConfig.lectureJSON("iconAssistant")
         self.nameAssistant = self.fileConfig.lectureJSON("name")
@@ -41,9 +42,8 @@ class ArreraSettingAssistant :
          
        
             
-    def windows(self,windows:Tk) -> bool :
+    def windows(self,windows:Tk) ->bool :
         #variable
-        xLabel1 = int
         xlabel2 = int 
         yBTNQuitter = int 
         listTheme = ["default","light","black"]
@@ -53,6 +53,9 @@ class ArreraSettingAssistant :
         #Cadre
         self.cadreMenu = Frame(windows,width=150,height=600,bg=self.colorSecondaire)
         self.cadreAcceuil = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        #initilisation objet para
+        self.paraMeteo = SettingMeteo(self.varParametre,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -75,7 +78,7 @@ class ArreraSettingAssistant :
         if self.changeColor == False :
             labelcadresPresentations[5].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
         #cadresPresentations
-         #0
+        #0
         menuRecherche1 = OptionMenu(cadresPresentations[0],self.varParametre,*listMoteur)
         btnValiderMoteur1 = Button(cadresPresentations[0],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #1
@@ -92,18 +95,16 @@ class ArreraSettingAssistant :
         if self.changeColor == True:
             menuTheme1 = OptionMenu(cadresPresentations[5],self.varParametre,*listTheme)
             btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
-       
         #bouton
         #cadre menu
-        boutonMenu = [
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=self.mainView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo",command=self.meteoView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=self.gpsView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=self.rechercheView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=self.softwareView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=self.internetView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=self.userView),
-            Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=self.themeView)]
+        boutonMenu1 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=lambda : self.mainView())
+        boutonMenu2 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo",command=lambda : self.meteoView())
+        boutonMenu3 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=self.gpsView)
+        boutonMenu4=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=self.rechercheView)
+        boutonMenu5=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=self.softwareView)
+        boutonMenu6=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=self.internetView)
+        boutonMenu7=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=self.userView)
+        boutonMenu8=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=self.themeView)
         boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter",command=self.quittePara)
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -146,42 +147,41 @@ class ArreraSettingAssistant :
             labelcadresPresentations[5].place(relx=0.5, rely=0.5, anchor="center")
         #Affichage cadre menu 
         labelTitreMenu.place(x=xBoutonMenu,y=0)
-        boutonMenu[0].place(x=xBoutonMenu,y=50)
-        boutonMenu[1].place(x=xBoutonMenu,y=100)
-        boutonMenu[2].place(x=xBoutonMenu,y=150)
-        boutonMenu[3].place(x=xBoutonMenu,y=200)
-        boutonMenu[4].place(x=xBoutonMenu,y=250)
-        boutonMenu[5].place(x=xBoutonMenu,y=300)
+        boutonMenu1.place(x=xBoutonMenu,y=50)
+        boutonMenu2.place(x=xBoutonMenu,y=100)
+        boutonMenu3.place(x=xBoutonMenu,y=150)
+        boutonMenu4.place(x=xBoutonMenu,y=200)
+        boutonMenu5.place(x=xBoutonMenu,y=250)
+        boutonMenu6.place(x=xBoutonMenu,y=300)
         if self.multiUser == True :
-            boutonMenu[6].place(x=xBoutonMenu,y=350)
+            boutonMenu7.place(x=xBoutonMenu,y=350)
         if self.changeColor == True :
             if self.multiUser == True :
-                boutonMenu[7].place(x=xBoutonMenu,y=400)
+                boutonMenu8.place(x=xBoutonMenu,y=400)
             else :
-                boutonMenu[7].place(x=xBoutonMenu,y=350)
+                boutonMenu8.place(x=xBoutonMenu,y=350)
 
-        
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
         self.cadreMenu.pack(side="left")
-        return True
-       
-        
-        
-    def mainView(self)->bool  :
+        return True 
+    
+    def _unView(self):
+        self.cadreAcceuil.pack_forget()
+        self.cadreMeteo.pack_forget()  
+              
+    def mainView(self) -> bool :
+        self._unView()
         self.cadreAcceuil.pack(side="left")
+        
+        return True 
+    
+    def meteoView(self) -> bool : 
+        self._unView()
+        self.paraMeteo.view()
         return True 
     
     def gpsView(self)->bool:
-        return True 
-    
-    def userView(self)->bool  :
-        return True 
-    
-    def themeView(self)->bool  :
-        return True 
-    
-    def meteoView(self)->bool  :
         return True 
     
     def rechercheView(self)->bool  :
@@ -193,11 +193,19 @@ class ArreraSettingAssistant :
     def internetView(self)->bool :
         return True
     
+    def userView(self)->bool  :
+        return True 
+    
+    def themeView(self)->bool  :
+        return True 
+
     def passageFonctionQuitter(self,fonctionQuitter):
         self.fnc = fonctionQuitter
     
+        
     def quittePara(self)->bool :
         self.cadreAcceuil.destroy()
+        self.cadreMeteo.destroy()
         self.cadreMenu.destroy()
         self.fnc()
         
