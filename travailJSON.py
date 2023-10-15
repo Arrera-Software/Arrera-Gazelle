@@ -44,6 +44,25 @@ class jsonWork :
             with open(self.fichier, 'w', encoding='utf-8') as writeFile:
                 json.dump(data, writeFile, indent=2)
     
+    def suppressionJson(self, flag:str):
+        with open(self.fichier, 'r', encoding='utf-8') as fichier_json:
+            data = json.load(fichier_json)
+        if flag in data:
+            data[flag]="" # Supprime le champ spécifié
+            with open(self.fichier, 'w', encoding='utf-8') as fichier_modifie:
+                json.dump(data, fichier_modifie, indent=2)
+    
+    def suppressionJsonList(self, flag, valeur):
+        with open(self.fichier, 'r', encoding='utf-8') as fichier_json:
+            data = json.load(fichier_json)
+        if flag in data and isinstance(data[flag], list):
+            liste = data[flag]
+            
+            if valeur in liste:
+                liste.remove(valeur)  # Supprime la valeur spécifiée de la liste
+                with open(self.fichier, 'w', encoding='utf-8') as fichier_modifie:
+                    json.dump(data, fichier_modifie, indent=2)
+
     def dictJson(self):
         with open(self.fichier, 'r' , encoding='utf-8') as openfile:
             dict = json.load(openfile)
