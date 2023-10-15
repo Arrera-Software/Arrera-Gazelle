@@ -55,7 +55,7 @@ class ArreraSettingAssistant :
         self.cadreAcceuil = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
-        self.paraMeteo = SettingMeteo(self.varParametre,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
