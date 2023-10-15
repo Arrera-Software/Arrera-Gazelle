@@ -36,9 +36,9 @@ class SettingMeteo :
         #frame addFrame
         menuChoixLieu = OptionMenu(self.addFrame,self.varChoixLieu,*self.listChoixLieu)
         self.entryVille = Entry(self.addFrame,font=("arial","15"),borderwidth=2,relief="solid")
-        btnAddValidate = Button(self.addFrame,text="Valider",bg=color,fg=textColor,font=("arial","15"),command=self.add)
+        btnAddValidate = Button(self.addFrame,text="Valider",bg=color,fg=textColor,font=("arial","15"),command=self._add)
         #frame supprFrame
-        btnSupprValidate = Button(self.supprFrame,font=("arial","15"),text="Valider",bg=color,fg=textColor,command=self.suppr)
+        btnSupprValidate = Button(self.supprFrame,font=("arial","15"),text="Valider",bg=color,fg=textColor,command=self._suppr)
         #recuperartion valeur 
         centrageAcceuil = self.acceuilFrame.winfo_reqwidth()
         centrageAddVille = self.addFrame.winfo_reqwidth()
@@ -105,7 +105,7 @@ class SettingMeteo :
         self.addFrame.place(x=0,y=0)
         return True
     
-    def add(self)->bool:
+    def _add(self)->bool:
         typeVille  = self.varChoixLieu.get()
         if (typeVille == self.listChoixLieu[0]):
             self.configFile.EcritureJSONList("listVille",str(self.entryVille.get()))
@@ -138,7 +138,7 @@ class SettingMeteo :
             self.menuVille.update()
         return True
     
-    def suppr(self)->bool:
+    def _suppr(self)->bool:
         valeur = self.varSuppr.get()
         if valeur == "Domicile" :
             self.configFile.suppressionJson("lieuDomicile")
