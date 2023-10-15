@@ -31,6 +31,18 @@ class jsonWork :
         writeFile = open(self.fichier, 'w', encoding='utf-8')
         dict[flag] = valeur
         json.dump(dict,writeFile,indent=2)
+        
+    def EcritureJSONList(self, flag, valeur):
+        # Chargez le fichier JSON
+        with open(self.fichier, 'r', encoding='utf-8') as openfile:
+            data = json.load(openfile)
+        # Vérifiez si le champ (flag) existe et est une liste
+        if flag in data and isinstance(data[flag], list):
+            # Ajoutez la nouvelle valeur à la liste
+            data[flag].append(valeur)
+            # Écrivez le fichier JSON mis à jour
+            with open(self.fichier, 'w', encoding='utf-8') as writeFile:
+                json.dump(data, writeFile, indent=2)
     
     def dictJson(self):
         with open(self.fichier, 'r' , encoding='utf-8') as openfile:
