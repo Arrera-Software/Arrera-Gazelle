@@ -82,7 +82,7 @@ class ArreraSettingAssistant :
         menuRecherche1 = OptionMenu(cadresPresentations[0],self.varParametre,*listMoteur)
         btnValiderMoteur1 = Button(cadresPresentations[0],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #1
-        btnMeteo1 = Button(cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnMeteo1 = Button(cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.meteoViewAdd)
         #2
         btnGPSHome = Button(cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         btnGPSWork = Button(cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
@@ -180,6 +180,12 @@ class ArreraSettingAssistant :
         self._unView()
         self.paraMeteo.view()
         return True 
+
+    def meteoViewAdd(self)->bool:
+        self._unView()
+        self.paraMeteo.view()
+        self.paraMeteo.addView()
+        return True
     
     def gpsView(self)->bool:
         return True 
