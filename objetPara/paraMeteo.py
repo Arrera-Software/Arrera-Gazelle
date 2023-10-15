@@ -9,8 +9,6 @@ class SettingMeteo :
         self.varSuppr = StringVar(windows)
         self.varChoixLieu = StringVar(windows)
         self.configFile = config
-        listVille = [str]
-        centrageAcceuil = int
         self.listChoixLieu = ["Simple","Domicile","Travail"]
         #declaration cadre
         self.mainFrame = cadre
@@ -32,7 +30,7 @@ class SettingMeteo :
         #Frame acceuilFrame
         btnListMeteo =  Button(self.acceuilFrame,text="      Liste meteo      ",bg=color,fg=textColor,font=("arial","15"),command=self.viewListMeteo)
         btnAddVille =   Button(self.acceuilFrame,text="   Ajouter une ville   ",bg=color,fg=textColor,font=("arial","15"),command=self.addView)
-        btnSupprVille = Button(self.acceuilFrame,text="   Supprimer une ville ",bg=color,fg=textColor,font=("arial","15"))
+        btnSupprVille = Button(self.acceuilFrame,text="   Supprimer une ville ",bg=color,fg=textColor,font=("arial","15"),command=self.supprView)
         #frame listFrame
         self.labelListe = Label(self.listFrame,bg=color,fg=textColor,font=("arial","15"))
         #frame addFrame
@@ -40,8 +38,7 @@ class SettingMeteo :
         self.entryVille = Entry(self.addFrame,font=("arial","15"),borderwidth=2,relief="solid")
         btnAddValidate = Button(self.addFrame,text="Valider",bg=color,fg=textColor,font=("arial","15"),command=self.add)
         #frame supprFrame
-        menuVille = OptionMenu(self.supprFrame,self.varSuppr,*listVille)
-        btnSupprValidate = Button(self.supprFrame,text="Valider",bg=color,fg=textColor)
+        btnSupprValidate = Button(self.supprFrame,font=("arial","15"),text="Valider",bg=color,fg=textColor,command=self.suppr)
         #recuperartion valeur 
         centrageAcceuil = self.acceuilFrame.winfo_reqwidth()
         centrageAddVille = self.addFrame.winfo_reqwidth()
@@ -65,8 +62,10 @@ class SettingMeteo :
         self.entryVille.place(relx=0.5,rely=0.5,anchor="center")
         btnAddValidate.place(x=0,y=(hauteurCadre-btnAddValidate.winfo_reqheight()))
         btnRetour[1].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
-        
-        
+        # supprFrame
+        labelTitre[3].place(x=((centrageAddVille-labelTitre[3].winfo_reqwidth())//2),y=0)
+        btnSupprValidate.place(x=0,y=(hauteurCadre-btnSupprValidate.winfo_reqheight()))
+        btnRetour[2].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
         
         
     def view(self):
@@ -119,6 +118,37 @@ class SettingMeteo :
         self._backAcceuil()
         messagebox.showinfo("Ecriture terminer","Votre ville a été enregister")
         return True
+    
+    def supprView(self)->bool:
+        if (len(str(self.configFile.lectureJSON("lieuDomicile")))==0 ) and (len(str(self.configFile.lectureJSON("lieuTravail")))==0) and (len(self.configFile.lectureJSONList("listVille"))==0) :
+            self._backAcceuil()
+            messagebox.showerror("Aucun donner enregister","Ajouter des villes dans la meteo avant d'en supprimer")
+        else :
+            self.supprFrame.place(x=0,y=0)
+            listeVille = []
+            if len(str(self.configFile.lectureJSON("lieuDomicile")))>0 :
+                listeVille.append("Domicile")
+            if len(str(self.configFile.lectureJSON("lieuTravail")))>0 :
+                listeVille.append("Travail")
+            listeVille = listeVille + self.configFile.lectureJSONList("listVille")
+            print(listeVille)
+            self.menuVille = OptionMenu(self.supprFrame,self.varSuppr,*listeVille)
+            self.menuVille.place(relx=0.5,rely=0.5,anchor="center")
+            self.varSuppr.set(listeVille[0])
+            self.menuVille.update()
+        return True
+    
+    def suppr(self)->bool:
+        valeur = self.varSuppr.get()
+        if valeur == "Domicile" :
+            self.configFile.suppressionJson("lieuDomicile")
+        else :
+            if valeur == "Travail" :
+                self.configFile.suppressionJson("lieuTravail")
+            else :
+                self.configFile.suppressionJsonList("listVille",valeur)
+        self.menuVille.destroy()
+        self._backAcceuil()
         
     
         
