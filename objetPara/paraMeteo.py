@@ -68,9 +68,11 @@ class SettingMeteo :
         btnRetour[2].place(x=(largeurCadre-largeurRetour),y=(hauteurCadre-hauteurRetour))
         
         
-    def view(self):
+    def view(self)->bool:
         self.mainFrame.pack(side="left")
         self.acceuilFrame.place(x=0,y=0)
+        self._backAcceuil()
+        return True
     
     def _backAcceuil(self)->bool:
         self.listFrame.place_forget()
@@ -78,6 +80,7 @@ class SettingMeteo :
         self.supprFrame.place_forget()
         self.acceuilFrame.place(x=0,y=0)
         self.acceuilFrame.update()
+        return True 
     
     def viewListMeteo(self) ->bool:
         self.acceuilFrame.place_forget()
