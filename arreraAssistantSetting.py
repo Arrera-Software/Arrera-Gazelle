@@ -2,6 +2,7 @@ from tkinter import *
 from travailJSON import *
 from objetPara.paraMeteo import*
 from objetPara.paraGPS import*
+from objetPara.paraRecherche import *
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
@@ -49,16 +50,19 @@ class ArreraSettingAssistant :
         yBTNQuitter = int 
         listTheme = ["default","light","black"]
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
-        self.varParametre = StringVar(windows)
+        self.varRecherche = StringVar(windows)
+        self.varTheme = StringVar(windows)
         #widget
         #Cadre
         self.cadreMenu = Frame(windows,width=150,height=600,bg=self.colorSecondaire)
         self.cadreAcceuil = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreGPS = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreRecherche = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -82,8 +86,8 @@ class ArreraSettingAssistant :
             labelcadresPresentations[5].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
         #cadresPresentations
         #0
-        menuRecherche1 = OptionMenu(cadresPresentations[0],self.varParametre,*listMoteur)
-        btnValiderMoteur1 = Button(cadresPresentations[0],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        menuRecherche1 = OptionMenu(cadresPresentations[0],self.varRecherche,*listMoteur)
+        btnValiderMoteur1 = Button(cadresPresentations[0],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.rechercheChange)
         #1
         btnMeteo1 = Button(cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.meteoViewAdd)
         #2
@@ -96,7 +100,7 @@ class ArreraSettingAssistant :
             buttonManageUser = Button(cadresPresentations[4],text="Utilisateur\nmanageur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #5
         if self.changeColor == True:
-            menuTheme1 = OptionMenu(cadresPresentations[5],self.varParametre,*listTheme)
+            menuTheme1 = OptionMenu(cadresPresentations[5],self.varTheme,*listTheme)
             btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #bouton
         #cadre menu
@@ -173,6 +177,7 @@ class ArreraSettingAssistant :
         self.cadreAcceuil.pack_forget()
         self.cadreMeteo.pack_forget()  
         self.cadreGPS.pack_forget()
+        self.cadreRecherche.place_forget()
         
               
     def mainView(self) -> bool :
@@ -213,7 +218,13 @@ class ArreraSettingAssistant :
         return True
     
     def rechercheView(self)->bool  :
+        self._unView()
+        self.paraRecherche.view()
         return True 
+
+    def rechercheChange(self)->bool:
+        self.paraRecherche.writeMoteur(self.varRecherche)
+        return True
     
     def softwareView(self)->bool  :
         return True 
@@ -236,6 +247,7 @@ class ArreraSettingAssistant :
         self.cadreMeteo.destroy()
         self.cadreMenu.destroy()
         self.cadreGPS.destroy()
+        self.cadreRecherche.destroy()
         self.fnc()    
         return True 
         
