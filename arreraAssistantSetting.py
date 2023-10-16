@@ -1,6 +1,7 @@
 from tkinter import *
 from travailJSON import *
 from objetPara.paraMeteo import*
+from objetPara.paraGPS import*
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
@@ -54,8 +55,10 @@ class ArreraSettingAssistant :
         self.cadreMenu = Frame(windows,width=150,height=600,bg=self.colorSecondaire)
         self.cadreAcceuil = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreGPS = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -84,8 +87,8 @@ class ArreraSettingAssistant :
         #1
         btnMeteo1 = Button(cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.meteoViewAdd)
         #2
-        btnGPSHome = Button(cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
-        btnGPSWork = Button(cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnGPSHome = Button(cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.gpsViewDomicile)
+        btnGPSWork = Button(cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.gpsViewWork)
         #3
         btnSoftware1 = Button(cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
         #4
@@ -99,13 +102,13 @@ class ArreraSettingAssistant :
         #cadre menu
         boutonMenu1 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=lambda : self.mainView())
         boutonMenu2 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo",command=lambda : self.meteoView())
-        boutonMenu3 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=self.gpsView)
-        boutonMenu4=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=self.rechercheView)
-        boutonMenu5=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=self.softwareView)
-        boutonMenu6=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=self.internetView)
-        boutonMenu7=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=self.userView)
-        boutonMenu8=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=self.themeView)
-        boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter",command=self.quittePara)
+        boutonMenu3 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=lambda :self.gpsView())
+        boutonMenu4=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=lambda :self.rechercheView())
+        boutonMenu5=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=lambda :self.softwareView())
+        boutonMenu6=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=lambda :self.internetView())
+        boutonMenu7=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=lambda :self.userView())
+        boutonMenu8=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=lambda :self.themeView())
+        boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
         windows.minsize(500,600)
@@ -169,26 +172,45 @@ class ArreraSettingAssistant :
     def _unView(self):
         self.cadreAcceuil.pack_forget()
         self.cadreMeteo.pack_forget()  
+        self.cadreGPS.pack_forget()
+        
               
     def mainView(self) -> bool :
         self._unView()
         self.cadreAcceuil.pack(side="left")
-        
+        self.cadreAcceuil.update()
         return True 
     
     def meteoView(self) -> bool : 
         self._unView()
         self.paraMeteo.view()
+        self.cadreMeteo.update()
         return True 
 
     def meteoViewAdd(self)->bool:
         self._unView()
         self.paraMeteo.view()
         self.paraMeteo.addView()
+        self.cadreMeteo.update()
         return True
     
     def gpsView(self)->bool:
+        self._unView()
+        self.paraGPS.view()
+        self.cadreGPS.update()
         return True 
+    
+    def gpsViewDomicile(self)->bool:
+        self._unView()
+        self.paraGPS.view()
+        self.paraGPS.domicileView()
+        return True
+
+    def gpsViewWork(self)->bool:
+        self._unView()
+        self.paraGPS.view()
+        self.paraGPS.workView()
+        return True
     
     def rechercheView(self)->bool  :
         return True 
@@ -213,6 +235,7 @@ class ArreraSettingAssistant :
         self.cadreAcceuil.destroy()
         self.cadreMeteo.destroy()
         self.cadreMenu.destroy()
+        self.cadreGPS.destroy()
         self.fnc()
         
             
