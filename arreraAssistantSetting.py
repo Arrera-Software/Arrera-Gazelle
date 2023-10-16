@@ -236,8 +236,6 @@ class ArreraSettingAssistant :
         self.cadreMeteo.destroy()
         self.cadreMenu.destroy()
         self.cadreGPS.destroy()
-        self.fnc()
-        
-            
+        self.fnc()    
         return True 
         
