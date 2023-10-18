@@ -3,6 +3,7 @@ from travailJSON import *
 from objetPara.paraMeteo import*
 from objetPara.paraGPS import*
 from objetPara.paraRecherche import *
+from objetPara.paraSoftware import*
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
@@ -59,10 +60,12 @@ class ArreraSettingAssistant :
         self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreGPS = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreRecherche = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreSoft = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
+        self.paraSoftware = SettingSoftware(windows,self.cadreSoft,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -177,7 +180,8 @@ class ArreraSettingAssistant :
         self.cadreAcceuil.pack_forget()
         self.cadreMeteo.pack_forget()  
         self.cadreGPS.pack_forget()
-        self.cadreRecherche.place_forget()
+        self.cadreRecherche.pack_forget()
+        self.cadreSoft.pack_forget()
         
               
     def mainView(self) -> bool :
@@ -227,6 +231,8 @@ class ArreraSettingAssistant :
         return True
     
     def softwareView(self)->bool  :
+        self._unView()
+        self.paraSoftware.view()
         return True 
     
     def internetView(self)->bool :
@@ -248,6 +254,7 @@ class ArreraSettingAssistant :
         self.cadreMenu.destroy()
         self.cadreGPS.destroy()
         self.cadreRecherche.destroy()
+        self.cadreSoft.destroy()
         self.fnc()    
         return True 
         
