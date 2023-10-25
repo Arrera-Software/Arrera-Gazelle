@@ -36,16 +36,16 @@ class SettingSoftware :
             Label(self.addLinuxFrame,text="Entrer la commande\npour lancer le logiciel",bg=color,fg=textColor,font=("arial","20")),
             ]
         btnRetour = [
-            Button(self.addFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
+            Button(self.addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
             Button(self.supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
             Button(self.addLinuxFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
         ]
         #acceuilFrame
         btnAjout=Button(self.acceuilFrame,text="Ajouter un logiciel",bg=color,fg=textColor,font=("arial","15"),command=self.addView) 
         btnSuppr=Button(self.acceuilFrame,text="Supprimer un logiciel",bg=color,fg=textColor,font=("arial","15"),command=self.supprSoft)
-        btnSetEmplacement = Button(self.acceuilFrame,text="Definir emplacement",bg=color,fg=textColor,font=("arial","15"),command=self.setEmplacementWindows)
+        btnSetEmplacement = Button(self.acceuilFrame,text="Definir emplacement",bg=color,fg=textColor,font=("arial","15"),command=self._setEmplacementWindows)
         #supprFrame
-        btnValiderSuppr = Button(self.supprFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self.suppr) 
+        btnValiderSuppr = Button(self.supprFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self._suppr) 
         #addFrame
         self.entryNameSoft = Entry(self.addFrame,font=("arial","15"),borderwidth=2,relief="solid")
         menuTypeSoft = OptionMenu(self.addFrame,self.varType,*self.listTypeSoft)
@@ -53,12 +53,12 @@ class SettingSoftware :
         btnValiderAdd = Button(self.addFrame,text="Ajouter",bg=color,fg=textColor,font=("arial","15")) 
         #addLinuxFram
         self.entryCommandSoft = Entry(self.addLinuxFrame,font=("arial","15"),borderwidth=2,relief="solid")
-        btnSaveLinux = Button(self.addLinuxFrame,text="Enregistrer",bg=color,fg=textColor,font=("arial","15"),command=self.saveSoftLinux) 
+        btnSaveLinux = Button(self.addLinuxFrame,text="Enregistrer",bg=color,fg=textColor,font=("arial","15"),command=self._saveSoftLinux) 
         if (self.dectOS.osLinux()==True):
-            btnValiderAdd.configure(command=self.addLinuxView)
+            btnValiderAdd.configure(command=self._addLinuxView)
         else :
             if (self.dectOS.osWindows() == True) :
-                btnValiderAdd.configure(command=self.addSoftWindows)
+                btnValiderAdd.configure(command=self._addSoftWindows)
                 self.softWin  = gestionSoftWindows(settingConfig.lectureJSON("emplacementSoftWindows"))
         #calcule affichage
         largeurFrame=self.acceuilFrame.winfo_reqwidth()
@@ -92,11 +92,12 @@ class SettingSoftware :
         self._backAcceuil()
         return True
     
-    def _backAcceuil(self):
+    def _backAcceuil(self)->bool:
         self.addFrame.place_forget()
         self.supprFrame.place_forget()
         self.addLinuxFrame.place_forget()
         self.acceuilFrame.place(x=0,y=0)
+        return True
         
     
     def addView(self)->bool:
@@ -106,7 +107,7 @@ class SettingSoftware :
         self.addFrame.place(x=0,y=0)
         return True
     
-    def _saveSoftWindows(self,name:str,flag:str,dict:bool):
+    def _saveSoftWindows(self,name:str,flag:str,dict:bool)->bool:
         if name:
             self.softWin.setName(name)
             sortie = self.softWin.saveSoftware()
@@ -115,17 +116,21 @@ class SettingSoftware :
                     self.config.EcritureJSONDictionnaire(flag,name,self.softWin.getName())
                 else :
                     self.config.EcritureJSON(flag,self.softWin.getName())
+                return True
                 messagebox.showinfo("Logiciel sauvegarder","Le logiciel a bien etais enregister")
             else :
                 messagebox.showerror("Erreur emplacement","Une erreur c'est produit lors de la selection de l'emplacement")
+                return False
         else :
             messagebox.showerror("Erreur nom","Vous pouver pas enregister un logiciel sans nom")
+            return False
     
-    def setEmplacementWindows(self):
+    def _setEmplacementWindows(self)->bool:
         sortie = self.softWin.setEmplacementSoft()
         self.assistantFile.EcritureJSON("emplacementSoftWindows",sortie)
+        return True
     
-    def addSoftWindows(self):
+    def _addSoftWindows(self)->bool:
         typeSoft = self.varType.get()
         if typeSoft == self.listTypeSoft[0]:
             self._saveSoftWindows(self.entryNameSoft.get(),"dictSoftWindows",True)
@@ -150,8 +155,9 @@ class SettingSoftware :
                                     self._saveSoftWindows("musique","musicWindows",False)
         self.entryNameSoft.delete(0,END)
         self._backAcceuil() 
+        return bool
         
-    def supprSoft(self):
+    def supprSoft(self)->bool:
         if (self.dectOS.osWindows()==True):
             listSoft= list(self.config.lectureJSONDict("dictSoftWindows").keys())
         else :
@@ -163,27 +169,31 @@ class SettingSoftware :
             self.supprFrame.place(x=0,y=0)
             self.menuSuppr = OptionMenu(self.supprFrame,self.varSuppr,*listSoft)
             self.menuSuppr.place(relx=0.5,rely=0.5,anchor="center")
+        return True
             
-    def suppr(self):
-        if (self.dectOS.osWindows==True):
-            self.config.supprJSONList("dictSoftWindows",self.varSuppr.get())
+    def _suppr(self)-> bool:
+        if (self.dectOS.osWindows()==True):
+            name = self.varSuppr.get()
+            self.config.supprJSONList("dictSoftWindows",name)
+            self.softWin.supprSoft(name)
         else :
-            print(self.varSuppr.get())
-            self.config.supprJSONList("dictSoftLinux",self.varSuppr.get())
+            if (self.dectOS.osLinux()==True):
+                self.config.supprJSONList("dictSoftLinux",self.varSuppr.get())
         self._backAcceuil()
         self.menuSuppr.destroy() 
+        return True 
         
         
-    def addLinuxView(self):
+    def _addLinuxView(self)-> bool:
         self.addFrame.place_forget()
         self.addLinuxFrame.place(x=0,y=0)
+        return True 
         
-    def saveSoftLinux(self):
+    def _saveSoftLinux(self)-> bool:
         name = self.entryNameSoft.get()
         command = self.entryCommandSoft.get()
         self.config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
         self._backAcceuil()
         self.entryNameSoft.delete("0",END)
         self.entryCommandSoft.delete("0",END)
-        
-        
+        return True 
