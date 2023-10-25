@@ -97,7 +97,7 @@ class ArreraSettingAssistant :
         btnGPSHome = Button(cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.gpsViewDomicile)
         btnGPSWork = Button(cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.gpsViewWork)
         #3
-        btnSoftware1 = Button(cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        btnSoftware1 = Button(cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.softwareAddView)
         #4
         if self.multiUser == True :
             buttonManageUser = Button(cadresPresentations[4],text="Utilisateur\nmanageur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
@@ -234,6 +234,12 @@ class ArreraSettingAssistant :
         self._unView()
         self.paraSoftware.view()
         return True 
+    
+    def softwareAddView(self)->bool:
+        self._unView()
+        self.paraSoftware.view()
+        self.paraSoftware.addView()
+        return True
     
     def internetView(self)->bool :
         return True
