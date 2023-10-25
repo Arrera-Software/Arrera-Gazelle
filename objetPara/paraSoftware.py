@@ -138,8 +138,8 @@ class SettingSoftware :
                     self.config.EcritureJSONDictionnaire(flag,name,self.softWin.getName())
                 else :
                     self.config.EcritureJSON(flag,self.softWin.getName())
-                return True
                 messagebox.showinfo("Logiciel sauvegarder","Le logiciel a bien etais enregister")
+                return True
             else :
                 messagebox.showerror("Erreur emplacement","Une erreur c'est produit lors de la selection de l'emplacement")
                 return False
@@ -156,6 +156,8 @@ class SettingSoftware :
         typeSoft = self.varType.get()
         if typeSoft == self.listTypeSoft[0]:
             self._saveSoftWindows(self.entryNameSoft.get(),"dictSoftWindows",True)
+            nbSoft = int(self.config.lectureJSON("nbSoft"))
+            self.config.EcritureJSON("nbSoft",str(nbSoft+1))
         else :
             if typeSoft == self.listTypeSoft[1]:
                 self._saveSoftWindows("TTexte","wordWindows",False)
@@ -197,9 +199,13 @@ class SettingSoftware :
             name = self.varSuppr.get()
             self.config.supprJSONList("dictSoftWindows",name)
             self.softWin.supprSoft(name)
+            nbSoft = int(self.config.lectureJSON("nbSoft"))
+            self.config.EcritureJSON("nbSoft",str(nbSoft-1))
         else :
             if (self.dectOS.osLinux()==True):
                 self.config.supprJSONList("dictSoftLinux",self.varSuppr.get())
+                nbSoft = int(self.config.lectureJSON("nbSoft"))
+                self.config.EcritureJSON("nbSoft",str(nbSoft-1))
         self._backAcceuil()
         self.menuSuppr.destroy() 
         return True 
@@ -216,6 +222,8 @@ class SettingSoftware :
         if typeSoft == self.listTypeSoft[0]:
             name = self.entryNameSoft.get()
             self.config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
+            nbSoft = int(self.config.lectureJSON("nbSoft"))
+            self.config.EcritureJSON("nbSoft",str(nbSoft+1))
         else :
             if typeSoft == self.listTypeSoft[1]:
                 self.config.EcritureJSON("wordLinux",command)
