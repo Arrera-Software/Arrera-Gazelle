@@ -254,7 +254,7 @@ class SettingSoftware :
         self.supprSpeFrame.place(x=0,y=0)
         return bool
     
-    def _supprSpeciaux(self):
+    def _supprSpeciaux(self)->bool:
         typeSoft = self.varSupprSpe.get()
         if typeSoft == self.listTypeSoftSpe[0]:
             if (self.dectOS.osWindows()==True):
@@ -335,3 +335,4 @@ class SettingSoftware :
                                     else :
                                         self.config.suppressionJson("musicLinux")
         self._backAcceuil()
+        return True
