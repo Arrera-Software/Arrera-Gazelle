@@ -11,8 +11,17 @@ class SettingSoftware :
         self.assistantFile = neuronFile
         self.varType = StringVar(windows)
         self.varSuppr = StringVar(windows)
+        self.varSupprSpe = StringVar(windows)
         self.listTypeSoft = [
             "Autre",
+            "Traitement de texte",
+            "Tableur",
+            "Presentation",
+            "Navigateur Internet",
+            "Note",
+            "Musique"
+        ]
+        self.listTypeSoftSpe = [
             "Traitement de texte",
             "Tableur",
             "Presentation",
@@ -26,6 +35,7 @@ class SettingSoftware :
         self.addFrame = Frame(self.mainFrame,bg=color,width=350,height=600)
         self.supprFrame = Frame(self.mainFrame,bg=color,width=350,height=600)
         self.addLinuxFrame = Frame(self.mainFrame,bg=color,width=350,height=600)
+        self.supprSpeFrame = Frame(self.mainFrame,bg=color,width=350,height=600)
         #objet detction 
         self.dectOS = OS()
         #widget
@@ -34,15 +44,18 @@ class SettingSoftware :
             Label(self.addFrame,text="Ajouter un logiciel",bg=color,fg=textColor,font=("arial","20")),
             Label(self.supprFrame,text="Supprimer un logiciel",bg=color,fg=textColor,font=("arial","20")),
             Label(self.addLinuxFrame,text="Entrer la commande\npour lancer le logiciel",bg=color,fg=textColor,font=("arial","20")),
+            Label(self.supprSpeFrame,text="Supprimer un logiciel",bg=color,fg=textColor,font=("arial","20")),
             ]
         btnRetour = [
             Button(self.addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
             Button(self.supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.addLinuxFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
+            Button(self.addLinuxFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
+            Button(self.supprSpeFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
         ]
         #acceuilFrame
         btnAjout=Button(self.acceuilFrame,text="Ajouter un logiciel",bg=color,fg=textColor,font=("arial","15"),command=self.addView) 
         btnSuppr=Button(self.acceuilFrame,text="Supprimer un logiciel",bg=color,fg=textColor,font=("arial","15"),command=self.supprSoft)
+        btnSupprSpe =Button(self.acceuilFrame,text="Supprimer logiciel speciaux",bg=color,fg=textColor,font=("arial","15"),command=self._supprSpeciauxViev)
         btnSetEmplacement = Button(self.acceuilFrame,text="Definir emplacement",bg=color,fg=textColor,font=("arial","15"),command=self._setEmplacementWindows)
         #supprFrame
         btnValiderSuppr = Button(self.supprFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self._suppr) 
@@ -54,6 +67,9 @@ class SettingSoftware :
         #addLinuxFram
         self.entryCommandSoft = Entry(self.addLinuxFrame,font=("arial","15"),borderwidth=2,relief="solid")
         btnSaveLinux = Button(self.addLinuxFrame,text="Enregistrer",bg=color,fg=textColor,font=("arial","15"),command=self._saveSoftLinux) 
+        #supprSpe
+        menuSupprSpe = OptionMenu(self.supprSpeFrame,self.varSupprSpe,*self.listTypeSoftSpe)
+        btnValiderSupprSpe = Button(self.supprSpeFrame,text="Supprimer",bg=color,fg=textColor,font=("arial","15"),command=self._supprSpeciaux)
         if (self.dectOS.osLinux()==True):
             btnValiderAdd.configure(command=self._addLinuxView)
         else :
@@ -66,10 +82,11 @@ class SettingSoftware :
         #Affichage
         #acceuilFrame
         labelTitre[0].place(x=((largeurFrame-labelTitre[0].winfo_reqwidth())//2),y=0)
-        btnAjout.place(x=((largeurFrame-btnAjout.winfo_reqwidth())//2),y=200)
-        btnSuppr.place(x=((largeurFrame-btnSuppr.winfo_reqwidth())//2),y=275)
+        btnAjout.place(x=((largeurFrame-btnAjout.winfo_reqwidth())//2),y=175)
+        btnSuppr.place(x=((largeurFrame-btnSuppr.winfo_reqwidth())//2),y=250)
+        btnSupprSpe.place(x=((largeurFrame-btnSupprSpe.winfo_reqwidth())//2),y=325)
         if (self.dectOS.osWindows()==True):
-            btnSetEmplacement.place(x=((largeurFrame-btnSetEmplacement.winfo_reqwidth())//2),y=350)
+            btnSetEmplacement.place(x=((largeurFrame-btnSetEmplacement.winfo_reqwidth())//2),y=400)
         #addFrame
         labelTitre[1].place(x=((largeurFrame-labelTitre[1].winfo_reqwidth())//2),y=0)
         menuTypeSoft.place(x=10,y=((labelTitre[1].winfo_reqheight()+menuTypeSoft.winfo_reqheight())+5))
@@ -85,7 +102,11 @@ class SettingSoftware :
         self.entryCommandSoft.place(relx=0.5,rely=0.5,anchor="center")
         btnSaveLinux.place(x=0,y=(hauteurFrame-btnSaveLinux.winfo_reqheight()))
         btnRetour[2].place(x=(largeurFrame-btnRetour[2].winfo_reqwidth()),y=(hauteurFrame-btnRetour[1].winfo_reqheight()))
-        
+        #varSupprSpe
+        labelTitre[4].place(x=((largeurFrame-labelTitre[3].winfo_reqwidth())//2),y=0)
+        menuSupprSpe.place(relx=0.5,rely=0.5,anchor="center")
+        btnValiderSupprSpe.place(x=0,y=(hauteurFrame-btnValiderSupprSpe.winfo_reqheight()))
+        btnRetour[3].place(x=(largeurFrame-btnRetour[3].winfo_reqwidth()),y=(hauteurFrame-btnRetour[1].winfo_reqheight()))
     
     def view(self)->bool:
         self.mainFrame.pack(side="left")
@@ -96,6 +117,7 @@ class SettingSoftware :
         self.addFrame.place_forget()
         self.supprFrame.place_forget()
         self.addLinuxFrame.place_forget()
+        self.supprSpeFrame.place_forget()
         self.acceuilFrame.place(x=0,y=0)
         return True
         
@@ -136,17 +158,16 @@ class SettingSoftware :
             self._saveSoftWindows(self.entryNameSoft.get(),"dictSoftWindows",True)
         else :
             if typeSoft == self.listTypeSoft[1]:
-                self.softWin.setName()
                 self._saveSoftWindows("TTexte","wordWindows",False)
             else :
                 if typeSoft == self.listTypeSoft[2]:
                     self._saveSoftWindows("tableur","exelWindows",False)
                 else :
                     if typeSoft == self.listTypeSoft[3]:
-                        self._saveSoftWindows("presentation",)
+                        self._saveSoftWindows("presentation","diapoWindows",False)
                     else :
                         if typeSoft == self.listTypeSoft[4]:
-                            self._saveSoftWindows("internet","diapoWindows",False)
+                            self._saveSoftWindows("internet","browserWindows",False)
                         else :
                             if typeSoft == self.listTypeSoft[5]:
                                 self._saveSoftWindows("note","noteWindows",False)
@@ -190,10 +211,10 @@ class SettingSoftware :
         return True 
         
     def _saveSoftLinux(self)-> bool:
-        name = self.entryNameSoft.get()
         command = self.entryCommandSoft.get()
         typeSoft = self.varType.get()
         if typeSoft == self.listTypeSoft[0]:
+            name = self.entryNameSoft.get()
             self.config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
         else :
             if typeSoft == self.listTypeSoft[1]:
@@ -218,3 +239,91 @@ class SettingSoftware :
         self.entryNameSoft.delete("0",END)
         self.entryCommandSoft.delete("0",END)
         return True 
+    
+    def _supprSpeciauxViev(self)->bool:
+        self.acceuilFrame.place_forget()
+        self.varSupprSpe.set(self.listTypeSoftSpe[0])
+        self.supprSpeFrame.place(x=0,y=0)
+        return bool
+    
+    def _supprSpeciaux(self):
+        typeSoft = self.varSupprSpe.get()
+        if typeSoft == self.listTypeSoftSpe[0]:
+            if (self.dectOS.osWindows()==True):
+                if not self.config.lectureJSON("wordWindows") :
+                    messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                else :
+                    self.softWin.supprSoft("TTexte")
+                    self.config.suppressionJson("wordWindows")
+            else :
+                if not self.config.lectureJSON("wordLinux") :
+                    messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                else :
+                    self.config.suppressionJson("wordLinux")
+        else :
+            if typeSoft == self.listTypeSoftSpe[1]:
+
+                if (self.dectOS.osWindows()==True):
+                    if not self.config.lectureJSON("exelWindows") :
+                        messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                    else :
+                        self.softWin.supprSoft("tableur")
+                        self.config.suppressionJson("exelWindows")
+                else :
+                    if not self.config.lectureJSON("exelLinux") :
+                        messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                    else :
+                        self.config.suppressionJson("exelLinux")
+            else :
+                if typeSoft == self.listTypeSoftSpe[2]:
+                    if (self.dectOS.osWindows()==True):
+                        if not self.config.lectureJSON("diapoWindows") :
+                            messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                        else :
+                            self.softWin.supprSoft("presentation")
+                            self.config.suppressionJson("diapoWindows")
+                    else :
+                        if not self.config.lectureJSON("diapoLinux") :
+                            messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                        else :
+                            self.config.suppressionJson("diapoLinux")
+                else :
+                    if typeSoft == self.listTypeSoftSpe[3]:
+                        if (self.dectOS.osWindows()==True):
+                            if not self.config.lectureJSON("browserWindows") :
+                                messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                            else :
+                                self.softWin.supprSoft("internet")
+                                self.config.suppressionJson("browserWindows")
+                        else :
+                            if not self.config.lectureJSON("browserLinux") :
+                                messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                            else :
+                                self.config.suppressionJson("browserLinux")
+                    else :
+                        if typeSoft == self.listTypeSoftSpe[4]:
+                            if (self.dectOS.osWindows()==True):
+                                if not self.config.lectureJSON("noteWindows") :
+                                    messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                                else :
+                                    self.softWin.supprSoft("note")
+                                    self.config.suppressionJson("noteWindows")
+                            else :
+                                if not self.config.lectureJSON("noteLinux") :
+                                    messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                                else :
+                                    self.config.suppressionJson("noteLinux")
+                        else :
+                            if typeSoft == self.listTypeSoftSpe[5]:
+                                if (self.dectOS.osWindows()==True):
+                                    if not self.config.lectureJSON("musicWindows") :
+                                        messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                                    else :
+                                        self.softWin.supprSoft("musique")
+                                        self.config.suppressionJson("musicWindows")
+                                else :
+                                    if not self.config.lectureJSON("musicLinux") :
+                                        messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
+                                    else :
+                                        self.config.suppressionJson("musicLinux")
+        self._backAcceuil()
