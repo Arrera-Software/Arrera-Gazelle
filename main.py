@@ -12,6 +12,8 @@ screen.config(bg="red")
 mainBTN = Button(screen,text="Acceuil")
 meteoBTN = Button(screen,text="Meteo")
 gpsBTN = Button(screen,text="GPS")
+rechercheBTN = Button(screen,text="Recherche")
+softwareBTN = Button(screen,text="Software")
 
 def activeWindows():
     arreraSetting.windows(screen)
@@ -23,6 +25,8 @@ def fncQuitter():
     mainBTN.pack()
     meteoBTN.pack()
     gpsBTN.pack()
+    rechercheBTN.pack()
+    softwareBTN.pack()
     screen.update()
 
 arreraSetting.passageFonctionQuitter(fncQuitter)
@@ -31,6 +35,8 @@ def unViewBTN():
     mainBTN.pack_forget()
     meteoBTN.pack_forget()
     gpsBTN.pack_forget()
+    rechercheBTN.pack_forget()
+    softwareBTN.pack_forget()
 
 def mainSetting():
     unViewBTN()
@@ -49,12 +55,28 @@ def gpsView():
     activeWindows()
     arreraSetting.gpsView()
     screen.update()
+    
+def rechercheView():
+    unViewBTN()
+    activeWindows()
+    arreraSetting.rechercheView()
+    screen.update()
+    
+def softwareView():
+    unViewBTN()
+    activeWindows()
+    arreraSetting.softwareView()
+    screen.update()
    
 
 mainBTN.config(command=mainSetting)
 meteoBTN.config(command=meteoSetting)
 gpsBTN.config(command=gpsView)
+rechercheBTN.config(command=rechercheView)
+softwareBTN.config(command=softwareView)
 mainBTN.pack()
 meteoBTN.pack()
 gpsBTN.pack()
+rechercheBTN.pack()
+softwareBTN.pack()
 screen.mainloop()
