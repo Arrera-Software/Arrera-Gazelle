@@ -192,7 +192,28 @@ class SettingSoftware :
     def _saveSoftLinux(self)-> bool:
         name = self.entryNameSoft.get()
         command = self.entryCommandSoft.get()
-        self.config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
+        typeSoft = self.varType.get()
+        if typeSoft == self.listTypeSoft[0]:
+            self.config.EcritureJSONDictionnaire("dictSoftLinux",name,command)
+        else :
+            if typeSoft == self.listTypeSoft[1]:
+                self.config.EcritureJSON("wordLinux",command)
+            else :
+                if typeSoft == self.listTypeSoft[2]:
+                    self.config.EcritureJSON("exelLinux",command)
+                else :
+                    if typeSoft == self.listTypeSoft[3]:
+                        self.config.EcritureJSON("diapoLinux",command)
+                    else :
+                        if typeSoft == self.listTypeSoft[4]:
+                            self.config.EcritureJSON("browserLinux",command)
+                        else :
+                            if typeSoft == self.listTypeSoft[5]:
+                                self.config.EcritureJSON("noteLinux",command)
+                            else :
+                                if typeSoft == self.listTypeSoft[6]:
+                                    self.config.EcritureJSON("musicLinux",command)
+        
         self._backAcceuil()
         self.entryNameSoft.delete("0",END)
         self.entryCommandSoft.delete("0",END)
