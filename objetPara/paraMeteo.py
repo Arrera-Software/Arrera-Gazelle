@@ -151,9 +151,4 @@ class SettingMeteo :
             else :
                 self.configFile.suppressionJsonList("listVille",valeur)
         self.menuVille.destroy()
-        self._backAcceuil()
-        
-    
-        
-        
-        
+        self._backAcceuil() 
