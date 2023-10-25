@@ -13,35 +13,35 @@ class ArreraSettingAssistant :
         self.fileIcon = str
         self.fnc = None
         #overture des fichier
-        settingFile = jsonWork(configSettingFile)
-        self.fileConfig = jsonWork(configFile)
+        self.settingFile = jsonWork(configSettingFile)
+        self.fileNeuronConfig = jsonWork(configFile)
         self.assistantFile = jsonWork(configAssistant)
         self.fileUser = jsonWork(fichierConfigUser)
         #Recuperarton donner
         #fichier settingFile
-        self.colorPrimaire = settingFile.lectureJSON("color1")
-        self.colorSecondaire = settingFile.lectureJSON("color2")
-        self.textColorPrimaire = settingFile.lectureJSON("textColor1")
-        self.textColorSecondaire = settingFile.lectureJSON("textColor2")
-        if settingFile.lectureJSON("multiUser") == "1" :
+        self.colorPrimaire = self.settingFile.lectureJSON("color1")
+        self.colorSecondaire = self.settingFile.lectureJSON("color2")
+        self.textColorPrimaire = self.settingFile.lectureJSON("textColor1")
+        self.textColorSecondaire = self.settingFile.lectureJSON("textColor2")
+        if self.settingFile.lectureJSON("multiUser") == "1" :
             self.multiUser = True
-            self.nbUser = int(settingFile.lectureJSON("nbUser"))
+            self.nbUser = int(self.settingFile.lectureJSON("nbUser"))
         else :
             self.multiUser = False
             
-        if settingFile.lectureJSON("colorInterface") == "1" :
+        if self.settingFile.lectureJSON("colorInterface") == "1" :
             self.changeColor =  True 
         else :
             self.changeColor = False
-        if settingFile.lectureJSON("setIcon") == "1" : 
+        if self.settingFile.lectureJSON("setIcon") == "1" : 
             self.icon = True
         else :
             self.icon = False
         #fichier fileconfig 
-        self.icon = self.fileConfig.lectureJSON("iconAssistant")
-        self.nameAssistant = self.fileConfig.lectureJSON("name")
+        self.icon = self.fileNeuronConfig.lectureJSON("iconAssistant")
+        self.nameAssistant = self.fileNeuronConfig.lectureJSON("name")
         if self.icon == True :
-            self.fileIcon = self.fileConfig.lectureJSON("iconAssistant")
+            self.fileIcon = self.fileNeuronConfig.lectureJSON("iconAssistant")
          
        
             
@@ -65,7 +65,7 @@ class ArreraSettingAssistant :
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
-        self.paraSoftware = SettingSoftware(windows,self.cadreSoft,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        self.paraSoftware = SettingSoftware(windows,self.cadreSoft,self.fileUser,self.settingFile, self.fileNeuronConfig,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
