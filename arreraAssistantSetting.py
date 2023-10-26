@@ -4,6 +4,7 @@ from objetPara.paraMeteo import*
 from objetPara.paraGPS import*
 from objetPara.paraRecherche import *
 from objetPara.paraSoftware import*
+from objetPara.paraInternet import *
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
@@ -66,6 +67,7 @@ class ArreraSettingAssistant :
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
         self.paraSoftware = SettingSoftware(windows,self.cadreSoft,self.fileUser,self.settingFile, self.fileNeuronConfig,self.textColorPrimaire,self.colorPrimaire)
+        self.paraInternet = SettingInternet(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -242,6 +244,8 @@ class ArreraSettingAssistant :
         return True
     
     def internetView(self)->bool :
+        self._unView()
+        self.paraInternet.view()
         return True
     
     def userView(self)->bool  :
