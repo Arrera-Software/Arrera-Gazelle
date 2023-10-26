@@ -24,12 +24,6 @@ class ArreraSettingAssistant :
         self.colorSecondaire = self.settingFile.lectureJSON("color2")
         self.textColorPrimaire = self.settingFile.lectureJSON("textColor1")
         self.textColorSecondaire = self.settingFile.lectureJSON("textColor2")
-        if self.settingFile.lectureJSON("multiUser") == "1" :
-            self.multiUser = True
-            self.nbUser = int(self.settingFile.lectureJSON("nbUser"))
-        else :
-            self.multiUser = False
-            
         if self.settingFile.lectureJSON("colorInterface") == "1" :
             self.changeColor =  True 
         else :
@@ -83,10 +77,8 @@ class ArreraSettingAssistant :
             Label(cadresPresentations[1],text="Gestion meteo",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
             Label(cadresPresentations[2],text="Gestion GPS",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
             Label(cadresPresentations[3],text="Gestion software",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
-            Label(cadresPresentations[4],text="Gestion utilisateur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
+            Label(cadresPresentations[4],text="Gestion Site internet",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire),
             Label(cadresPresentations[5],text="Gestion theme",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)]
-        if self.multiUser == False :
-            labelcadresPresentations[4].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
         if self.changeColor == False :
             labelcadresPresentations[5].configure(text="Cette fonction\nn'est pas\ndisponible sur\ncette assistant")
         #cadresPresentations
@@ -101,8 +93,8 @@ class ArreraSettingAssistant :
         #3
         btnSoftware1 = Button(cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.softwareAddView)
         #4
-        if self.multiUser == True :
-            buttonManageUser = Button(cadresPresentations[4],text="Utilisateur\nmanageur",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+        buttonAddSite = Button(cadresPresentations[4],text="Ajouter",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.internetViewAdd)
+        buttonSupprSite = Button(cadresPresentations[4],text="Supprimer",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.internetViewSuppr)
         #5
         if self.changeColor == True:
             menuTheme1 = OptionMenu(cadresPresentations[5],self.varTheme,*listTheme)
@@ -115,8 +107,7 @@ class ArreraSettingAssistant :
         boutonMenu4=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=lambda :self.rechercheView())
         boutonMenu5=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Software",command=lambda :self.softwareView())
         boutonMenu6=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Internet",command=lambda :self.internetView())
-        boutonMenu7=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=lambda :self.userView())
-        boutonMenu8=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=lambda :self.themeView())
+        boutonMenu7=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Theme",command=lambda :self.themeView())
         boutonQuitter = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -146,11 +137,10 @@ class ArreraSettingAssistant :
         btnGPSWork.place(relx=0.5,y=(labelcadresPresentations[2].winfo_reqheight()+45), anchor="center")
         labelcadresPresentations[3].place(x=0,y=0)
         btnSoftware1.place(relx=0.5, rely=0.5, anchor="center")
-        if self.multiUser == True :
-            labelcadresPresentations[4].place(x=0,y=0)
-            buttonManageUser.place(relx=0.5, rely=0.5, anchor="center")
-        else :
-            labelcadresPresentations[4].place(relx=0.5, rely=0.5, anchor="center")
+        labelcadresPresentations[4].place(x=0,y=0)
+        buttonSupprSite.place(relx=0.5, rely=0.5, anchor="center")
+        buttonAddSite.place(relx=0.5,y=(labelcadresPresentations[4].winfo_reqheight()+45), anchor="s")
+        
         if self.changeColor == True :   
             labelcadresPresentations[5].place(x=0,y=0)
             menuTheme1.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
@@ -165,13 +155,8 @@ class ArreraSettingAssistant :
         boutonMenu4.place(x=xBoutonMenu,y=200)
         boutonMenu5.place(x=xBoutonMenu,y=250)
         boutonMenu6.place(x=xBoutonMenu,y=300)
-        if self.multiUser == True :
-            boutonMenu7.place(x=xBoutonMenu,y=350)
         if self.changeColor == True :
-            if self.multiUser == True :
-                boutonMenu8.place(x=xBoutonMenu,y=400)
-            else :
-                boutonMenu8.place(x=xBoutonMenu,y=350)
+            boutonMenu7.place(x=xBoutonMenu,y=350)
 
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
@@ -248,7 +233,16 @@ class ArreraSettingAssistant :
         self.paraInternet.view()
         return True
     
-    def userView(self)->bool  :
+    def internetViewAdd(self)->bool  :
+        self._unView()
+        self.paraInternet.view()
+        self.paraInternet.addView()
+        return True 
+    
+    def internetViewSuppr(self)->bool  :
+        self._unView()
+        self.paraInternet.view()
+        self.paraInternet.supprView()
         return True 
     
     def themeView(self)->bool  :
