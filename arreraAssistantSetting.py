@@ -5,14 +5,15 @@ from objetPara.paraGPS import*
 from objetPara.paraRecherche import *
 from objetPara.paraSoftware import*
 from objetPara.paraInternet import *
+from objetPara.paraTheme import*
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
-        self.multiUser = bool
         self.changeColor = bool 
         self.icon = bool 
         self.fileIcon = str
         self.fnc = None
+         
         #overture des fichier
         self.settingFile = jsonWork(configSettingFile)
         self.fileNeuronConfig = jsonWork(configFile)
@@ -26,6 +27,7 @@ class ArreraSettingAssistant :
         self.textColorSecondaire = self.settingFile.lectureJSON("textColor2")
         if self.settingFile.lectureJSON("colorInterface") == "1" :
             self.changeColor =  True 
+            self.listTheme = self.settingFile.lectureJSONList("listeTheme")
         else :
             self.changeColor = False
         if self.settingFile.lectureJSON("setIcon") == "1" : 
@@ -36,7 +38,7 @@ class ArreraSettingAssistant :
         self.icon = self.fileNeuronConfig.lectureJSON("iconAssistant")
         self.nameAssistant = self.fileNeuronConfig.lectureJSON("name")
         if self.icon == True :
-            self.fileIcon = self.fileNeuronConfig.lectureJSON("iconAssistant")
+            self.fileIcon = self.assistantFile.lectureJSON("iconAssistant")
          
        
             
@@ -44,7 +46,6 @@ class ArreraSettingAssistant :
         #variable
         xlabel2 = int 
         yBTNQuitter = int 
-        listTheme = ["default","light","black"]
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         self.varRecherche = StringVar(windows)
         self.varTheme = StringVar(windows)
@@ -56,12 +57,16 @@ class ArreraSettingAssistant :
         self.cadreGPS = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreRecherche = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreSoft = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreInternet = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreTheme = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
         self.paraSoftware = SettingSoftware(windows,self.cadreSoft,self.fileUser,self.settingFile, self.fileNeuronConfig,self.textColorPrimaire,self.colorPrimaire)
-        self.paraInternet = SettingInternet(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        self.paraInternet = SettingInternet(windows,self.cadreInternet,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
+        if self.changeColor == True:
+            self.paraTheme = SettingTheme(windows,self.cadreTheme,self.listTheme,self.assistantFile,self.textColorPrimaire,self.colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.cadreAcceuil,width=175,height=200,bg=self.colorPrimaire,borderwidth=1, relief="solid"),
@@ -97,8 +102,8 @@ class ArreraSettingAssistant :
         buttonSupprSite = Button(cadresPresentations[4],text="Supprimer",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.internetViewSuppr)
         #5
         if self.changeColor == True:
-            menuTheme1 = OptionMenu(cadresPresentations[5],self.varTheme,*listTheme)
-            btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire)
+            menuTheme1 = OptionMenu(cadresPresentations[5],self.varTheme,*self.listTheme)
+            btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.colorPrimaire,fg=self.textColorPrimaire,command=self.setThemeAcceuil)
         #bouton
         #cadre menu
         boutonMenu1 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=lambda : self.mainView())
@@ -169,6 +174,8 @@ class ArreraSettingAssistant :
         self.cadreGPS.pack_forget()
         self.cadreRecherche.pack_forget()
         self.cadreSoft.pack_forget()
+        self.cadreInternet.pack_forget()
+        self.cadreTheme.pack_forget()
         
               
     def mainView(self) -> bool :
@@ -246,7 +253,19 @@ class ArreraSettingAssistant :
         return True 
     
     def themeView(self)->bool  :
-        return True 
+        if self.changeColor == True :
+            self._unView()
+            self.paraTheme.view()
+            return True 
+        else :
+            return False
+        
+    def setThemeAcceuil(self):
+        valeur = self.varTheme.get()
+        if valeur :
+            self.assistantFile.EcritureJSON("theme",valeur)
+        else :
+            messagebox.showerror("Erreur","Veuillez selectionner un theme")
 
     def passageFonctionQuitter(self,fonctionQuitter):
         self.fnc = fonctionQuitter
