@@ -6,5 +6,6 @@
     "colorInterface":"1",
     "setIcon":"0",
     "iconAssistant":"",
-    "listeTheme":["Default","Dark","Light"]
+    "listeTheme":["Default","Dark","Light"],
+    "listGenre":["monsieur","madame","maitre"]
 }
