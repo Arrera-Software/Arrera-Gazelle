@@ -1,5 +1,6 @@
 from tkinter import *
 from travailJSON import *
+from objetPara.paraUser import*
 from objetPara.paraMeteo import*
 from objetPara.paraGPS import*
 from objetPara.paraRecherche import *
@@ -53,6 +54,7 @@ class ArreraSettingAssistant :
         #Cadre
         self.cadreMenu = Frame(windows,width=150,height=600,bg=self.colorSecondaire)
         self.cadreAcceuil = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
+        self.cadreUser = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreMeteo = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreGPS = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreRecherche = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
@@ -60,6 +62,7 @@ class ArreraSettingAssistant :
         self.cadreInternet = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         self.cadreTheme = Frame(windows,width=350,height=600,bg=self.colorPrimaire)
         #initilisation objet para
+        self.paraUser = SettingUser(windows,self.cadreUser,self.fileUser,self.settingFile,self.textColorPrimaire,self.colorPrimaire)
         self.paraMeteo = SettingMeteo(windows,self.cadreMeteo,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraGPS = SettingGPS(windows,self.cadreGPS,self.fileUser,self.textColorPrimaire,self.colorPrimaire)
         self.paraRecherche = SettingRecherche(windows,self.cadreRecherche,self.fileUser,self.textColorPrimaire,self.colorPrimaire,listMoteur)
@@ -107,7 +110,7 @@ class ArreraSettingAssistant :
         #bouton
         #cadre menu
         boutonMenu1 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Acceuil",command=lambda : self.mainView())
-        boutonMenu2 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur")
+        boutonMenu2 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Utilisateur",command=lambda :self.userView())
         boutonMenu3 = Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Meteo",command=lambda : self.meteoView())
         boutonMenu4=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="GPS",command=lambda :self.gpsView())
         boutonMenu5=Button(self.cadreMenu,font=("arial","15"),bg=self.colorPrimaire,fg=self.textColorPrimaire,text="Recherche",command=lambda :self.rechercheView())
@@ -172,6 +175,7 @@ class ArreraSettingAssistant :
     
     def _unView(self):
         self.cadreAcceuil.pack_forget()
+        self.cadreUser.pack_forget()
         self.cadreMeteo.pack_forget()  
         self.cadreGPS.pack_forget()
         self.cadreRecherche.pack_forget()
@@ -185,6 +189,12 @@ class ArreraSettingAssistant :
         self.cadreAcceuil.pack(side="left")
         self.cadreAcceuil.update()
         return True 
+    
+    def userView(self)->bool:
+        self._unView()
+        self.paraUser.view()
+        self.cadreUser.update()
+        return True
     
     def meteoView(self) -> bool : 
         self._unView()
@@ -275,6 +285,7 @@ class ArreraSettingAssistant :
         
     def quittePara(self)->bool :
         self.cadreAcceuil.destroy()
+        self.cadreUser.destroy()
         self.cadreMeteo.destroy()
         self.cadreMenu.destroy()
         self.cadreGPS.destroy()
