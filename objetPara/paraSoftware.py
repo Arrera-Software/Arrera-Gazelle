@@ -75,7 +75,7 @@ class SettingSoftware :
         else :
             if (self.dectOS.osWindows() == True) :
                 btnValiderAdd.configure(command=self._addSoftWindows)
-                self.softWin  = gestionSoftWindows(settingConfig.lectureJSON("emplacementSoftWindows"))
+                self.softWin  = gestionSoftWindows(neuronFile.lectureJSON("emplacementSoftWindows"))
         #calcule affichage
         largeurFrame=self.acceuilFrame.winfo_reqwidth()
         hauteurFrame=self.acceuilFrame.winfo_reqheight()
