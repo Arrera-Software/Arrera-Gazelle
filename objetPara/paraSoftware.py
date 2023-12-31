@@ -242,7 +242,6 @@ class SettingSoftware :
                             else :
                                 if typeSoft == self.listTypeSoft[6]:
                                     self.config.EcritureJSON("musicLinux",command)
-        
         self._backAcceuil()
         self.entryNameSoft.delete("0",END)
         self.entryCommandSoft.delete("0",END)

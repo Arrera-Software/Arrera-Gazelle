@@ -21,11 +21,6 @@ class ArreraSettingAssistant :
         self.assistantFile = jsonWork(configAssistant)
         self.fileUser = jsonWork(fichierConfigUser)
         #Recuperarton donner
-        #fichier settingFile
-        self.colorPrimaire = self.settingFile.lectureJSON("color1")
-        self.colorSecondaire = self.settingFile.lectureJSON("color2")
-        self.textColorPrimaire = self.settingFile.lectureJSON("textColor1")
-        self.textColorSecondaire = self.settingFile.lectureJSON("textColor2")
         if self.settingFile.lectureJSON("colorInterface") == "1" :
             self.changeColor =  True 
             self.listTheme = self.settingFile.lectureJSONList("listeTheme")
@@ -43,7 +38,18 @@ class ArreraSettingAssistant :
          
        
             
-    def windows(self,windows:Tk) ->bool :
+    def windows(self,windows:Tk,mode:str) ->bool :
+        # Recuperation de la couleur
+        if (mode == "light" ) :
+            self.colorPrimaire = self.settingFile.lectureJSON("colorLight1")
+            self.colorSecondaire = self.settingFile.lectureJSON("colorLight2")
+            self.textColorPrimaire = self.settingFile.lectureJSON("textColorLight1")
+            self.textColorSecondaire = self.settingFile.lectureJSON("textColorLight2")
+        else :
+            self.colorPrimaire = self.settingFile.lectureJSON("colorDark1")
+            self.colorSecondaire = self.settingFile.lectureJSON("colorDark2")
+            self.textColorPrimaire = self.settingFile.lectureJSON("textColorDark1")
+            self.textColorSecondaire = self.settingFile.lectureJSON("textColorDark2")
         #variable
         xlabel2 = int 
         yBTNQuitter = int 
@@ -291,6 +297,6 @@ class ArreraSettingAssistant :
         self.cadreGPS.destroy()
         self.cadreRecherche.destroy()
         self.cadreSoft.destroy()
+        self.cadreTheme.destroy()
         self.fnc()    
         return True 
-        

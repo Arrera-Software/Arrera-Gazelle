@@ -17,7 +17,7 @@ softwareBTN = Button(screen,text="Software")
 internetBTN = Button(screen,text="Internet")
 
 def activeWindows():
-    arreraSetting.windows(screen)
+    arreraSetting.windows(screen,"dark")
 
 def fncQuitter():
     screen.title("Test Setting")
