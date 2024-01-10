@@ -8,6 +8,7 @@
     "textColorLight1":"black",
     "textColorLight2":"white",
     "colorInterface":"1",
+    "gestionMicro":"1",
     "setIcon":"0",
     "iconAssistant":"",
     "listeTheme":["Default","Dark","Light"],

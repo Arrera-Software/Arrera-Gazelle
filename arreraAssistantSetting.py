@@ -7,10 +7,12 @@ from objetPara.paraRecherche import *
 from objetPara.paraSoftware import*
 from objetPara.paraInternet import *
 from objetPara.paraTheme import*
+from objetPara.paraMicro import *
 
 class ArreraSettingAssistant :
     def __init__(self,configSettingFile:str,configFile:str,configAssistant:str,fichierConfigUser:str):
         self.__changeColor = bool 
+        self.__controleMicro = bool
         self.__icon = bool 
         self.__fileIcon = str
         self.__fnc = None
@@ -30,6 +32,10 @@ class ArreraSettingAssistant :
             self.__icon = True
         else :
             self.__icon = False
+        if self.__settingFile.lectureJSON("gestionMicro") == "1" :
+            self.__controleMicro = True
+        else :
+            self.__controleMicro = False
         #fichier fileconfig 
         self.__icon = self.__fileNeuronConfig.lectureJSON("iconAssistant")
         self.__nameAssistant = self.__fileNeuronConfig.lectureJSON("name")
@@ -67,6 +73,7 @@ class ArreraSettingAssistant :
         self.__cadreSoft = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         self.__cadreInternet = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         self.__cadreTheme = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
+        self.__cadreMicro = Frame(windows,width=350,height=600,bg=self.__colorPrimaire)
         #initilisation objet para
         self.__paraUser = SettingUser(windows,self.__cadreUser,self.__fileUser,self.__settingFile,self.__textColorPrimaire,self.__colorPrimaire)
         self.__paraMeteo = SettingMeteo(windows,self.__cadreMeteo,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire)
@@ -76,6 +83,8 @@ class ArreraSettingAssistant :
         self.__paraInternet = SettingInternet(windows,self.__cadreInternet,self.__fileUser,self.__textColorPrimaire,self.__colorPrimaire)
         if self.__changeColor == True:
             self.__paraTheme = SettingTheme(windows,self.__cadreTheme,self.__listTheme,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire)
+        if self.__controleMicro == True :
+            self.__paraMicro = SettingMicro(self.__cadreMicro,self.__assistantFile,self.__textColorPrimaire,self.__colorPrimaire)
         #cadre interne a l'acceuil
         cadresPresentations = [
             Frame(self.__cadreAcceuil,width=175,height=200,bg=self.__colorPrimaire,borderwidth=1, relief="solid"),
@@ -123,6 +132,7 @@ class ArreraSettingAssistant :
         boutonMenu6=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Software",command=lambda :self.softwareView())
         boutonMenu7 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Internet",command=lambda :self.internetView())
         boutonMenu8=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Theme",command=lambda :self.themeView())
+        boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Micro",command=lambda:self.microView())
         boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -173,6 +183,11 @@ class ArreraSettingAssistant :
         boutonMenu7.place(x=xBoutonMenu,y=350)
         if self.__changeColor == True :
             boutonMenu8.place(x=xBoutonMenu,y=400)
+        if self.__controleMicro == True :
+            if self.__changeColor == False :
+                boutonMenu9.place(x=xBoutonMenu,y=400)
+            else :
+                boutonMenu9.place(x=xBoutonMenu,y=450)
 
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
@@ -275,6 +290,14 @@ class ArreraSettingAssistant :
             self._unView()
             self.__paraTheme.view()
             return True 
+        else :
+            return False
+    
+    def microView(self)->bool:
+        if self.__controleMicro == True :
+            self._unView()
+            self.__paraMicro.view()
+            return True
         else :
             return False
         
