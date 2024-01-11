@@ -12,5 +12,7 @@
     "setIcon":"0",
     "iconAssistant":"",
     "listeTheme":["Default","Dark","Light"],
-    "listGenre":["monsieur","madame","maitre"]
+    "listGenre":["monsieur","madame","maitre"],
+    "nameApp":"Six",
+    "version":"11111"
 }
