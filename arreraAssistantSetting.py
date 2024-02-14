@@ -141,7 +141,6 @@ class ArreraSettingAssistant :
         boutonMenu7 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Internet",command=lambda :self.internetView())
         boutonMenu8=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Theme",command=lambda :self.themeView())
         boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Micro",command=lambda:self.microView())
-        boutonAPropos = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="A propos",command=self.Apropop)
         boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
@@ -152,7 +151,6 @@ class ArreraSettingAssistant :
         #Calcule position
         xlabel2 = int(self.__cadreMenu.winfo_width()/2)
         xBoutonMenu = xlabel2 + 5
-        yBTNApropos = int((self.__cadreMenu.winfo_reqheight()-boutonAPropos.winfo_reqheight())-boutonQuitter.winfo_reqheight())
         yBTNQuitter = int(self.__cadreMenu.winfo_reqheight()-boutonQuitter.winfo_reqheight())
         #Cadre acceuil
         cadresPresentations[0].place(x=0,y=0)
@@ -198,7 +196,6 @@ class ArreraSettingAssistant :
                 boutonMenu9.place(x=xBoutonMenu,y=400)
             else :
                 boutonMenu9.place(x=xBoutonMenu,y=450)
-        boutonAPropos.place(x=xBoutonMenu,y=yBTNApropos)
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
         self.__cadreMenu.pack(side="left")
@@ -321,29 +318,6 @@ class ArreraSettingAssistant :
     def passageFonctionQuitter(self,fonctionQuitter):
         self.__fnc = fonctionQuitter
     
-    def Apropop(self):
-        #Variable
-        tailleIMG = (100,100)
-        #Creation de la fenetre
-        about = Tk()
-        about.title("A propos :"+self.__nameApp)
-        about.maxsize(400,300)
-        about.minsize(400,300)
-        
-        #Label
-        labelIcon = Label(about)
-        #Traitement Image
-        labelName = Label(about,text="\n"+self.__nameApp+"\n",font=("arial","32"))
-        labelVersion = Label(about,text=self.__versionApp+"\n",font=("arial","11"))
-        labelCopyright = Label(about,text=self.__copyrightApp,font=("arial","9"))
-        #affichage
-        labelIcon.pack()
-        labelName.pack()
-        labelVersion.pack()
-        labelCopyright.pack()
-        about.mainloop()
-    
-        
     def quittePara(self)->bool :
         self.__cadreAcceuil.destroy()
         self.__cadreUser.destroy()
