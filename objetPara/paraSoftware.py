@@ -148,6 +148,7 @@ class SettingSoftware :
             return False
     
     def _setEmplacementWindows(self)->bool:
+        messagebox.showinfo("Infomation","Vous devait selectionner un dossier deja crée")
         sortie = self.__softWin.setEmplacementSoft()
         self.__assistantFile.EcritureJSON("emplacementSoftWindows",sortie)
         return True
