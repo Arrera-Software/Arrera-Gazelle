@@ -6,8 +6,10 @@
   "lieuTravail": "",
   "adresseDomicile": "",
   "adresseTravail": "",
-  "nbSoft": "0",
-  "dictSoftWindows": {},
+  "nbSoft": "1",
+  "dictSoftWindows": {
+    "test": "test"
+  },
   "dictSoftLinux": {},
   "wordLinux": "",
   "wordWindows": "",
