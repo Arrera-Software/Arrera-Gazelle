@@ -43,7 +43,6 @@ def unViewBTN():
 def mainSetting():
     unViewBTN()
     activeWindows()
-    arreraSetting.mainView()
     screen.update()
 
 def meteoSetting():

@@ -21,8 +21,8 @@ class SettingUser :
             Label(self.__genreFrame,text="Genre",bg=color,fg=textColor,font=("arial","20"))
             ]
         btnRetour = [
-            Button(self.__prenomFrame,bg=color,fg=textColor,font=("arial","15"),text="Retour",command=self._backAcceuil),
-            Button(self.__genreFrame,bg=color,fg=textColor,font=("arial","15"),text="Retour",command=self._backAcceuil)
+            Button(self.__prenomFrame,bg=color,fg=textColor,font=("arial","15"),text="Retour",command=self.__backAcceuil),
+            Button(self.__genreFrame,bg=color,fg=textColor,font=("arial","15"),text="Retour",command=self.__backAcceuil)
         ]
         #acceuilFrame
         btnPrenom = Button(self.__acceuilFrame,bg=color,fg=textColor,font=("arial","15"),text="Nom de l'utilisateur",command=self.prenomView)
@@ -52,7 +52,7 @@ class SettingUser :
         btnValiderGenre .place(x=0,y=(hauteur-btnValiderGenre.winfo_reqheight()))
         btnRetour[1].place(x=(largeur-btnRetour[1].winfo_reqwidth()),y=(hauteur-btnRetour[0].winfo_reqheight()))
 
-    def _backAcceuil(self)->bool:
+    def __backAcceuil(self)->bool:
         self.__prenomFrame.place_forget()
         self.__genreFrame.place_forget()
         self.__acceuilFrame.place(x=0,y=0)
@@ -61,7 +61,7 @@ class SettingUser :
     
     def view(self)->bool:
         self.__mainFrame.pack(side="left")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True
     
     def prenomView(self)->bool:
@@ -79,11 +79,11 @@ class SettingUser :
         if name :
             self.__configFile.EcritureJSON("user",name)
             messagebox.showinfo("Changement de nom","Votre nom a été changer")
-            self._backAcceuil()
+            self.__backAcceuil()
             self.entryName.delete("0",END)
         else :
             messagebox.showerror("Erreur nom","Vous dever marquer \nun nom pour le changer")
-            self._backAcceuil()
+            self.__backAcceuil()
         return True
     
     def changeGenre(self)->bool:
@@ -91,7 +91,7 @@ class SettingUser :
         if genre :
             self.__configFile.EcritureJSON("genre",genre)
             messagebox.showinfo("Changement de genre","Votre genre a été modifier")
-            self._backAcceuil()
+            self.__backAcceuil()
         else :
             messagebox.showerror("Erreur genre","Veuillez selectionner un genre")
-            self._backAcceuil()
+            self.__backAcceuil()

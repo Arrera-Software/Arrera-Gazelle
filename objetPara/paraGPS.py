@@ -18,8 +18,8 @@ class SettingGPS:
             Label(self.__addresseWork,text="Adresse de travail",bg=color,fg=textColor,font=("arial","20"))
         ]
         btnRetour = [
-            Button(self.__addresseDomicile,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.__addresseWork,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
+            Button(self.__addresseDomicile,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil),
+            Button(self.__addresseWork,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil)
         ]
         btnSuppr = [
             Button(self.__addresseDomicile,text="Supprimer l'adresse",bg=color,fg=textColor,font=("arial","15"),command=lambda:self._supprAdresse("domicile")),
@@ -58,7 +58,7 @@ class SettingGPS:
         btnValider[1].place(x=((centrageAcceuil-btnValider[0].winfo_reqwidth())//2),y=325)
         btnSuppr[1].place(x=((centrageAcceuil-btnSuppr[0].winfo_reqwidth())//2),y=375)
      
-    def _backAcceuil(self)->bool:
+    def __backAcceuil(self)->bool:
         self.__addresseDomicile.place_forget()
         self.__addresseWork.place_forget()
         self.__acceuilFrame.place(x=0,y=0)
@@ -66,9 +66,9 @@ class SettingGPS:
         return  True    
     
     def view(self)->bool:
-        self._backAcceuil()
+        self.__backAcceuil()
         self.__mainFrame.pack(side="left")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True
         
     def domicileView(self) ->bool:
@@ -84,7 +84,7 @@ class SettingGPS:
         return True
     
     def _addAdresse(self,type:str)->bool:
-        self._backAcceuil()
+        self.__backAcceuil()
         if type == "domicile" :
             adresse = self.__entryAdresse[0].get()
             self.__configFile.EcritureJSON("adresseDomicile",adresse)
@@ -99,7 +99,7 @@ class SettingGPS:
         return True 
     
     def _supprAdresse(self,type:str)->bool:
-        self._backAcceuil()
+        self.__backAcceuil()
         if type == "domicile" :
             self.__configFile.suppressionJson("adresseDomicile")
             self.__entryAdresse[0].delete(0,"end")

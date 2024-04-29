@@ -22,8 +22,8 @@ class SettingInternet :
             Label(self.__supprFrame,text="Supprimer un site",bg=color,fg=textColor,font=("arial","20"))
         ]
         btnRetour = [
-            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
+            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil),
+            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil)
         ]
         #acceuilFrame
         btnAdd = Button(self.__acceuilFrame,text="Ajouter un site",bg=color,fg=textColor,font=("arial","15"),command=self.addView)
@@ -55,7 +55,7 @@ class SettingInternet :
         btnValiderSuppr.place(x=0,y=(hauteurCadre-btnValiderSuppr.winfo_reqheight()))
         btnRetour[1].place(x=(largeurCadre-btnRetour[1].winfo_reqwidth()),y=(hauteurCadre-btnRetour[1].winfo_reqheight()))
         
-    def _backAcceuil(self)->bool:
+    def __backAcceuil(self)->bool:
         self.__addFrame.place_forget()
         self.__supprFrame.place_forget()
         self.__acceuilFrame.place(x=0,y=0)
@@ -63,7 +63,7 @@ class SettingInternet :
     
     def view(self)->bool:
         self.__mainFrame.pack(side="left")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True
     
     def addView(self)->bool:
@@ -82,26 +82,26 @@ class SettingInternet :
                 self.__config.EcritureJSON("lienCloud",lien)
                 self.__edtName.delete("0",END)
                 self.__edtLien.delete("0",END)
-                self._backAcceuil()
+                self.__backAcceuil()
                 return True
             else :
                 messagebox.showerror("Erreur","Veuiller ecrire le lien de votre stokage could")
                 self.__edtName.delete("0",END)
                 self.__edtLien.delete("0",END)
-                self._backAcceuil()
+                self.__backAcceuil()
                 return False
         else :
             if name and lien : 
                 self.__config.EcritureJSONDictionnaire("dictSite",name,lien)
                 self.__edtName.delete("0",END)
                 self.__edtLien.delete("0",END)
-                self._backAcceuil()
+                self.__backAcceuil()
                 return True
             else :
                 messagebox.showerror("Erreur","Veuiller ecrire le lien et le nom du site")
                 self.__edtName.delete("0",END)
                 self.__edtLien.delete("0",END)
-                self._backAcceuil()
+                self.__backAcceuil()
                 return False
     
     def supprView(self)->bool:
@@ -127,5 +127,5 @@ class SettingInternet :
             self.__config.EcritureJSON("nbSite",str(nb-1))
             self.__config.supprJSONList("dictSite",site)
             messagebox.showinfo("Site supprimer","Le site a ete supprimer")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True

@@ -23,9 +23,9 @@ class SettingMeteo :
             Label(self.__supprFrame,text="Selectionner la ville\nque vous voulez supprimer",bg=color,fg=textColor,font=("arial","20"))
         ]
         btnRetour = [
-            Button(self.__listFrame,text="Retour",bg=color,fg=textColor,command=self._backAcceuil,font=("arial","15")),
-            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,command=self._backAcceuil,font=("arial","15")),
-            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,command=self._backAcceuil,font=("arial","15"))
+            Button(self.__listFrame,text="Retour",bg=color,fg=textColor,command=self.__backAcceuil,font=("arial","15")),
+            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,command=self.__backAcceuil,font=("arial","15")),
+            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,command=self.__backAcceuil,font=("arial","15"))
         ]
         #Frame acceuilFrame
         btnListMeteo =  Button(self.__acceuilFrame,text="      Liste meteo      ",bg=color,fg=textColor,font=("arial","15"),command=self.viewListMeteo)
@@ -71,10 +71,10 @@ class SettingMeteo :
     def view(self)->bool:
         self.__mainFrame.pack(side="left")
         self.__acceuilFrame.place(x=0,y=0)
-        self._backAcceuil()
+        self.__backAcceuil()
         return True
     
-    def _backAcceuil(self)->bool:
+    def __backAcceuil(self)->bool:
         self.__listFrame.place_forget()
         self.__addFrame.place_forget()
         self.__supprFrame.place_forget()
@@ -118,13 +118,13 @@ class SettingMeteo :
             else :
                 if (typeVille == self.__listChoixLieu[2]):
                     self.__configFile.EcritureJSON("lieuTravail",str(self.__entryVille.get()))
-        self._backAcceuil()
+        self.__backAcceuil()
         messagebox.showinfo("Ecriture terminer","Votre ville a été enregister")
         return True
     
     def supprView(self)->bool:
         if (len(str(self.__configFile.lectureJSON("lieuDomicile")))==0 ) and (len(str(self.__configFile.lectureJSON("lieuTravail")))==0) and (len(self.__configFile.lectureJSONList("listVille"))==0) :
-            self._backAcceuil()
+            self.__backAcceuil()
             messagebox.showerror("Aucun donner enregister","Ajouter des villes dans la meteo avant d'en supprimer")
         else :
             self.__supprFrame.place(x=0,y=0)
@@ -151,4 +151,4 @@ class SettingMeteo :
             else :
                 self.__configFile.suppressionJsonList("listVille",valeur)
         self.menuVille.destroy()
-        self._backAcceuil() 
+        self.__backAcceuil() 

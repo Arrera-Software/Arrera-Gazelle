@@ -47,10 +47,10 @@ class SettingSoftware :
             Label(self.__supprSpeFrame,text="Supprimer un logiciel",bg=color,fg=textColor,font=("arial","20")),
             ]
         btnRetour = [
-            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.__addLinuxFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil),
-            Button(self.__supprSpeFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self._backAcceuil)
+            Button(self.__addFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil),
+            Button(self.__supprFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil),
+            Button(self.__addLinuxFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil),
+            Button(self.__supprSpeFrame,text="Annuler",bg=color,fg=textColor,font=("arial","15"),command=self.__backAcceuil)
         ]
         #acceuilFrame
         btnAjout=Button(self.__acceuilFrame,text="Ajouter un logiciel",bg=color,fg=textColor,font=("arial","15"),command=self.addView) 
@@ -110,10 +110,10 @@ class SettingSoftware :
     
     def view(self)->bool:
         self.__mainFrame.pack(side="left")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True
     
-    def _backAcceuil(self)->bool:
+    def __backAcceuil(self)->bool:
         self.__addFrame.place_forget()
         self.__supprFrame.place_forget()
         self.__addLinuxFrame.place_forget()
@@ -178,7 +178,7 @@ class SettingSoftware :
                                 if typeSoft == self.__listTypeSoft[6]:
                                     self._saveSoftWindows("musique","musicWindows",False)
         self.__entryNameSoft.delete(0,END)
-        self._backAcceuil() 
+        self.__backAcceuil() 
         return bool
         
     def supprSoft(self)->bool:
@@ -207,7 +207,7 @@ class SettingSoftware :
                 self.__config.supprJSONList("dictSoftLinux",self.__varSuppr.get())
                 nbSoft = int(self.__config.lectureJSON("nbSoft"))
                 self.__config.EcritureJSON("nbSoft",str(nbSoft-1))
-        self._backAcceuil()
+        self.__backAcceuil()
         self.menuSuppr.destroy() 
         return True 
         
@@ -243,7 +243,7 @@ class SettingSoftware :
                             else :
                                 if typeSoft == self.__listTypeSoft[6]:
                                     self.__config.EcritureJSON("musicLinux",command)
-        self._backAcceuil()
+        self.__backAcceuil()
         self.__entryNameSoft.delete("0",END)
         self.__entryCommandSoft.delete("0",END)
         return True 
@@ -334,5 +334,5 @@ class SettingSoftware :
                                         messagebox.showwarning("Erreur","Aucun logiciel n'est enregistrer")
                                     else :
                                         self.__config.suppressionJson("musicLinux")
-        self._backAcceuil()
+        self.__backAcceuil()
         return True

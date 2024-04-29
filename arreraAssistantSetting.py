@@ -1,4 +1,5 @@
 from tkinter import *
+from typing import Union
 from librairy.travailJSON import *
 from objetPara.paraUser import*
 from objetPara.paraMeteo import*
@@ -41,7 +42,7 @@ class ArreraSettingAssistant :
         if self.__icon == True :
             self.__fileIcon = self.__assistantFile.lectureJSON("iconAssistant")
             
-    def windows(self,windows:Tk,mode:str) ->bool :
+    def windows(self,windows:Union[Tk,Toplevel],mode:str) ->bool :
         # Recuperation de la couleur
         if (mode == "light" ) :
             self.__colorPrimaire = self.__settingFile.lectureJSON("colorLight1")
@@ -118,10 +119,10 @@ class ArreraSettingAssistant :
         #5
         if self.__changeColor == True:
             menuTheme1 = OptionMenu(cadresPresentations[5],self.__varTheme,*self.__listTheme)
-            btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,command=self.setThemeAcceuil)
+            btnValiderTheme1 = Button(cadresPresentations[5],text="Valider",font=("arial","13"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,command=self.__setThemeAcceuil)
         #bouton
         #cadre menu
-        boutonMenu1 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Acceuil",command=lambda : self.mainView())
+        boutonMenu1 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Acceuil",command=lambda : self.__mainView())
         boutonMenu2 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Utilisateur",command=lambda :self.userView())
         boutonMenu3 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Meteo",command=lambda : self.meteoView())
         boutonMenu4=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="GPS",command=lambda :self.gpsView())
@@ -130,7 +131,7 @@ class ArreraSettingAssistant :
         boutonMenu7 = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Internet",command=lambda :self.internetView())
         boutonMenu8=Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Theme",command=lambda :self.themeView())
         boutonMenu9  = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Micro",command=lambda:self.microView())
-        boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.quittePara())
+        boutonQuitter = Button(self.__cadreMenu,font=("arial","15"),bg=self.__colorPrimaire,fg=self.__textColorPrimaire,text="Quitter",command=lambda :self.__quittePara())
         #formatage de la fenetre
         windows.maxsize(500,600)
         windows.minsize(500,600)
@@ -162,7 +163,6 @@ class ArreraSettingAssistant :
         labelcadresPresentations[4].place(x=0,y=0)
         buttonSupprSite.place(relx=0.5, rely=0.5, anchor="center")
         buttonAddSite.place(relx=0.5,y=(labelcadresPresentations[4].winfo_reqheight()+45), anchor="s")
-        
         if self.__changeColor == True :   
             labelcadresPresentations[5].place(x=0,y=0)
             menuTheme1.place(relx=0.5,y=(labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
@@ -188,9 +188,10 @@ class ArreraSettingAssistant :
         boutonQuitter.place(x=xBoutonMenu,y=yBTNQuitter)
         #Affichage cadre principal
         self.__cadreMenu.pack(side="left")
+        self.__mainView()
         return True 
     
-    def _unView(self):
+    def __unView(self):
         self.__cadreAcceuil.pack_forget()
         self.__cadreUser.pack_forget()
         self.__cadreMeteo.pack_forget()  
@@ -201,51 +202,51 @@ class ArreraSettingAssistant :
         self.__cadreTheme.pack_forget()
         
               
-    def mainView(self) -> bool :
-        self._unView()
+    def __mainView(self) -> bool :
+        self.__unView()
         self.__cadreAcceuil.pack(side="left")
         self.__cadreAcceuil.update()
         return True 
     
     def userView(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraUser.view()
         self.__cadreUser.update()
         return True
     
     def meteoView(self) -> bool : 
-        self._unView()
+        self.__unView()
         self.__paraMeteo.view()
         self.__cadreMeteo.update()
         return True 
 
     def meteoViewAdd(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraMeteo.view()
         self.__paraMeteo.addView()
         self.__cadreMeteo.update()
         return True
     
     def gpsView(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraGPS.view()
         self.__cadreGPS.update()
         return True 
     
     def gpsViewDomicile(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraGPS.view()
         self.__paraGPS.domicileView()
         return True
 
     def gpsViewWork(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraGPS.view()
         self.__paraGPS.workView()
         return True
     
     def rechercheView(self)->bool  :
-        self._unView()
+        self.__unView()
         self.__paraRecherche.view()
         return True 
 
@@ -254,36 +255,36 @@ class ArreraSettingAssistant :
         return True
     
     def softwareView(self)->bool  :
-        self._unView()
+        self.__unView()
         self.__paraSoftware.view()
         return True 
     
     def softwareAddView(self)->bool:
-        self._unView()
+        self.__unView()
         self.__paraSoftware.view()
         self.__paraSoftware.addView()
         return True
     
     def internetView(self)->bool :
-        self._unView()
+        self.__unView()
         self.__paraInternet.view()
         return True
     
     def internetViewAdd(self)->bool  :
-        self._unView()
+        self.__unView()
         self.__paraInternet.view()
         self.__paraInternet.addView()
         return True 
     
     def internetViewSuppr(self)->bool  :
-        self._unView()
+        self.__unView()
         self.__paraInternet.view()
         self.__paraInternet.supprView()
         return True 
     
     def themeView(self)->bool  :
         if self.__changeColor == True :
-            self._unView()
+            self.__unView()
             self.__paraTheme.view()
             return True 
         else :
@@ -291,13 +292,13 @@ class ArreraSettingAssistant :
     
     def microView(self)->bool:
         if self.__controleMicro == True :
-            self._unView()
+            self.__unView()
             self.__paraMicro.view()
             return True
         else :
             return False
         
-    def setThemeAcceuil(self):
+    def __setThemeAcceuil(self):
         valeur = self.__varTheme.get()
         if valeur :
             self.__assistantFile.EcritureJSON("theme",valeur)
@@ -307,7 +308,7 @@ class ArreraSettingAssistant :
     def passageFonctionQuitter(self,fonctionQuitter):
         self.__fnc = fonctionQuitter
     
-    def quittePara(self)->bool :
+    def __quittePara(self)->bool :
         self.__cadreAcceuil.destroy()
         self.__cadreUser.destroy()
         self.__cadreMeteo.destroy()
