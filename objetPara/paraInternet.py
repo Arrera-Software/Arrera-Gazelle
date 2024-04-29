@@ -1,5 +1,5 @@
 from tkinter import*
-from Librairy.travailJSON import*
+from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingInternet :

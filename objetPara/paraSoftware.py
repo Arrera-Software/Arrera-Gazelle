@@ -1,7 +1,7 @@
 from tkinter import*
-from Librairy.dectectionOS import*
-from Librairy.gestionSoftWindows import*
-from Librairy.travailJSON import*
+from librairy.dectectionOS import*
+from librairy.gestionSoftWindows import*
+from librairy.travailJSON import*
 from tkinter import messagebox
 
 class SettingSoftware :

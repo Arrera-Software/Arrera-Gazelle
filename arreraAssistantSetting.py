@@ -1,5 +1,5 @@
 from tkinter import *
-from Librairy.travailJSON import *
+from librairy.travailJSON import *
 from objetPara.paraUser import*
 from objetPara.paraMeteo import*
 from objetPara.paraGPS import*
@@ -16,12 +16,6 @@ class ArreraSettingAssistant :
         self.__icon = bool 
         self.__fileIcon = str
         self.__fnc = None
-
-        self.__nameApp = str
-        self.__versionApp = str
-        self.__copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
-
-         
         #overture des fichier
         self.__settingFile = jsonWork(configSettingFile)
         self.__fileNeuronConfig = jsonWork(configFile)
@@ -46,11 +40,6 @@ class ArreraSettingAssistant :
         self.__nameAssistant = self.__fileNeuronConfig.lectureJSON("name")
         if self.__icon == True :
             self.__fileIcon = self.__assistantFile.lectureJSON("iconAssistant")
-        
-        self.__nameApp = self.__settingFile.lectureJSON("nameApp")
-        self.__versionApp = self.__settingFile.lectureJSON("version")
-         
-       
             
     def windows(self,windows:Tk,mode:str) ->bool :
         # Recuperation de la couleur
