@@ -1,3 +1,11 @@
-from objet.arreraGazelle import*
+from gui.ArreraGazelleUIOld import*
 
-gazelle = CArreraGazelle("FileJSON/configUser.json","FileJSON/configNeuron.json","FileJSON/sixConfif.json")
+windows = Tk()
+oldGui = CArreraGazelleUI(windows,"FileJSON/configUser.json",
+                          "FileJSON/configNeuron.json",
+                          "FileJSON/sixConfif.json",
+                          "FileJSON/configSetting.json")
+oldGui.active(True)
+windows.mainloop()
+
+#"FileJSON/configUser.json","FileJSON/configNeuron.json","FileJSON/sixConfif.json"
