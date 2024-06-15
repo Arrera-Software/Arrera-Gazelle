@@ -300,3 +300,19 @@ class CArreraGazelle :
     
     def changeMoteur(self,moteur:str):
         self.__fileJsonUser.EcritureJSON("moteurRecherche",moteur)
+        return True
+    
+    def changeTheme(self,theme:str):
+        self.__fileJsonAssistant.EcritureJSON("theme",theme)
+        return True
+    
+    def changeSoundMicro(self,enable:bool):
+        if(enable==False):
+            self.__fileJsonAssistant.EcritureJSON("soundMicro",0)
+            return True
+        else :
+            if(enable==True):
+                self.__fileJsonAssistant.EcritureJSON("soundMicro",1)
+                return True
+            else :
+                return False
