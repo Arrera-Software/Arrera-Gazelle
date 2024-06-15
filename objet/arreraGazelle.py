@@ -206,3 +206,55 @@ class CArreraGazelle :
                             return True
                         else :
                             return False
+                        
+    def supprSoft(self,mode:int,name:str):
+        """
+        1 : Normal 
+        2 : Traitement de texte
+        3 : Tableur
+        4 : Presentation
+        5 : Navigateur
+        6 : Musique
+        7 : note
+        """
+        # Creation listFlag 
+        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+            listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
+        
+        match mode : 
+            case 1 : # Normal 
+                self.__fileJsonUser.supprJSONList(listFlag[0],name)
+                self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))-1))
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft(name)
+                return True
+            case 2 : # Traitement de texte
+                self.__fileJsonUser.suppressionJson(listFlag[1])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("ttexte")
+                return True
+            case 3 : # Tableur
+                self.__fileJsonUser.suppressionJson(listFlag[2])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("tableur")
+                return True
+            case 4 : # Presentation 
+                self.__fileJsonUser.suppressionJson(listFlag[3])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("presentation")
+                return True
+            case 5 : # Navigateur 
+                self.__fileJsonUser.suppressionJson(listFlag[4])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("browser")
+                return True
+            case 6 : # Musique 
+                self.__fileJsonUser.suppressionJson(listFlag[6])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("note")
+                return True
+            case 7 : # Musique 
+                self.__fileJsonUser.suppressionJson(listFlag[5])
+                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                    self.__softWin.supprSoft("musique")
+                return True
