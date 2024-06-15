@@ -220,7 +220,11 @@ class CArreraGazelle :
         # Creation listFlag 
         if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
             listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
-        
+        else : 
+            if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+                listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
+            else :
+                return False
         match mode : 
             case 1 : # Normal 
                 self.__fileJsonUser.supprJSONList(listFlag[0],name)
