@@ -65,3 +65,33 @@ class CArreraGazelle :
         listeMeteo = listeMeteo+self.__fileJsonUser.lectureJSONList("listVille")
 
         return listeMeteo
+
+    def ajoutGPSAdresse(self,mode:int,adresse:str):
+        """
+        1 : Adresse domicile
+        2 : Adresse lieu de travail
+        """
+        if (mode==1):
+            self.__fileJsonUser.EcritureJSON("adresseDomicile",adresse)
+            return True
+        else :
+            if (mode==2):
+                self.__fileJsonUser.EcritureJSON("adresseTravail",adresse)
+                return True
+            else :
+                return False
+    
+    def supprGPSAdresse(self,mode:int):
+        """
+        1 : Adresse domicile
+        2 : Adresse lieu de travail
+        """
+        if (mode==1):
+            self.__fileJsonUser.suppressionJson("adresseDomicile")
+            return True
+        else :
+            if (mode==2):
+                self.__fileJsonUser.suppressionJson("adresseTravail")
+                return True
+            else :
+                return False
