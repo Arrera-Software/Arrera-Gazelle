@@ -101,7 +101,7 @@ class CArreraGazelle :
             else :
                 return False
     
-    def addSoft(self,mode:int,name:str):
+    def addSoft(self,mode:int,name:str,command:str):
         """
         1 : Normal 
         2 : Traitement de texte
@@ -109,60 +109,100 @@ class CArreraGazelle :
         4 : Presentation
         5 : Navigateur
         6 : Musique
+        7 : note
         """
         if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
+        
+        if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+            if (command==""):
+                return False
+            else :
+                match mode :
+                    case 1 : # Normal 
+                        if (name!=""):
+                            self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux",name,command)
+                            self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))+1))
+                            return True
+                    case 2 : # Traitement de texte
+                        self.__fileJsonUser.EcritureJSON("wordLinux",command)
+                        return True
+                    case 3 : # Tableur
+                        self.__fileJsonUser.EcritureJSON("exelLinux",command)
+                        return True
+                    case 4 : # Presentation
+                        self.__fileJsonUser.EcritureJSON("diapoLinux",command)
+                        return True
+                    case 5 : # Navigateur
+                        self.__fileJsonUser.EcritureJSON("browserLinux",command)
+                        return True
+                    case 6 : # Musique
+                        self.__fileJsonUser.EcritureJSON("musicLinux",command)
+                        return True
+                    case 7 : # note
+                        self.__fileJsonUser.EcritureJSON("noteLinux",command)
+                        return True
+        else :
                 
-        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
-            match mode :
-                case 1 :
-                    if (name!=""):
-                        self.__softWin.setName(name)
+            if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                match mode :
+                    case 1 :
+                        if (name!=""):
+                            self.__softWin.setName(name)
+                            sortie = self.__softWin.saveSoftware()
+                            if (sortie == True) :
+                                self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows",name,self.__softWin.getName())
+                                self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))+1))
+                                return True
+                            else :
+                                return False
+                        else :
+                            return False
+                    case 2 : 
+                        self.__softWin.setName("ttexte")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows",name,self.__softWin.getName())
+                            self.__fileJsonUser.EcritureJSON("wordWindows",self.__softWin.getName())
+                            return True
+                        else :
+                            return False 
+                    case 3 : 
+                        self.__softWin.setName("tableur")
+                        sortie = self.__softWin.saveSoftware()
+                        if (sortie == True) :
+                            self.__fileJsonUser.EcritureJSON("exelWindows",self.__softWin.getName())
+                            return True
+                        else :
+                            return False 
+                    case 4 : 
+                        self.__softWin.setName("presentation")
+                        sortie = self.__softWin.saveSoftware()
+                        if (sortie == True) :
+                            self.__fileJsonUser.EcritureJSON("diapoWindows",self.__softWin.getName())
                             return True
                         else :
                             return False
-                    else :
-                        return False
-                case 2 : 
-                    self.__softWin.setName("ttexte")
-                    sortie = self.__softWin.saveSoftware()
-                    if (sortie == True) :
-                        self.__fileJsonUser.EcritureJSON("wordWindows",self.__softWin.getName())
-                        return True
-                    else :
-                        return False 
-                case 3 : 
-                    self.__softWin.setName("tableur")
-                    sortie = self.__softWin.saveSoftware()
-                    if (sortie == True) :
-                        self.__fileJsonUser.EcritureJSON("exelWindows",self.__softWin.getName())
-                        return True
-                    else :
-                        return False 
-                case 4 : 
-                    self.__softWin.setName("presentation")
-                    sortie = self.__softWin.saveSoftware()
-                    if (sortie == True) :
-                        self.__fileJsonUser.EcritureJSON("diapoWindows",self.__softWin.getName())
-                        return True
-                    else :
-                        return False
-                case 5 : 
-                    self.__softWin.setName("browser")
-                    sortie = self.__softWin.saveSoftware()
-                    if (sortie == True) :
-                        self.__fileJsonUser.EcritureJSON("browserWindows",self.__softWin.getName())
-                        return True
-                    else :
-                        return False 
-                case 6 : 
-                    self.__softWin.setName("note")
-                    sortie = self.__softWin.saveSoftware()
-                    if (sortie == True) :
-                        self.__fileJsonUser.EcritureJSON("noteWindows",self.__softWin.getName())
-                        return True
-                    else :
-                        return False
+                    case 5 : 
+                        self.__softWin.setName("browser")
+                        sortie = self.__softWin.saveSoftware()
+                        if (sortie == True) :
+                            self.__fileJsonUser.EcritureJSON("browserWindows",self.__softWin.getName())
+                            return True
+                        else :
+                            return False 
+                    case 6 : 
+                        self.__softWin.setName("musique")
+                        sortie = self.__softWin.saveSoftware()
+                        if (sortie == True) :
+                            self.__fileJsonUser.EcritureJSON("musicWindows",self.__softWin.getName())
+                            return True
+                        else :
+                            return False
+                    case 7 : 
+                        self.__softWin.setName("note")
+                        sortie = self.__softWin.saveSoftware()
+                        if (sortie == True) :
+                            self.__fileJsonUser.EcritureJSON("noteWindows",self.__softWin.getName())
+                            return True
+                        else :
+                            return False
