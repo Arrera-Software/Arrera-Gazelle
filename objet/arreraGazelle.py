@@ -297,3 +297,6 @@ class CArreraGazelle :
             case 2 : 
                 self.__fileJsonUser.suppressionJson("lienCloud")
                 return True
+    
+    def changeMoteur(self,moteur:str):
+        self.__fileJsonUser.EcritureJSON("moteurRecherche",moteur)
