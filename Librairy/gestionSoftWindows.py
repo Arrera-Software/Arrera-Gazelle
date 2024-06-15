@@ -23,7 +23,7 @@ class gestionSoftWindows :
     
     def saveSoftware(self)->bool:
         self.racourcieSoft =os.path.abspath(self.emplacement+"/"+self.name+".lnk")
-        emplacement = askopenfilename(defaultextension=".lnk", filetypes=[("Racourcie", ".lnk")])
+        emplacement = askopenfilename(title="Selection le racoucie "+self.name,defaultextension=".lnk", filetypes=[("Racourcie", ".lnk")])
         if emplacement:
             shutil.copyfile(emplacement,self.racourcieSoft)
             return True
