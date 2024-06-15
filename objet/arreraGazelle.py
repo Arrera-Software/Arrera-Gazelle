@@ -262,3 +262,38 @@ class CArreraGazelle :
                 if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
                     self.__softWin.supprSoft("musique")
                 return True
+        
+    def addSite(self,mode:int,name:str,link:str):
+        """
+        1 : normal
+        2 : lien cloud
+        """
+        if (link == "") :
+            return False
+
+        match mode :
+            case 1 :
+                if (name==""):
+                    return False 
+                self.__fileJsonUser.EcritureJSONDictionnaire("dictSite",name,link)
+                self.__fileJsonUser.EcritureJSON("nbSite",str(int(self.__fileJsonUser.lectureJSON("nbSite"))+1))
+                return True
+            case 2 : 
+                self.__fileJsonUser.EcritureJSON("lienCloud",link)
+                return True
+    
+    def supprSite(self,mode:int,name:str):
+        """
+        1 : normal
+        2 : lien cloud
+        """
+        match mode :
+            case 1 :
+                if (name==""):
+                    return False 
+                self.__fileJsonUser.supprJSONList("dictSite",name)
+                self.__fileJsonUser.EcritureJSON("nbSite",str(int(self.__fileJsonUser.lectureJSON("nbSite"))-1))
+                return True
+            case 2 : 
+                self.__fileJsonUser.suppressionJson("lienCloud")
+                return True
