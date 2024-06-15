@@ -13,3 +13,55 @@ class CArreraGazelle :
     
     def changeUserGenre(self,newGenre:str):
         self.__fileJsonUser.EcritureJSON("genre",newGenre)
+    
+    def ajoutVilleMeteo(self,mode:int,ville:str):
+        """
+        1 : domicile
+        2 : Travail 
+        3 : Autre
+        """
+        if (mode == 1 ):
+            self.__fileJsonUser.EcritureJSON("lieuDomicile",ville)
+            return True
+        else :
+            if (mode==2):
+                self.__fileJsonUser.EcritureJSON("lieuTravail",ville)
+                return True
+            else :
+                if (mode==3):
+                    self.__fileJsonUser.EcritureJSONList("listVille",ville)
+                    return True
+                else :
+                    return False
+    
+    def supprVilleMeteo(self,mode:int,ville:str):
+        """
+        1 : domicile
+        2 : Travail 
+        3 : Autre
+        """
+        if (mode == 1 ):
+            self.__fileJsonUser.suppressionJson("lieuDomicile")
+            return True
+        else :
+            if (mode==2):
+                self.__fileJsonUser.suppressionJson("lieuTravail")
+                return True
+            else :
+                if ((mode==3)and(ville != "")):
+                    self.__fileJsonUser.suppressionJsonList("listVille",ville)
+                    return True
+                else :
+                    return False
+    
+    def getMeteoSave(self):
+        listeMeteo = []
+        if (self.__fileJsonUser.lectureJSON("lieuDomicile") != ""):
+            listeMeteo.append("Lieu d'habitation enregister")
+
+        if (self.__fileJsonUser.lectureJSON("lieuTravail") != ""):
+            listeMeteo.append("Lieu de travail enregister")
+        
+        listeMeteo = listeMeteo+self.__fileJsonUser.lectureJSONList("listVille")
+
+        return listeMeteo
