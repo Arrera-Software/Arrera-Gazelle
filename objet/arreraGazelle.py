@@ -146,7 +146,7 @@ class CArreraGazelle :
                 
             if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
                 match mode :
-                    case 1 :
+                    case 1 : # Normal 
                         if (name!=""):
                             self.__softWin.setName(name)
                             sortie = self.__softWin.saveSoftware()
@@ -158,7 +158,7 @@ class CArreraGazelle :
                                 return False
                         else :
                             return False
-                    case 2 : 
+                    case 2 : # Traitement de texte
                         self.__softWin.setName("ttexte")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
@@ -166,7 +166,7 @@ class CArreraGazelle :
                             return True
                         else :
                             return False 
-                    case 3 : 
+                    case 3 :  # Tableur
                         self.__softWin.setName("tableur")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
@@ -174,7 +174,7 @@ class CArreraGazelle :
                             return True
                         else :
                             return False 
-                    case 4 : 
+                    case 4 : # Presentation
                         self.__softWin.setName("presentation")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
@@ -182,7 +182,7 @@ class CArreraGazelle :
                             return True
                         else :
                             return False
-                    case 5 : 
+                    case 5 : # Navigateur
                         self.__softWin.setName("browser")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
@@ -190,7 +190,7 @@ class CArreraGazelle :
                             return True
                         else :
                             return False 
-                    case 6 : 
+                    case 6 : # Musique
                         self.__softWin.setName("musique")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
@@ -198,7 +198,7 @@ class CArreraGazelle :
                             return True
                         else :
                             return False
-                    case 7 : 
+                    case 7 :  # note
                         self.__softWin.setName("note")
                         sortie = self.__softWin.saveSoftware()
                         if (sortie == True) :
