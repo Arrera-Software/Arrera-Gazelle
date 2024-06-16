@@ -14,6 +14,11 @@ class CArreraGazelleUI :
         self.__secondColorTexte = [jsonSetting.lectureJSON("textColorLight2"),jsonSetting.lectureJSON("textColorDark2")]
         # Mise de la fenetre dans un atribut
         self.__windows = windows
+        # Varriable
+        self.__varRecherche = StringVar(self.__windows)
+        self.__varTheme = StringVar(self.__windows)
+        self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
+        listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -34,7 +39,7 @@ class CArreraGazelleUI :
             Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
             Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
             Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid")]
-        #Label
+        #Widget
         self.__labelTitreMenu = Label(self.__cadreMenu,text="Menu",font=("arial","20"))
         self.__labelcadresPresentations = [
             Label(self.__cadresPresentations[0],text="Gestion recherche",font=("arial","13")),
@@ -54,6 +59,24 @@ class CArreraGazelleUI :
                         Button(self.__cadreMenu,font=("arial","15"),text="Theme"),
                         Button(self.__cadreMenu,font=("arial","15"),text="Micro"),
                         Button(self.__cadreMenu,font=("arial","15"),text="Quitter")]
+        
+        #cadresPresentations
+        #0
+        self.__menuRecherche1 = OptionMenu(self.__cadresPresentations[0],self.__varRecherche,*listMoteur)
+        self.__btnValiderMoteur1 = Button(self.__cadresPresentations[0],text="Valider",font=("arial","13"))
+        #1
+        self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"))
+        #2
+        self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"))
+        self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"))
+        #3
+        self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"))
+        #4
+        self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"))
+        self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"))
+        #5
+        self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*self.__listTheme)
+        self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"))
 
         # Placement widget 
         #Cadre acceuil
@@ -79,6 +102,28 @@ class CArreraGazelleUI :
         self.__boutonMenu[7].place(relx=0.2,y=400)
         self.__boutonMenu[8].place(relx=0.2,y=450)
         self.__boutonMenu[9].place(relx=0.2,y=500)
+
+        self.__labelcadresPresentations[0].place(relx=0.5, rely=0.0, anchor="n")
+        self.__labelcadresPresentations[1].place(relx=0.5, rely=0.0, anchor="n")
+        self.__labelcadresPresentations[2].place(relx=0.5, rely=0.0, anchor="n")
+        self.__labelcadresPresentations[3].place(relx=0.5, rely=0.0, anchor="n")
+        self.__labelcadresPresentations[4].place(relx=0.5, rely=0.0, anchor="n")
+        self.__labelcadresPresentations[5].place(relx=0.5, rely=0.0, anchor="n")
+        
+        self.__menuRecherche1.place(relx=0.5, rely=0.5, anchor="center")
+        self.__btnValiderMoteur1.place(relx=0.5, rely=1.0, anchor="s")
+        self.__btnMeteo1.place(relx=0.5, rely=0.5, anchor="center")
+        self.__btnGPSHome.place(relx=0.5, rely=1.0, anchor="s")
+        self.__btnGPSWork.place(relx=0.5,y=(self.__labelcadresPresentations[2].winfo_reqheight()+45), anchor="center")
+        self.__btnSoftware1.place(relx=0.5, rely=0.5, anchor="center")
+        self.__buttonSupprSite.place(relx=0.5, rely=0.5, anchor="center")
+        self.__buttonAddSite.place(relx=0.5,y=(self.__labelcadresPresentations[4].winfo_reqheight()+45), anchor="s")
+        self.__menuTheme1.place(relx=0.5,y=(self.__labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
+        self.__btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
+        # Mise en place des valeur sur les menu 
+        self.__varRecherche.set(listMoteur[0])
+        self.__varTheme.set(self.__listTheme[0])
+            
         
     def active(self,darkMode:bool):
         if (darkMode == True) :
@@ -103,6 +148,15 @@ class CArreraGazelleUI :
             self.__boutonMenu[i].configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
 
         self.__labelTitreMenu.configure(bg=self.__secondColor[nb],fg=self.__secondColorTexte[nb])
+
+        self.__btnValiderMoteur1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnMeteo1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnGPSHome.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnGPSWork.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnSoftware1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__buttonSupprSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__buttonAddSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnValiderTheme1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
