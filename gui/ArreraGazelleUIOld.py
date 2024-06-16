@@ -49,15 +49,15 @@ class CArreraGazelleUI :
             Label(self.__cadresPresentations[4],text="Gestion Site internet",font=("arial","13")),
             Label(self.__cadresPresentations[5],text="Gestion theme",font=("arial","13"))]
         
-        self.__boutonMenu = [Button(self.__cadreMenu,font=("arial","15"),text="Acceuil"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Utilisateur"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Meteo"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="GPS"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Recherche"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Software"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Internet"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Theme"),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Micro"),
+        self.__boutonMenu = [Button(self.__cadreMenu,font=("arial","15"),text="Acceuil",command=self.__backAcceuil),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Utilisateur",command=self.__showUserFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=self.__showMeteoFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=self.__showGPSFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Software",command=self.__showSoftFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Internet",command=self.__showInternetFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Theme",command=self.__showThemeFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Micro",command=self.__showMicroFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Quitter")]
         
         #cadresPresentations
@@ -160,5 +160,57 @@ class CArreraGazelleUI :
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
-        
-        
+    
+    def __backAcceuil(self):
+        self.__cadreAcceuil.pack(side="right")
+        self.__cadreUser.pack_forget()
+        self.__cadreMeteo.pack_forget()
+        self.__cadreGPS.pack_forget()
+        self.__cadreRecherche.pack_forget()
+        self.__cadreSoft.pack_forget()
+        self.__cadreInternet.pack_forget()
+        self.__cadreTheme.pack_forget()
+        self.__cadreMicro.pack_forget()
+    
+    def __disableAllFrame(self):
+        self.__cadreAcceuil.pack_forget()
+        self.__cadreUser.pack_forget()
+        self.__cadreMeteo.pack_forget()
+        self.__cadreGPS.pack_forget()
+        self.__cadreRecherche.pack_forget()
+        self.__cadreSoft.pack_forget()
+        self.__cadreInternet.pack_forget()
+        self.__cadreTheme.pack_forget()
+        self.__cadreMicro.pack_forget()
+    
+    def __showUserFrame(self):
+        self.__disableAllFrame()
+        self.__cadreUser.pack(side="right")
+    
+    def __showMeteoFrame(self):
+        self.__disableAllFrame()
+        self.__cadreMeteo.pack(side="right")
+    
+    def __showGPSFrame(self):
+        self.__disableAllFrame()
+        self.__cadreGPS.pack(side="right")
+
+    def __showRechercheFrame(self):
+        self.__disableAllFrame()
+        self.__cadreRecherche.pack(side="right")
+    
+    def __showSoftFrame(self):
+        self.__disableAllFrame()
+        self.__cadreSoft.pack(side="right")
+    
+    def __showInternetFrame(self):
+        self.__disableAllFrame()
+        self.__cadreInternet.pack(side="right")
+    
+    def __showThemeFrame(self):
+        self.__disableAllFrame()
+        self.__cadreTheme.pack(side="right")
+    
+    def __showMicroFrame(self):
+        self.__disableAllFrame()
+        self.__cadreMicro.pack(side="right")
