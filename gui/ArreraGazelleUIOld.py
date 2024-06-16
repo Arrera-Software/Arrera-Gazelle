@@ -196,6 +196,14 @@ class CArreraGazelleUI :
         self.__btnGenre.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnvaliderUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnAnulerUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__labelTitreMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnListMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAddVille.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnSupprVille.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__labelListeMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnvaliderMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnannulerMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
