@@ -172,6 +172,12 @@ class CArreraGazelleUI :
         self.__buttonSupprSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__buttonAddSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnValiderTheme1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__labelTitreUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnPrenom.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnGenre.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnvaliderUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAnulerUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
