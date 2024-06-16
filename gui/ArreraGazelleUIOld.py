@@ -214,6 +214,14 @@ class CArreraGazelleUI :
         self.__labelListeMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnvaliderMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnannulerMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__labelTitreGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAdresseDomicile .configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAdresseWork .configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnvaliderGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnretourGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnsupprGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnentryGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
