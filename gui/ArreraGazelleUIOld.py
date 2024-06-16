@@ -1,5 +1,6 @@
 from tkinter import*
 from objet.arreraGazelle import*
+from tkinter.messagebox import*
 from typing import Union
 
 class CArreraGazelleUI :
@@ -17,8 +18,10 @@ class CArreraGazelleUI :
         # Varriable
         self.__varRecherche = StringVar(self.__windows)
         self.__varTheme = StringVar(self.__windows)
+        self.__varGenre = StringVar(self.__windows)
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
+        listGenre = jsonSetting.lectureJSONList("listGenre")
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -78,6 +81,14 @@ class CArreraGazelleUI :
         self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*self.__listTheme)
         self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"))
 
+        # Cadre User 
+        self.__labelTitreUser = Label(self.__cadreUser,font=("arial","20"))
+        self.__btnPrenom = Button(self.__cadreUser,font=("arial","15"),text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
+        self.__btnGenre = Button(self.__cadreUser,font=("arial","15"),text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
+        self.__menuGenre = OptionMenu(self.__cadreUser,self.__varGenre,*listGenre)
+        self.__entryName = Entry(self.__cadreUser,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__btnvaliderUser = Button(self.__cadreUser,font=("arial","15"),text="Valider")
+        self.__btnAnulerUser = Button(self.__cadreUser,font=("arial","15"),text="Annuler",command=lambda : self.__affichageCadreUser(1))
         # Placement widget 
         #Cadre acceuil
         self.__cadresPresentations[0].place(x=0,y=0)
@@ -120,9 +131,13 @@ class CArreraGazelleUI :
         self.__buttonAddSite.place(relx=0.5,y=(self.__labelcadresPresentations[4].winfo_reqheight()+45), anchor="s")
         self.__menuTheme1.place(relx=0.5,y=(self.__labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
         self.__btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
+
+        self.__labelTitreUser.place(relx=0.5, rely=0.0, anchor="n")
+        
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
         self.__varTheme.set(self.__listTheme[0])
+        self.__varGenre.set(listGenre[0])
             
         
     def active(self,darkMode:bool):
@@ -186,6 +201,7 @@ class CArreraGazelleUI :
     def __showUserFrame(self):
         self.__disableAllFrame()
         self.__cadreUser.pack(side="right")
+        self.__affichageCadreUser(1)
     
     def __showMeteoFrame(self):
         self.__disableAllFrame()
@@ -214,3 +230,60 @@ class CArreraGazelleUI :
     def __showMicroFrame(self):
         self.__disableAllFrame()
         self.__cadreMicro.pack(side="right")
+    
+    def __affichageCadreUser(self,mode:int):
+        """
+        1 : Acceuil
+        2 : Prenom 
+        3 : Genre 
+        """
+        match mode :
+            case 1 :
+                self.__labelTitreUser.configure(text="Parametre Utilisateur")
+                self.__btnPrenom.place(relx=0.5, y=200, anchor="n")
+                self.__btnGenre.place(relx=0.5, y=275, anchor="n")
+                self.__menuGenre.place_forget()
+                self.__entryName.place_forget()
+                self.__btnvaliderUser.place_forget()
+                self.__btnAnulerUser.place_forget()
+            case 2 :
+                self.__labelTitreUser.configure(text="Prenom de l'utilisateur")
+                self.__btnPrenom.place_forget()
+                self.__btnGenre.place_forget()
+                self.__menuGenre.place_forget()
+                self.__entryName.place(relx=0.5, rely=0.5, anchor="center")
+                self.__btnvaliderUser.place(relx=1, rely=1, anchor='se')  
+                self.__btnAnulerUser.place(relx=0, rely=1, anchor='sw')
+                self.__btnvaliderUser.configure(command=lambda : self.__validerUser(1))
+            case 3 :
+                self.__labelTitreUser.configure(text="Genre de l'utilisateur")
+                self.__btnPrenom.place_forget()
+                self.__btnGenre.place_forget()
+                self.__menuGenre.place(relx=0.5, rely=0.5, anchor="center")
+                self.__entryName.place_forget()
+                self.__btnvaliderUser.place(relx=1, rely=1, anchor='se')
+                self.__btnAnulerUser.place(relx=0, rely=1, anchor='sw')
+                self.__btnvaliderUser.configure(command=lambda : self.__validerUser(2))
+    
+    def __validerUser(self,mode:int):
+        """
+        1 : User 
+        2 : Genre
+        """
+        match mode :
+            case 1 :
+                name = self.__entryName.get()
+                if (name==""):
+                    showerror("Parametre","Vous avez pas entrer votre prenom")
+                else :
+                    self.__entryName.delete(0,END)
+                    self.__gazelle.changeUserName(name)
+                    showinfo("Parametre","Prenom enregistrer")
+                    self.__affichageCadreUser(1)
+            case 2 :
+                genre = self.__varGenre.get()
+                self.__gazelle.changeUserGenre(genre)
+                showinfo("Parametre","genre enregistrer")
+                self.__affichageCadreUser(1)
+
+                
