@@ -19,9 +19,12 @@ class CArreraGazelleUI :
         self.__varRecherche = StringVar(self.__windows)
         self.__varTheme = StringVar(self.__windows)
         self.__varGenre = StringVar(self.__windows)
+        self.__varChoixLieu = StringVar(self.__windows)
+        self.__varSupprLieu = StringVar(self.__windows)
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
+        listChoixLieu = ["Simple","Domicile","Travail"]
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -89,6 +92,18 @@ class CArreraGazelleUI :
         self.__entryName = Entry(self.__cadreUser,font=("arial","15"),borderwidth=2,relief="solid")
         self.__btnvaliderUser = Button(self.__cadreUser,font=("arial","15"),text="Valider")
         self.__btnAnulerUser = Button(self.__cadreUser,font=("arial","15"),text="Annuler",command=lambda : self.__affichageCadreUser(1))
+
+        # Cadre Meteo 
+        self.__labelTitreMeteo = Label(self.__cadreMeteo,font=("arial","20"))
+        self.__btnListMeteo =  Button(self.__cadreMeteo,text="      Liste meteo      ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(2))
+        self.__btnAddVille =   Button(self.__cadreMeteo,text="   Ajouter une ville   ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(3))
+        self.__btnSupprVille = Button(self.__cadreMeteo,text="   Supprimer une ville ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(4))
+        self.__labelListeMeteo = Label(self.__cadreMeteo,font=("arial","15"))
+        self.__menuChoixLieu = OptionMenu(self.__cadreMeteo,self.__varChoixLieu,*listChoixLieu)
+        self.__menuSupprLieu = OptionMenu(self.__cadreMeteo,self.__varSupprLieu,*listChoixLieu)
+        self.__entryVille = Entry(self.__cadreMeteo,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__btnvaliderMeteo = Button(self.__cadreMeteo,text="Valider",font=("arial","15"))
+        self.__btnannulerMeteo = Button(self.__cadreMeteo,font=("arial","15"),command= lambda : self.__affichageCadreMeteo(1))
         # Placement widget 
         #Cadre acceuil
         self.__cadresPresentations[0].place(x=0,y=0)
@@ -133,11 +148,14 @@ class CArreraGazelleUI :
         self.__btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
 
         self.__labelTitreUser.place(relx=0.5, rely=0.0, anchor="n")
+
+        self.__labelTitreMeteo.place(relx=0.5, rely=0.0, anchor="n")
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
         self.__varTheme.set(self.__listTheme[0])
         self.__varGenre.set(listGenre[0])
+        self.__varChoixLieu.set(listChoixLieu[0])
             
         
     def active(self,darkMode:bool):
@@ -212,6 +230,7 @@ class CArreraGazelleUI :
     def __showMeteoFrame(self):
         self.__disableAllFrame()
         self.__cadreMeteo.pack(side="right")
+        self.__affichageCadreMeteo(1)
     
     def __showGPSFrame(self):
         self.__disableAllFrame()
@@ -292,4 +311,109 @@ class CArreraGazelleUI :
                 showinfo("Parametre","genre enregistrer")
                 self.__affichageCadreUser(1)
 
+    def __affichageCadreMeteo(self,mode:int):
+        """
+        1 : Acceuil 
+        2 : Liste 
+        3 : Ajout 
+        4 : Suppr
+        """
+        match mode :
+            case 1 :
+                self.__labelTitreMeteo.configure(text="Parametre Meteo")
+                self.__btnListMeteo.place(relx=0.2,y=200)
+                self.__btnAddVille.place(relx=0.2,y=275)
+                self.__btnSupprVille.place(relx=0.2,y=350)
+                self.__btnvaliderMeteo.place_forget()
+                self.__btnannulerMeteo.place_forget()
+                self.__entryVille.place_forget()
+                self.__labelListeMeteo.place_forget()
+                self.__menuChoixLieu.place_forget()
+                self.__menuSupprLieu.place_forget()
+            case 2 : 
+                self.__labelTitreMeteo.configure(text="Liste des lieu enregistrer")
+                self.__btnListMeteo.place_forget()
+                self.__btnAddVille.place_forget()
+                self.__btnSupprVille.place_forget()
+                # Recuperation de la liste des ville 
+                self.__btnannulerMeteo.configure(text="Retour")
+                self.__btnannulerMeteo.place(relx=0.5, rely=1.0, anchor="s")
+                listeVille = self.__gazelle.getMeteoSave()
+                self.__labelListeMeteo.configure(text="")
+                nbVille = len(listeVille)
+                if (nbVille == 0 ) :
+                    self.__labelListeMeteo.configure(text="Aucun lieu enregistrer")
+                else :
+                    for i in range(0,nbVille):
+                        texte = self.__labelListeMeteo.cget("text")
+                        self.__labelListeMeteo.configure(text=texte+"\n"+listeVille[i])
+    
+                self.__labelListeMeteo.place(x=0,y=100)
+            case 3 :
+                self.__labelTitreMeteo.configure(text="Ajouter un lieu")
+                self.__btnListMeteo.place_forget()
+                self.__btnAddVille.place_forget()
+                self.__btnSupprVille.place_forget()
+                self.__menuChoixLieu.place(x=0,y=100)
+                self.__btnannulerMeteo.configure(text="Annuler")
+                self.__btnvaliderMeteo.place(relx=1, rely=1, anchor='se')
+                self.__btnannulerMeteo.place(relx=0, rely=1, anchor='sw')
+                self.__entryVille.place(relx=0.5, rely=0.5, anchor="center")
+                self.__btnvaliderMeteo.configure(command=lambda : self.__validerMeteo(1))
+            case 4 : 
+                listeVille = self.__gazelle.getMeteoSave()
+                self.__labelListeMeteo.configure(text="")
+                nbVille = len(listeVille)
+                if (nbVille == 0 ) :
+                    showerror("Parametre","Aucun lieu enregister")
+                else :
+                    self.__menuSupprLieu = OptionMenu(self.__cadreMeteo,self.__varSupprLieu,*listeVille)
+                    self.__labelTitreMeteo.configure(text="Supprimer un lieu")
+                    self.__btnListMeteo.place_forget()
+                    self.__btnAddVille.place_forget()
+                    self.__btnSupprVille.place_forget()
+                    self.__menuChoixLieu.place_forget()
+                    self.__btnannulerMeteo.configure(text="Annuler")
+                    self.__btnvaliderMeteo.place(relx=1, rely=1, anchor='se')
+                    self.__btnannulerMeteo.place(relx=0, rely=1, anchor='sw')
+                    self.__menuSupprLieu.place(relx=0.5, rely=0.5, anchor="center")
+                    self.__entryVille.place_forget()
+                    self.__btnvaliderMeteo.configure(command=lambda : self.__validerMeteo(2))
+    
+    def __validerMeteo(self,mode:int):
+        """
+        1 : add 
+        2 : suppr
+        """
+        match mode :
+            case 1 :
+                lieu = self.__entryVille.get()
+                if (lieu==""):
+                    showerror("Parametre","Impossible d'ajouter un lieu sans nom")
+                else :
+                    choix = self.__varChoixLieu.get()
+                    if (choix == "Simple"):
+                        self.__gazelle.ajoutVilleMeteo(3,lieu)
+                    else :
+                        if (choix=="Domicile"):
+                            self.__gazelle.ajoutVilleMeteo(1,lieu)
+                        else :
+                            if (choix=="Travail") :
+                                self.__gazelle.ajoutVilleMeteo(2,lieu) 
+                
+                self.__entryVille.delete(0,END)    
+                self.__affichageCadreMeteo(1)
+            case 2 :
+                choixSuppr = self.__varSupprLieu.get()
+                if (choixSuppr == ""):
+                    showerror("Parametre","Selectionner le lieu a supprimer")
+                else :
+                    if (choixSuppr=="Lieu d'habitation enregister") :
+                        self.__gazelle.supprVilleMeteo(1,"")
+                    else :
+                        if (choixSuppr=="Lieu de travail enregister") :
+                            self.__gazelle.supprVilleMeteo(2,"")
+                        else :
+                            self.__gazelle.supprVilleMeteo(3,choixSuppr)
+                self.__affichageCadreMeteo(1)
                 
