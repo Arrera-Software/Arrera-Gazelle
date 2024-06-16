@@ -112,6 +112,14 @@ class CArreraGazelleUI :
         self.__cadresPresentations[3].place(x=180,y=200)
         self.__cadresPresentations[4].place(x=0,y=400)
         self.__cadresPresentations[5].place(x=180,y=400)
+        # Cadre GPS 
+        self.__labelTitreGPS = Label(self.__cadreGPS,font=("arial","20"))
+        self.__btnAdresseDomicile = Button(self.__cadreGPS,text="Adresse du domicile",font=("arial","15"),command=lambda : self.__affichageCadreGPS(2))
+        self.__btnAdresseWork = Button(self.__cadreGPS,text="Adresse du lieu de travail",font=("arial","15"),command=lambda : self.__affichageCadreGPS(3))
+        self.__btnvaliderGPS = Button(self.__cadreGPS,text="Valider",font=("arial","15"))
+        self.__btnretourGPS = Button(self.__cadreGPS,text="Retour",font=("arial","15"),command=lambda : self.__affichageCadreGPS(1))
+        self.__btnsupprGPS = Button(self.__cadreGPS,text="Supprimer",font=("arial","15"))
+        self.__btnentryGPS = Entry(self.__cadreGPS,font=("arial","15"),borderwidth=2,relief="solid")
         
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
@@ -150,6 +158,8 @@ class CArreraGazelleUI :
         self.__labelTitreUser.place(relx=0.5, rely=0.0, anchor="n")
 
         self.__labelTitreMeteo.place(relx=0.5, rely=0.0, anchor="n")
+
+        self.__labelTitreGPS.place(relx=0.5, rely=0.0, anchor="n")
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
@@ -243,6 +253,7 @@ class CArreraGazelleUI :
     def __showGPSFrame(self):
         self.__disableAllFrame()
         self.__cadreGPS.pack(side="right")
+        self.__affichageCadreGPS(1)
 
     def __showRechercheFrame(self):
         self.__disableAllFrame()
@@ -424,4 +435,64 @@ class CArreraGazelleUI :
                         else :
                             self.__gazelle.supprVilleMeteo(3,choixSuppr)
                 self.__affichageCadreMeteo(1)
-                
+    
+    def __affichageCadreGPS(self,mode:int):
+        """
+        1 : Acceuil
+        2 : Domicile
+        3 : Travail
+        """
+        match mode :
+            case 1 :
+                self.__labelTitreGPS.configure(text="Parametre GPS")
+                self.__btnAdresseDomicile.place(relx=0.2,y=200)
+                self.__btnAdresseWork.place(relx=0.2,y=275)
+                self.__btnvaliderGPS.place_forget()
+                self.__btnretourGPS.place_forget()
+                self.__btnsupprGPS.place_forget()
+                self.__btnentryGPS.place_forget()
+            case 2 :
+                self.__labelTitreGPS.configure(text="Adresse du domicile")
+                self.__btnAdresseDomicile.place_forget()
+                self.__btnAdresseWork.place_forget()
+                self.__btnvaliderGPS.place(relx=1, rely=1, anchor='se')
+                self.__btnretourGPS.place(relx=0, rely=1, anchor='sw')
+                self.__btnsupprGPS.place(relx=0.5, rely=1.0, anchor="s")  
+                self.__btnentryGPS.place(relx=0.5, rely=0.5, anchor="center") 
+                self.__btnvaliderGPS.configure(command=lambda:self.__validerGPS(1,1))
+                self.__btnsupprGPS.configure(command=lambda:self.__validerGPS(2,1))
+            case 3 : 
+                self.__labelTitreGPS.configure(text="Adresse du lieu de travail")
+                self.__btnAdresseDomicile.place_forget()
+                self.__btnAdresseWork.place_forget()
+                self.__btnvaliderGPS.place(relx=1, rely=1, anchor='se')
+                self.__btnretourGPS.place(relx=0, rely=1, anchor='sw')
+                self.__btnsupprGPS.place(relx=0.5, rely=1.0, anchor="s")  
+                self.__btnentryGPS.place(relx=0.5, rely=0.5, anchor="center") 
+                self.__btnvaliderGPS.configure(command=lambda:self.__validerGPS(1,2))
+                self.__btnsupprGPS.configure(command=lambda:self.__validerGPS(2,2))
+    
+    def __validerGPS(self,mode:int,type:int):
+        """
+        Mode : 
+        1 : Add 
+        2 : Suppr \n 
+        Type : 
+        1 : Domicile 
+        2 : Travail
+        """
+        
+        match mode :
+            case 1 :
+                adresse = self.__btnentryGPS.get()
+                if (adresse==""):
+                    showerror("Parametre","Entrer une adresse pour l'enregister")
+                else :
+                    self.__gazelle.ajoutGPSAdresse(type,adresse)
+                    self.__btnentryGPS.delete(0,END)
+                self.__affichageCadreGPS(1)
+            case 2 : 
+                self.__gazelle.supprGPSAdresse(type)
+                self.__affichageCadreGPS(1)
+
+
