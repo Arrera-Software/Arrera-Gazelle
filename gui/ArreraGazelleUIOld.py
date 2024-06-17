@@ -27,7 +27,7 @@ class CArreraGazelleUI :
         self.__varChoixSite =  StringVar(self.__windows)
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
-        self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
+        listeTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
@@ -89,7 +89,7 @@ class CArreraGazelleUI :
         self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"))
         self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"))
         #5
-        self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*self.__listTheme)
+        self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*listeTheme)
         self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"))
 
         # Cadre User 
@@ -152,8 +152,8 @@ class CArreraGazelleUI :
         self.__menuChoixSite =  OptionMenu(self.__cadreInternet,self.__varChoixSite,*listChoixSite)
         self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listChoixSite)
         # Cardre theme 
-        self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme de l'interface",font=("arial","20"))
-        self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*self.__listTheme)
+        self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme\nde l'interface",font=("arial","20"))
+        self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*listeTheme)
         self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=self.__validerTheme)
 
 
@@ -210,13 +210,13 @@ class CArreraGazelleUI :
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
-        self.__varTheme.set(self.__listTheme[0])
+        self.__varTheme.set(listeTheme[0])
         self.__varGenre.set(listGenre[0])
         self.__varChoixLieu.set(listChoixLieu[0])
         self.__varMoteurRecherce.set(listMoteur[0])
         self.__varChoixSoft.set(listTypeSoft[0])
         self.__varChoixSite.set(listChoixSite[0])
-        self.__varChoixTheme.set(self.__listTheme[0])
+        self.__varChoixTheme.set(listeTheme[0])
             
         
     def active(self,darkMode:bool):
