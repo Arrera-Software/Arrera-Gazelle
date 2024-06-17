@@ -65,7 +65,7 @@ class CArreraGazelleUI :
                         Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=self.__showGPSFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Software",command=self.__showSoftFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Internet",command=self.__showInternetFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=self.__showInternetFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Theme",command=self.__showThemeFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Micro",command=self.__showMicroFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Quitter")]
