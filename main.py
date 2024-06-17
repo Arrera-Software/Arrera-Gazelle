@@ -5,6 +5,10 @@ oldGui = CArreraGazelleUI(windows,"FileJSON/configUser.json",
                           "FileJSON/configNeuron.json",
                           "FileJSON/sixConfig.json",
                           "FileJSON/configSetting.json")
+def quit():
+    windows.destroy()
+    
+oldGui.passQuitFnc(quit)
 mode = int
 
 mode = int(input("1 : Dark \n2 : Light \n#"))

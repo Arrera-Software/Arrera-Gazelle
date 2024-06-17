@@ -175,8 +175,6 @@ class CArreraGazelleUI :
         self.__boutonMenu[5].place(relx=0.2,y=300)
         self.__boutonMenu[6].place(relx=0.2,y=350)
         self.__boutonMenu[7].place(relx=0.2,y=400)
-        self.__boutonMenu[9].place(relx=0.5, rely=1.0, anchor="s")
-
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
             self.__boutonMenu[8].place(relx=0.2,y=450)
 
@@ -309,6 +307,11 @@ class CArreraGazelleUI :
         
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
+    
+    def passQuitFnc(self,quitFNC):
+        self.__boutonMenu[9].configure(command=quitFNC)
+        self.__boutonMenu[9].place(relx=0.5, rely=1.0, anchor="s")
+
     
     def __backAcceuil(self):
         self.__cadreAcceuil.pack(side="right")
