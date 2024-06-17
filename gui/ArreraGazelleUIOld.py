@@ -27,12 +27,14 @@ class CArreraGazelleUI :
         self.__varChoixSite =  StringVar(self.__windows)
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
+        self.__varChoixMicro =  StringVar(self.__windows)
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listTypeSoft = ["Autre","Traitement de texte","Tableur","Presentation","Navigateur Internet","Note","Musique"]
         listChoixSite = ["Autre","Cloud"]
+        self.__listChoixMicro = ["ON","OFF"]
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -155,6 +157,10 @@ class CArreraGazelleUI :
         self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme\nde l'interface",font=("arial","20"))
         self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*listeTheme)
         self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=self.__validerTheme)
+        # Cadre Micro
+        self.__labelTitreMicro = Label(self.__cadreMicro,text="Sons au declanchement\ndu micro",font=("arial","20"))
+        self.__menuChoixMicro = OptionMenu(self.__cadreMicro,self.__varChoixMicro,*self.__listChoixMicro)
+        self.__btnValiderMicro = Button (self.__cadreMicro,text="Valider",font=("arial","15"),command=self.__validerMicro)
 
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
@@ -207,6 +213,10 @@ class CArreraGazelleUI :
         self.__labelTitreTheme.place(relx=0.5, rely=0.0, anchor="n")
         self.__menuChoixTheme.place(relx=0.5, rely=0.5, anchor="center")
         self.__btnValiderTheme.place(relx=0.5, rely=1.0, anchor="s")  
+
+        self.__labelTitreMicro.place(relx=0.5, rely=0.0, anchor="n")
+        self.__menuChoixMicro.place(relx=0.5, rely=0.5, anchor="center")
+        self.__btnValiderMicro.place(relx=0.5, rely=1.0, anchor="s")  
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
@@ -353,7 +363,13 @@ class CArreraGazelleUI :
     def __showMicroFrame(self):
         self.__disableAllFrame()
         self.__cadreMicro.pack(side="right")
-    
+        etatMicro = self.__gazelle.getSoundMicroAsEnable()
+        if (etatMicro==True):
+            self.__varChoixMicro.set(self.__listChoixMicro[0])
+        else :
+            self.__varChoixMicro.set(self.__listChoixMicro[1])
+       
+
     def __affichageCadreUser(self,mode:int):
         """
         1 : Acceuil
@@ -830,4 +846,12 @@ class CArreraGazelleUI :
         theme = self.__varChoixTheme.get()
         self.__gazelle.changeTheme(theme)
         showinfo("Parametre","Theme changer")
+        self.__backAcceuil()
+    
+    def __validerMicro(self):
+        sortie = self.__varChoixMicro.get()
+        if (sortie=="ON"):
+            self.__gazelle.changeSoundMicro(True)
+        else :
+            self.__gazelle.changeSoundMicro(False)
         self.__backAcceuil()
