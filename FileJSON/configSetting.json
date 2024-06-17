@@ -8,8 +8,6 @@
     "textColorLight1":"black",
     "textColorLight2":"white",
     "gestionMicro":"1",
-    "setIcon":"0",
-    "iconAssistant":"",
     "listeTheme":["Dark","Light"],
     "listGenre":["monsieur","madame","maitre"]
 }
