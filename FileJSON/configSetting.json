@@ -11,6 +11,6 @@
     "gestionMicro":"1",
     "setIcon":"0",
     "iconAssistant":"",
-    "listeTheme":["Default","Dark","Light"],
+    "listeTheme":["Dark","Light"],
     "listGenre":["monsieur","madame","maitre"]
 }
