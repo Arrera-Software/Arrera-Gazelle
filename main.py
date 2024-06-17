@@ -3,7 +3,7 @@ from gui.ArreraGazelleUIOld import*
 windows = Tk()
 oldGui = CArreraGazelleUI(windows,"FileJSON/configUser.json",
                           "FileJSON/configNeuron.json",
-                          "FileJSON/sixConfif.json",
+                          "FileJSON/sixConfig.json",
                           "FileJSON/configSetting.json")
 mode = int
 
