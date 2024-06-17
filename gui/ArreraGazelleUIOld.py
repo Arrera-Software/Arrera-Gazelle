@@ -17,6 +17,7 @@ class CArreraGazelleUI :
         self.__windows = windows
         # Varriable
         self.__varRecherche = StringVar(self.__windows)
+        self.__varMoteurRecherce = StringVar(self.__windows)
         self.__varTheme = StringVar(self.__windows)
         self.__varGenre = StringVar(self.__windows)
         self.__varChoixLieu = StringVar(self.__windows)
@@ -120,6 +121,10 @@ class CArreraGazelleUI :
         self.__btnretourGPS = Button(self.__cadreGPS,text="Retour",font=("arial","15"),command=lambda : self.__affichageCadreGPS(1))
         self.__btnsupprGPS = Button(self.__cadreGPS,text="Supprimer",font=("arial","15"))
         self.__btnentryGPS = Entry(self.__cadreGPS,font=("arial","15"),borderwidth=2,relief="solid")
+        # Cadre Rechecrhe
+        self.__labelTitreRecherche = Label(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche",font=("arial","20"))
+        self.__menuMoteurRecherche = OptionMenu(self.__cadreRecherche,self.__varMoteurRecherce,*listMoteur)
+        self.__btnvaliderMoteur = Button(self.__cadreRecherche,text="Valider",font=("arial","15"),command=self.__validerMoteur)
         
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
@@ -160,12 +165,17 @@ class CArreraGazelleUI :
         self.__labelTitreMeteo.place(relx=0.5, rely=0.0, anchor="n")
 
         self.__labelTitreGPS.place(relx=0.5, rely=0.0, anchor="n")
+
+        self.__labelTitreRecherche.place(relx=0.5, rely=0.0, anchor="n")
+        self.__menuMoteurRecherche.place(relx=0.5, rely=0.5, anchor="center")
+        self.__btnvaliderMoteur.place(relx=0.5, rely=1.0, anchor="s")  
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
         self.__varTheme.set(self.__listTheme[0])
         self.__varGenre.set(listGenre[0])
         self.__varChoixLieu.set(listChoixLieu[0])
+        self.__varMoteurRecherce.set(listMoteur[0])
             
         
     def active(self,darkMode:bool):
@@ -502,5 +512,11 @@ class CArreraGazelleUI :
             case 2 : 
                 self.__gazelle.supprGPSAdresse(type)
                 self.__affichageCadreGPS(1)
+    
+    def __validerMoteur(self):
+        moteur = self.__varMoteurRecherce.get()
+        self.__gazelle.changeMoteur(moteur)
+        showinfo("Parametre","Moteur enregistrer")
+        self.__backAcceuil()
 
 
