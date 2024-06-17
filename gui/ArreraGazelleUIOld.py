@@ -24,11 +24,14 @@ class CArreraGazelleUI :
         self.__varSupprLieu = StringVar(self.__windows)
         self.__varSupprSoft = StringVar(self.__windows)
         self.__varChoixSoft = StringVar(self.__windows)
+        self.__varChoixSite =  StringVar(self.__windows)
+        self.__varSupprSite =  StringVar(self.__windows)
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listTypeSoft = ["Autre","Traitement de texte","Tableur","Presentation","Navigateur Internet","Note","Musique"]
+        listChoixSite = ["Autre","Cloud"]
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -137,6 +140,17 @@ class CArreraGazelleUI :
         self.__menuSupprSoft = OptionMenu(self.__cadreSoft,self.__varSupprSoft,*listTypeSoft)
         self.__menuChoixSoft  = OptionMenu(self.__cadreSoft,self.__varChoixSoft,*listTypeSoft)
         self.__entryNameSoft = Entry(self.__cadreSoft,font=("arial","15"),borderwidth=2,relief="solid")
+        # Cadre Internet
+        self.__labelTitreInternet = Label(self.__cadreInternet,font=("arial","20"))
+        self.__btnAddSite = Button(self.__cadreInternet,text="Enregister un site",font=("arial","15"),command=lambda : self.__affichageCadreSite(2)) 
+        self.__btnSupprSite = Button(self.__cadreInternet,text="Supprimer un site",font=("arial","15"),command=lambda : self.__affichageCadreSite(3)) 
+        self.__btnAnnulerInternet = Button(self.__cadreInternet,text="Annuler",font=("arial","15"),command=lambda : self.__affichageCadreSite(1))
+        self.__btnValiderInternet = Button(self.__cadreInternet,text="Valider",font=("arial","15"))
+        self.__entryNameSite = Entry(self.__cadreInternet,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__entryLinkSite = Entry(self.__cadreInternet,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__menuChoixSite =  OptionMenu(self.__cadreInternet,self.__varChoixSite,*listChoixSite)
+        self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listChoixSite)
+
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
         for i in range(0,5):
@@ -182,6 +196,8 @@ class CArreraGazelleUI :
         self.__btnvaliderMoteur.place(relx=0.5, rely=1.0, anchor="s")  
 
         self.__labelTitreSoftware.place(relx=0.5, rely=0.0, anchor="n")
+
+        self.__labelTitreInternet.place(relx=0.5, rely=0.0, anchor="n")
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
@@ -190,6 +206,7 @@ class CArreraGazelleUI :
         self.__varChoixLieu.set(listChoixLieu[0])
         self.__varMoteurRecherce.set(listMoteur[0])
         self.__varChoixSoft.set(listTypeSoft[0])
+        self.__varChoixSite.set(listChoixSite[0])
             
         
     def active(self,darkMode:bool):
@@ -308,6 +325,7 @@ class CArreraGazelleUI :
     def __showInternetFrame(self):
         self.__disableAllFrame()
         self.__cadreInternet.pack(side="right")
+        self.__affichageCadreSite(1)
     
     def __showThemeFrame(self):
         self.__disableAllFrame()
@@ -706,4 +724,85 @@ class CArreraGazelleUI :
             Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(1,name,entryCommand.get()) and popUP.destroy()).pack(side="bottom")
         else :
             Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(mode,"",entryCommand.get()) and popUP.destroy()).pack(side="bottom")
-        
+    
+    def __affichageCadreSite(self,mode:int):
+        """
+        1 : Acceuil
+        2 : Add
+        3 : Suppr
+        """
+        match mode :
+            case 1 :
+                self.__labelTitreInternet.configure(text="Gestion des sites\ninternet")
+                self.__btnAddSite.place(relx=0.2,y=200)
+                self.__btnSupprSite.place(relx=0.2,y=275)
+                self.__btnAnnulerInternet.place_forget()
+                self.__btnValiderInternet.place_forget()
+                self.__entryNameSite.place_forget()
+                self.__entryLinkSite.place_forget()
+                self.__menuChoixSite.place_forget()
+                self.__menuSupprSite.place_forget()
+            case 2 : 
+                self.__labelTitreInternet.configure(text="Enregistrement d'un site")
+                self.__btnAddSite.place_forget()
+                self.__btnSupprSite.place_forget()
+                self.__btnAnnulerInternet.place(relx=0, rely=1, anchor='sw')
+                self.__btnValiderInternet.place(relx=1, rely=1, anchor='se')
+                self.__entryNameSite.place(relx=0.2,y=200)
+                self.__entryLinkSite.place(relx=0.2,y=275)
+                self.__menuChoixSite.place(x=0,y=100)
+                self.__menuSupprSite.place_forget()
+                self.__btnValiderInternet.configure(command=lambda:self.__validerSite(1))
+            case 3 : 
+                listSite = self.__gazelle.getListSite()
+                if (len(listSite)==0):
+                    showerror("Parametre","Aucun site enregistrer")
+                else :
+                    self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listSite)
+                    self.__labelTitreInternet.configure(text="Enregistrement d'un site")
+                    self.__btnAddSite.place_forget()
+                    self.__btnSupprSite.place_forget()
+                    self.__btnAnnulerInternet.place(relx=0, rely=1, anchor='sw')
+                    self.__btnValiderInternet.place(relx=1, rely=1, anchor='se')
+                    self.__entryNameSite.place_forget()
+                    self.__entryLinkSite.place_forget()
+                    self.__menuChoixSite.place_forget()
+                    self.__menuSupprSite.place(relx=0.5,rely=0.5,anchor="center")
+                    self.__btnValiderInternet.configure(command=lambda:self.__validerSite(2))
+                    self.__varSupprSite.set(listSite[0])
+                    
+
+    
+    def __validerSite(self,mode:int):
+        """
+        1 : add
+        2 : suppr
+        """
+        match mode :
+            case 1 :
+                link = self.__entryLinkSite.get()
+                if (link!="") :
+                    type = self.__varChoixSite.get()
+                    if (type == "Cloud"):
+                        self.__gazelle.addSite(2,"",link)
+                    else :
+                        name = self.__entryNameSite.get()
+                        if(name=="") :
+                            showerror("Parametre","Impossible d'enregister un site sans nom")
+                        else :
+                            self.__gazelle.addSite(1,name,link)
+                            showinfo("Parametre","Site enregister")
+                            self.__affichageCadreSite(1)
+                else :
+                    showerror("Parametre","Impossible d'enregister un site sans url")
+                
+                self.__entryLinkSite.delete(0,END)
+                self.__entryNameSite.delete(0,END)
+            case 2 : 
+                site = self.__varSupprSite.get()
+                if (site == "Cloud") :
+                    self.__gazelle.supprSite(2,"")
+                else :
+                    self.__gazelle.supprSite(1,site)
+                showinfo("Parametre","Site supprimer")
+                self.__affichageCadreSite(1)  
