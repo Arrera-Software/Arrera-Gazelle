@@ -301,6 +301,9 @@ class CArreraGazelleUI :
 
         self.__labelTitreTheme.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnValiderTheme.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__labelTitreMicro.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnValiderMicro.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
