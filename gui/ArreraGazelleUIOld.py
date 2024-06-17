@@ -3,7 +3,7 @@ from objet.arreraGazelle import*
 from tkinter.messagebox import*
 from typing import Union
 
-class CArreraGazelleUI :
+class CArreraGazelleUIOld :
     def __init__(self,windows:Union[Tk,Toplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
