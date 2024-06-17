@@ -354,14 +354,21 @@ class CArreraGazelle :
     
     def changeSoundMicro(self,enable:bool):
         if(enable==False):
-            self.__fileJsonAssistant.EcritureJSON("soundMicro",0)
+            self.__fileJsonAssistant.EcritureJSON("soundMicro","0")
             return True
         else :
             if(enable==True):
-                self.__fileJsonAssistant.EcritureJSON("soundMicro",1)
+                self.__fileJsonAssistant.EcritureJSON("soundMicro","1")
                 return True
             else :
                 return False
+    
+    def getSoundMicroAsEnable(self):
+        sortie = self.__fileJsonAssistant.lectureJSON("soundMicro")
+        if (sortie=="1"):
+            return True
+        else :
+            return False
     
     def getOS(self):
         linux = self.__objOS.osLinux()
