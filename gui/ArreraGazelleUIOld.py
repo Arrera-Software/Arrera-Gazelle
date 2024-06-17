@@ -586,30 +586,73 @@ class CArreraGazelleUI :
         1 : add 
         2 : suppr
         """
+        os = self.__gazelle.getOS()
         match mode :
             case 1 :
                 type = self.__varChoixSoft.get()
                 if( type == "Autre") :
                     nameSoft = self.__entryNameSoft.get()
-                    self.__gazelle.addSoft(1,nameSoft,"")
+                    if (os=="windows"):
+                        self.__gazelle.addSoft(1,nameSoft,"")
+                    else :
+                        if (os=="linux") :
+                            self.addSoftLinux(1,nameSoft)
+                        else :
+                            showerror("Parametre","Systeme d'exploitation non reconnu")
                 else : 
                     if (type=="Traitement de texte"):
-                        self.__gazelle.addSoft(2,"","")
+                        if (os=="windows"):
+                            self.__gazelle.addSoft(2,"","")
+                        else :
+                            if (os=="linux") :
+                                self.addSoftLinux(2,"")
+                            else :
+                                showerror("Parametre","Systeme d'exploitation non reconnu")
                     else :
                         if (type=="Tableur"):
-                            self.__gazelle.addSoft(3,"","")
+                            if (os=="windows"):
+                                self.__gazelle.addSoft(3,"","")
+                            else :
+                                if (os=="linux") :
+                                    self.addSoftLinux(3,"")
+                                else :
+                                    showerror("Parametre","Systeme d'exploitation non reconnu")
                         else :
                             if (type=="Presentation"):
-                                self.__gazelle.addSoft(4,"","")
+                                if (os=="windows"):
+                                    self.__gazelle.addSoft(4,"","")
+                                else :
+                                    if (os=="linux") :
+                                        self.addSoftLinux(4,"")
+                                    else :
+                                        showerror("Parametre","Systeme d'exploitation non reconnu")
                             else : 
                                 if (type=="Navigateur Internet"):
-                                    self.__gazelle.addSoft(5,"","")
+                                    if (os=="windows"):
+                                        self.__gazelle.addSoft(5,"","")
+                                    else :
+                                        if (os=="linux") :
+                                            self.addSoftLinux(5,"")
+                                        else :
+                                            showerror("Parametre","Systeme d'exploitation non reconnu")
                                 else :
                                     if (type=="Note"):
-                                        self.__gazelle.addSoft(7,"","")
+                                        if (os=="windows"):
+                                            self.__gazelle.addSoft(7,"","")
+                                        else :
+                                            if (os=="linux") :
+                                                self.addSoftLinux(7,"")
+                                            else :
+                                                showerror("Parametre","Systeme d'exploitation non reconnu")
                                     else :
                                         if (type=="Musique"):
-                                            self.__gazelle.addSoft(6,"","")
+                                            if (os=="windows"):
+                                                self.__gazelle.addSoft(6,"","")
+                                            else :
+                                                if (os=="linux") :
+                                                    self.addSoftLinux(6,"")
+                                                else :
+                                                    showerror("Parametre","Systeme d'exploitation non reconnu")
                 self.__entryNameSoft.delete(0,END)
                 self.__affichageCadreSoft(1)
             case 2 :
@@ -634,3 +677,27 @@ class CArreraGazelleUI :
                                     else :
                                         self.__gazelle.supprSoft(1,soft)
                 self.__affichageCadreSoft(1)
+    
+    
+    def addSoftLinux(self,mode:int,name:str):
+        """
+        1 : normal
+        2 : Traitement de texte
+        3 : Tableur
+        4 : Presentation
+        5 : Navigateur internet
+        6 : Musique
+        7 : Note
+        """
+        popUP = Toplevel()
+        popUP.title("Parametre")
+        popUP.minsize(300,110)
+        popUP.minsize(300,110)
+        Label(popUP,text="Entrer la commande du logiciel",font=("arial","15")).pack()
+        entryCommand = Entry(popUP,font=("arial","15"),borderwidth=2,relief="solid")
+        entryCommand.place(relx=0.5,rely=0.5,anchor="center")
+        if mode == 1 : 
+            Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(1,name,entryCommand.get()) and popUP.destroy()).pack(side="bottom")
+        else :
+            Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(mode,"",entryCommand.get()) and popUP.destroy()).pack(side="bottom")
+        
