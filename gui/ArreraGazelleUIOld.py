@@ -79,7 +79,7 @@ class CArreraGazelleUI :
         #cadresPresentations
         #0
         self.__menuRecherche1 = OptionMenu(self.__cadresPresentations[0],self.__varRecherche,*listMoteur)
-        self.__btnValiderMoteur1 = Button(self.__cadresPresentations[0],text="Valider",font=("arial","13"))
+        self.__btnValiderMoteur1 = Button(self.__cadresPresentations[0],text="Valider",font=("arial","13"),command=lambda : self.__validerMoteur(2))
         #1
         self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),command = lambda : self.__showMeteoFrame(2))
         #2
@@ -133,7 +133,7 @@ class CArreraGazelleUI :
         # Cadre Rechecrhe
         self.__labelTitreRecherche = Label(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche",font=("arial","20"))
         self.__menuMoteurRecherche = OptionMenu(self.__cadreRecherche,self.__varMoteurRecherce,*listMoteur)
-        self.__btnvaliderMoteur = Button(self.__cadreRecherche,text="Valider",font=("arial","15"),command=self.__validerMoteur)
+        self.__btnvaliderMoteur = Button(self.__cadreRecherche,text="Valider",font=("arial","15"),command=lambda : self.__validerMoteur(1))
         # Cadre Software 
         self.__labelTitreSoftware = Label(self.__cadreSoft,font=("arial","20"))
         self.__btnAnnulerSoft = Button(self.__cadreSoft,text="Annuler",font=("arial","15"),command=lambda:self.__affichageCadreSoft(1))
@@ -631,8 +631,16 @@ class CArreraGazelleUI :
                 self.__gazelle.supprGPSAdresse(type)
                 self.__affichageCadreGPS(1)
     
-    def __validerMoteur(self):
-        moteur = self.__varMoteurRecherce.get()
+    def __validerMoteur(self,mode:int):
+        """
+        1 : page
+        2 : acceuil
+        """
+        match mode : 
+            case 1 :
+                moteur = self.__varMoteurRecherce.get()
+            case 2 : 
+                moteur = self.__varRecherche.get()
         self.__gazelle.changeMoteur(moteur)
         showinfo("Parametre","Moteur enregistrer")
         self.__backAcceuil()
