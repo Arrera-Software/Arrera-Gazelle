@@ -232,6 +232,9 @@ class CArreraGazelleUI :
         self.__btnretourGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnsupprGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnentryGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__btnvaliderMoteur.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__labelTitreRecherche.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
