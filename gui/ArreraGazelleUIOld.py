@@ -71,7 +71,7 @@ class CArreraGazelleUI :
                         Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=lambda : self.__showGPSFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Software",command=lambda : self.__showSoftFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=self.__showInternetFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=lambda :self.__showInternetFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="Theme",command=self.__showThemeFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Micro",command=self.__showMicroFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Quitter")]
@@ -88,8 +88,8 @@ class CArreraGazelleUI :
         #3
         self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),command=lambda : self.__showSoftFrame(2))
         #4
-        self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"))
-        self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"))
+        self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"),command=lambda :self.__showInternetFrame(2))
+        self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"),command=lambda :self.__showInternetFrame(3))
         #5
         self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*listeTheme)
         self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"))
@@ -381,10 +381,21 @@ class CArreraGazelleUI :
             case 2 :
                 self.__affichageCadreSoft(2)
     
-    def __showInternetFrame(self):
+    def __showInternetFrame(self,mode:int):
+        """
+        1 : Normal
+        2 : Add direct
+        3 : Suppr direct
+        """
         self.__disableAllFrame()
         self.__cadreInternet.pack(side="right")
-        self.__affichageCadreSite(1)
+        match mode :
+            case 1 :
+                self.__affichageCadreSite(1)
+            case 2 :
+                self.__affichageCadreSite(2)
+            case 3 : 
+                self.__affichageCadreSite(3)
     
     def __showThemeFrame(self):
         self.__disableAllFrame()
