@@ -272,7 +272,13 @@ class CArreraGazelleUI :
         self.__btnValiderSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnAddSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__btnSupprSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-            
+
+        self.__labelTitreInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAddSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnSupprSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAnnulerInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnValiderInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
     
