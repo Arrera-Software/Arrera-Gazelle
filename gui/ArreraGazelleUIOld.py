@@ -26,6 +26,7 @@ class CArreraGazelleUI :
         self.__varChoixSoft = StringVar(self.__windows)
         self.__varChoixSite =  StringVar(self.__windows)
         self.__varSupprSite =  StringVar(self.__windows)
+        self.__varChoixTheme  =  StringVar(self.__windows)
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
@@ -150,6 +151,10 @@ class CArreraGazelleUI :
         self.__entryLinkSite = Entry(self.__cadreInternet,font=("arial","15"),borderwidth=2,relief="solid")
         self.__menuChoixSite =  OptionMenu(self.__cadreInternet,self.__varChoixSite,*listChoixSite)
         self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listChoixSite)
+        # Cardre theme 
+        self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme de l'interface",font=("arial","20"))
+        self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*self.__listTheme)
+        self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=self.__validerTheme)
 
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
@@ -198,6 +203,10 @@ class CArreraGazelleUI :
         self.__labelTitreSoftware.place(relx=0.5, rely=0.0, anchor="n")
 
         self.__labelTitreInternet.place(relx=0.5, rely=0.0, anchor="n")
+
+        self.__labelTitreTheme.place(relx=0.5, rely=0.0, anchor="n")
+        self.__menuChoixTheme.place(relx=0.5, rely=0.5, anchor="center")
+        self.__btnValiderTheme.place(relx=0.5, rely=1.0, anchor="s")  
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
@@ -207,6 +216,7 @@ class CArreraGazelleUI :
         self.__varMoteurRecherce.set(listMoteur[0])
         self.__varChoixSoft.set(listTypeSoft[0])
         self.__varChoixSite.set(listChoixSite[0])
+        self.__varChoixTheme.set(self.__listTheme[0])
             
         
     def active(self,darkMode:bool):
@@ -812,3 +822,9 @@ class CArreraGazelleUI :
                     self.__gazelle.supprSite(1,site)
                 showinfo("Parametre","Site supprimer")
                 self.__affichageCadreSite(1)  
+    
+    def __validerTheme(self):
+        theme = self.__varChoixTheme.get()
+        self.__gazelle.changeTheme(theme)
+        showinfo("Parametre","Theme changer")
+        self.__backAcceuil()
