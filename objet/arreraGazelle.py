@@ -299,8 +299,6 @@ class CArreraGazelle :
 
         return listSortie
 
-        
-
     def addSite(self,mode:int,name:str,link:str):
         """
         1 : normal
@@ -336,6 +334,16 @@ class CArreraGazelle :
                 self.__fileJsonUser.suppressionJson("lienCloud")
                 return True
     
+    def getListSite(self):
+        listSortie = []
+        if (self.__fileJsonUser.lectureJSON("lienCloud")!=""):
+            listSortie.append("Cloud")
+        dictSite = self.__fileJsonUser.lectureJSONDict("dictSite")
+        if (len(dictSite)==0):
+            return listSortie
+        else :
+            return listSortie + list(dictSite.keys())
+
     def changeMoteur(self,moteur:str):
         self.__fileJsonUser.EcritureJSON("moteurRecherche",moteur)
         return True
