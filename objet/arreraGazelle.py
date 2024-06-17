@@ -263,6 +263,44 @@ class CArreraGazelle :
                     self.__softWin.supprSoft("musique")
                 return True
         
+    def getListSoft(self):
+        listSortie = []
+        # Creation listFlag 
+        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+            listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
+        else : 
+            if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+                listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
+            else :
+                return ["error","error"]
+        if(self.__fileJsonUser.lectureJSON(listFlag[1])!=""):
+            listSortie.append("Traitement de texte")
+    
+        if(self.__fileJsonUser.lectureJSON(listFlag[2])!=""):
+            listSortie.append("Tableur")
+        
+        if(self.__fileJsonUser.lectureJSON(listFlag[3])!=""):
+            listSortie.append("Presentation")
+        
+        if(self.__fileJsonUser.lectureJSON(listFlag[4])!=""):
+            listSortie.append("Navigateur internet")
+        
+        if(self.__fileJsonUser.lectureJSON(listFlag[5])!=""):
+            listSortie.append("Note")
+        
+        if(self.__fileJsonUser.lectureJSON(listFlag[6])!=""):
+            listSortie.append("Musique")
+        
+        # Recuperation du dictionnaire
+        dictSoft = self.__fileJsonUser.lectureJSONDict(listFlag[0])
+
+        if (len(dictSoft)!=0) :
+            listSortie = listSortie+(list(dictSoft.keys()))
+
+        return listSortie
+
+        
+
     def addSite(self,mode:int,name:str,link:str):
         """
         1 : normal
