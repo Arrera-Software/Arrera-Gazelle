@@ -354,3 +354,14 @@ class CArreraGazelle :
                 return True
             else :
                 return False
+    
+    def getOS(self):
+        linux = self.__objOS.osLinux()
+        windows = self.__objOS.osWindows()
+        if ((linux==True)and (windows==False)):
+            return "linux"
+        else :
+            if ((linux==False)and (windows==True)):
+                return "windows"
+            else :
+                return "other"
