@@ -70,7 +70,7 @@ class CArreraGazelleUI :
                         Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=lambda : self.__showMeteoFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=lambda : self.__showGPSFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Software",command=self.__showSoftFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Software",command=lambda : self.__showSoftFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=self.__showInternetFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Theme",command=self.__showThemeFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Micro",command=self.__showMicroFrame),
@@ -86,7 +86,7 @@ class CArreraGazelleUI :
         self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),command=lambda : self.__showGPSFrame(2))
         self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),command=lambda : self.__showGPSFrame(3))
         #3
-        self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"))
+        self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),command=lambda : self.__showSoftFrame(2))
         #4
         self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"))
         self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"))
@@ -368,10 +368,18 @@ class CArreraGazelleUI :
         self.__disableAllFrame()
         self.__cadreRecherche.pack(side="right")
     
-    def __showSoftFrame(self):
+    def __showSoftFrame(self,mode:int):
+        """
+        1 : Normal
+        2 : Add direct
+        """
         self.__disableAllFrame()
         self.__cadreSoft.pack(side="right")
-        self.__affichageCadreSoft(1)
+        match mode :
+            case 1 :
+                self.__affichageCadreSoft(1)
+            case 2 :
+                self.__affichageCadreSoft(2)
     
     def __showInternetFrame(self):
         self.__disableAllFrame()
