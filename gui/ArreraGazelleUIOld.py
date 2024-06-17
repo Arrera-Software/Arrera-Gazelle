@@ -22,10 +22,13 @@ class CArreraGazelleUI :
         self.__varGenre = StringVar(self.__windows)
         self.__varChoixLieu = StringVar(self.__windows)
         self.__varSupprLieu = StringVar(self.__windows)
+        self.__varSupprSoft = StringVar(self.__windows)
+        self.__varChoixSoft = StringVar(self.__windows)
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
+        listTypeSoft = ["Autre","Traitement de texte","Tableur","Presentation","Navigateur Internet","Note","Musique"]
         # Creation des Frame
         self.__cadreMenu = Frame(self.__windows,width=150,height=600)
         self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
@@ -125,7 +128,15 @@ class CArreraGazelleUI :
         self.__labelTitreRecherche = Label(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche",font=("arial","20"))
         self.__menuMoteurRecherche = OptionMenu(self.__cadreRecherche,self.__varMoteurRecherce,*listMoteur)
         self.__btnvaliderMoteur = Button(self.__cadreRecherche,text="Valider",font=("arial","15"),command=self.__validerMoteur)
-        
+        # Cadre Software 
+        self.__labelTitreSoftware = Label(self.__cadreSoft,font=("arial","20"))
+        self.__btnAnnulerSoft = Button(self.__cadreSoft,text="Annuler",font=("arial","15"),command=lambda:self.__affichageCadreSoft(1))
+        self.__btnValiderSoft = Button(self.__cadreSoft,text="Valider",font=("arial","15"))
+        self.__btnAddSoft=Button(self.__cadreSoft,text="Ajouter un logiciel",font=("arial","15"),command=lambda:self.__affichageCadreSoft(2)) 
+        self.__btnSupprSoft=Button(self.__cadreSoft,text="Supprimer un logiciel",font=("arial","15"),command=lambda:self.__affichageCadreSoft(3))
+        self.__menuSupprSoft = OptionMenu(self.__cadreSoft,self.__varSupprSoft,*listTypeSoft)
+        self.__menuChoixSoft  = OptionMenu(self.__cadreSoft,self.__varChoixSoft,*listTypeSoft)
+        self.__entryNameSoft = Entry(self.__cadreSoft,font=("arial","15"),borderwidth=2,relief="solid")
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
         for i in range(0,5):
@@ -169,6 +180,8 @@ class CArreraGazelleUI :
         self.__labelTitreRecherche.place(relx=0.5, rely=0.0, anchor="n")
         self.__menuMoteurRecherche.place(relx=0.5, rely=0.5, anchor="center")
         self.__btnvaliderMoteur.place(relx=0.5, rely=1.0, anchor="s")  
+
+        self.__labelTitreSoftware.place(relx=0.5, rely=0.0, anchor="n")
         
         # Mise en place des valeur sur les menu 
         self.__varRecherche.set(listMoteur[0])
@@ -283,6 +296,7 @@ class CArreraGazelleUI :
     def __showSoftFrame(self):
         self.__disableAllFrame()
         self.__cadreSoft.pack(side="right")
+        self.__affichageCadreSoft(1)
     
     def __showInternetFrame(self):
         self.__disableAllFrame()
@@ -521,5 +535,33 @@ class CArreraGazelleUI :
         self.__gazelle.changeMoteur(moteur)
         showinfo("Parametre","Moteur enregistrer")
         self.__backAcceuil()
+
+    def __affichageCadreSoft(self,mode:int):
+        """
+        1 : Acceuil 
+        2 : Add
+        3 : Suppr
+        """
+        match mode : 
+            case 1 :
+                self.__labelTitreSoftware.configure(text="Gestion des logiciel")
+                self.__btnAnnulerSoft.place_forget()
+                self.__btnValiderSoft.place_forget()
+                self.__btnAddSoft.place(relx=0.5, y=200, anchor="n")
+                self.__btnSupprSoft.place(relx=0.5, y=275, anchor="n")
+                self.__menuSupprSoft.place_forget()
+                self.__menuChoixSoft.place_forget()
+                self.__entryNameSoft.place_forget()
+            case 2 :
+                self.__labelTitreSoftware.configure(text="Ajout de logiciel")
+                self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
+                self.__btnValiderSoft.place(relx=1, rely=1, anchor='se')
+                self.__btnAddSoft.place_forget()
+                self.__btnSupprSoft.place_forget()
+                self.__menuSupprSoft.place_forget()
+                self.__menuChoixSoft.place(x=0,y=100)
+                self.__entryNameSoft.place(relx=0.5, rely=0.5, anchor="center")
+            case 3 :
+                print(self.__gazelle.getListSoft())
 
 
