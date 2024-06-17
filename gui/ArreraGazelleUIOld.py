@@ -176,7 +176,7 @@ class CArreraGazelleUI :
         self.__boutonMenu[6].place(relx=0.2,y=350)
         self.__boutonMenu[7].place(relx=0.2,y=400)
         self.__boutonMenu[8].place(relx=0.2,y=450)
-        self.__boutonMenu[9].place(relx=0.2,y=500)
+        self.__boutonMenu[9].place(relx=0.5, rely=1.0, anchor="s")
 
         self.__labelcadresPresentations[0].place(relx=0.5, rely=0.0, anchor="n")
         self.__labelcadresPresentations[1].place(relx=0.5, rely=0.0, anchor="n")
