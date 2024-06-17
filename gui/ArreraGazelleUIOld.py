@@ -249,6 +249,12 @@ class CArreraGazelleUI :
 
         self.__btnvaliderMoteur.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
         self.__labelTitreRecherche.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+
+        self.__labelTitreSoftware.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAnnulerSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnValiderSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnAddSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
+        self.__btnSupprSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
             
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
