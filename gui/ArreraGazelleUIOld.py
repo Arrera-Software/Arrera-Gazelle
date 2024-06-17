@@ -189,6 +189,7 @@ class CArreraGazelleUI :
         self.__varGenre.set(listGenre[0])
         self.__varChoixLieu.set(listChoixLieu[0])
         self.__varMoteurRecherce.set(listMoteur[0])
+        self.__varChoixSoft.set(listTypeSoft[0])
             
         
     def active(self,darkMode:bool):
@@ -561,7 +562,75 @@ class CArreraGazelleUI :
                 self.__menuSupprSoft.place_forget()
                 self.__menuChoixSoft.place(x=0,y=100)
                 self.__entryNameSoft.place(relx=0.5, rely=0.5, anchor="center")
+                self.__btnValiderSoft.configure(command=lambda : self.__validerSoft(1))
             case 3 :
-                print(self.__gazelle.getListSoft())
+                listSoft = self.__gazelle.getListSoft()
+                if (len(listSoft)==0):
+                    showerror("Parametre","Impossible de supprimer des logiciel avant d'en ajouter")
+                else :
+                    self.__menuSupprSoft = OptionMenu(self.__cadreSoft,self.__varSupprSoft,*listSoft)
+                    self.__varSupprSoft.set(listSoft[0])
 
-
+                    self.__labelTitreSoftware.configure(text="Suppression de logiciel")
+                    self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
+                    self.__btnValiderSoft.place(relx=1, rely=1, anchor='se')
+                    self.__btnAddSoft.place_forget()
+                    self.__btnSupprSoft.place_forget()
+                    self.__menuSupprSoft.place(relx=0.5, rely=0.5, anchor="center")
+                    self.__menuChoixSoft.place_forget()
+                    self.__entryNameSoft.place_forget()
+                    self.__btnValiderSoft.configure(command=lambda : self.__validerSoft(2))
+    
+    def __validerSoft(self,mode:int):
+        """
+        1 : add 
+        2 : suppr
+        """
+        match mode :
+            case 1 :
+                type = self.__varChoixSoft.get()
+                if( type == "Autre") :
+                    nameSoft = self.__entryNameSoft.get()
+                    self.__gazelle.addSoft(1,nameSoft,"")
+                else : 
+                    if (type=="Traitement de texte"):
+                        self.__gazelle.addSoft(2,"","")
+                    else :
+                        if (type=="Tableur"):
+                            self.__gazelle.addSoft(3,"","")
+                        else :
+                            if (type=="Presentation"):
+                                self.__gazelle.addSoft(4,"","")
+                            else : 
+                                if (type=="Navigateur Internet"):
+                                    self.__gazelle.addSoft(5,"","")
+                                else :
+                                    if (type=="Note"):
+                                        self.__gazelle.addSoft(7,"","")
+                                    else :
+                                        if (type=="Musique"):
+                                            self.__gazelle.addSoft(6,"","")
+                self.__entryNameSoft.delete(0,END)
+                self.__affichageCadreSoft(1)
+            case 2 :
+                soft = self.__varSupprSoft.get()
+                if (soft=="Traitement de texte"):
+                    self.__gazelle.supprSoft(2,"")
+                else :
+                    if (soft=="Tableur"):
+                        self.__gazelle.supprSoft(3,"")
+                    else :
+                        if (soft=="Presentation"):
+                            self.__gazelle.supprSoft(4,"")
+                        else :
+                            if (soft=="Navigateur internet"):
+                                self.__gazelle.supprSoft(5,"")
+                            else :
+                                if (soft=="Note"):
+                                    self.__gazelle.supprSoft(7,"")
+                                else :
+                                    if (soft=="Musique"):
+                                        self.__gazelle.supprSoft(6,"")
+                                    else :
+                                        self.__gazelle.supprSoft(1,soft)
+                self.__affichageCadreSoft(1)
