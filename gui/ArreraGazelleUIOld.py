@@ -92,7 +92,7 @@ class CArreraGazelleUI :
         self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"),command=lambda :self.__showInternetFrame(3))
         #5
         self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*listeTheme)
-        self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"))
+        self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"),command=lambda : self.__validerTheme(2))
 
         # Cadre User 
         self.__labelTitreUser = Label(self.__cadreUser,font=("arial","20"))
@@ -156,7 +156,7 @@ class CArreraGazelleUI :
         # Cardre theme 
         self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme\nde l'interface",font=("arial","20"))
         self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*listeTheme)
-        self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=self.__validerTheme)
+        self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=lambda : self.__validerTheme(1))
         # Cadre Micro
         self.__labelTitreMicro = Label(self.__cadreMicro,text="Sons au declanchement\ndu micro",font=("arial","20"))
         self.__menuChoixMicro = OptionMenu(self.__cadreMicro,self.__varChoixMicro,*self.__listChoixMicro)
@@ -891,8 +891,16 @@ class CArreraGazelleUI :
                 showinfo("Parametre","Site supprimer")
                 self.__affichageCadreSite(1)  
     
-    def __validerTheme(self):
-        theme = self.__varChoixTheme.get()
+    def __validerTheme(self,mode:int):
+        """
+        1 : Page 
+        2 : Acceuil
+        """
+        match mode :
+            case 1 :
+                theme = self.__varChoixTheme.get()
+            case 2 :
+                theme = self.__varTheme.get()
         self.__gazelle.changeTheme(theme)
         showinfo("Parametre","Theme changer")
         self.__backAcceuil()
