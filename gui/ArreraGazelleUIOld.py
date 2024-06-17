@@ -68,7 +68,7 @@ class CArreraGazelleUI :
         self.__boutonMenu = [Button(self.__cadreMenu,font=("arial","15"),text="Acceuil",command=self.__backAcceuil),
                         Button(self.__cadreMenu,font=("arial","15"),text="Utilisateur",command=self.__showUserFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=lambda : self.__showMeteoFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=self.__showGPSFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=lambda : self.__showGPSFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Software",command=self.__showSoftFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=self.__showInternetFrame),
@@ -83,8 +83,8 @@ class CArreraGazelleUI :
         #1
         self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),command = lambda : self.__showMeteoFrame(2))
         #2
-        self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"))
-        self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"))
+        self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),command=lambda : self.__showGPSFrame(2))
+        self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),command=lambda : self.__showGPSFrame(3))
         #3
         self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"))
         #4
@@ -348,10 +348,21 @@ class CArreraGazelleUI :
             case 2 :
                 self.__affichageCadreMeteo(3)
     
-    def __showGPSFrame(self):
+    def __showGPSFrame(self,mode:int):
+        """
+        1 : Normal
+        2 : Domicile direct
+        3 : Work direct
+        """
         self.__disableAllFrame()
         self.__cadreGPS.pack(side="right")
-        self.__affichageCadreGPS(1)
+        match mode :
+            case 1 :
+                self.__affichageCadreGPS(1)
+            case 2 :
+                self.__affichageCadreGPS(2)
+            case 3 :
+                self.__affichageCadreGPS(3)
 
     def __showRechercheFrame(self):
         self.__disableAllFrame()
