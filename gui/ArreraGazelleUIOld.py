@@ -67,7 +67,7 @@ class CArreraGazelleUI :
         
         self.__boutonMenu = [Button(self.__cadreMenu,font=("arial","15"),text="Acceuil",command=self.__backAcceuil),
                         Button(self.__cadreMenu,font=("arial","15"),text="Utilisateur",command=self.__showUserFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=self.__showMeteoFrame),
+                        Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=lambda : self.__showMeteoFrame(1)),
                         Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=self.__showGPSFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
                         Button(self.__cadreMenu,font=("arial","15"),text="Software",command=self.__showSoftFrame),
@@ -81,7 +81,7 @@ class CArreraGazelleUI :
         self.__menuRecherche1 = OptionMenu(self.__cadresPresentations[0],self.__varRecherche,*listMoteur)
         self.__btnValiderMoteur1 = Button(self.__cadresPresentations[0],text="Valider",font=("arial","13"))
         #1
-        self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"))
+        self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),command = lambda : self.__showMeteoFrame(2))
         #2
         self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"))
         self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"))
@@ -335,10 +335,18 @@ class CArreraGazelleUI :
         self.__cadreUser.pack(side="right")
         self.__affichageCadreUser(1)
     
-    def __showMeteoFrame(self):
+    def __showMeteoFrame(self,mode:int):
+        """
+        1 : Normal
+        2 : add direct
+        """
         self.__disableAllFrame()
         self.__cadreMeteo.pack(side="right")
-        self.__affichageCadreMeteo(1)
+        match mode :
+            case 1 :
+                self.__affichageCadreMeteo(1)
+            case 2 :
+                self.__affichageCadreMeteo(3)
     
     def __showGPSFrame(self):
         self.__disableAllFrame()
