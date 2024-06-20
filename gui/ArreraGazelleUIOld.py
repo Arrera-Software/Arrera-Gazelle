@@ -309,10 +309,14 @@ class CArreraGazelleUIOld :
         self.__cadreMenu.pack(side="left")
     
     def passQuitFnc(self,quitFNC):
-        self.__boutonMenu[9].configure(command=quitFNC)
+        self.__boutonMenu[9].configure(command=lambda : self.__fncQuit(quitFNC) )
         self.__boutonMenu[9].place(relx=0.5, rely=1.0, anchor="s")
-
     
+    def __fncQuit(self,quitFnc):
+        self.__disableAllFrame()
+        self.__cadreMenu.pack_forget()
+        quitFnc()
+
     def __backAcceuil(self):
         self.__cadreAcceuil.pack(side="right")
         self.__cadreUser.pack_forget()
