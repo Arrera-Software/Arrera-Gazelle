@@ -101,7 +101,7 @@ class CArreraGazelle :
             else :
                 return False
     
-    def addSoft(self,mode:int,name:str,command:str):
+    def addSoft(self,mode:int,name:str):
         """
         1 : Normal 
         2 : Traitement de texte
@@ -115,6 +115,23 @@ class CArreraGazelle :
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
         
         if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+            reponse = messagebox.askquestion(
+                "Choix repertoire",
+                "Le programme se trouve-t-il dans votre répertoire /home ?",
+                icon="question"
+            )
+            if reponse == "yes":
+                command = filedialog.askopenfilename(
+                    title="Sélectionner un programme",
+                    initialdir=os.path.expanduser("~"),  # Définit le répertoire initial sur le home de l'utilisateur
+                    filetypes=[("Tous les fichiers", "*")]
+                )
+            else:
+                command = filedialog.askopenfilename(
+                    title="Selectionner un programme",
+                    initialdir="/bin",
+                    filetypes=[("Tous les fichiers", "*")])
+
             if (command==""):
                 return False
             else :
@@ -122,7 +139,6 @@ class CArreraGazelle :
                     case 1 : # Normal 
                         if (name!=""):
                             self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux",name,command)
-                            self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))+1))
                             return True
                     case 2 : # Traitement de texte
                         self.__fileJsonUser.EcritureJSON("wordLinux",command)
@@ -152,7 +168,6 @@ class CArreraGazelle :
                             sortie = self.__softWin.saveSoftware()
                             if (sortie == True) :
                                 self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows",name,self.__softWin.getName())
-                                self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))+1))
                                 return True
                             else :
                                 return False
