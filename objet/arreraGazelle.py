@@ -9,8 +9,11 @@ class CArreraGazelle :
         self.__fileJsonNeuronNetwork = jsonWork(emplacementJsonNeuronNetwork)
         self.__fileJsonAssistant = jsonWork(emplacementJsonAssistant)
         # Objet 
-        self.__objOS = OS()
-        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+        objOS = OS()
+        self.__windowsOS = objOS.osWindows()
+        self.__linuxOS = objOS.osLinux()
+
+        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
             self.__softWin = gestionSoftWindows(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows"))
     
     def changeUserName(self,newName:str):
@@ -111,10 +114,10 @@ class CArreraGazelle :
         6 : Musique
         7 : note
         """
-        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
+        if ((self.__linuxOS==False)and(self.__windowsOS==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
         
-        if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+        if ((self.__linuxOS==True)and(self.__windowsOS==False)):
             reponse = messagebox.askquestion(
                 "Choix repertoire",
                 "Le programme se trouve-t-il dans votre répertoire /home ?",
@@ -160,7 +163,7 @@ class CArreraGazelle :
                         return True
         else :
                 
-            if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+            if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                 match mode :
                     case 1 : # Normal 
                         if (name!=""):
@@ -233,10 +236,10 @@ class CArreraGazelle :
         7 : note
         """
         # Creation listFlag 
-        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
             listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
         else : 
-            if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+            if ((self.__linuxOS==True)and(self.__windowsOS==False)):
                 listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
             else :
                 return False
@@ -244,47 +247,47 @@ class CArreraGazelle :
             case 1 : # Normal 
                 self.__fileJsonUser.supprJSONList(listFlag[0],name)
                 self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))-1))
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft(name)
                 return True
             case 2 : # Traitement de texte
                 self.__fileJsonUser.suppressionJson(listFlag[1])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("ttexte")
                 return True
             case 3 : # Tableur
                 self.__fileJsonUser.suppressionJson(listFlag[2])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("tableur")
                 return True
             case 4 : # Presentation 
                 self.__fileJsonUser.suppressionJson(listFlag[3])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("presentation")
                 return True
             case 5 : # Navigateur 
                 self.__fileJsonUser.suppressionJson(listFlag[4])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("browser")
                 return True
             case 6 : # Musique 
                 self.__fileJsonUser.suppressionJson(listFlag[6])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("note")
                 return True
             case 7 : # Musique 
                 self.__fileJsonUser.suppressionJson(listFlag[5])
-                if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("musique")
                 return True
         
     def getListSoft(self):
         listSortie = []
         # Creation listFlag 
-        if ((self.__objOS.osLinux()==False)and(self.__objOS.osWindows()==True)):
+        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
             listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
         else : 
-            if ((self.__objOS.osLinux()==True)and(self.__objOS.osWindows()==False)):
+            if ((self.__linuxOS==True)and(self.__windowsOS==False)):
                 listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
             else :
                 return ["error","error"]
@@ -386,12 +389,10 @@ class CArreraGazelle :
             return False
     
     def getOS(self):
-        linux = self.__objOS.osLinux()
-        windows = self.__objOS.osWindows()
-        if ((linux==True)and (windows==False)):
+        if ((self.__linuxOS==True) and (self.__windowsOS==False)):
             return "linux"
         else :
-            if ((linux==False)and (windows==True)):
+            if ((self.__linuxOS==False) and (self.__windowsOS==True)):
                 return "windows"
             else :
                 return "other"
