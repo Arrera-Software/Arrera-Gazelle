@@ -1,10 +1,10 @@
-from tkinter import*
+from librairy.arrera_tk import *
 from objet.arreraGazelle import*
 from tkinter.messagebox import*
 from typing import Union
 
 class CArreraGazelleUIRyleyCopilote :
-    def __init__(self,windows:Union[Tk,Toplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
+    def __init__(self,atk:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
         jsonSetting = jsonWork(emplacementConfigSetting)
@@ -15,6 +15,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__secondColorTexte = [jsonSetting.lectureJSON("textColorLight2"),jsonSetting.lectureJSON("textColorDark2")]
         # Mise de la fenetre dans un atribut
         self.__windows = windows
+        self.__arrTK = atk
         # Varriable
         self.__varRecherche = StringVar(self.__windows)
         self.__varMoteurRecherce = StringVar(self.__windows)
@@ -36,16 +37,16 @@ class CArreraGazelleUIRyleyCopilote :
         listChoixSite = ["Autre","Cloud"]
         self.__listChoixMicro = ["ON","OFF"]
         # Creation des Frame
-        self.__cadreMenu = Frame(self.__windows,width=150,height=600)
-        self.__cadreAcceuil = Frame(self.__windows,width=350,height=600)
-        self.__cadreUser = Frame(self.__windows,width=350,height=600)
-        self.__cadreMeteo = Frame(self.__windows,width=350,height=600)
-        self.__cadreGPS = Frame(self.__windows,width=350,height=600)
-        self.__cadreRecherche = Frame(self.__windows,width=350,height=600)
-        self.__cadreSoft = Frame(self.__windows,width=350,height=600)
-        self.__cadreInternet = Frame(self.__windows,width=350,height=600)
-        self.__cadreTheme = Frame(self.__windows,width=350,height=600)
-        self.__cadreMicro = Frame(self.__windows,width=350,height=600)
+        self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=600)
+        self.__cadreAcceuil = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=600)
 
         #cadre interne a l'acceuil
         self.__cadresPresentations = [
