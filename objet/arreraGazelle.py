@@ -405,3 +405,11 @@ class CArreraGazelle :
             return True
         else :
             return False
+
+    def setVideoDownloadFolder(self):
+        folder = filedialog.askdirectory(title="Choisir un dossier pour Arrera Video Download")
+        if folder :
+            self.__fileJsonAssistant.EcritureJSON("videoDownloadFolder",folder)
+            return True
+        else :
+            return False
