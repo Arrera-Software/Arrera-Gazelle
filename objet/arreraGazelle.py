@@ -396,3 +396,12 @@ class CArreraGazelle :
                 return "windows"
             else :
                 return "other"
+
+
+    def setWorkFolder(self):
+        folder = filedialog.askdirectory(title="Choisir un dossier de travail")
+        if folder :
+            self.__fileJsonAssistant.EcritureJSON("wordFolder",folder)
+            return True
+        else :
+            return False
