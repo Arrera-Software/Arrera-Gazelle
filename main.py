@@ -5,15 +5,17 @@ def quit(windows):
     windows.destroy()
 
 def main():
-    windows = Tk()
+    arrtk = CArreraTK()
+    windows = arrtk.aTK()
     mode = int(input("1. Ryley/Copilote \n2. Six \n# "))
     match mode :
         case 1 :
-            gui = CArreraGazelleUIRyleyCopilote(windows, "FileJSON/configUser.json",
-                                    "FileJSON/configNeuron.json",
-                                    "FileJSON/sixConfig.json",
-                                    "FileJSON/configOldSetting.json")
-            gui.passQuitFnc(quit)
+            gui = CArreraGazelleUIRyleyCopilote(arrtk,windows,
+                                                "FileJSON/configUser.json",
+                                                "FileJSON/configNeuron.json",
+                                                "FileJSON/sixConfig.json",
+                                                "FileJSON/configOldSetting.json")
+            gui.passQuitFnc(lambda : quit(windows))
         case 2 :
             gui = CArreraGazelleUISix(windows, "FileJSON/configUser.json",
                                     "FileJSON/configNeuron.json",
@@ -25,13 +27,7 @@ def main():
             print("Invalid input")
             return
 
-    mode = int(input("1 : Dark \n2 : Light \n# "))
-
-    match mode :
-        case 1 :
-            gui.active(True)
-        case 2 :
-            gui.active(False)
+    gui.active()
 
     windows.mainloop()
 
