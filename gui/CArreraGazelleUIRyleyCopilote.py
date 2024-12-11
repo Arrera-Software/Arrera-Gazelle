@@ -100,7 +100,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser,police="Arial",taille=20)
         self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
         self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
-        self.__menuGenre = OptionMenu(self.__cadreUser,self.__varGenre,*listGenre)
+        self.__menuGenre = self.__arrTK.createOptionMenu(self.__cadreUser,var=self.__varGenre,value=listGenre)
         self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,police="Arial",taille=15)
         self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Valider")
         self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Annuler",command=lambda : self.__affichageCadreUser(1))
@@ -129,35 +129,34 @@ class CArreraGazelleUIRyleyCopilote :
         self.__menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
         self.__btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider",police="Arial",taille=15,command=lambda : self.__validerMoteur(1))
         # Cadre Software 
-        self.__labelTitreSoftware = Label(self.__cadreSoft,font=("arial","20"))
-        self.__btnAnnulerSoft = Button(self.__cadreSoft,text="Annuler",font=("arial","15"),command=lambda:self.__affichageCadreSoft(1))
-        self.__btnValiderSoft = Button(self.__cadreSoft,text="Valider",font=("arial","15"))
-        self.__btnAddSoft=Button(self.__cadreSoft,text="Ajouter un logiciel",font=("arial","15"),command=lambda:self.__affichageCadreSoft(2)) 
-        self.__btnSupprSoft=Button(self.__cadreSoft,text="Supprimer un logiciel",font=("arial","15"),command=lambda:self.__affichageCadreSoft(3))
-        self.__menuSupprSoft = OptionMenu(self.__cadreSoft,self.__varSupprSoft,*listTypeSoft)
-        self.__menuChoixSoft  = OptionMenu(self.__cadreSoft,self.__varChoixSoft,*listTypeSoft)
-        self.__entryNameSoft = Entry(self.__cadreSoft,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft,police="Arial",taille=20)
+        self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",police="Arial",taille=15,command=lambda:self.__affichageCadreSoft(1))
+        self.__btnValiderSoft = self.__arrTK.createButton(self.__cadreSoft,text="Valider",police="Arial",taille=15)
+        self.__btnAddSoft = self.__arrTK.createButton(self.__cadreSoft,text="Ajouter un logiciel",police="Arial",taille=15,command=lambda:self.__affichageCadreSoft(2))
+        self.__btnSupprSoft= self.__arrTK.createButton(self.__cadreSoft,text="Supprimer un logiciel",police="Arial",taille=15,command=lambda:self.__affichageCadreSoft(3))
+        self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = listTypeSoft)
+        self.__menuChoixSoft  = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varChoixSoft,value = listTypeSoft)
+        self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,police="Arial",taille=15)
         # Cadre Internet
-        self.__labelTitreInternet = Label(self.__cadreInternet,font=("arial","20"))
-        self.__btnAddSite = Button(self.__cadreInternet,text="Enregister un site",font=("arial","15"),command=lambda : self.__affichageCadreSite(2)) 
-        self.__btnSupprSite = Button(self.__cadreInternet,text="Supprimer un site",font=("arial","15"),command=lambda : self.__affichageCadreSite(3)) 
-        self.__btnAnnulerInternet = Button(self.__cadreInternet,text="Annuler",font=("arial","15"),command=lambda : self.__affichageCadreSite(1))
-        self.__btnValiderInternet = Button(self.__cadreInternet,text="Valider",font=("arial","15"))
-        self.__entryNameSite = Entry(self.__cadreInternet,font=("arial","15"),borderwidth=2,relief="solid")
-        self.__entryLinkSite = Entry(self.__cadreInternet,font=("arial","15"),borderwidth=2,relief="solid")
-        self.__menuChoixSite =  OptionMenu(self.__cadreInternet,self.__varChoixSite,*listChoixSite)
-        self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listChoixSite)
+        self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreInternet,police="Arial",taille=20)
+        self.__btnAddSite = self.__arrTK.createButton(self.__cadreInternet,text="Enregister un site",police="Arial",taille=15,command=lambda : self.__affichageCadreSite(2))
+        self.__btnSupprSite = self.__arrTK.createButton(self.__cadreInternet,text="Supprimer un site",police="Arial",taille=15,command=lambda : self.__affichageCadreSite(3))
+        self.__btnAnnulerInternet = self.__arrTK.createButton(self.__cadreInternet,text="Annuler",police="Arial",taille=15,command=lambda : self.__affichageCadreSite(1))
+        self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreInternet,text="Valider",police="Arial",taille=15)
+        self.__entryNameSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=15)
+        self.__entryLinkSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=15)
+        self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
+        self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varSupprSite,value=listChoixSite)
         # Cardre theme 
-        self.__labelTitreTheme = Label(self.__cadreTheme,text="Choix du theme\nde l'interface",font=("arial","20"))
-        self.__menuChoixTheme = OptionMenu(self.__cadreTheme,self.__varChoixTheme,*listeTheme)
-        self.__btnValiderTheme = Button (self.__cadreTheme,text="Valider",font=("arial","15"),command=lambda : self.__validerTheme(1))
+        self.__labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme,text="Choix du theme\nde l'interface",police="Arial",taille=20)
+        self.__menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
+        self.__btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",police="Arial",taille=15,command=lambda : self.__validerTheme(1))
         # Cadre Micro
-        self.__labelTitreMicro = Label(self.__cadreMicro,text="Sons au declanchement\ndu micro",font=("arial","20"))
-        self.__menuChoixMicro = OptionMenu(self.__cadreMicro,self.__varChoixMicro,*self.__listChoixMicro)
-        self.__btnValiderMicro = Button (self.__cadreMicro,text="Valider",font=("arial","15"),command=self.__validerMicro)
+        self.__labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au declanchement\ndu micro",police="Arial",taille=20)
+        self.__menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,var = self.__varChoixMicro,value=self.__listChoixMicro)
+        self.__btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider",police="Arial",taille=15,command=self.__validerMicro)
 
-
-        self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreMenu)
 
         # Placement widget
         # Cadre acceuil
@@ -169,7 +168,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadresPresentations[5].place(x=180, y=400)
 
         for i in range(0,5):
-            self.__labelcadresPresentations[i].place(relx=0.5, rely=0.0, anchor="n")
+            self.__arrTK.placeTopCenter(self.__labelcadresPresentations[i])
         
         self.__boutonMenu[0].place(relx=0.2,y=50)
         self.__boutonMenu[1].place(relx=0.2,y=100)
@@ -201,37 +200,28 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeCenter(self.__menuTheme1)
         self.__arrTK.placeBottomCenter(self.__btnValiderTheme1)
 
-        self.__labelTitreUser.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
-        self.__labelTitreMeteo.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreMeteo)
 
-        self.__labelTitreGPS.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreGPS)
 
-        self.__labelTitreRecherche.place(relx=0.5, rely=0.0, anchor="n")
-        self.__menuMoteurRecherche.place(relx=0.5, rely=0.5, anchor="center")
-        self.__btnvaliderMoteur.place(relx=0.5, rely=1.0, anchor="s")  
+        self.__arrTK.placeTopCenter(self.__labelTitreRecherche)
+        self.__arrTK.placeCenter(self.__menuMoteurRecherche)
+        self.__arrTK.placeBottomCenter(self.__btnvaliderMoteur)
 
-        self.__labelTitreSoftware.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreSoftware)
 
-        self.__labelTitreInternet.place(relx=0.5, rely=0.0, anchor="n")
+        self.__arrTK.placeTopCenter(self.__labelTitreInternet)
 
-        self.__labelTitreTheme.place(relx=0.5, rely=0.0, anchor="n")
-        self.__menuChoixTheme.place(relx=0.5, rely=0.5, anchor="center")
-        self.__btnValiderTheme.place(relx=0.5, rely=1.0, anchor="s")  
+        self.__arrTK.placeTopCenter(self.__labelTitreTheme)
+        self.__arrTK.placeCenter(self.__menuChoixTheme)
+        self.__arrTK.placeBottomCenter(self.__btnValiderTheme)
 
-        self.__labelTitreMicro.place(relx=0.5, rely=0.0, anchor="n")
-        self.__menuChoixMicro.place(relx=0.5, rely=0.5, anchor="center")
-        self.__btnValiderMicro.place(relx=0.5, rely=1.0, anchor="s")  
-        
-        # Mise en place des valeur sur les menu 
-        self.__varRecherche.set(listMoteur[0])
-        self.__varTheme.set(listeTheme[0])
-        self.__varGenre.set(listGenre[0])
-        self.__varChoixLieu.set(listChoixLieu[0])
-        self.__varMoteurRecherce.set(listMoteur[0])
-        self.__varChoixSoft.set(listTypeSoft[0])
-        self.__varChoixSite.set(listChoixSite[0])
-        self.__varChoixTheme.set(listeTheme[0])
+        self.__arrTK.placeTopCenter(self.__labelTitreMicro)
+        self.__arrTK.placeCenter(self.__menuChoixMicro)
+        self.__arrTK.placeBottomCenter(self.__btnValiderMicro)
+
             
         
     def active(self):
@@ -463,7 +453,7 @@ class CArreraGazelleUIRyleyCopilote :
                 if (nbVille == 0 ) :
                     showerror("Parametre","Aucun lieu enregister")
                 else :
-                    self.__menuSupprLieu = OptionMenu(self.__cadreMeteo,self.__varSupprLieu,*listeVille)
+                    self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var = self.__varSupprLieu,value=listeVille)
                     self.__labelTitreMeteo.configure(text="Supprimer un lieu")
                     self.__btnListMeteo.place_forget()
                     self.__btnAddVille.place_forget()
@@ -617,7 +607,7 @@ class CArreraGazelleUIRyleyCopilote :
                 if (len(listSoft)==0):
                     showerror("Parametre","Impossible de supprimer des logiciel avant d'en ajouter")
                 else :
-                    self.__menuSupprSoft = OptionMenu(self.__cadreSoft,self.__varSupprSoft,*listSoft)
+                    self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var=self.__varSupprSoft,value=listSoft)
                     self.__varSupprSoft.set(listSoft[0])
 
                     self.__labelTitreSoftware.configure(text="Suppression de logiciel")
@@ -783,7 +773,7 @@ class CArreraGazelleUIRyleyCopilote :
                 if (len(listSite)==0):
                     showerror("Parametre","Aucun site enregistrer")
                 else :
-                    self.__menuSupprSite =  OptionMenu(self.__cadreInternet,self.__varSupprSite,*listSite)
+                    self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var=self.__varSupprSite,value=listSite)
                     self.__labelTitreInternet.configure(text="Enregistrement d'un site")
                     self.__btnAddSite.place_forget()
                     self.__btnSupprSite.place_forget()
