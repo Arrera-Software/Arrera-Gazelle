@@ -270,7 +270,7 @@ class CArreraTK :
             canvas.create_image(0, 0, image=photo, anchor="nw")
         return canvas
 
-    def createFrame(self, screen,width : int = 0 ,height : int = 0,  bg : str = ""):
+    def createFrame(self, screen,width : int = 0 ,height : int = 0,  bg : str = "",wightBoder : int = 0):
         if (self.__mode == 0):
             frame = ctk.CTkFrame(screen)
             if (width != 0):
@@ -281,6 +281,8 @@ class CArreraTK :
                 frame.configure(bg_color=bg)
             else:
                 frame.configure(bg_color=self.__windowsColor)
+            if (wightBoder != 0):
+                frame.configure(border_width=wightBoder)
             frame.update()
         else :
             frame = Frame(screen)
@@ -290,6 +292,8 @@ class CArreraTK :
                 frame.configure(height=height)
             if (bg != ""):
                 frame.configure(bg=bg)
+            if (wightBoder != 0):
+                frame.configure(borderwidth=wightBoder,relief="solid")
         return frame
 
     def createOptionMenu(self,screen,value: list, var:StringVar,taille : int = 0, police :str = "" ):
