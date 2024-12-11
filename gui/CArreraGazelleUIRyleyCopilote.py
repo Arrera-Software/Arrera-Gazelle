@@ -50,50 +50,51 @@ class CArreraGazelleUIRyleyCopilote :
 
         #cadre interne a l'acceuil
         self.__cadresPresentations = [
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid"),
-            Frame(self.__cadreAcceuil,width=175,height=200,borderwidth=1, relief="solid")]
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1)]
         #Widget
-        self.__labelTitreMenu = Label(self.__cadreMenu,text="Menu",font=("arial","20"))
+        self.__labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu,text="Menu",police="arial",taille=20)
         self.__labelcadresPresentations = [
-            Label(self.__cadresPresentations[0],text="Gestion recherche",font=("arial","13")),
-            Label(self.__cadresPresentations[1],text="Gestion meteo",font=("arial","13")),
-            Label(self.__cadresPresentations[2],text="Gestion GPS",font=("arial","13")),
-            Label(self.__cadresPresentations[3],text="Gestion software",font=("arial","13")),
-            Label(self.__cadresPresentations[4],text="Gestion Site internet",font=("arial","13")),
-            Label(self.__cadresPresentations[5],text="Gestion theme",font=("arial","13"))]
+            self.__arrTK.createLabel(self.__cadresPresentations[0],text="Gestion recherche",police="Arial",taille=13),
+            self.__arrTK.createLabel(self.__cadresPresentations[1],text="Gestion meteo",police="Arial",taille=13),
+            self.__arrTK.createLabel(self.__cadresPresentations[2],text="Gestion GPS",police="Arial",taille=13),
+            self.__arrTK.createLabel(self.__cadresPresentations[3],text="Gestion software",police="Arial",taille=13),
+            self.__arrTK.createLabel(self.__cadresPresentations[4],text="Gestion Site internet",police="Arial",taille=13),
+            self.__arrTK.createLabel(self.__cadresPresentations[5],text="Gestion theme",police="Arial",taille=13)]
         
-        self.__boutonMenu = [Button(self.__cadreMenu,font=("arial","15"),text="Acceuil",command=self.__backAcceuil),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Utilisateur",command=self.__showUserFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Meteo",command=lambda : self.__showMeteoFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="GPS",command=lambda : self.__showGPSFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Recherche",command=self.__showRechercheFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Software",command=lambda : self.__showSoftFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Site Web",command=lambda :self.__showInternetFrame(1)),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Theme",command=self.__showThemeFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Micro",command=self.__showMicroFrame),
-                        Button(self.__cadreMenu,font=("arial","15"),text="Quitter")]
+        self.__boutonMenu = [
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Acceuil",command=self.__backAcceuil),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Utilisateur",command=self.__showUserFrame),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Meteo",command=lambda : self.__showMeteoFrame(1)),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="GPS",command=lambda : self.__showGPSFrame(1)),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Recherche",command=self.__showRechercheFrame),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Software",command=lambda : self.__showSoftFrame(1)),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Site Web",command=lambda :self.__showInternetFrame(1)),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Theme",command=self.__showThemeFrame),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Micro",command=self.__showMicroFrame),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Quitter")]
         
         #cadresPresentations
         #0
-        self.__menuRecherche1 = OptionMenu(self.__cadresPresentations[0],self.__varRecherche,*listMoteur)
-        self.__btnValiderMoteur1 = Button(self.__cadresPresentations[0],text="Valider",font=("arial","13"),command=lambda : self.__validerMoteur(2))
+        self.__menuRecherche1 = self.__arrTK.createOptionMenu(self.__cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
+        self.__btnValiderMoteur1 = self.__arrTK.createButton(self.__cadresPresentations[0],text="Valider",police = "arial" , taille = 13 ,command=lambda : self.__validerMoteur(2))
         #1
-        self.__btnMeteo1 = Button(self.__cadresPresentations[1],text="Ajouter\nune ville",font=("arial","13"),command = lambda : self.__showMeteoFrame(2))
+        self.__btnMeteo1 = self.__arrTK.createButton(self.__cadresPresentations[1],text="Ajouter\nune ville",police = "arial" , taille = 13 ,command = lambda : self.__showMeteoFrame(2))
         #2
-        self.__btnGPSHome = Button(self.__cadresPresentations[2],text="Adresse\nde domicile",font=("arial","13"),command=lambda : self.__showGPSFrame(2))
-        self.__btnGPSWork = Button(self.__cadresPresentations[2],text="Adresse\nde travail",font=("arial","13"),command=lambda : self.__showGPSFrame(3))
+        self.__btnGPSHome = self.__arrTK.createButton(self.__cadresPresentations[2],text="Adresse\nde domicile",police = "arial" , taille = 13 ,command=lambda : self.__showGPSFrame(2))
+        self.__btnGPSWork = self.__arrTK.createButton(self.__cadresPresentations[2],text="Adresse\nde travail",police = "arial" , taille = 13 ,command=lambda : self.__showGPSFrame(3))
         #3
-        self.__btnSoftware1 = Button(self.__cadresPresentations[3],text="Ajouter\nun logiciel",font=("arial","13"),command=lambda : self.__showSoftFrame(2))
+        self.__btnSoftware1 = self.__arrTK.createButton(self.__cadresPresentations[3],text="Ajouter\nun logiciel",police = "arial" , taille = 13 ,command=lambda : self.__showSoftFrame(2))
         #4
-        self.__buttonAddSite = Button(self.__cadresPresentations[4],text="Ajouter",font=("arial","13"),command=lambda :self.__showInternetFrame(2))
-        self.__buttonSupprSite = Button(self.__cadresPresentations[4],text="Supprimer",font=("arial","13"),command=lambda :self.__showInternetFrame(3))
+        self.__buttonAddSite = self.__arrTK.createButton(self.__cadresPresentations[4],text="Ajouter",police = "arial" , taille = 13 ,command=lambda :self.__showInternetFrame(2))
+        self.__buttonSupprSite = self.__arrTK.createButton(self.__cadresPresentations[4],text="Supprimer",police = "arial" , taille = 13 ,command=lambda :self.__showInternetFrame(3))
         #5
-        self.__menuTheme1 = OptionMenu(self.__cadresPresentations[5],self.__varTheme,*listeTheme)
-        self.__btnValiderTheme1 = Button(self.__cadresPresentations[5],text="Valider",font=("arial","13"),command=lambda : self.__validerTheme(2))
+        self.__menuTheme1 = self.__arrTK.createOptionMenu(self.__cadresPresentations[5],var=self.__varTheme,value=listeTheme)
+        self.__btnValiderTheme1 = self.__arrTK.createButton(self.__cadresPresentations[5],text="Valider",police = "arial" , taille = 13 ,command=lambda : self.__validerTheme(2))
 
         # Cadre User 
         self.__labelTitreUser = Label(self.__cadreUser,font=("arial","20"))
@@ -179,23 +180,24 @@ class CArreraGazelleUIRyleyCopilote :
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
             self.__boutonMenu[8].place(relx=0.2,y=450)
 
-        self.__labelcadresPresentations[0].place(relx=0.5, rely=0.0, anchor="n")
-        self.__labelcadresPresentations[1].place(relx=0.5, rely=0.0, anchor="n")
-        self.__labelcadresPresentations[2].place(relx=0.5, rely=0.0, anchor="n")
-        self.__labelcadresPresentations[3].place(relx=0.5, rely=0.0, anchor="n")
-        self.__labelcadresPresentations[4].place(relx=0.5, rely=0.0, anchor="n")
-        self.__labelcadresPresentations[5].place(relx=0.5, rely=0.0, anchor="n")
-        
-        self.__menuRecherche1.place(relx=0.5, rely=0.5, anchor="center")
-        self.__btnValiderMoteur1.place(relx=0.5, rely=1.0, anchor="s")
-        self.__btnMeteo1.place(relx=0.5, rely=0.5, anchor="center")
-        self.__btnGPSHome.place(relx=0.5, rely=1.0, anchor="s")
-        self.__btnGPSWork.place(relx=0.5,y=(self.__labelcadresPresentations[2].winfo_reqheight()+45), anchor="center")
-        self.__btnSoftware1.place(relx=0.5, rely=0.5, anchor="center")
-        self.__buttonSupprSite.place(relx=0.5, rely=0.5, anchor="center")
-        self.__buttonAddSite.place(relx=0.5,y=(self.__labelcadresPresentations[4].winfo_reqheight()+45), anchor="s")
-        self.__menuTheme1.place(relx=0.5,y=(self.__labelcadresPresentations[1].winfo_reqheight()+45), anchor="center")
-        self.__btnValiderTheme1.place(relx=0.5, rely=1.0, anchor="s")
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[0])
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[1])
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[2])
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[3])
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[4])
+        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[5])
+
+
+        self.__arrTK.placeCenter(self.__menuRecherche1)
+        self.__arrTK.placeBottomCenter(self.__btnValiderMoteur1)
+        self.__arrTK.placeCenter(self.__btnMeteo1)
+        self.__arrTK.placeCenter(self.__btnGPSHome)
+        self.__arrTK.placeBottomCenter(self.__btnGPSWork)
+        self.__arrTK.placeCenter(self.__btnSoftware1)
+        self.__arrTK.placeCenter(self.__buttonAddSite)
+        self.__arrTK.placeBottomCenter(self.__buttonSupprSite)
+        self.__arrTK.placeCenter(self.__menuTheme1)
+        self.__arrTK.placeBottomCenter(self.__btnValiderTheme1)
 
         self.__labelTitreUser.place(relx=0.5, rely=0.0, anchor="n")
 
@@ -230,82 +232,9 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixTheme.set(listeTheme[0])
             
         
-    def active(self,darkMode:bool):
-        if (darkMode == True) :
-            nb = 1
-        else : 
-            nb = 0 
-        self.__cadreMenu.configure(bg=self.__secondColor[nb])
-        self.__cadreAcceuil.configure(bg=self.__fristColor[nb])
-        self.__cadreUser.configure(bg=self.__fristColor[nb])
-        self.__cadreMeteo.configure(bg=self.__fristColor[nb])
-        self.__cadreGPS.configure(bg=self.__fristColor[nb])
-        self.__cadreRecherche.configure(bg=self.__fristColor[nb])
-        self.__cadreSoft.configure(bg=self.__fristColor[nb])
-        self.__cadreInternet.configure(bg=self.__fristColor[nb])
-        self.__cadreTheme.configure(bg=self.__fristColor[nb])
-        self.__cadreMicro.configure(bg=self.__fristColor[nb])
-        for i in range(0,6):
-            self.__labelcadresPresentations[i].configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-            self.__cadresPresentations[i].configure(bg=self.__fristColor[nb])
-        
-        for i in range(0,10):
-            self.__boutonMenu[i].configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreMenu.configure(bg=self.__secondColor[nb],fg=self.__secondColorTexte[nb])
-
-        self.__btnValiderMoteur1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnMeteo1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnGPSHome.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnGPSWork.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnSoftware1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__buttonSupprSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__buttonAddSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnValiderTheme1.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnPrenom.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnGenre.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnvaliderUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAnulerUser.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnListMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAddVille.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnSupprVille.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__labelListeMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnvaliderMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnannulerMeteo.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAdresseDomicile .configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAdresseWork .configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnvaliderGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnretourGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnsupprGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnentryGPS.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__btnvaliderMoteur.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__labelTitreRecherche.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreSoftware.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAnnulerSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnValiderSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAddSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnSupprSoft.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAddSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnSupprSite.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnAnnulerInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnValiderInternet.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreTheme.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnValiderTheme.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-
-        self.__labelTitreMicro.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        self.__btnValiderMicro.configure(bg=self.__fristColor[nb],fg=self.__fristColorTexte[nb])
-        
+    def active(self):
+        self.__arrTK.setResizable(False)
+        self.__arrTK.setGeometry(500,600)
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
     
