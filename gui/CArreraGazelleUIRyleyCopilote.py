@@ -67,16 +67,17 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createLabel(self.__cadresPresentations[5],text="Gestion theme",police="Arial",taille=13)]
         
         self.__boutonMenu = [
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Acceuil",command=self.__backAcceuil),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Utilisateur",command=self.__showUserFrame),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Meteo",command=lambda : self.__showMeteoFrame(1)),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="GPS",command=lambda : self.__showGPSFrame(1)),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Recherche",command=self.__showRechercheFrame),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Software",command=lambda : self.__showSoftFrame(1)),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Site Web",command=lambda :self.__showInternetFrame(1)),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Theme",command=self.__showThemeFrame),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Micro",command=self.__showMicroFrame),
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=15,text="Quitter")]
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Acceuil",command=self.__backAcceuil,width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Utilisateur",command=self.__showUserFrame,width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Meteo",command=lambda : self.__showMeteoFrame(1),width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="GPS",command=lambda : self.__showGPSFrame(1),width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Recherche",command=self.__showRechercheFrame,width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Software",command=lambda : self.__showSoftFrame(1),width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Site Web",command=lambda :self.__showInternetFrame(1),width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Theme",command=self.__showThemeFrame,width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Micro",command=self.__showMicroFrame,width=20),
+                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,text="Quitter",width=20)
+        ]
         
         #cadresPresentations
         #0
@@ -170,16 +171,16 @@ class CArreraGazelleUIRyleyCopilote :
         for i in range(0,5):
             self.__arrTK.placeTopCenter(self.__labelcadresPresentations[i])
         
-        self.__boutonMenu[0].place(relx=0.2,y=50)
-        self.__boutonMenu[1].place(relx=0.2,y=100)
-        self.__boutonMenu[2].place(relx=0.2,y=150)
-        self.__boutonMenu[3].place(relx=0.2,y=200)
-        self.__boutonMenu[4].place(relx=0.2,y=250)
-        self.__boutonMenu[5].place(relx=0.2,y=300)
-        self.__boutonMenu[6].place(relx=0.2,y=350)
-        self.__boutonMenu[7].place(relx=0.2,y=400)
+        self.__boutonMenu[0].place(relx=0.1,y=50)
+        self.__boutonMenu[1].place(relx=0.1,y=100)
+        self.__boutonMenu[2].place(relx=0.1,y=150)
+        self.__boutonMenu[3].place(relx=0.1,y=200)
+        self.__boutonMenu[4].place(relx=0.1,y=250)
+        self.__boutonMenu[5].place(relx=0.1,y=300)
+        self.__boutonMenu[6].place(relx=0.1,y=350)
+        self.__boutonMenu[7].place(relx=0.1,y=400)
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
-            self.__boutonMenu[8].place(relx=0.2,y=450)
+            self.__boutonMenu[8].place(relx=0.1,y=450)
 
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[0])
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[1])
