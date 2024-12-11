@@ -97,45 +97,37 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnValiderTheme1 = self.__arrTK.createButton(self.__cadresPresentations[5],text="Valider",police = "arial" , taille = 13 ,command=lambda : self.__validerTheme(2))
 
         # Cadre User 
-        self.__labelTitreUser = Label(self.__cadreUser,font=("arial","20"))
-        self.__btnPrenom = Button(self.__cadreUser,font=("arial","15"),text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
-        self.__btnGenre = Button(self.__cadreUser,font=("arial","15"),text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
+        self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser,police="Arial",taille=20)
+        self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
+        self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
         self.__menuGenre = OptionMenu(self.__cadreUser,self.__varGenre,*listGenre)
-        self.__entryNameUser = Entry(self.__cadreUser,font=("arial","15"),borderwidth=2,relief="solid")
-        self.__btnvaliderUser = Button(self.__cadreUser,font=("arial","15"),text="Valider")
-        self.__btnAnulerUser = Button(self.__cadreUser,font=("arial","15"),text="Annuler",command=lambda : self.__affichageCadreUser(1))
+        self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,police="Arial",taille=15)
+        self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Valider")
+        self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=15,text="Annuler",command=lambda : self.__affichageCadreUser(1))
 
         # Cadre Meteo 
-        self.__labelTitreMeteo = Label(self.__cadreMeteo,font=("arial","20"))
-        self.__btnListMeteo =  Button(self.__cadreMeteo,text="      Liste meteo      ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(2))
-        self.__btnAddVille =   Button(self.__cadreMeteo,text="   Ajouter une ville   ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(3))
-        self.__btnSupprVille = Button(self.__cadreMeteo,text="   Supprimer une ville ",font=("arial","15"),command= lambda : self.__affichageCadreMeteo(4))
-        self.__labelListeMeteo = Label(self.__cadreMeteo,font=("arial","15"))
-        self.__menuChoixLieu = OptionMenu(self.__cadreMeteo,self.__varChoixLieu,*listChoixLieu)
-        self.__menuSupprLieu = OptionMenu(self.__cadreMeteo,self.__varSupprLieu,*listChoixLieu)
-        self.__entryVille = Entry(self.__cadreMeteo,font=("arial","15"),borderwidth=2,relief="solid")
-        self.__btnvaliderMeteo = Button(self.__cadreMeteo,text="Valider",font=("arial","15"))
-        self.__btnannulerMeteo = Button(self.__cadreMeteo,font=("arial","15"),command= lambda : self.__affichageCadreMeteo(1))
-        # Placement widget 
-        #Cadre acceuil
-        self.__cadresPresentations[0].place(x=0,y=0)
-        self.__cadresPresentations[1].place(x=180,y=0)
-        self.__cadresPresentations[2].place(x=0,y=200)
-        self.__cadresPresentations[3].place(x=180,y=200)
-        self.__cadresPresentations[4].place(x=0,y=400)
-        self.__cadresPresentations[5].place(x=180,y=400)
+        self.__labelTitreMeteo = self.__arrTK.createLabel(self.__cadreMeteo,police="Arial",taille=20)
+        self.__btnListMeteo =  self.__arrTK.createButton(self.__cadreMeteo,text="Liste meteo",police="Arial",taille=15,command= lambda : self.__affichageCadreMeteo(2))
+        self.__btnAddVille =   self.__arrTK.createButton(self.__cadreMeteo,text="Ajouter une ville",police="Arial",taille=15,command= lambda : self.__affichageCadreMeteo(3))
+        self.__btnSupprVille = self.__arrTK.createButton(self.__cadreMeteo,text="Supprimer une ville",police="Arial",taille=15,command= lambda : self.__affichageCadreMeteo(4))
+        self.__labelListeMeteo = self.__arrTK.createLabel(self.__cadreMeteo,police="Arial",taille=15)
+        self.__menuChoixLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varChoixLieu,value=listChoixLieu)
+        self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varSupprLieu,value=listChoixLieu)
+        self.__entryVille = self.__arrTK.createEntry(self.__cadreMeteo,police="Arial",taille=15)
+        self.__btnvaliderMeteo = self.__arrTK.createButton(self.__cadreMeteo,text="Valider",police="Arial",taille=15)
+        self.__btnannulerMeteo = self.__arrTK.createButton(self.__cadreMeteo,police="Arial",taille=15,command= lambda : self.__affichageCadreMeteo(1))
         # Cadre GPS 
-        self.__labelTitreGPS = Label(self.__cadreGPS,font=("arial","20"))
-        self.__btnAdresseDomicile = Button(self.__cadreGPS,text="Adresse du domicile",font=("arial","15"),command=lambda : self.__affichageCadreGPS(2))
-        self.__btnAdresseWork = Button(self.__cadreGPS,text="Adresse du lieu de travail",font=("arial","15"),command=lambda : self.__affichageCadreGPS(3))
-        self.__btnvaliderGPS = Button(self.__cadreGPS,text="Valider",font=("arial","15"))
-        self.__btnretourGPS = Button(self.__cadreGPS,text="Retour",font=("arial","15"),command=lambda : self.__affichageCadreGPS(1))
-        self.__btnsupprGPS = Button(self.__cadreGPS,text="Supprimer",font=("arial","15"))
-        self.__btnentryGPS = Entry(self.__cadreGPS,font=("arial","15"),borderwidth=2,relief="solid")
+        self.__labelTitreGPS = self.__arrTK.createLabel(self.__cadreGPS,police="Arial",taille=20)
+        self.__btnAdresseDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du domicile",police="Arial",taille=15,command=lambda : self.__affichageCadreGPS(2))
+        self.__btnAdresseWork = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du lieu de travail",police="Arial",taille=15,command=lambda : self.__affichageCadreGPS(3))
+        self.__btnvaliderGPS = self.__arrTK.createButton(self.__cadreGPS,text="Valider",police="Arial",taille=15)
+        self.__btnretourGPS = self.__arrTK.createButton(self.__cadreGPS,text="Retour",police="Arial",taille=15,command=lambda : self.__affichageCadreGPS(1))
+        self.__btnsupprGPS = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer",police="Arial",taille=15)
+        self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,police="Arial",taille=15)
         # Cadre Rechecrhe
-        self.__labelTitreRecherche = Label(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche",font=("arial","20"))
-        self.__menuMoteurRecherche = OptionMenu(self.__cadreRecherche,self.__varMoteurRecherce,*listMoteur)
-        self.__btnvaliderMoteur = Button(self.__cadreRecherche,text="Valider",font=("arial","15"),command=lambda : self.__validerMoteur(1))
+        self.__labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche",police="Arial",taille=20)
+        self.__menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
+        self.__btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider",police="Arial",taille=15,command=lambda : self.__validerMoteur(1))
         # Cadre Software 
         self.__labelTitreSoftware = Label(self.__cadreSoft,font=("arial","20"))
         self.__btnAnnulerSoft = Button(self.__cadreSoft,text="Annuler",font=("arial","15"),command=lambda:self.__affichageCadreSoft(1))
@@ -166,6 +158,16 @@ class CArreraGazelleUIRyleyCopilote :
 
 
         self.__labelTitreMenu.place(relx=0.5, rely=0.0, anchor="n")
+
+        # Placement widget
+        # Cadre acceuil
+        self.__cadresPresentations[0].place(x=0, y=0)
+        self.__cadresPresentations[1].place(x=180, y=0)
+        self.__cadresPresentations[2].place(x=0, y=200)
+        self.__cadresPresentations[3].place(x=180, y=200)
+        self.__cadresPresentations[4].place(x=0, y=400)
+        self.__cadresPresentations[5].place(x=180, y=400)
+
         for i in range(0,5):
             self.__labelcadresPresentations[i].place(relx=0.5, rely=0.0, anchor="n")
         
