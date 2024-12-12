@@ -337,6 +337,18 @@ class CArreraTK :
     def placeBottomCenter(self, widget):
         widget.place(relx=0.5, rely=1, anchor='s')
 
+    def placeCenterOnWidth(self,widget,y :int = 0 ):
+        if (y==0):
+            return False
+        else :
+            widget.place(relx=0.5, y=y, anchor='n')
+
+    def placeBottomRight(self,widget):
+        widget.place(relx=1, rely=1, anchor='se')
+
+    def placeBottomLeft(self,widget):
+        widget.place(relx=0, rely=1, anchor='sw')
+
     def pack(self, widget,xExpand : bool = False , yExpand : bool = False):
         if (xExpand and yExpand):
             widget.pack(expand="both")
