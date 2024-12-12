@@ -243,7 +243,7 @@ class CArreraGazelleUIRyleyCopilote :
     
     def passQuitFnc(self,quitFNC):
         self.__boutonMenu[9].configure(command=lambda : self.__fncQuit(quitFNC) )
-        self.__boutonMenu[9].place(relx=0.5, rely=1.0, anchor="s")
+        self.__arrTK.placeBottomCenter(self.__boutonMenu[9])
     
     def __fncQuit(self,quitFnc):
         self.__disableAllFrame()
@@ -251,7 +251,7 @@ class CArreraGazelleUIRyleyCopilote :
         quitFnc()
 
     def __backAcceuil(self):
-        self.__cadreAcceuil.pack(side="right")
+        self.__arrTK.packRight(self.__cadreAcceuil)
         self.__cadreUser.pack_forget()
         self.__cadreMeteo.pack_forget()
         self.__cadreGPS.pack_forget()
@@ -274,7 +274,7 @@ class CArreraGazelleUIRyleyCopilote :
     
     def __showUserFrame(self):
         self.__disableAllFrame()
-        self.__cadreUser.pack(side="right")
+        self.__arrTK.packRight(self.__cadreUser)
         self.__affichageCadreUser(1)
     
     def __showMeteoFrame(self,mode:int):
@@ -283,7 +283,7 @@ class CArreraGazelleUIRyleyCopilote :
         2 : add direct
         """
         self.__disableAllFrame()
-        self.__cadreMeteo.pack(side="right")
+        self.__arrTK.packRight(self.__cadreMeteo)
         match mode :
             case 1 :
                 self.__affichageCadreMeteo(1)
@@ -297,7 +297,7 @@ class CArreraGazelleUIRyleyCopilote :
         3 : Work direct
         """
         self.__disableAllFrame()
-        self.__cadreGPS.pack(side="right")
+        self.__arrTK.packRight(self.__cadreGPS)
         match mode :
             case 1 :
                 self.__affichageCadreGPS(1)
@@ -308,7 +308,7 @@ class CArreraGazelleUIRyleyCopilote :
 
     def __showRechercheFrame(self):
         self.__disableAllFrame()
-        self.__cadreRecherche.pack(side="right")
+        self.__arrTK.packRight(self.__cadreRecherche)
     
     def __showSoftFrame(self,mode:int):
         """
@@ -316,7 +316,7 @@ class CArreraGazelleUIRyleyCopilote :
         2 : Add direct
         """
         self.__disableAllFrame()
-        self.__cadreSoft.pack(side="right")
+        self.__arrTK.packRight(self.__cadreSoft)
         match mode :
             case 1 :
                 self.__affichageCadreSoft(1)
@@ -330,7 +330,7 @@ class CArreraGazelleUIRyleyCopilote :
         3 : Suppr direct
         """
         self.__disableAllFrame()
-        self.__cadreInternet.pack(side="right")
+        self.__arrTK.packRight(self.__cadreInternet)
         match mode :
             case 1 :
                 self.__affichageCadreSite(1)
@@ -341,11 +341,11 @@ class CArreraGazelleUIRyleyCopilote :
     
     def __showThemeFrame(self):
         self.__disableAllFrame()
-        self.__cadreTheme.pack(side="right")
+        self.__arrTK.packRight(self.__cadreTheme)
     
     def __showMicroFrame(self):
         self.__disableAllFrame()
-        self.__cadreMicro.pack(side="right")
+        self.__arrTK.packRight(self.__cadreMicro)
         etatMicro = self.__gazelle.getSoundMicroAsEnable()
         if (etatMicro==True):
             self.__varChoixMicro.set(self.__listChoixMicro[0])
@@ -418,9 +418,10 @@ class CArreraGazelleUIRyleyCopilote :
         match mode :
             case 1 :
                 self.__labelTitreMeteo.configure(text="Parametre Meteo")
-                self.__btnListMeteo.place(relx=0.2,y=200)
-                self.__btnAddVille.place(relx=0.2,y=275)
-                self.__btnSupprVille.place(relx=0.2,y=350)
+                #place(relx=0.2,y=200)
+                self.__arrTK.placeCenterOnWidth(self.__btnListMeteo,y=150)
+                self.__arrTK.placeCenterOnWidth(self.__btnAddVille,y=250)
+                self.__arrTK.placeCenterOnWidth(self.__btnSupprVille,y=350)
                 self.__btnvaliderMeteo.place_forget()
                 self.__btnannulerMeteo.place_forget()
                 self.__entryVille.place_forget()
@@ -434,7 +435,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__btnSupprVille.place_forget()
                 # Recuperation de la liste des ville 
                 self.__btnannulerMeteo.configure(text="Retour")
-                self.__btnannulerMeteo.place(relx=0.5, rely=1.0, anchor="s")
+                self.__arrTK.placeBottomCenter(self.__btnannulerMeteo)
                 listeVille = self.__gazelle.getMeteoSave()
                 self.__labelListeMeteo.configure(text="")
                 nbVille = len(listeVille)
@@ -453,9 +454,9 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__btnSupprVille.place_forget()
                 self.__menuChoixLieu.place(x=0,y=100)
                 self.__btnannulerMeteo.configure(text="Annuler")
-                self.__btnvaliderMeteo.place(relx=1, rely=1, anchor='se')
-                self.__btnannulerMeteo.place(relx=0, rely=1, anchor='sw')
-                self.__entryVille.place(relx=0.5, rely=0.5, anchor="center")
+                self.__arrTK.placeBottomRight(self.__btnvaliderMeteo)
+                self.__arrTK.placeBottomLeft(self.__btnannulerMeteo)
+                self.__arrTK.placeCenter(self.__entryVille)
                 self.__btnvaliderMeteo.configure(command=lambda : self.__validerMeteo(1))
             case 4 : 
                 listeVille = self.__gazelle.getMeteoSave()
@@ -583,6 +584,8 @@ class CArreraGazelleUIRyleyCopilote :
                 moteur = self.__varMoteurRecherce.get()
             case 2 : 
                 moteur = self.__varRecherche.get()
+            case other :
+                return
         self.__gazelle.changeMoteur(moteur)
         showinfo("Parametre","Moteur enregistrer")
         self.__backAcceuil()
