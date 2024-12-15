@@ -39,10 +39,18 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixMicro =  StringVar(self.__windows)
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
-        listMoteur = ["Duckduckgo","google","bing","brave","ecosia","qwant"]
+        listMoteur = ["Duckduckgo",
+                      "google",
+                      "bing",
+                      "brave",
+                      "ecosia",
+                      "qwant"]
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
-        listTypeSoft = ["Autre","Traitement de texte","Tableur","Presentation","Navigateur Internet","Note","Musique"]
+        listTypeSoft = ["Autre","Traitement de texte",
+                        "Tableur","Presentation",
+                        "Navigateur Internet",
+                        "Note","Musique"]
         listChoixSite = ["Autre","Cloud"]
         self.__listChoixMicro = ["ON","OFF"]
 
