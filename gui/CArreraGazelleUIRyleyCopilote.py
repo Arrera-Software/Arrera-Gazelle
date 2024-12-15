@@ -64,6 +64,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreArreraWork = self.__arrTK.createFrame(self.__windows, width=350, height=630)
+        self.__cadreVideoDownload = self.__arrTK.createFrame(self.__windows, width=350, height=630)
         self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
 
         #cadre interne a l'acceuil
@@ -102,9 +104,9 @@ class CArreraGazelleUIRyleyCopilote :
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
                                                   text="Theme",command=self.__showThemeFrame,width=20),#7
                         self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
-                                                text="Arrera Work", command=self.__showMicroFrame, width=20),#8
+                                                text="Arrera Work", command=self.__showArreraWorkFolder, width=20),#8
                         self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
-                                                text="Downloader", command=self.__showMicroFrame, width=20),#9
+                                      text="Downloader",command=self.__showArreraDownloadFolder, width=20),  # 9
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
                                                   text="Micro",command=self.__showMicroFrame,width=20),#10
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
@@ -227,9 +229,25 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
                                                             ,police="Arial",taille=tailleMain,command=self.__validerMicro)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreMenu)
+
+        # Cader Work folder
+        self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
+                                                               text="Choisir le dossier\npour Arrera Work",police="Arial", taille=tailleTitle)
+        self.__btnFolderArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Choisir le dossier",
+                                                               police="Arial", taille=tailleMain)
+        self.__btnSupprArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Supprimer le dossier",
+                                                              police="Arial", taille=tailleMain)
+
+        # Cadre Download folder
+        self.__labelTitreDownload = self.__arrTK.createLabel(self.__cadreVideoDownload,
+                                                             text="Choisir le dossier pour\nArrera video download",police="Arial", taille=tailleTitle)
+        self.__btnFolderDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Choisir le dossier",
+                                                             police="Arial", taille=tailleMain)
+        self.__btnSupprDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Supprimer le dossier",
+                                                            police="Arial", taille=tailleMain)
 
         # Placement widget
+        self.__arrTK.placeTopCenter(self.__labelTitreMenu)
         # Cadre acceuil
         self.__arrTK.placeTopLeft(self.__cadresPresentations[0])
         self.__arrTK.placeTopRight(self.__cadresPresentations[1])
@@ -295,6 +313,9 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeCenter(self.__menuChoixMicro)
         self.__arrTK.placeBottomCenter(self.__btnValiderMicro)
 
+        self.__arrTK.placeTopCenter(self.__labelTitreDownload)
+        self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
+
             
         
     def active(self):
@@ -304,7 +325,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreMenu.pack(side="left")
     
     def passQuitFnc(self,quitFNC):
-        self.__boutonMenu[9].configure(command=lambda : self.__fncQuit(quitFNC) )
+        self.__boutonMenu[11].configure(command=lambda : self.__fncQuit(quitFNC) )
         self.__arrTK.placeBottomCenter(self.__boutonMenu[11])
     
     def __fncQuit(self,quitFnc):
@@ -333,6 +354,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreInternet.pack_forget()
         self.__cadreTheme.pack_forget()
         self.__cadreMicro.pack_forget()
+        self.__cadreArreraWork.pack_forget()
+        self.__cadreVideoDownload.pack_forget()
     
     def __showUserFrame(self):
         self.__disableAllFrame()
@@ -941,3 +964,26 @@ class CArreraGazelleUIRyleyCopilote :
         else :
             self.__gazelle.changeSoundMicro(False)
         self.__backAcceuil()
+
+    def __showArreraWorkFolder(self):
+        folderExist = self.__gazelle.workFolderExist()
+        self.__disableAllFrame()
+        self.__btnSupprArreraWork.place_forget()
+        self.__btnFolderArreraWork.place_forget()
+        self.__arrTK.packRight(self.__cadreArreraWork)
+        if folderExist :
+            self.__arrTK.placeCenter(self.__btnSupprArreraWork)
+        else :
+            self.__arrTK.placeCenter(self.__btnFolderArreraWork)
+
+    def __showArreraDownloadFolder(self):
+        print("test")
+        folderExist = self.__gazelle.downloadFolderExist()
+        self.__disableAllFrame()
+        self.__btnSupprDownload.place_forget()
+        self.__btnFolderDownload.place_forget()
+        self.__arrTK.packRight(self.__cadreVideoDownload)
+        if folderExist :
+            self.__arrTK.placeCenter(self.__btnSupprDownload)
+        else :
+            self.__arrTK.placeCenter(self.__btnFolderDownload)
