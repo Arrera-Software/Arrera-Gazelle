@@ -55,25 +55,25 @@ class CArreraGazelleUIRyleyCopilote :
         self.__listChoixMicro = ["ON","OFF"]
 
         # Creation des Frame
-        self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=600)
-        self.__cadreAcceuil = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=600)
-        self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=600)
+        self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=630)
+        self.__cadreAcceuil = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
 
         #cadre interne a l'acceuil
         self.__cadresPresentations = [
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=200,wightBoder=1)]
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
+            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1)]
         #Widget
         self.__labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu,text="Menu",police="arial",taille=tailleTitle)
         self.__labelcadresPresentations = [
@@ -104,7 +104,7 @@ class CArreraGazelleUIRyleyCopilote :
                         self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
                                                 text="Arrera Work", command=self.__showMicroFrame, width=20),#8
                         self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
-                                                text="Video Download", command=self.__showMicroFrame, width=20),#9
+                                                text="Downloader", command=self.__showMicroFrame, width=20),#9
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
                                                   text="Micro",command=self.__showMicroFrame,width=20),#10
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
@@ -231,28 +231,28 @@ class CArreraGazelleUIRyleyCopilote :
 
         # Placement widget
         # Cadre acceuil
-        self.__cadresPresentations[0].place(x=0, y=0)
-        self.__cadresPresentations[1].place(x=180, y=0)
-        self.__cadresPresentations[2].place(x=0, y=200)
-        self.__cadresPresentations[3].place(x=180, y=200)
-        self.__cadresPresentations[4].place(x=0, y=400)
-        self.__cadresPresentations[5].place(x=180, y=400)
+        self.__arrTK.placeTopLeft(self.__cadresPresentations[0])
+        self.__arrTK.placeTopRight(self.__cadresPresentations[1])
+        self.__arrTK.placeCenterLeft(self.__cadresPresentations[2])
+        self.__arrTK.placeCenterRight(self.__cadresPresentations[3])
+        self.__arrTK.placeBottomLeft(self.__cadresPresentations[4])
+        self.__arrTK.placeBottomRight(self.__cadresPresentations[5])
 
         for i in range(0,5):
             self.__arrTK.placeTopCenter(self.__labelcadresPresentations[i])
         
-        self.__boutonMenu[0].place(relx=0.1,y=50)
-        self.__boutonMenu[1].place(relx=0.1,y=100)
-        self.__boutonMenu[2].place(relx=0.1,y=150)
-        self.__boutonMenu[3].place(relx=0.1,y=200)
-        self.__boutonMenu[4].place(relx=0.1,y=250)
-        self.__boutonMenu[5].place(relx=0.1,y=300)
-        self.__boutonMenu[6].place(relx=0.1,y=350)
-        self.__boutonMenu[7].place(relx=0.1,y=400)
-        self.__boutonMenu[8].place(relx=0.1,y=450)
-        self.__boutonMenu[9].place(relx=0.1,y=500)
+        self.__boutonMenu[0].place(relx=0.0,y=50)
+        self.__boutonMenu[1].place(relx=0.0,y=100)
+        self.__boutonMenu[2].place(relx=0.0,y=150)
+        self.__boutonMenu[3].place(relx=0.0,y=200)
+        self.__boutonMenu[4].place(relx=0.0,y=250)
+        self.__boutonMenu[5].place(relx=0.0,y=300)
+        self.__boutonMenu[6].place(relx=0.0,y=350)
+        self.__boutonMenu[7].place(relx=0.0,y=400)
+        self.__boutonMenu[8].place(relx=0.0,y=450)
+        self.__boutonMenu[9].place(relx=0.0,y=500)
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
-            self.__boutonMenu[10].place(relx=0.1,y=550)
+            self.__boutonMenu[10].place(relx=0.0,y=550)
 
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[0])
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[1])
@@ -299,7 +299,7 @@ class CArreraGazelleUIRyleyCopilote :
         
     def active(self):
         self.__arrTK.setResizable(False)
-        self.__arrTK.setGeometry(500,600)
+        self.__arrTK.setGeometry(500,630)
         self.__cadreAcceuil.pack(side="right")
         self.__cadreMenu.pack(side="left")
     
