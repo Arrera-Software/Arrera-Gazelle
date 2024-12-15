@@ -234,18 +234,16 @@ class CArreraGazelleUIRyleyCopilote :
         self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
                                                                text="Choisir le dossier\npour Arrera Work",police="Arial", taille=tailleTitle)
         self.__btnFolderArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Choisir le dossier",
-                                                               police="Arial", taille=tailleMain)
+                                                               police="Arial", taille=tailleMain,command=lambda : self.__validerFolderWork(1))
         self.__btnSupprArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Supprimer le dossier",
-                                                              police="Arial", taille=tailleMain)
-
+                                                              police="Arial", taille=tailleMain,command = lambda : self.__validerFolderWork(2))
         # Cadre Download folder
         self.__labelTitreDownload = self.__arrTK.createLabel(self.__cadreVideoDownload,
                                                              text="Choisir le dossier pour\nArrera video download",police="Arial", taille=tailleTitle)
         self.__btnFolderDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Choisir le dossier",
-                                                             police="Arial", taille=tailleMain)
+                                                             police="Arial", taille=tailleMain,command = lambda : self.__validerFolderDownload(1))
         self.__btnSupprDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Supprimer le dossier",
-                                                            police="Arial", taille=tailleMain)
-
+                                                            police="Arial", taille=tailleMain,command = lambda : self.__validerFolderDownload(2))
         # Placement widget
         self.__arrTK.placeTopCenter(self.__labelTitreMenu)
         # Cadre acceuil
@@ -321,8 +319,8 @@ class CArreraGazelleUIRyleyCopilote :
     def active(self):
         self.__arrTK.setResizable(False)
         self.__arrTK.setGeometry(500,630)
-        self.__cadreAcceuil.pack(side="right")
-        self.__cadreMenu.pack(side="left")
+        self.__arrTK.packRight(self.__cadreAcceuil)
+        self.__arrTK.packLeft(self.__cadreMenu)
     
     def passQuitFnc(self,quitFNC):
         self.__boutonMenu[11].configure(command=lambda : self.__fncQuit(quitFNC) )
@@ -343,6 +341,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreInternet.pack_forget()
         self.__cadreTheme.pack_forget()
         self.__cadreMicro.pack_forget()
+        self.__cadreArreraWork.pack_forget()
+        self.__cadreVideoDownload.pack_forget()
     
     def __disableAllFrame(self):
         self.__cadreAcceuil.pack_forget()
@@ -987,3 +987,29 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.placeCenter(self.__btnSupprDownload)
         else :
             self.__arrTK.placeCenter(self.__btnFolderDownload)
+
+    def __validerFolderWork(self,mode : int ):
+        """
+        1 : add
+        2 : suppr
+        """
+        self.__backAcceuil()
+
+        match mode :
+            case 1 :
+                self.__gazelle.setWorkFolder()
+            case 2 :
+                self.__gazelle.supprWorkFolder()
+
+    def __validerFolderDownload(self,mode : int ):
+        """
+        1 : add
+        2 : suppr
+        """
+        self.__backAcceuil()
+
+        match mode :
+            case 1 :
+                self.__gazelle.setVideoDownloadFolder()
+            case 2 :
+                self.__gazelle.supprVideoDownloadFolder()
