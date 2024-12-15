@@ -433,3 +433,23 @@ class CArreraGazelle :
             return True
         else :
             return False
+
+    def supprWorkFolder(self):
+        self.__fileJsonAssistant.EcritureJSON("wordFolder", "")
+        return True
+
+    def supprVideoDownloadFolder(self):
+        self.__fileJsonAssistant.EcritureJSON("videoDownloadFolder", "")
+        return True
+
+    def workFolderExist(self):
+        if (self.__fileJsonAssistant.lectureJSON("wordFolder")!=""):
+            return True
+        else :
+            return False
+
+    def downloadFolderExist(self):
+        if (self.__fileJsonAssistant.lectureJSON("videoDownloadFolder")!=""):
+            return True
+        else :
+            return False
