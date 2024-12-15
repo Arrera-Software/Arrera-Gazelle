@@ -103,7 +103,27 @@ class CArreraGazelle :
                 return True
             else :
                 return False
-    
+
+    def getGPSAdresseIsSet(self,mode:int):
+        """
+        1 : Adresse domicile
+        2 : Adresse lieu de travail
+        """
+        if (mode==1):
+            if (self.__fileJsonUser.lectureJSON("adresseDomicile")!=""):
+                return True
+            else :
+                return False
+        else :
+            if (mode==2):
+                if (self.__fileJsonUser.lectureJSON("adresseTravail")!=""):
+                    return True
+                else :
+                    return False
+            else :
+                return False
+
+
     def addSoft(self,mode:int,name:str):
         """
         1 : Normal 
