@@ -349,6 +349,18 @@ class CArreraTK :
     def placeBottomLeft(self,widget):
         widget.place(relx=0, rely=1, anchor='sw')
 
+    def placeTopRight(self,widget):
+        widget.place(relx=1, rely=0, anchor='ne')
+
+    def placeTopLeft(self,widget):
+        widget.place(relx=0, rely=0, anchor='nw')
+
+    def placeCenterRight(self,widget):
+        widget.place(relx=1, rely=0.5, anchor='e')
+
+    def placeCenterLeft(self,widget):
+        widget.place(relx=0, rely=0.5, anchor='w')
+
     def pack(self, widget,xExpand : bool = False , yExpand : bool = False):
         if (xExpand and yExpand):
             widget.pack(expand="both")
