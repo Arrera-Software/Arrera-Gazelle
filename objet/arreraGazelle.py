@@ -421,7 +421,7 @@ class CArreraGazelle :
     def setWorkFolder(self):
         folder = filedialog.askdirectory(title="Choisir un dossier de travail")
         if folder :
-            self.__fileJsonAssistant.EcritureJSON("wordFolder",folder)
+            self.__fileJsonUser.EcritureJSON("wordFolder",folder)
             return True
         else :
             return False
@@ -429,27 +429,27 @@ class CArreraGazelle :
     def setVideoDownloadFolder(self):
         folder = filedialog.askdirectory(title="Choisir un dossier pour Arrera Video Download")
         if folder :
-            self.__fileJsonAssistant.EcritureJSON("videoDownloadFolder",folder)
+            self.__fileJsonUser.EcritureJSON("videoDownloadFolder",folder)
             return True
         else :
             return False
 
     def supprWorkFolder(self):
-        self.__fileJsonAssistant.EcritureJSON("wordFolder", "")
+        self.__fileJsonUser.EcritureJSON("wordFolder", "")
         return True
 
     def supprVideoDownloadFolder(self):
-        self.__fileJsonAssistant.EcritureJSON("videoDownloadFolder", "")
+        self.__fileJsonUser.EcritureJSON("videoDownloadFolder", "")
         return True
 
     def workFolderExist(self):
-        if (self.__fileJsonAssistant.lectureJSON("wordFolder")!=""):
+        if (self.__fileJsonUser.lectureJSON("wordFolder")!=""):
             return True
         else :
             return False
 
     def downloadFolderExist(self):
-        if (self.__fileJsonAssistant.lectureJSON("videoDownloadFolder")!=""):
+        if (self.__fileJsonUser.lectureJSON("videoDownloadFolder")!=""):
             return True
         else :
             return False
