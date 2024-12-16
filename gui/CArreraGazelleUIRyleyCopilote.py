@@ -154,7 +154,7 @@ class CArreraGazelleUIRyleyCopilote :
 
         # Cadre Meteo 
         self.__labelTitreMeteo = self.__arrTK.createLabel(self.__cadreMeteo,police="Arial",taille=tailleTitle)
-        self.__btnListMeteo =  self.__arrTK.createButton(self.__cadreMeteo,text="Liste meteo"
+        self.__btnListMeteo =  self.__arrTK.createButton(self.__cadreMeteo,text="Liste des villes enregistrées"
                                                          ,police="Arial",taille=tailleMain,command= lambda : self.__affichageCadreMeteo(2))
         self.__btnAddVille =   self.__arrTK.createButton(self.__cadreMeteo,text="Ajouter une ville"
                                                          ,police="Arial",taille=tailleMain,command= lambda : self.__affichageCadreMeteo(3))
@@ -184,7 +184,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                        ,police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(4))
         self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,police="Arial",taille=tailleMain)
         # Cadre Rechecrhe
-        self.__labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Chosissez votre moteur\nde recherche"
+        self.__labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Choisissez votre moteur\nde recherche"
                                                               ,police="Arial",taille=tailleTitle)
         self.__menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
         self.__btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
@@ -217,13 +217,13 @@ class CArreraGazelleUIRyleyCopilote :
         self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
         self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varSupprSite,value=listChoixSite)
         # Cardre theme 
-        self.__labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme,text="Choix du theme\nde l'interface"
+        self.__labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme,text="Choix du thème\nde l'interface"
                                                           ,police="Arial",taille=tailleTitle)
         self.__menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
         self.__btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
                                                             police="Arial",taille=tailleMain,command=lambda : self.__validerTheme(1))
         # Cadre Micro
-        self.__labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au declanchement\ndu micro",police="Arial",taille=tailleTitle)
+        self.__labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au déclenchement\ndu micro",police="Arial",taille=tailleTitle)
         self.__menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,
                                                               var = self.__varChoixMicro,value=self.__listChoixMicro)
         self.__btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
@@ -446,7 +446,7 @@ class CArreraGazelleUIRyleyCopilote :
         """
         match mode :
             case 1 :
-                self.__labelTitreUser.configure(text="Parametre Utilisateur")
+                self.__labelTitreUser.configure(text="Parametre de l'utilisateur")
                 self.__btnPrenom.place(relx=0.5, y=200, anchor="n")
                 self.__btnGenre.place(relx=0.5, y=275, anchor="n")
                 self.__menuGenre.place_forget()
@@ -454,7 +454,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__btnvaliderUser.place_forget()
                 self.__btnAnulerUser.place_forget()
             case 2 :
-                self.__labelTitreUser.configure(text="Prenom de l'utilisateur")
+                self.__labelTitreUser.configure(text="Prénom de l'utilisateur")
                 self.__btnPrenom.place_forget()
                 self.__btnGenre.place_forget()
                 self.__menuGenre.place_forget()
@@ -481,16 +481,16 @@ class CArreraGazelleUIRyleyCopilote :
             case 1 :
                 name = self.__entryNameUser.get()
                 if (name==""):
-                    showerror("Parametre","Vous avez pas entrer votre prenom")
+                    showerror("Parametre","Vous n'avez pas entré votre prénom")
                 else :
                     self.__entryNameUser.delete(0,END)
                     self.__gazelle.changeUserName(name)
-                    showinfo("Parametre","Prenom enregistrer")
+                    showinfo("Parametre","Prénom enregistré")
                     self.__affichageCadreUser(1)
             case 2 :
                 genre = self.__varGenre.get()
                 self.__gazelle.changeUserGenre(genre)
-                showinfo("Parametre","genre enregistrer")
+                showinfo("Parametre","genre enregistré")
                 self.__affichageCadreUser(1)
 
     def __affichageCadreMeteo(self,mode:int):
@@ -502,7 +502,7 @@ class CArreraGazelleUIRyleyCopilote :
         """
         match mode :
             case 1 :
-                self.__labelTitreMeteo.configure(text="Parametre Meteo")
+                self.__labelTitreMeteo.configure(text="Paramètre Météo")
                 #place(relx=0.2,y=200)
                 self.__arrTK.placeCenterOnWidth(self.__btnListMeteo,y=150)
                 self.__arrTK.placeCenterOnWidth(self.__btnAddVille,y=250)
@@ -514,7 +514,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__menuChoixLieu.place_forget()
                 self.__menuSupprLieu.place_forget()
             case 2 : 
-                self.__labelTitreMeteo.configure(text="Liste des lieu enregistrer")
+                self.__labelTitreMeteo.configure(text="Liste des lieux enregistrés")
                 self.__btnListMeteo.place_forget()
                 self.__btnAddVille.place_forget()
                 self.__btnSupprVille.place_forget()
@@ -525,7 +525,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__labelListeMeteo.configure(text="")
                 nbVille = len(listeVille)
                 if (nbVille == 0 ) :
-                    self.__labelListeMeteo.configure(text="Aucun lieu enregistrer")
+                    self.__labelListeMeteo.configure(text="Aucun lieu enregistré")
                 else :
                     for i in range(0,nbVille):
                         texte = self.__labelListeMeteo.cget("text")
@@ -548,7 +548,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__labelListeMeteo.configure(text="")
                 nbVille = len(listeVille)
                 if (nbVille == 0 ) :
-                    showerror("Parametre","Aucun lieu enregister")
+                    showerror("Parametre","Aucun lieu enregistré")
                 else :
                     self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var = self.__varSupprLieu,value=listeVille)
                     self.__labelTitreMeteo.configure(text="Supprimer un lieu")
@@ -572,7 +572,7 @@ class CArreraGazelleUIRyleyCopilote :
             case 1 :
                 lieu = self.__entryVille.get()
                 if (lieu==""):
-                    showerror("Parametre","Impossible d'ajouter un lieu sans nom")
+                    showerror("Parametre","Impossible d'ajouter un lieu sans nom.")
                 else :
                     choix = self.__varChoixLieu.get()
                     if (choix == "Simple"):
@@ -589,7 +589,7 @@ class CArreraGazelleUIRyleyCopilote :
             case 2 :
                 choixSuppr = self.__varSupprLieu.get()
                 if (choixSuppr == ""):
-                    showerror("Parametre","Selectionner le lieu a supprimer")
+                    showerror("Parametre","Sélectionner le lieu à supprimer")
                 else :
                     if (choixSuppr=="Lieu d'habitation enregister") :
                         self.__gazelle.supprVilleMeteo(1,"")
@@ -640,7 +640,7 @@ class CArreraGazelleUIRyleyCopilote :
 
             case 4 :
                 if (self.__gazelle.getGPSAdresseIsSet(1) == False) and (self.__gazelle.getGPSAdresseIsSet(2) == False):
-                    messagebox.showerror("Parametre","Il a aucune adresse enregistrer")
+                    messagebox.showerror("Parametre","Il n'a aucune adresse enregistrée")
                 else :
                     self.__labelTitreGPS.configure(text="Suppression d'adresse")
                     self.__btnAdresseDomicile.place_forget()
@@ -672,7 +672,7 @@ class CArreraGazelleUIRyleyCopilote :
             case 1 :
                 adresse = self.__btnentryGPS.get()
                 if (adresse==""):
-                    showerror("Parametre","Entrer une adresse pour l'enregister")
+                    showerror("Parametre","Entrer une adresse pour l'enregistrer")
                 else :
                     self.__gazelle.ajoutGPSAdresse(type,adresse)
                     self.__btnentryGPS.delete(0,END)
@@ -694,7 +694,7 @@ class CArreraGazelleUIRyleyCopilote :
             case other :
                 return
         self.__gazelle.changeMoteur(moteur)
-        showinfo("Parametre","Moteur enregistrer")
+        showinfo("Parametre","Moteur enregistré")
         self.__backAcceuil()
 
     def __affichageCadreSoft(self,mode:int):
@@ -705,7 +705,7 @@ class CArreraGazelleUIRyleyCopilote :
         """
         match mode : 
             case 1 :
-                self.__labelTitreSoftware.configure(text="Gestion des logiciel")
+                self.__labelTitreSoftware.configure(text="Gestion des logiciels")
                 self.__btnAnnulerSoft.place_forget()
                 self.__btnValiderSoft.place_forget()
                 self.__btnAddSoft.place(relx=0.5, y=200, anchor="n")
@@ -714,7 +714,7 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__menuChoixSoft.place_forget()
                 self.__entryNameSoft.place_forget()
             case 2 :
-                self.__labelTitreSoftware.configure(text="Ajout de logiciel")
+                self.__labelTitreSoftware.configure(text="Ajout de logiciels")
                 self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
                 self.__btnValiderSoft.place(relx=1, rely=1, anchor='se')
                 self.__btnAddSoft.place_forget()
@@ -726,7 +726,7 @@ class CArreraGazelleUIRyleyCopilote :
             case 3 :
                 listSoft = self.__gazelle.getListSoft()
                 if (len(listSoft)==0):
-                    showerror("Parametre","Impossible de supprimer des logiciel avant d'en ajouter")
+                    showerror("Parametre","Impossible de supprimer des logiciels avant d'en ajoute")
                 else :
                     self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var=self.__varSupprSoft,value=listSoft)
                     self.__varSupprSoft.set(listSoft[0])
@@ -869,7 +869,7 @@ class CArreraGazelleUIRyleyCopilote :
         """
         match mode :
             case 1 :
-                self.__labelTitreInternet.configure(text="Gestion des sites\ninternet")
+                self.__labelTitreInternet.configure(text="Gestion des sites\nInternet")
                 self.__btnAddSite.place(relx=0.2,y=200)
                 self.__btnSupprSite.place(relx=0.2,y=275)
                 self.__btnAnnulerInternet.place_forget()
@@ -892,7 +892,7 @@ class CArreraGazelleUIRyleyCopilote :
             case 3 : 
                 listSite = self.__gazelle.getListSite()
                 if (len(listSite)==0):
-                    showerror("Parametre","Aucun site enregistrer")
+                    showerror("Parametre","Aucun site enregistré")
                 else :
                     self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var=self.__varSupprSite,value=listSite)
                     self.__labelTitreInternet.configure(text="Enregistrement d'un site")
@@ -924,13 +924,13 @@ class CArreraGazelleUIRyleyCopilote :
                     else :
                         name = self.__entryNameSite.get()
                         if(name=="") :
-                            showerror("Parametre","Impossible d'enregister un site sans nom")
+                            showerror("Parametre","Impossible d'enregistrer un site sans nom")
                         else :
                             self.__gazelle.addSite(1,name,link)
-                            showinfo("Parametre","Site enregister")
+                            showinfo("Parametre","Site enregistré")
                             self.__affichageCadreSite(1)
                 else :
-                    showerror("Parametre","Impossible d'enregister un site sans url")
+                    showerror("Parametre","Impossible d'enregistrer un site sans URL")
                 
                 self.__entryLinkSite.delete(0,END)
                 self.__entryNameSite.delete(0,END)
