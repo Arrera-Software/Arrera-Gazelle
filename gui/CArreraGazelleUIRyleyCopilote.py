@@ -62,7 +62,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
 
         #cadre interne a l'acceuil
-        self.__cadresPresentations = [
+        cadresPresentations = [
             self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
             self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
             self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
@@ -70,14 +70,14 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
             self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1)]
         #Widget
-        self.__labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu,text="Menu",police="arial",taille=tailleTitle)
-        self.__labelcadresPresentations = [
-            self.__arrTK.createLabel(self.__cadresPresentations[0],text="Gestion recherche",police="Arial",taille=17),
-            self.__arrTK.createLabel(self.__cadresPresentations[1],text="Gestion meteo",police="Arial",taille=17),
-            self.__arrTK.createLabel(self.__cadresPresentations[2],text="Gestion GPS",police="Arial",taille=17),
-            self.__arrTK.createLabel(self.__cadresPresentations[3],text="Gestion software",police="Arial",taille=17),
-            self.__arrTK.createLabel(self.__cadresPresentations[4],text="Gestion Site internet",police="Arial",taille=17),
-            self.__arrTK.createLabel(self.__cadresPresentations[5],text="Gestion theme",police="Arial",taille=17)]
+        labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu,text="Menu",police="arial",taille=tailleTitle)
+        labelcadresPresentations = [
+            self.__arrTK.createLabel(cadresPresentations[0],text="Gestion recherche",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[1],text="Gestion meteo",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[2],text="Gestion GPS",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[3],text="Gestion software",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[4],text="Gestion Site internet",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[5],text="Gestion theme",police="Arial",taille=17)]
         
         boutonMenu = [
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
@@ -109,28 +109,28 @@ class CArreraGazelleUIRyleyCopilote :
         
         #cadresPresentations
         #0
-        self.__menuRecherche1 = self.__arrTK.createOptionMenu(self.__cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
-        self.__btnValiderMoteur1 = self.__arrTK.createButton(self.__cadresPresentations[0],text="Valider"
+        menuRecherche1 = self.__arrTK.createOptionMenu(cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
+        btnValiderMoteur1 = self.__arrTK.createButton(cadresPresentations[0],text="Valider"
                                                              ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__validerMoteur(2))
         #1
-        self.__btnMeteo1 = self.__arrTK.createButton(self.__cadresPresentations[1],text="Ajouter\nune ville"
+        btnMeteo1 = self.__arrTK.createButton(cadresPresentations[1],text="Ajouter\nune ville"
                                                      ,width=20,police = "arial" , taille = tailleMain  ,command = lambda : self.__showMeteoFrame(2))
         #2
-        self.__btnGPSHome = self.__arrTK.createButton(self.__cadresPresentations[2],text="Adresse\nde domicile"
+        btnGPSHome = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde domicile"
                                                       ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showGPSFrame(2))
-        self.__btnGPSWork = self.__arrTK.createButton(self.__cadresPresentations[2],text="Adresse\nde travail"
+        btnGPSWork = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde travail"
                                                       ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showGPSFrame(3))
         #3
-        self.__btnSoftware1 = self.__arrTK.createButton(self.__cadresPresentations[3],text="Ajouter\nun logiciel"
+        btnSoftware1 = self.__arrTK.createButton(cadresPresentations[3],text="Ajouter\nun logiciel"
                                                         ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showSoftFrame(2))
         #4
-        self.__buttonAddSite = self.__arrTK.createButton(self.__cadresPresentations[4],text="Ajouter"
+        buttonAddSite = self.__arrTK.createButton(cadresPresentations[4],text="Ajouter"
                                                          ,width=20,police = "arial" , taille = tailleMain ,command=lambda :self.__showInternetFrame(2))
-        self.__buttonSupprSite = self.__arrTK.createButton(self.__cadresPresentations[4],text="Supprimer"
+        buttonSupprSite = self.__arrTK.createButton(cadresPresentations[4],text="Supprimer"
                                                            ,width=20,police = "arial" , taille = tailleMain ,command=lambda :self.__showInternetFrame(3))
         #5
-        self.__menuTheme1 = self.__arrTK.createOptionMenu(self.__cadresPresentations[5],var=self.__varTheme,value=listeTheme)
-        self.__btnValiderTheme1 = self.__arrTK.createButton(self.__cadresPresentations[5],text="Valider"
+        menuTheme1 = self.__arrTK.createOptionMenu(cadresPresentations[5],var=self.__varTheme,value=listeTheme)
+        btnValiderTheme1 = self.__arrTK.createButton(cadresPresentations[5],text="Valider"
                                                             ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__validerTheme(2))
 
         # Cadre User 
@@ -178,10 +178,10 @@ class CArreraGazelleUIRyleyCopilote :
                                                        ,police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(4))
         self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,police="Arial",taille=tailleMain)
         # Cadre Rechecrhe
-        self.__labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Choisissez votre moteur\nde recherche"
+        labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Choisissez votre moteur\nde recherche"
                                                               ,police="Arial",taille=tailleTitle)
-        self.__menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
-        self.__btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
+        menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
+        btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
                                                             ,police="Arial",taille=tailleMain,command=lambda : self.__validerMoteur(1))
         # Cadre Software 
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft,police="Arial",taille=tailleTitle)
@@ -211,16 +211,16 @@ class CArreraGazelleUIRyleyCopilote :
         self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
         self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varSupprSite,value=listChoixSite)
         # Cardre theme 
-        self.__labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme,text="Choix du thème\nde l'interface"
+        labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme,text="Choix du thème\nde l'interface"
                                                           ,police="Arial",taille=tailleTitle)
-        self.__menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
-        self.__btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
+        menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
+        btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
                                                             police="Arial",taille=tailleMain,command=lambda : self.__validerTheme(1))
         # Cadre Micro
-        self.__labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au déclenchement\ndu micro",police="Arial",taille=tailleTitle)
-        self.__menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,
+        labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au déclenchement\ndu micro",police="Arial",taille=tailleTitle)
+        menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,
                                                               var = self.__varChoixMicro,value=self.__listChoixMicro)
-        self.__btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
+        btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
                                                             ,police="Arial",taille=tailleMain,command=self.__validerMicro)
 
 
@@ -239,17 +239,17 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnSupprDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Supprimer le dossier",
                                                             police="Arial", taille=tailleMain,command = lambda : self.__validerFolderDownload(2))
         # Placement widget
-        self.__arrTK.placeTopCenter(self.__labelTitreMenu)
+        self.__arrTK.placeTopCenter(labelTitreMenu)
         # Cadre acceuil
-        self.__arrTK.placeTopLeft(self.__cadresPresentations[0])
-        self.__arrTK.placeTopRight(self.__cadresPresentations[1])
-        self.__arrTK.placeCenterLeft(self.__cadresPresentations[2])
-        self.__arrTK.placeCenterRight(self.__cadresPresentations[3])
-        self.__arrTK.placeBottomLeft(self.__cadresPresentations[4])
-        self.__arrTK.placeBottomRight(self.__cadresPresentations[5])
+        self.__arrTK.placeTopLeft(cadresPresentations[0])
+        self.__arrTK.placeTopRight(cadresPresentations[1])
+        self.__arrTK.placeCenterLeft(cadresPresentations[2])
+        self.__arrTK.placeCenterRight(cadresPresentations[3])
+        self.__arrTK.placeBottomLeft(cadresPresentations[4])
+        self.__arrTK.placeBottomRight(cadresPresentations[5])
 
-        for i in range(0,5):
-            self.__arrTK.placeTopCenter(self.__labelcadresPresentations[i])
+        for i in range(0,6):
+            self.__arrTK.placeTopCenter(labelcadresPresentations[i])
         
         boutonMenu[0].place(relx=0.0,y=50)
         boutonMenu[1].place(relx=0.0,y=100)
@@ -264,24 +264,16 @@ class CArreraGazelleUIRyleyCopilote :
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
             boutonMenu[10].place(relx=0.0,y=550)
 
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[0])
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[1])
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[2])
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[3])
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[4])
-        self.__arrTK.placeTopCenter(self.__labelcadresPresentations[5])
-
-
-        self.__arrTK.placeCenter(self.__menuRecherche1)
-        self.__arrTK.placeBottomCenter(self.__btnValiderMoteur1)
-        self.__arrTK.placeCenter(self.__btnMeteo1)
-        self.__arrTK.placeCenter(self.__btnGPSHome)
-        self.__arrTK.placeBottomCenter(self.__btnGPSWork)
-        self.__arrTK.placeCenter(self.__btnSoftware1)
-        self.__arrTK.placeCenter(self.__buttonAddSite)
-        self.__arrTK.placeBottomCenter(self.__buttonSupprSite)
-        self.__arrTK.placeCenter(self.__menuTheme1)
-        self.__arrTK.placeBottomCenter(self.__btnValiderTheme1)
+        self.__arrTK.placeCenter(menuRecherche1)
+        self.__arrTK.placeBottomCenter(btnValiderMoteur1)
+        self.__arrTK.placeCenter(btnMeteo1)
+        self.__arrTK.placeCenter(btnGPSHome)
+        self.__arrTK.placeBottomCenter(btnGPSWork)
+        self.__arrTK.placeCenter(btnSoftware1)
+        self.__arrTK.placeCenter(buttonAddSite)
+        self.__arrTK.placeBottomCenter(buttonSupprSite)
+        self.__arrTK.placeCenter(menuTheme1)
+        self.__arrTK.placeBottomCenter(btnValiderTheme1)
 
         self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
@@ -289,21 +281,21 @@ class CArreraGazelleUIRyleyCopilote :
 
         self.__arrTK.placeTopCenter(self.__labelTitreGPS)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreRecherche)
-        self.__arrTK.placeCenter(self.__menuMoteurRecherche)
-        self.__arrTK.placeBottomCenter(self.__btnvaliderMoteur)
+        self.__arrTK.placeTopCenter(labelTitreRecherche)
+        self.__arrTK.placeCenter(menuMoteurRecherche)
+        self.__arrTK.placeBottomCenter(btnvaliderMoteur)
 
         self.__arrTK.placeTopCenter(self.__labelTitreSoftware)
 
         self.__arrTK.placeTopCenter(self.__labelTitreInternet)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreTheme)
-        self.__arrTK.placeCenter(self.__menuChoixTheme)
-        self.__arrTK.placeBottomCenter(self.__btnValiderTheme)
+        self.__arrTK.placeTopCenter(labelTitreTheme)
+        self.__arrTK.placeCenter(menuChoixTheme)
+        self.__arrTK.placeBottomCenter(btnValiderTheme)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreMicro)
-        self.__arrTK.placeCenter(self.__menuChoixMicro)
-        self.__arrTK.placeBottomCenter(self.__btnValiderMicro)
+        self.__arrTK.placeTopCenter(labelTitreMicro)
+        self.__arrTK.placeCenter(menuChoixMicro)
+        self.__arrTK.placeBottomCenter(btnValiderMicro)
 
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
         self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
