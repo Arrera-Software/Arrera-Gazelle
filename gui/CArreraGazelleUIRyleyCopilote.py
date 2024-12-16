@@ -79,7 +79,7 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createLabel(self.__cadresPresentations[4],text="Gestion Site internet",police="Arial",taille=17),
             self.__arrTK.createLabel(self.__cadresPresentations[5],text="Gestion theme",police="Arial",taille=17)]
         
-        self.__boutonMenu = [
+        boutonMenu = [
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
                                                   text="Acceuil",command=self.__backAcceuil,width=20),#0
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
@@ -102,9 +102,10 @@ class CArreraGazelleUIRyleyCopilote :
                                       text="Downloader",command=self.__showArreraDownloadFolder, width=20),  # 9
                         self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
                                                   text="Micro",command=self.__showMicroFrame,width=20),#10
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
-                                                  text="Quitter",width=20)#11
         ]
+
+        self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                                                  text="Quitter",width=20)
         
         #cadresPresentations
         #0
@@ -250,18 +251,18 @@ class CArreraGazelleUIRyleyCopilote :
         for i in range(0,5):
             self.__arrTK.placeTopCenter(self.__labelcadresPresentations[i])
         
-        self.__boutonMenu[0].place(relx=0.0,y=50)
-        self.__boutonMenu[1].place(relx=0.0,y=100)
-        self.__boutonMenu[2].place(relx=0.0,y=150)
-        self.__boutonMenu[3].place(relx=0.0,y=200)
-        self.__boutonMenu[4].place(relx=0.0,y=250)
-        self.__boutonMenu[5].place(relx=0.0,y=300)
-        self.__boutonMenu[6].place(relx=0.0,y=350)
-        self.__boutonMenu[7].place(relx=0.0,y=400)
-        self.__boutonMenu[8].place(relx=0.0,y=450)
-        self.__boutonMenu[9].place(relx=0.0,y=500)
+        boutonMenu[0].place(relx=0.0,y=50)
+        boutonMenu[1].place(relx=0.0,y=100)
+        boutonMenu[2].place(relx=0.0,y=150)
+        boutonMenu[3].place(relx=0.0,y=200)
+        boutonMenu[4].place(relx=0.0,y=250)
+        boutonMenu[5].place(relx=0.0,y=300)
+        boutonMenu[6].place(relx=0.0,y=350)
+        boutonMenu[7].place(relx=0.0,y=400)
+        boutonMenu[8].place(relx=0.0,y=450)
+        boutonMenu[9].place(relx=0.0,y=500)
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
-            self.__boutonMenu[10].place(relx=0.0,y=550)
+            boutonMenu[10].place(relx=0.0,y=550)
 
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[0])
         self.__arrTK.placeTopCenter(self.__labelcadresPresentations[1])
@@ -314,11 +315,11 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.setGeometry(500,630)
         self.__arrTK.packRight(self.__cadreAcceuil)
         self.__arrTK.packLeft(self.__cadreMenu)
-    
-    def passQuitFnc(self,quitFNC):
-        self.__boutonMenu[11].configure(command=lambda : self.__fncQuit(quitFNC) )
-        self.__arrTK.placeBottomCenter(self.__boutonMenu[11])
-    
+
+    def passQUITFNC(self,quitFNC):
+        self.__btnQUIT.configure(command=lambda : self.__fncQuit(quitFNC))
+        self.__arrTK.placeBottomCenter(self.__btnQUIT)
+
     def __fncQuit(self,quitFnc):
         self.__disableAllFrame()
         self.__cadreMenu.pack_forget()
