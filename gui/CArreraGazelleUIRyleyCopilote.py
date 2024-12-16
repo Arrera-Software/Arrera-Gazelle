@@ -8,18 +8,11 @@ class CArreraGazelleUIRyleyCopilote :
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
         jsonSetting = jsonWork(emplacementConfigSetting)
-        # Recuperation des variable pour les couleur
-        self.__fristColor = [jsonSetting.lectureJSON("colorLight1"),jsonSetting.lectureJSON("colorDark1")]
-        self.__secondColor = [jsonSetting.lectureJSON("colorLight2"),jsonSetting.lectureJSON("colorDark2")]
-        self.__fristColorTexte = [jsonSetting.lectureJSON("textColorLight1"),jsonSetting.lectureJSON("textColorDark1")]
-        self.__secondColorTexte = [jsonSetting.lectureJSON("textColorLight2"),jsonSetting.lectureJSON("textColorDark2")]
         # Mise de la fenetre dans un atribut
         self.__windows = windows
         self.__arrTK = atk
         # Varriable
-
         # Varriable police taille
-
         police = "Arial"
         tailleTitle = 27
         tailleMain = 23
