@@ -1,8 +1,4 @@
 {
-    "lightColor":"",
-    "darkColor":"",
-    "lightTextColor":"",
-    "darkTextColor":"",
     "listeTheme":["Dark","Light"],
     "listGenre":["monsieur","madame","maitre"]
 }

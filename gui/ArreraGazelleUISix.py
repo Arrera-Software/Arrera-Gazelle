@@ -1,31 +1,25 @@
-from tkinter import*
+from librairy.arrera_tk import *
 from objet.arreraGazelle import*
-from tkinter.messagebox import*
 from typing import Union
 
 class CArreraGazelleUISix :
-    def __init__(self,windows:Union[Tk,Toplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
+    def __init__(self,arrTK:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
         jsonSetting = jsonWork(emplacementConfigSetting)
-        # recuperation color
-        self.__listMainColor = [jsonSetting.lectureJSON("lightColor"),jsonSetting.lectureJSON("darkColor")]
-        self.__listMainTextColor = [jsonSetting.lectureJSON("lightTextColor"),jsonSetting.lectureJSON("darkTextColor")]
+
         # Mise de la fenetre dans un atribut
         self.__windows = windows
+        self.__arrtk = arrTK
         # Declaration des cardre
-        self.__mainCadre = Frame(self.__windows,width=500,height=400)
+        self.__mainCadre = self.__arrtk.createFrame(self.__windows,width=500,height=400)
 
         # Widget 
         # Main frame 
-        btnAcceuilUser = Button(self.__mainCadre,width=8,height=4,text="Utilisateur",font=("arial","15"))
+        btnAcceuilUser = self.__arrtk.createButton(self.__mainCadre,width=8,height=4,text="Utilisateur",police="Arial",taille=15)
 
         # Affichage 
         btnAcceuilUser.place(x=20,y=20)
     
-    def active(self,darkMode:bool):
-        if (darkMode == True) :
-            nb = 1
-        else : 
-            nb = 0 
+    def active(self):
         self.__mainCadre.pack()
