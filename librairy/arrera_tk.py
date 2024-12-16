@@ -172,7 +172,7 @@ class CArreraTK :
                 label.configure(font=(police, taille))
         return label
 
-    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,police : str = "Arial", taille : int = 12,width : int = 0):
+    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,police : str = "Arial", taille : int = 12,width : int = 0,height : int = 0):
         if (self.__mode == 0):
             btn = (ctk.CTkButton(screen))
             if (text != ""):
@@ -189,6 +189,8 @@ class CArreraTK :
                 btn.configure(font=(police,taille,"normal"))
             if (width != 0):
                 btn.configure(width=width)
+            if (height != 0):
+                btn.configure(height=height)
         else :
             btn = Button(screen)
             if (text != ""):
@@ -205,6 +207,8 @@ class CArreraTK :
                 btn.configure(font=(police, taille))
             if (width != 0):
                 btn.configure(width=width)
+            if (height != 0):
+                btn.configure(height=height)
         return btn
 
     def createEntry(self, screen, bg : str = "", fg : str = "",placeholderText :str = "",police : str = "Arial", taille : int = 12,width : int = 20):
