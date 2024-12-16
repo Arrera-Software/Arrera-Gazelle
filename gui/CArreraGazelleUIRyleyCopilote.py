@@ -6,18 +6,19 @@ from typing import Union
 class CArreraGazelleUIRyleyCopilote :
     def __init__(self,atk:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
         # Ouverture de l'objet
+
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
         jsonSetting = jsonWork(emplacementConfigSetting)
+
         # Mise de la fenetre dans un atribut
+
         self.__windows = windows
         self.__arrTK = atk
+
         # Varriable
-        # Varriable police taille
-        police = "Arial"
+
         tailleTitle = 27
         tailleMain = 23
-
-        # Varriable pour les widget
         self.__varRecherche = StringVar(self.__windows)
         self.__varMoteurRecherce = StringVar(self.__windows)
         self.__varTheme = StringVar(self.__windows)
@@ -30,6 +31,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
         self.__varChoixMicro =  StringVar(self.__windows)
+
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = ["Duckduckgo",
