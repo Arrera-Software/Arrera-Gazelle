@@ -77,137 +77,137 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createLabel(cadresPresentations[0],text="Gestion recherche",police="Arial",taille=17),
             self.__arrTK.createLabel(cadresPresentations[1],text="Gestion meteo",police="Arial",taille=17),
             self.__arrTK.createLabel(cadresPresentations[2],text="Gestion GPS",police="Arial",taille=17),
-            self.__arrTK.createLabel(cadresPresentations[3],text="Gestion software",police="Arial",taille=17),
+            self.__arrTK.createLabel(cadresPresentations[3],text="Gestion des logiciel",police="Arial",taille=17),
             self.__arrTK.createLabel(cadresPresentations[4],text="Gestion Site internet",police="Arial",taille=17),
             self.__arrTK.createLabel(cadresPresentations[5],text="Gestion theme",police="Arial",taille=17)]
         
         boutonMenu = [
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Acceuil",command=self.__backAcceuil,width=20),#0
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Utilisateur",command=self.__showUserFrame,width=20),#1
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Meteo",command=lambda : self.__showMeteoFrame(1),width=20),#2
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="GPS",command=lambda : self.__showGPSFrame(1),width=20),#3
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Recherche",command=self.__showRechercheFrame,width=20),#4
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
-                                                  text="Software",command=lambda : self.__showSoftFrame(1),width=20),#5
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
+                                                  text="Logiciel",command=lambda : self.__showSoftFrame(1),width=20),#5
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Site Web",command=lambda :self.__showInternetFrame(1),width=20),#6
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Theme",command=self.__showThemeFrame,width=20),#7
-                        self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu, ppolice="arial",ptaille=23,
                                                 text="Arrera Work", command=self.__showArreraWorkFolder, width=20),#8
-                        self.__arrTK.createButton(self.__cadreMenu, police="arial", taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu, ppolice="arial",ptaille=23,
                                       text="Downloader",command=self.__showArreraDownloadFolder, width=20),  # 9
-                        self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Micro",command=self.__showMicroFrame,width=20),#10
         ]
 
-        self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,police="arial",taille=23,
+        self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Quitter",width=20)
         
         #cadresPresentations
         #0
         menuRecherche1 = self.__arrTK.createOptionMenu(cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
         btnValiderMoteur1 = self.__arrTK.createButton(cadresPresentations[0],text="Valider"
-                                                             ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__validerMoteur(2))
+                                                             ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__validerMoteur(2))
         #1
         btnMeteo1 = self.__arrTK.createButton(cadresPresentations[1],text="Ajouter\nune ville"
-                                                     ,width=20,police = "arial" , taille = tailleMain  ,command = lambda : self.__showMeteoFrame(2))
+                                                     ,width=20,ppolice = "arial" , ptaille = tailleMain  ,command = lambda : self.__showMeteoFrame(2))
         #2
         btnGPSHome = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde domicile"
-                                                      ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showGPSFrame(2))
+                                                      ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showGPSFrame(2))
         btnGPSWork = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde travail"
-                                                      ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showGPSFrame(3))
+                                                      ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showGPSFrame(3))
         #3
-        btnSoftware1 = self.__arrTK.createButton(cadresPresentations[3],text="Ajouter\nun logiciel"
-                                                        ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__showSoftFrame(2))
+        btnSoftware1 = self.__arrTK.createButton(cadresPresentations[3],text="Ajouter\nd'un logiciel"
+                                                        ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showSoftFrame(2))
         #4
         buttonAddSite = self.__arrTK.createButton(cadresPresentations[4],text="Ajouter"
-                                                         ,width=20,police = "arial" , taille = tailleMain ,command=lambda :self.__showInternetFrame(2))
+                                                         ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(2))
         buttonSupprSite = self.__arrTK.createButton(cadresPresentations[4],text="Supprimer"
-                                                           ,width=20,police = "arial" , taille = tailleMain ,command=lambda :self.__showInternetFrame(3))
+                                                           ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(3))
         #5
         menuTheme1 = self.__arrTK.createOptionMenu(cadresPresentations[5],var=self.__varTheme,value=listeTheme)
         btnValiderTheme1 = self.__arrTK.createButton(cadresPresentations[5],text="Valider"
-                                                            ,width=20,police = "arial" , taille = tailleMain ,command=lambda : self.__validerTheme(2))
+                                                            ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__validerTheme(2))
 
         # Cadre User 
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser,police="Arial",taille=tailleTitle)
-        self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=tailleMain
+        self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
                                                      ,text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
-        self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=tailleMain
+        self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
                                                     ,text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
         self.__menuGenre = self.__arrTK.createOptionMenu(self.__cadreUser,var=self.__varGenre,value=listGenre)
         self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,police="Arial",taille=tailleMain,width=250)
-        self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=tailleMain,
+        self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
                                                           text="Valider",width=20)
-        self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,police="Arial",taille=tailleMain,
+        self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
                                                          text="Annuler",command=lambda : self.__affichageCadreUser(1),width=20)
 
         # Cadre Meteo 
         self.__labelTitreMeteo = self.__arrTK.createLabel(self.__cadreMeteo,police="Arial",taille=tailleTitle)
         self.__btnListMeteo =  self.__arrTK.createButton(self.__cadreMeteo,text="Liste des villes enregistrées"
-                                                         ,police="Arial",taille=tailleMain,command= lambda : self.__affichageCadreMeteo(2))
+                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(2))
         self.__btnAddVille =   self.__arrTK.createButton(self.__cadreMeteo,text="Ajouter une ville"
-                                                         ,police="Arial",taille=tailleMain,command= lambda : self.__affichageCadreMeteo(3))
+                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(3))
         self.__btnSupprVille = self.__arrTK.createButton(self.__cadreMeteo,text="Supprimer une ville"
-                                                         ,police="Arial",taille=tailleMain,command= lambda : self.__affichageCadreMeteo(4))
+                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(4))
         self.__labelListeMeteo = self.__arrTK.createLabel(self.__cadreMeteo,police="Arial",taille=tailleTitle)
         self.__menuChoixLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varChoixLieu,value=listChoixLieu)
         self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varSupprLieu,value=listChoixLieu)
         self.__entryVille = self.__arrTK.createEntry(self.__cadreMeteo,police="Arial",taille=tailleMain)
         self.__btnvaliderMeteo = self.__arrTK.createButton(self.__cadreMeteo,text="Valider"
-                                                           ,police="Arial",taille=tailleMain)
-        self.__btnannulerMeteo = self.__arrTK.createButton(self.__cadreMeteo,police="Arial"
-                                                           ,taille=tailleMain,command= lambda : self.__affichageCadreMeteo(1))
+                                                           ,ppolice = "arial" , ptaille = tailleMain)
+        self.__btnannulerMeteo = self.__arrTK.createButton(self.__cadreMeteo,ppolice = "arial" , ptaille = tailleMain
+                                                           ,command= lambda : self.__affichageCadreMeteo(1))
         # Cadre GPS 
         self.__labelTitreGPS = self.__arrTK.createLabel(self.__cadreGPS,police="Arial",taille=tailleTitle)
         self.__btnAdresseDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du domicile"
-                                                              ,police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(2))
+                                                              ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(2))
         self.__btnAdresseWork = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du lieu de travail"
-                                                          ,police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(3))
-        self.__btnvaliderGPS = self.__arrTK.createButton(self.__cadreGPS,text="Valider",police="Arial",taille=tailleMain)
-        self.__btnretourGPS = self.__arrTK.createButton(self.__cadreGPS,text="Retour",police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(1))
+                                                          ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(3))
+        self.__btnvaliderGPS = self.__arrTK.createButton(self.__cadreGPS,text="Valider",ppolice = "arial" , ptaille = tailleMain)
+        self.__btnretourGPS = self.__arrTK.createButton(self.__cadreGPS,text="Retour",ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(1))
         self.__btnSupprGPSDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer l'adresse du domicile"
-                                                               ,police="Arial",taille=tailleMain,command=lambda : self.__validerGPS(2,1))
+                                                               ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerGPS(2,1))
         self.__btnSupprGPSWork = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer l'adresse du travail"
-                                                           ,police="Arial",taille=tailleMain,command=lambda : self.__validerGPS(2,2))
+                                                           ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerGPS(2,2))
         self.__btnsupprGPS = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer une adresse"
-                                                       ,police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreGPS(4))
+                                                       ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(4))
         self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,police="Arial",taille=tailleMain)
         # Cadre Rechecrhe
         labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche,text="Choisissez votre moteur\nde recherche"
                                                               ,police="Arial",taille=tailleTitle)
         menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
         btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
-                                                            ,police="Arial",taille=tailleMain,command=lambda : self.__validerMoteur(1))
+                                                            ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerMoteur(1))
         # Cadre Software 
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft,police="Arial",taille=tailleTitle)
         self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
-                                                          police="Arial",taille=tailleMain,command=lambda:self.__affichageCadreSoft(1))
+                                                          ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(1))
         self.__btnValiderSoft = self.__arrTK.createButton(self.__cadreSoft,text="Valider",
-                                                          police="Arial",taille=tailleMain)
+                                                          ppolice = "arial" , ptaille = tailleMain)
         self.__btnAddSoft = self.__arrTK.createButton(self.__cadreSoft,text="Ajouter un logiciel",
-                                                      police="Arial",taille=tailleMain,command=lambda:self.__affichageCadreSoft(2))
+                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(2))
         self.__btnSupprSoft= self.__arrTK.createButton(self.__cadreSoft,text="Supprimer un logiciel",
-                                                       police="Arial",taille=tailleMain,command=lambda:self.__affichageCadreSoft(3))
+                                                       ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(3))
         self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = listTypeSoft)
         self.__menuChoixSoft  = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varChoixSoft,value = listTypeSoft)
         self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,police="Arial",taille=15)
         # Cadre Internet
         self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreInternet,police="Arial",taille=tailleTitle)
         self.__btnAddSite = self.__arrTK.createButton(self.__cadreInternet,text="Enregister un site",
-                                                      police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreSite(2))
+                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(2))
         self.__btnSupprSite = self.__arrTK.createButton(self.__cadreInternet,text="Supprimer un site",
-                                                        police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreSite(3))
+                                                        ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(3))
         self.__btnAnnulerInternet = self.__arrTK.createButton(self.__cadreInternet,text="Annuler",
-                                                              police="Arial",taille=tailleMain,command=lambda : self.__affichageCadreSite(1))
+                                                              ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(1))
         self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreInternet,text="Valider",
-                                                              police="Arial",taille=tailleMain)
+                                                              ppolice = "arial" , ptaille = tailleMain)
         self.__entryNameSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=tailleMain)
         self.__entryLinkSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=tailleMain)
         self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
@@ -217,29 +217,29 @@ class CArreraGazelleUIRyleyCopilote :
                                                           ,police="Arial",taille=tailleTitle)
         menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
         btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
-                                                            police="Arial",taille=tailleMain,command=lambda : self.__validerTheme(1))
+                                                            ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerTheme(1))
         # Cadre Micro
         labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro,text="Sons au déclenchement\ndu micro",police="Arial",taille=tailleTitle)
         menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,
                                                               var = self.__varChoixMicro,value=self.__listChoixMicro)
         btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
-                                                            ,police="Arial",taille=tailleMain,command=self.__validerMicro)
+                                                            ,ppolice = "arial" , ptaille = tailleMain,command=self.__validerMicro)
 
 
         # Cader Work folder
         self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
                                                                text="Choisir le dossier\npour Arrera Work",police="Arial", taille=tailleTitle)
         self.__btnFolderArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Choisir le dossier",
-                                                               police="Arial", taille=tailleMain,command=lambda : self.__validerFolderWork(1))
+                                                               ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerFolderWork(1))
         self.__btnSupprArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Supprimer le dossier",
-                                                              police="Arial", taille=tailleMain,command = lambda : self.__validerFolderWork(2))
+                                                              ppolice = "arial" , ptaille = tailleMain,command = lambda : self.__validerFolderWork(2))
         # Cadre Download folder
         self.__labelTitreDownload = self.__arrTK.createLabel(self.__cadreVideoDownload,
                                                              text="Choisir le dossier pour\nArrera video download",police="Arial", taille=tailleTitle)
         self.__btnFolderDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Choisir le dossier",
-                                                             police="Arial", taille=tailleMain,command = lambda : self.__validerFolderDownload(1))
+                                                             ppolice = "arial" , ptaille = tailleMain,command = lambda : self.__validerFolderDownload(1))
         self.__btnSupprDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Supprimer le dossier",
-                                                            police="Arial", taille=tailleMain,command = lambda : self.__validerFolderDownload(2))
+                                                            ppolice = "arial" , ptaille = tailleMain,command = lambda : self.__validerFolderDownload(2))
         # Placement widget
         self.__arrTK.placeTopCenter(labelTitreMenu)
         # Cadre acceuil
