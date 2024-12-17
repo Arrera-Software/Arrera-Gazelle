@@ -145,7 +145,7 @@ class CArreraTK :
                 imageLight = PhotoImage(file=pathLight)
                 return imageLight
 
-    def createLabel(self, screen, text: str = "", image = None, bg : str = "", fg : str = "",police : str = "Arial", taille : int = 12):
+    def createLabel(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", ppolice : str = "Arial", ptaille : int = 12,pstyle : str = "normal"):
         if (self.__mode == 0):
             label = ctk.CTkLabel(screen)
             if (text != ""):
@@ -156,8 +156,16 @@ class CArreraTK :
                 label.configure(bg_color=bg)
             if (fg != ""):
                 label.configure(fg_color=fg)
-            if (police != "Arial" or taille != 12):
-                label.configure(font=(police,taille,"normal"))
+            police = "Arial"
+            style = "normal"
+            taille = 12
+            if (ppolice != "Arial"):
+                police = ppolice
+            if (ptaille != 12):
+                taille = ptaille
+            if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
+                style = pstyle
+            label.configure(font=(police, taille, style))
         else :
             label = Label(screen)
             if (text != ""):
@@ -168,11 +176,11 @@ class CArreraTK :
                 label.configure(bg=bg)
             if (fg != ""):
                 label.configure(fg=fg)
-            if (police != "Arial" or taille != 12):
-                label.configure(font=(police, taille))
+            if (ppolice != "Arial" or ptaille != 12):
+                label.configure(font=(ppolice, ptaille))
         return label
 
-    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle = "normal",width : int = 0,height : int = 0):
+    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle :str = "normal",width : int = 0,height : int = 0):
         if (self.__mode == 0):
             btn = (ctk.CTkButton(screen))
             if (text != ""):
