@@ -1,4 +1,5 @@
 {
     "listeTheme":["Dark","Light"],
-    "listGenre":["monsieur","madame","maitre"]
+    "listGenre":["monsieur","madame","maitre"],
+    "iconSoft": "icon/logo-six.png"
 }
