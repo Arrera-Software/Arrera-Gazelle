@@ -172,11 +172,13 @@ class CArreraTK :
                 label.configure(font=(police, taille))
         return label
 
-    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,police : str = "Arial", taille : int = 12,width : int = 0,height : int = 0):
+    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle = "normal",width : int = 0,height : int = 0):
         if (self.__mode == 0):
             btn = (ctk.CTkButton(screen))
             if (text != ""):
                 btn.configure(text=text)
+            else :
+                btn.configure(text="")
             if (image != None):
                 btn.configure(image=image)
             if (bg != ""):
@@ -185,16 +187,27 @@ class CArreraTK :
                 btn.configure(fg_color=fg)
             if (command != None):
                 btn.configure(command=command)
-            if (police != "Arial" or taille != 12):
-                btn.configure(font=(police,taille,"normal"))
             if (width != 0):
                 btn.configure(width=width)
             if (height != 0):
                 btn.configure(height=height)
+            police = "Arial"
+            style = "normal"
+            taille = 12
+            if (ppolice != "Arial"):
+                police = ppolice
+            if (ptaille != 12):
+                taille = ptaille
+            if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
+                style = pstyle
+            btn.configure(font=(police,taille,style))
+
         else :
             btn = Button(screen)
             if (text != ""):
                 btn.configure(text=text)
+            else :
+                btn.configure(text="")
             if (image != None):
                 btn.configure(image=image)
             if (bg != ""):
@@ -203,8 +216,8 @@ class CArreraTK :
                 btn.configure(fg=fg)
             if (command != None):
                 btn.configure(command=command)
-            if (police != "Arial" or taille != 12):
-                btn.configure(font=(police, taille))
+            if (ppolice != "Arial" or ptaille != 12):
+                btn.configure(font=(ppolice, ptaille))
             if (width != 0):
                 btn.configure(width=width)
             if (height != 0):
