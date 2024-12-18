@@ -27,6 +27,10 @@ class CArreraGazelleUISix :
         self.__meteoSuppr = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
 
         self.__gpsFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__gpsAcceuil = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsDomicile = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsTravail = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsSuppr = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
 
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
@@ -155,6 +159,16 @@ class CArreraGazelleUISix :
         #option menu
         self.__menuMeteoSuppr = self.__arrtk.createOptionMenu(self.__meteoSuppr, value = ["", ""], var = self.__varSupprMeteo)
 
+        # GPS Frame
+        # Label
+        labelTitleGPS = [self.__arrtk.createLabel(self.__gpsAcceuil,text="Gestion GPS",
+                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                         self.__arrtk.createLabel(self.__gpsDomicile,text="Lieu Domicile",
+                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                         self.__arrtk.createLabel(self.__gpsTravail,text="Lieu Travail",
+                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                         self.__arrtk.createLabel(self.__gpsSuppr,text="Supprimer Lieu",
+                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
 
         # Affichage 
         btnIcon.place(x=20,y=20)
