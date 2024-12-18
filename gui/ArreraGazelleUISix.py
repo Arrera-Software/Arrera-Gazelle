@@ -110,16 +110,16 @@ class CArreraGazelleUISix :
                            self.__arrtk.createLabel(self.__meteoSuppr,text="Supprimer Lieu",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
         # Button
-        btnAcceuilDomicile = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nDomicile",
+        btnAcceuilMeteoDomicile = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nDomicile",
                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                        command=lambda:self.__viewMeteoDomicile())
-        btnAcceuilTravail = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nTravail",
+        btnAcceuilMeteoTravail = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nTravail",
                                                       ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                       command=lambda:self.__viewMeteoTravail())
-        btnAcceuilVille = self.__arrtk.createButton(self.__meteoAcceuil,text="Autre\nVille",
+        btnAcceuiMeteolVille = self.__arrtk.createButton(self.__meteoAcceuil,text="Autre\nVille",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                     command=lambda:self.__viewMeteoVille())
-        btnAcceuilSuppr = self.__arrtk.createButton(self.__meteoAcceuil,text="Supprimer un lieu",
+        btnAcceuilMeteoSuppr = self.__arrtk.createButton(self.__meteoAcceuil,text="Supprimer un lieu",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                     command=lambda:self.__viewMeteoSuppr())
 
@@ -190,10 +190,10 @@ class CArreraGazelleUISix :
         for i in (range(0,len(labelTitleMeteo))):
             self.__arrtk.placeTopCenter(labelTitleMeteo[i])
 
-        self.__arrtk.placeRightCenter(btnAcceuilDomicile)
-        self.__arrtk.placeLeftCenter(btnAcceuilTravail)
-        self.__arrtk.placeCenter(btnAcceuilVille)
-        self.__arrtk.placeBottomCenter(btnAcceuilSuppr)
+        self.__arrtk.placeRightCenter(btnAcceuilMeteoDomicile)
+        self.__arrtk.placeLeftCenter(btnAcceuilMeteoTravail)
+        self.__arrtk.placeCenter(btnAcceuiMeteolVille)
+        self.__arrtk.placeBottomCenter(btnAcceuilMeteoSuppr)
 
         self.__arrtk.placeBottomLeft(btnValiderMeteoDomicile)
         self.__arrtk.placeBottomRight(btnRetourMeteoDomicile)
