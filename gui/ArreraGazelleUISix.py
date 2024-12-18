@@ -24,6 +24,9 @@ class CArreraGazelleUISix :
         self.__meteoDomicile = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
         self.__meteoTravail = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
         self.__meteoVille = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoSuppr = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
+
+        self.__gpsFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
 
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
@@ -36,7 +39,7 @@ class CArreraGazelleUISix :
         iconAssistant = self.__arrtk.createImage(jsonSetting.lectureJSON("iconSoft"),tailleX=95,tailleY=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
-
+        self.__varSupprMeteo = StringVar(self.__windows)
         # Widget 
         # Main frame
         btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
@@ -103,6 +106,8 @@ class CArreraGazelleUISix :
                            self.__arrtk.createLabel(self.__meteoTravail,text="Lieu Travail",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
                            self.__arrtk.createLabel(self.__meteoVille,text="Autre Ville",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                           self.__arrtk.createLabel(self.__meteoSuppr,text="Supprimer Lieu",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
         # Button
         btnAcceuilDomicile = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nDomicile",
@@ -114,6 +119,9 @@ class CArreraGazelleUISix :
         btnAcceuilVille = self.__arrtk.createButton(self.__meteoAcceuil,text="Autre\nVille",
                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                     command=lambda:self.__viewMeteoVille())
+        btnAcceuilSuppr = self.__arrtk.createButton(self.__meteoAcceuil,text="Supprimer un lieu",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewMeteoSuppr())
 
         btnValiderMeteoDomicile = self.__arrtk.createButton(self.__meteoDomicile,text="Valider",
                                                             ppolice="Arial",ptaille=taillePolice,pstyle="normal",
@@ -124,6 +132,9 @@ class CArreraGazelleUISix :
         btnValiderMeteoVille = self.__arrtk.createButton(self.__meteoVille,text="Valider",
                                                          ppolice="Arial",ptaille=taillePolice,pstyle="normal",
                                                          command=lambda:self.__saveMeteoVille())
+        btnValiderMeteoSuppr = self.__arrtk.createButton(self.__meteoSuppr,text="Supprimer",
+                                                         ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+                                                         command=lambda:self.__supprMeteoVille())
 
         btnRetourMeteoDomicile = self.__arrtk.createButton(self.__meteoDomicile,text="Retour",
                                                            ppolice="Arial",ptaille=taillePolice,pstyle="normal",
@@ -134,10 +145,15 @@ class CArreraGazelleUISix :
         btnRetourMeteoVille = self.__arrtk.createButton(self.__meteoVille,text="Retour",
                                                         ppolice="Arial",ptaille=taillePolice,pstyle="normal",
                                                         command=lambda:self.__viewMeteoAcceuil())
+        btnRetourMeteoSuppr = self.__arrtk.createButton(self.__meteoSuppr,text="Retour",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+                                                        command=lambda:self.__viewMeteoAcceuil())
         # entry
         self.__entryMeteoDomicile = self.__arrtk.createEntry(self.__meteoDomicile,police="Arial",taille=taillePolice,width=300)
         self.__entryMeteoTravail = self.__arrtk.createEntry(self.__meteoTravail,police="Arial",taille=taillePolice,width=300)
         self.__entryMeteoVille = self.__arrtk.createEntry(self.__meteoVille,police="Arial",taille=taillePolice,width=300)
+        #option menu
+        self.__menuMeteoSuppr = self.__arrtk.createOptionMenu(self.__meteoSuppr, value = ["", ""], var = self.__varSupprMeteo)
 
 
         # Affichage 
@@ -177,6 +193,7 @@ class CArreraGazelleUISix :
         self.__arrtk.placeRightCenter(btnAcceuilDomicile)
         self.__arrtk.placeLeftCenter(btnAcceuilTravail)
         self.__arrtk.placeCenter(btnAcceuilVille)
+        self.__arrtk.placeBottomCenter(btnAcceuilSuppr)
 
         self.__arrtk.placeBottomLeft(btnValiderMeteoDomicile)
         self.__arrtk.placeBottomRight(btnRetourMeteoDomicile)
@@ -186,6 +203,9 @@ class CArreraGazelleUISix :
 
         self.__arrtk.placeBottomLeft(btnValiderMeteoTravail)
         self.__arrtk.placeBottomRight(btnRetourMeteoTravail)
+
+        self.__arrtk.placeBottomLeft(btnValiderMeteoSuppr)
+        self.__arrtk.placeBottomRight(btnRetourMeteoSuppr)
 
         self.__arrtk.placeCenter(self.__entryMeteoDomicile)
         self.__arrtk.placeCenter(self.__entryMeteoTravail)
@@ -200,6 +220,7 @@ class CArreraGazelleUISix :
         self.__userFrame.pack_forget()
         self.__backFrame.pack_forget()
         self.__meteoFrame.pack_forget()
+        self.__gpsFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -249,6 +270,7 @@ class CArreraGazelleUISix :
         self.__meteoVille.pack_forget()
         self.__meteoTravail.pack_forget()
         self.__meteoDomicile.pack_forget()
+        self.__meteoSuppr.pack_forget()
         self.__meteoAcceuil.pack()
         self.__meteoFrame.pack()
         self.__backFrame.pack()
@@ -259,6 +281,7 @@ class CArreraGazelleUISix :
         self.__meteoTravail.pack_forget()
         self.__meteoVille.pack_forget()
         self.__meteoAcceuil.pack_forget()
+        self.__meteoSuppr.pack_forget()
 
     def __viewMeteoTravail(self):
         self.__entryMeteoTravail.delete(0, END)
@@ -266,6 +289,7 @@ class CArreraGazelleUISix :
         self.__meteoTravail.pack()
         self.__meteoVille.pack_forget()
         self.__meteoAcceuil.pack_forget()
+        self.__meteoSuppr.pack_forget()
 
     def __viewMeteoVille(self):
         self.__entryMeteoVille.delete(0, END)
@@ -273,6 +297,21 @@ class CArreraGazelleUISix :
         self.__meteoTravail.pack_forget()
         self.__meteoVille.pack()
         self.__meteoAcceuil.pack_forget()
+        self.__meteoSuppr.pack_forget()
+
+    def __viewMeteoSuppr(self):
+        listVille = self.__gazelle.getMeteoSave()
+        if len(listVille) == 0:
+            messagebox.showerror("Erreur", "Aucune ville n'a été enregistré")
+            return
+        self.__meteoDomicile.pack_forget()
+        self.__meteoTravail.pack_forget()
+        self.__meteoVille.pack_forget()
+        self.__meteoAcceuil.pack_forget()
+        self.__meteoSuppr.pack()
+        del self.__menuMeteoSuppr
+        self.__menuMeteoSuppr = self.__arrtk.createOptionMenu(self.__meteoSuppr,value = listVille,var = self.__varSupprMeteo)
+        self.__arrtk.placeCenter(self.__menuMeteoSuppr)
 
     def __saveMeteoDomicile(self):
         domicile = self.__entryMeteoDomicile.get()
@@ -305,4 +344,14 @@ class CArreraGazelleUISix :
             self.__gazelle.ajoutVilleMeteo(3,ville)
             messagebox.showinfo("Parametre","Le lieu ville a bien été enregistré")
             self.__entryMeteoVille.delete(0,END)
+            self.__viewMeteoAcceuil()
+
+    def __supprMeteoVille(self):
+        ville = self.__varSupprMeteo.get()
+        if ville == "":
+            messagebox.showerror("Erreur","Aucune ville n'a été selectionné")
+            return
+        else :
+            self.__gazelle.supprVilleMeteo(3,ville)
+            messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
             self.__viewMeteoAcceuil()

@@ -63,14 +63,7 @@ class CArreraGazelle :
                     return False
     
     def getMeteoSave(self):
-        listeMeteo = []
-        if (self.__fileJsonUser.lectureJSON("lieuDomicile") != ""):
-            listeMeteo.append("Lieu d'habitation enregister")
-
-        if (self.__fileJsonUser.lectureJSON("lieuTravail") != ""):
-            listeMeteo.append("Lieu de travail enregister")
-        
-        listeMeteo = listeMeteo+self.__fileJsonUser.lectureJSONList("listVille")
+        listeMeteo = self.__fileJsonUser.lectureJSONList("listVille")
 
         return listeMeteo
 
