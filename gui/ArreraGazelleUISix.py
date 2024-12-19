@@ -44,6 +44,7 @@ class CArreraGazelleUISix :
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
+        self.__varSupprGPS = StringVar(self.__windows)
         # Widget 
         # Main frame
         btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
@@ -52,7 +53,7 @@ class CArreraGazelleUISix :
         btnAcceuilMeteo = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Meteo"
                                                     ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewMeteoAcceuil())
         btnAcceuilGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="GPS"
-                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda : self.__viewGPSAcceuil())
         btnAcceuilRecherche = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Recherche"
                                                         ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold")
         btnAcceuilLogiciel = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Logiciel"
@@ -169,6 +170,33 @@ class CArreraGazelleUISix :
                                                   ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
                          self.__arrtk.createLabel(self.__gpsSuppr,text="Supprimer Lieu",
                                                   ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+        # Button
+        btnAcceuilGPSDomicile = self.__arrtk.createButton(self.__gpsAcceuil,text="Lieu\nDomicile",
+                                                          ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+                                                          command=lambda:self.__viewGPSDomicile())
+        btnAcceuilGPSTravail = self.__arrtk.createButton(self.__gpsAcceuil,text="Lieu\nTravail",
+                                                         ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+                                                         command=lambda:self.__viewGPSTravail())
+        btnAcceuilGPSSuppr = self.__arrtk.createButton(self.__gpsAcceuil,text="Supprimer\nun lieu",
+                                                       ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+                                                       command=lambda:self.__viewGPSSuppr())
+
+        btnValiderGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Valider",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__saveGPSDomicile())
+        btnValiderGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Valider",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__saveGPSTravail())
+        btnValiderGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Supprimer",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__supprGPSAdresse())
+
+        btnRetourGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
+        btnRetourGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
+        btnRetourGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
+
+        # entry
+        self.__entryGPSDomicile = self.__arrtk.createEntry(self.__gpsDomicile,police="Arial",taille=taillePolice,width=300)
+        self.__entryGPSTravail = self.__arrtk.createEntry(self.__gpsTravail,police="Arial",taille=taillePolice,width=300)
+        #option menu
+        self.__menuGPSSuppr = self.__arrtk.createOptionMenu(self.__gpsSuppr, value = ["", ""], var = self.__varSupprGPS)
+
+
+
 
         # Affichage 
         btnIcon.place(x=20,y=20)
@@ -224,6 +252,25 @@ class CArreraGazelleUISix :
         self.__arrtk.placeCenter(self.__entryMeteoDomicile)
         self.__arrtk.placeCenter(self.__entryMeteoTravail)
         self.__arrtk.placeCenter(self.__entryMeteoVille)
+
+        for i in range(0,len(labelTitleGPS)):
+            self.__arrtk.placeTopCenter(labelTitleGPS[i])
+
+        self.__arrtk.placeRightCenter(btnAcceuilGPSDomicile)
+        self.__arrtk.placeLeftCenter(btnAcceuilGPSTravail)
+        self.__arrtk.placeCenter(btnAcceuilGPSSuppr)
+
+        self.__arrtk.placeBottomLeft(btnValiderGPSDomicile)
+        self.__arrtk.placeBottomRight(btnRetourGPSDomicile)
+
+        self.__arrtk.placeBottomLeft(btnValiderGPSTravail)
+        self.__arrtk.placeBottomRight(btnRetourGPSTravail)
+
+        self.__arrtk.placeBottomLeft(btnValiderGPSSuppr)
+        self.__arrtk.placeBottomRight(btnRetourGPSSuppr)
+
+        self.__arrtk.placeCenter(self.__entryGPSTravail)
+        self.__arrtk.placeCenter(self.__entryGPSDomicile)
 
     # Methode generale
     def active(self):
@@ -369,3 +416,85 @@ class CArreraGazelleUISix :
             self.__gazelle.supprVilleMeteo(3,ville)
             messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
             self.__viewMeteoAcceuil()
+
+    # Methode partie GPS
+
+    def __viewGPSAcceuil(self):
+        self.__clearAll()
+        self.__gpsDomicile.pack_forget()
+        self.__gpsTravail.pack_forget()
+        self.__gpsSuppr.pack_forget()
+        self.__gpsAcceuil.pack()
+        self.__gpsFrame.pack()
+        self.__backFrame.pack()
+
+    def __viewGPSDomicile(self):
+        self.__entryGPSDomicile.delete(0,END)
+        self.__gpsDomicile.pack()
+        self.__gpsTravail.pack_forget()
+        self.__gpsSuppr.pack_forget()
+        self.__gpsAcceuil.pack_forget()
+
+    def __viewGPSTravail(self):
+        self.__entryGPSTravail.delete(0,END)
+        self.__gpsDomicile.pack_forget()
+        self.__gpsTravail.pack()
+        self.__gpsSuppr.pack_forget()
+        self.__gpsAcceuil.pack_forget()
+
+    def __viewGPSSuppr(self):
+        travailSet = self.__gazelle.getGPSAdresseIsSet(2)
+        domicileSet = self.__gazelle.getGPSAdresseIsSet(1)
+        listVille = []
+
+        if domicileSet:
+            listVille.append("Lieu de Domicile")
+
+        if travailSet:
+            listVille.append("Lieu de Travail")
+
+        if len(listVille) == 0:
+            messagebox.showerror("Erreur", "Aucune ville n'a été enregistré")
+            return
+        self.__gpsDomicile.pack_forget()
+        self.__gpsTravail.pack_forget()
+        self.__gpsSuppr.pack()
+        self.__gpsAcceuil.pack_forget()
+        del self.__menuGPSSuppr
+        self.__menuGPSSuppr = self.__arrtk.createOptionMenu(self.__gpsSuppr,value = listVille,var = self.__varSupprGPS)
+        self.__arrtk.placeCenter(self.__menuGPSSuppr)
+
+    def __saveGPSDomicile(self):
+        domicile = self.__entryGPSDomicile.get()
+        if domicile == "":
+            messagebox.showerror("Parametre","Le lieu domicile ne peut pas etre vide")
+            return
+        else :
+            self.__gazelle.ajoutGPSAdresse(1,domicile)
+            messagebox.showinfo("Parametre","Le lieu domicile a bien été enregistré")
+            self.__entryGPSDomicile.delete(0,END)
+            self.__viewGPSAcceuil()
+
+    def __saveGPSTravail(self):
+        travail = self.__entryGPSTravail.get()
+        if travail == "":
+            messagebox.showerror("Parametre","Le lieu travail ne peut pas etre vide")
+            return
+        else :
+            self.__gazelle.ajoutGPSAdresse(2,travail)
+            messagebox.showinfo("Parametre","Le lieu travail a bien été enregistré")
+            self.__entryGPSTravail.delete(0,END)
+            self.__viewGPSAcceuil()
+
+    def __supprGPSAdresse(self):
+        adresse = self.__varSupprGPS.get()
+        if adresse == "":
+            messagebox.showerror("Erreur","Aucune adresse n'a été selectionné")
+            return
+        else :
+            if adresse == "Lieu de Domicile":
+                self.__gazelle.supprGPSAdresse(1)
+            else :
+                self.__gazelle.supprGPSAdresse(2)
+            messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
+            self.__viewGPSAcceuil()
