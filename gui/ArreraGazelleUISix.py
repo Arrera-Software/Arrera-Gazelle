@@ -181,13 +181,25 @@ class CArreraGazelleUISix :
                                                        ppolice="Arial", ptaille=taillePolice, pstyle="bold",
                                                        command=lambda:self.__viewGPSSuppr())
 
-        btnValiderGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Valider",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__saveGPSDomicile())
-        btnValiderGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Valider",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__saveGPSTravail())
-        btnValiderGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Supprimer",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__supprGPSAdresse())
+        btnValiderGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Valider",ppolice="Arial",
+                                                          ptaille=taillePolice, pstyle="bold",
+                                                          command=lambda:self.__saveGPSDomicile())
+        btnValiderGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Valider",ppolice="Arial",
+                                                         ptaille=taillePolice, pstyle="bold",
+                                                         command=lambda:self.__saveGPSTravail())
+        btnValiderGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Supprimer",ppolice="Arial",
+                                                       ptaille=taillePolice, pstyle="bold",
+                                                       command=lambda:self.__supprGPSAdresse())
 
-        btnRetourGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Retour",ppolice="Arial", ptaille=taillePolice, pstyle="bold",command=lambda:self.__viewGPSAcceuil())
+        btnRetourGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Retour",ppolice="Arial",
+                                                         ptaille=taillePolice, pstyle="bold",
+                                                         command=lambda:self.__viewGPSAcceuil())
+        btnRetourGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Retour",ppolice="Arial",
+                                                        ptaille=taillePolice, pstyle="bold",
+                                                        command=lambda:self.__viewGPSAcceuil())
+        btnRetourGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Retour",ppolice="Arial",
+                                                      ptaille=taillePolice, pstyle="bold",
+                                                      command=lambda:self.__viewGPSAcceuil())
 
         # entry
         self.__entryGPSDomicile = self.__arrtk.createEntry(self.__gpsDomicile,police="Arial",taille=taillePolice,width=300)
