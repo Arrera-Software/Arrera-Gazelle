@@ -34,12 +34,7 @@ class CArreraGazelleUIRyleyCopilote :
 
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
-        listMoteur = ["Duckduckgo",
-                      "google",
-                      "bing",
-                      "brave",
-                      "ecosia",
-                      "qwant"]
+        listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listTypeSoft = ["Autre","Traitement de texte",
