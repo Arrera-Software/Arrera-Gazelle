@@ -32,6 +32,8 @@ class CArreraGazelleUISix :
         self.__gpsTravail = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
         self.__gpsSuppr = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
 
+        self.__rechercheFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -39,12 +41,14 @@ class CArreraGazelleUISix :
         taillePolice = 20
         # Liste
         listGenre = jsonSetting.lectureJSONList("listGenre")
+        listMoteurRecherche = jsonSetting.lectureJSONList("listMoteurRecherche")
         # Icon Assistant
         iconAssistant = self.__arrtk.createImage(jsonSetting.lectureJSON("iconSoft"),tailleX=95,tailleY=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
         self.__varSupprGPS = StringVar(self.__windows)
+        self.__varMoteurRecherche = StringVar(self.__windows)
         # Widget 
         # Main frame
         btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
@@ -55,7 +59,7 @@ class CArreraGazelleUISix :
         btnAcceuilGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="GPS"
                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda : self.__viewGPSAcceuil())
         btnAcceuilRecherche = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Recherche"
-                                                        ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold")
+                                                        ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",command=lambda:self.__viewRecherche())
         btnAcceuilLogiciel = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Logiciel"
                                                        ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")
         btnAcceuilInternet = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Internet"
@@ -207,6 +211,15 @@ class CArreraGazelleUISix :
         #option menu
         self.__menuGPSSuppr = self.__arrtk.createOptionMenu(self.__gpsSuppr, value = ["", ""], var = self.__varSupprGPS)
 
+        # Recherche Frame
+        # Label
+        labelTitleRecherche = self.__arrtk.createLabel(self.__rechercheFrame,text="Gestion du moteur de recherche",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        # Button
+        btnValiderRecherche = self.__arrtk.createButton(self.__rechercheFrame,text="Valider",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__saveRecherche())
+        # Option Menu
+        menuMoteurRecherche = self.__arrtk.createOptionMenu(self.__rechercheFrame,value = listMoteurRecherche,var = self.__varMoteurRecherche)
+
+
 
 
 
@@ -284,6 +297,10 @@ class CArreraGazelleUISix :
         self.__arrtk.placeCenter(self.__entryGPSTravail)
         self.__arrtk.placeCenter(self.__entryGPSDomicile)
 
+        self.__arrtk.placeTopCenter(labelTitleRecherche)
+        self.__arrtk.placeCenter(menuMoteurRecherche)
+        self.__arrtk.placeBottomCenter(btnValiderRecherche)
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -294,6 +311,7 @@ class CArreraGazelleUISix :
         self.__backFrame.pack_forget()
         self.__meteoFrame.pack_forget()
         self.__gpsFrame.pack_forget()
+        self.__rechercheFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -510,3 +528,17 @@ class CArreraGazelleUISix :
                 self.__gazelle.supprGPSAdresse(2)
             messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
             self.__viewGPSAcceuil()
+
+
+    # Methode recherche
+
+    def __viewRecherche(self):
+        self.__clearAll()
+        self.__rechercheFrame.pack()
+        self.__backFrame.pack()
+
+    def __saveRecherche(self):
+        moteur = self.__varMoteurRecherche.get()
+        self.__gazelle.changeMoteur(moteur)
+        messagebox.showinfo("Parametre","Le moteur de recherche a bien été enregistré")
+        self.__backAcceuil()
