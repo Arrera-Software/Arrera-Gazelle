@@ -34,6 +34,13 @@ class CArreraGazelleUISix :
 
         self.__rechercheFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
 
+        self.__softFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__softAcceuil = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+        self.__softAdd = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+        self.__softSuppr = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+        self.__softType = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+        self.__softListe = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -219,7 +226,24 @@ class CArreraGazelleUISix :
         # Option Menu
         menuMoteurRecherche = self.__arrtk.createOptionMenu(self.__rechercheFrame,value = listMoteurRecherche,var = self.__varMoteurRecherche)
 
+        # Soft Frame
+        # Label
+        labelTitleSoft = [self.__arrtk.createLabel(self.__softAcceuil,text="Gestion des logiciels",ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                          self.__arrtk.createLabel(self.__softAdd,text="Ajout de logiciel",ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                          self.__arrtk.createLabel(self.__softSuppr,text="Suppression logiciel",ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                          self.__arrtk.createLabel(self.__softType,text="Type du logicel ",ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                          self.__arrtk.createLabel(self.__softListe,text="Gestion des logiciels",ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
 
+        # Button
+        btnAcceuilSoftAdd = self.__arrtk.createButton(self.__softAcceuil,text="Ajout\nlogiciel",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        btnAcceuilSoftSuppr = self.__arrtk.createButton(self.__softAcceuil,text="Suppression\nlogiciel",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        btnAcceuilSoftList = self.__arrtk.createButton(self.__softAcceuil,text="Liste\nlogiciel",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+
+        btnAddSoftValider = self.__arrtk.createButton(self.__softAdd,text="Valider",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        btnAddSoftRetour = self.__arrtk.createButton(self.__softAdd,text="Retour",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+
+        btnSupprSoftValider = self.__arrtk.createButton(self.__softSuppr,text="Valider",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        btnSupprSoftRetour = self.__arrtk.createButton(self.__softSuppr,text="Retour",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
 
 
 
