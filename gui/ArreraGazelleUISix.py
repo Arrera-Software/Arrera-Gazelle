@@ -240,8 +240,8 @@ class CArreraGazelleUISix :
                           self.__arrtk.createLabel(self.__softListe,text="Gestion des logiciels"
                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
 
-        self.__text_box = ctk.CTkTextbox(self.__softListe, width=450, height=250,
-                                         wrap="word", state="normal", font=("Arial", 14))
+        self.__listSoftware = ctk.CTkTextbox(self.__softListe, width=450, height=250,
+                                             wrap="word", state="normal", font=("Arial", 14))
 
         # Button
         btnAcceuilSoftAdd = self.__arrtk.createButton(self.__softAcceuil,text="Ajout\nlogiciel",
@@ -398,7 +398,7 @@ class CArreraGazelleUISix :
         btnSoftTypeNote.place(x=20, y=170)
         btnTypeSoftRetour.place(x=140, y=170)
 
-        self.__arrtk.placeCenter(self.__text_box)
+        self.__arrtk.placeCenter(self.__listSoftware)
 
 
 
@@ -679,14 +679,15 @@ class CArreraGazelleUISix :
         self.__arrtk.placeCenter(self.__menuSoftSuppr)
 
     def __viewSoftList(self):
+        self.__listSoftware.delete(1.0, END)
         listSoft = self.__gazelle.getListSoft()
         if len(listSoft) == 0:
             messagebox.showerror("Erreur", "Aucun logiciel n'a été enregistré")
             return
-        self.__text_box.configure(state="normal")
+        self.__listSoftware.configure(state="normal")
         for i in range(0,len(listSoft)):
-            self.__text_box.insert(END, listSoft[i] + "\n")
-        self.__text_box.configure(state="disabled")
+            self.__listSoftware.insert(END, listSoft[i] + "\n")
+        self.__listSoftware.configure(state="disabled")
         self.__softAcceuil.pack_forget()
         self.__softAdd.pack_forget()
         self.__softSuppr.pack_forget()
