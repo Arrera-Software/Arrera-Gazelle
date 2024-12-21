@@ -41,6 +41,13 @@ class CArreraGazelleUISix :
         self.__softType = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
         self.__softListe = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
 
+        self.__internetFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__internetAcceuil = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+        self.__internetSiteWeb = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+        self.__internetCloudLink = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+        self.__internetSupprSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+        self.__internetListeSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -57,6 +64,7 @@ class CArreraGazelleUISix :
         self.__varSupprGPS = StringVar(self.__windows)
         self.__varMoteurRecherche = StringVar(self.__windows)
         self.__varSupprSoft = StringVar(self.__windows)
+        self.__varSupprWeb = StringVar(self.__windows)
         # Widget 
         # Main frame
         btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
@@ -71,7 +79,7 @@ class CArreraGazelleUISix :
         btnAcceuilLogiciel = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Logiciel"
                                                        ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewSoftAcceuil())
         btnAcceuilInternet = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Internet"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewInternetAcceuil())
         btnAcceuilTheme = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Theme"
                                                     ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")
         btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
@@ -297,6 +305,70 @@ class CArreraGazelleUISix :
         # Option Menu
         self.__menuSoftSuppr = self.__arrtk.createOptionMenu(self.__softSuppr,value = ["",""],var = self.__varSupprSoft)
 
+        # Internet Frame
+        # Label
+        labelTitleInternet = [self.__arrtk.createLabel(self.__internetAcceuil,text="Gestion d'internet",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                                self.__arrtk.createLabel(self.__internetSiteWeb,text="Ajouter un site web",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                                self.__arrtk.createLabel(self.__internetCloudLink,text="Lien de votre stokage cloud",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                                self.__arrtk.createLabel(self.__internetSupprSite,text="Supprimer un site",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                                self.__arrtk.createLabel(self.__internetListeSite, text="Liste site enregistrer",
+                                                      ppolice="Arial", ptaille=taillePolice, pstyle="bold")]
+
+        # Bouton
+        btnAcceuilInternetSiteWeb = self.__arrtk.createButton(self.__internetAcceuil,text="Ajouter un \nSite Web",
+                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                                command=lambda:self.__viewInternetSiteWeb())
+        btnAcceuilInternetCloudLink = self.__arrtk.createButton(self.__internetAcceuil,text="Lien \nde cloud",
+                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                                ,command=lambda:self.__viewInternetCloudLink())
+        btnAcceuilInternetSupprSite = self.__arrtk.createButton(self.__internetAcceuil,text="Supprimer\nun site",
+                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                                command=lambda:self.__viewInternetSupprSite())
+        btnAcceuilInternetListeSite = self.__arrtk.createButton(self.__internetAcceuil,text="Liste des sites enregistrer",
+                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                                command=lambda:self.__viewInternetListeSite())
+
+        btnValiderSiteWeb = self.__arrtk.createButton(self.__internetSiteWeb, text="Valider",
+                                                      ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+                                                      command=lambda:self.__saveSiteWeb(1))
+        btnRetourSiteWeb = self.__arrtk.createButton(self.__internetSiteWeb, text="Retour",
+                                                     ppolice="Arial", ptaille=taillePolice, pstyle="bold"
+                                                     ,command=lambda:self.__viewInternetAcceuil())
+
+        btnValiderCloudLink = self.__arrtk.createButton(self.__internetCloudLink, text="Valider",
+                                                        ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+                                                        command=lambda:self.__saveSiteWeb(2))
+        btnRetourCloudLink = self.__arrtk.createButton(self.__internetCloudLink,text="Retour",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                       ,command=lambda:self.__viewInternetAcceuil())
+
+        btnInternetValiderSuppr = self.__arrtk.createButton(self.__internetSupprSite,text="Valider",
+                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                            ,command=lambda:self.__supprSiteWeb())
+        btnInternetRetourSuppr = self.__arrtk.createButton(self.__internetSupprSite,text="Retour",
+                                                              ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                           ,command=lambda:self.__viewInternetAcceuil())
+
+        btnRetourInternetListe = self.__arrtk.createButton(self.__internetListeSite,text="Retour",
+                                                              ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                              ,command=lambda:self.__viewInternetAcceuil())
+
+        self.__listSite = ctk.CTkTextbox(self.__internetListeSite, width=450, height=250,
+                                             wrap="word", state="normal", font=("Arial", 14))
+
+        # Entry
+        self.__entryNameSiteWeb = self.__arrtk.createEntry(self.__internetSiteWeb, police="Arial", taille=taillePolice,width=300)
+        self.__entrySiteWeb = self.__arrtk.createEntry(self.__internetSiteWeb,police="Arial",taille=taillePolice,width=300)
+
+        self.__entryCloudLink = self.__arrtk.createEntry(self.__internetCloudLink,police="Arial",taille=taillePolice,width=300)
+
+        # option menu
+        self.__menuSiteWeb = self.__arrtk.createOptionMenu(self.__internetSupprSite,value = ["",""],var = self.__varSupprWeb)
+
         # Affichage 
         btnIcon.place(x=20,y=20)
         btnAcceuilUser.place(x=140,y=20)
@@ -390,6 +462,7 @@ class CArreraGazelleUISix :
         self.__arrtk.placeBottomRight(btnSupprSoftRetour)
 
         self.__arrtk.placeBottomLeft(btnSoftListRetour)
+        self.__arrtk.placeCenter(self.__listSite)
 
         btnSoftTypeNormal.place(x=20, y=50)
         btnSoftTypePresentation.place(x=140, y=50)
@@ -400,6 +473,30 @@ class CArreraGazelleUISix :
 
         self.__arrtk.placeCenter(self.__listSoftware)
 
+        for i in range(0,len(labelTitleInternet)):
+            self.__arrtk.placeTopCenter(labelTitleInternet[i])
+
+        self.__arrtk.placeRightCenter(btnAcceuilInternetSiteWeb)
+        self.__arrtk.placeLeftCenter(btnAcceuilInternetCloudLink)
+        self.__arrtk.placeCenter(btnAcceuilInternetSupprSite)
+        self.__arrtk.placeBottomCenter(btnAcceuilInternetListeSite)
+
+        self.__arrtk.placeBottomLeft(btnRetourSiteWeb)
+        self.__arrtk.placeBottomRight(btnValiderSiteWeb)
+
+        self.__arrtk.placeBottomLeft(btnRetourCloudLink)
+        self.__arrtk.placeBottomRight(btnValiderCloudLink)
+
+        self.__arrtk.placeBottomLeft(btnInternetValiderSuppr)
+        self.__arrtk.placeCenter(self.__menuSiteWeb)
+        self.__arrtk.placeBottomRight(btnInternetRetourSuppr)
+
+        self.__arrtk.placeCenter(self.__entryCloudLink)
+
+        self.__arrtk.placeCenterOnWidth(self.__entryNameSiteWeb,y=100)
+        self.__arrtk.placeCenterOnWidth(self.__entrySiteWeb, y=150)
+
+        self.__arrtk.placeBottomCenter(btnRetourInternetListe)
 
 
     # Methode generale
@@ -414,6 +511,7 @@ class CArreraGazelleUISix :
         self.__gpsFrame.pack_forget()
         self.__rechercheFrame.pack_forget()
         self.__softFrame.pack_forget()
+        self.__internetFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -749,3 +847,99 @@ class CArreraGazelleUISix :
                         self.__gazelle.supprSoft(1,soft)
         messagebox.showinfo("Parametre", "Le logiciel a bien été supprimé")
         self.__viewSoftAcceuil()
+
+    # Methode internet
+
+    def __viewInternetAcceuil(self):
+        self.__clearAll()
+        self.__internetSiteWeb.pack_forget()
+        self.__internetCloudLink.pack_forget()
+        self.__internetSupprSite.pack_forget()
+        self.__internetListeSite.pack_forget()
+        self.__internetAcceuil.pack()
+        self.__internetFrame.pack()
+        self.__backFrame.pack()
+
+    def __viewInternetSiteWeb(self):
+        self.__entryNameSiteWeb.delete(0,END)
+        self.__entrySiteWeb.delete(0,END)
+        self.__internetSiteWeb.pack()
+        self.__internetCloudLink.pack_forget()
+        self.__internetSupprSite.pack_forget()
+        self.__internetAcceuil.pack_forget()
+        self.__internetListeSite.pack_forget()
+
+    def __viewInternetCloudLink(self):
+        self.__entryCloudLink.delete(0,END)
+        self.__internetSiteWeb.pack_forget()
+        self.__internetCloudLink.pack()
+        self.__internetSupprSite.pack_forget()
+        self.__internetAcceuil.pack_forget()
+        self.__internetListeSite.pack_forget()
+
+    def __viewInternetSupprSite(self):
+        listSite = self.__gazelle.getListSite()
+        if len(listSite) == 0:
+            messagebox.showerror("Erreur", "Aucun site web n'a été enregistré")
+            return
+        self.__internetSiteWeb.pack_forget()
+        self.__internetCloudLink.pack_forget()
+        self.__internetSupprSite.pack()
+        self.__internetAcceuil.pack_forget()
+        del self.__menuSiteWeb
+        self.__menuSiteWeb = self.__arrtk.createOptionMenu(self.__internetSupprSite,value = listSite,var = self.__varSupprWeb)
+        self.__arrtk.placeCenter(self.__menuSiteWeb)
+
+    def __viewInternetListeSite(self):
+        listSite = self.__gazelle.getListSite()
+        if len(listSite) == 0:
+            messagebox.showerror("Erreur", "Aucun site web n'a été enregistré")
+            return
+        self.__internetSiteWeb.pack_forget()
+        self.__internetCloudLink.pack_forget()
+        self.__internetSupprSite.pack_forget()
+        self.__internetAcceuil.pack_forget()
+        self.__listSite.configure(state="normal")
+        self.__listSite.delete(1.0, END)
+        for i in range(0,len(listSite)):
+            self.__listSite.insert(END, listSite[i] + "\n")
+        self.__listSite.configure(state="disabled")
+        self.__internetListeSite.pack()
+
+    def __saveSiteWeb(self, mode:int):
+        """
+        :param mode: 1. Site web 2. Cloud Link
+        :return:
+        """
+        match mode :
+            case 1 :
+                name = self.__entryNameSiteWeb.get()
+                link = self.__entrySiteWeb.get()
+                if name == "" or link == "":
+                    messagebox.showerror("Erreur","Le nom ou le lien ne peut pas etre vide")
+                    return
+                else :
+                    self.__gazelle.addSite(1,name,link)
+                    messagebox.showinfo("Parametre","Le site web a bien été ajouté")
+                    self.__entryNameSiteWeb.delete(0,END)
+                    self.__entrySiteWeb.delete(0,END)
+                    self.__viewInternetAcceuil()
+            case 2 :
+                link = self.__entryCloudLink.get()
+                if link == "":
+                    messagebox.showerror("Erreur","Le lien ne peut pas etre vide")
+                    return
+                else :
+                    self.__gazelle.addSite(2,"cloud",link)
+                    messagebox.showinfo("Parametre","Le lien a bien été ajouté")
+                    self.__entryCloudLink.delete(0,END)
+                    self.__viewInternetAcceuil()
+
+    def __supprSiteWeb(self):
+        site = self.__varSupprWeb.get()
+        if site == "Cloud":
+            self.__gazelle.supprSite(2, site)
+        else :
+            self.__gazelle.supprSite(1,site)
+        messagebox.showinfo("Parametre", "Le site a bien été supprimé")
+        self.__viewInternetAcceuil()

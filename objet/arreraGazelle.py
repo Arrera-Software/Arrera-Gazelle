@@ -125,7 +125,6 @@ class CArreraGazelle :
         4 : Musique
         5 : note
         """
-        print("addSoft")
         if ((self.__linuxOS==False)and(self.__windowsOS==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
         
@@ -302,7 +301,6 @@ class CArreraGazelle :
                 if (name==""):
                     return False 
                 self.__fileJsonUser.EcritureJSONDictionnaire("dictSite",name,link)
-                self.__fileJsonUser.EcritureJSON("nbSite",str(int(self.__fileJsonUser.lectureJSON("nbSite"))+1))
                 return True
             case 2 : 
                 self.__fileJsonUser.EcritureJSON("lienCloud",link)
@@ -318,7 +316,6 @@ class CArreraGazelle :
                 if (name==""):
                     return False 
                 self.__fileJsonUser.supprJSONList("dictSite",name)
-                self.__fileJsonUser.EcritureJSON("nbSite",str(int(self.__fileJsonUser.lectureJSON("nbSite"))-1))
                 return True
             case 2 : 
                 self.__fileJsonUser.suppressionJson("lienCloud")
