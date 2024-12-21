@@ -763,16 +763,16 @@ class CArreraGazelleUISix :
         self.__softListe.pack_forget()
 
     def __viewSoftSuppr(self):
+        listSoft = self.__gazelle.getListSoft()
+        if (len(listSoft) == 0):
+            messagebox.showerror("Erreur", "Aucun logiciel n'a été enregistré")
+            return
         self.__softAcceuil.pack_forget()
         self.__softAdd.pack_forget()
         self.__softSuppr.pack()
         self.__softType.pack_forget()
         self.__softListe.pack_forget()
         del self.__menuSoftSuppr
-        listSoft = self.__gazelle.getListSoft()
-        if (len(listSoft) == 0):
-            messagebox.showerror("Erreur","Aucun logiciel n'a été enregistré")
-            return
         self.__menuSoftSuppr = self.__arrtk.createOptionMenu(self.__softSuppr,value = listSoft,var = self.__varSupprSoft)
         self.__arrtk.placeCenter(self.__menuSoftSuppr)
 
