@@ -120,13 +120,12 @@ class CArreraGazelle :
     def addSoft(self,mode:int,name:str):
         """
         1 : Normal 
-        2 : Traitement de texte
-        3 : Tableur
-        4 : Presentation
-        5 : Navigateur
-        6 : Musique
-        7 : note
+        2 : Presentation
+        3 : Navigateur
+        4 : Musique
+        5 : note
         """
+        print("addSoft")
         if ((self.__linuxOS==False)and(self.__windowsOS==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
         
@@ -156,22 +155,16 @@ class CArreraGazelle :
                         if (name!=""):
                             self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux",name,command)
                             return True
-                    case 2 : # Traitement de texte
-                        self.__fileJsonUser.EcritureJSON("wordLinux",command)
-                        return True
-                    case 3 : # Tableur
-                        self.__fileJsonUser.EcritureJSON("exelLinux",command)
-                        return True
-                    case 4 : # Presentation
+                    case 2 : # Presentation
                         self.__fileJsonUser.EcritureJSON("diapoLinux",command)
                         return True
-                    case 5 : # Navigateur
+                    case 3 : # Navigateur
                         self.__fileJsonUser.EcritureJSON("browserLinux",command)
                         return True
-                    case 6 : # Musique
+                    case 4 : # Musique
                         self.__fileJsonUser.EcritureJSON("musicLinux",command)
                         return True
-                    case 7 : # note
+                    case 5 : # note
                         self.__fileJsonUser.EcritureJSON("noteLinux",command)
                         return True
         else :
@@ -189,22 +182,6 @@ class CArreraGazelle :
                                 return False
                         else :
                             return False
-                    case 2 : # Traitement de texte
-                        self.__softWin.setName("ttexte")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("wordWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False 
-                    case 3 :  # Tableur
-                        self.__softWin.setName("tableur")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("exelWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False 
                     case 4 : # Presentation
                         self.__softWin.setName("presentation")
                         sortie = self.__softWin.saveSoftware()
@@ -240,13 +217,11 @@ class CArreraGazelle :
                         
     def supprSoft(self,mode:int,name:str):
         """
-        1 : Normal 
-        2 : Traitement de texte
-        3 : Tableur
-        4 : Presentation
-        5 : Navigateur
-        6 : Musique
-        7 : note
+        1 : Normal
+        2 : Presentation
+        3 : Navigateur
+        4 : Musique
+        5 : note
         """
         # Creation listFlag 
         if ((self.__linuxOS==False)and(self.__windowsOS==True)):
@@ -259,36 +234,25 @@ class CArreraGazelle :
         match mode : 
             case 1 : # Normal 
                 self.__fileJsonUser.supprJSONList(listFlag[0],name)
-                self.__fileJsonUser.EcritureJSON("nbSoft",str(int(self.__fileJsonUser.lectureJSON("nbSoft"))-1))
                 if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft(name)
                 return True
-            case 2 : # Traitement de texte
-                self.__fileJsonUser.suppressionJson(listFlag[1])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("ttexte")
-                return True
-            case 3 : # Tableur
-                self.__fileJsonUser.suppressionJson(listFlag[2])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("tableur")
-                return True
-            case 4 : # Presentation 
+            case 2 : # Presentation
                 self.__fileJsonUser.suppressionJson(listFlag[3])
                 if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("presentation")
                 return True
-            case 5 : # Navigateur 
+            case 3 : # Navigateur
                 self.__fileJsonUser.suppressionJson(listFlag[4])
                 if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("browser")
                 return True
-            case 6 : # Musique 
+            case 4 : # Musique
                 self.__fileJsonUser.suppressionJson(listFlag[6])
                 if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("note")
                 return True
-            case 7 : # Musique 
+            case 5 : # Musique
                 self.__fileJsonUser.suppressionJson(listFlag[5])
                 if ((self.__linuxOS==False)and(self.__windowsOS==True)):
                     self.__softWin.supprSoft("musique")
@@ -304,11 +268,6 @@ class CArreraGazelle :
                 listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
             else :
                 return ["error","error"]
-        if(self.__fileJsonUser.lectureJSON(listFlag[1])!=""):
-            listSortie.append("Traitement de texte")
-    
-        if(self.__fileJsonUser.lectureJSON(listFlag[2])!=""):
-            listSortie.append("Tableur")
         
         if(self.__fileJsonUser.lectureJSON(listFlag[3])!=""):
             listSortie.append("Presentation")
