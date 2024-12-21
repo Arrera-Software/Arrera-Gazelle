@@ -26,7 +26,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixLieu = StringVar(self.__windows)
         self.__varSupprLieu = StringVar(self.__windows)
         self.__varSupprSoft = StringVar(self.__windows)
-        self.__varChoixSoft = StringVar(self.__windows)
         self.__varChoixSite =  StringVar(self.__windows)
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
@@ -37,10 +36,6 @@ class CArreraGazelleUIRyleyCopilote :
         listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
-        listTypeSoft = ["Autre","Traitement de texte",
-                        "Tableur","Presentation",
-                        "Navigateur Internet",
-                        "Note","Musique"]
         listChoixSite = ["Autre","Cloud"]
         self.__listChoixMicro = ["ON","OFF"]
 
@@ -184,15 +179,46 @@ class CArreraGazelleUIRyleyCopilote :
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
                                                           ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(1))
-        self.__btnValiderSoft = self.__arrTK.createButton(self.__cadreSoft,text="Valider",
-                                                          ppolice = "arial" , ptaille = tailleMain)
+
+        self.__btnValiderSoftAdd = self.__arrTK.createButton(self.__cadreSoft, text="Valider",
+                                                             ppolice = "arial", ptaille = tailleMain,
+                                                             command=lambda : self.__addSoftware(1))
+
+        self.__btnValiderSoftSuppr = self.__arrTK.createButton(self.__cadreSoft, text="Valider",
+                                                             ppolice="arial", ptaille=tailleMain,
+                                                               command=lambda : self.__supprSoft())
+
         self.__btnAddSoft = self.__arrTK.createButton(self.__cadreSoft,text="Ajouter un logiciel",
-                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(2))
+                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(4))
+
         self.__btnSupprSoft= self.__arrTK.createButton(self.__cadreSoft,text="Supprimer un logiciel",
                                                        ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(3))
-        self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = listTypeSoft)
-        self.__menuChoixSoft  = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varChoixSoft,value = listTypeSoft)
+
+        self.__btnListSoft = self.__arrTK.createButton(self.__cadreSoft,text="Liste des logiciels",
+                                                         ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(5))
+
+        self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = ["",""])
+
         self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,police="Arial",taille=15)
+
+        self.__btnTypeSoftNormal = self.__arrTK.createButton(self.__cadreSoft,text="Normal",ppolice="arial",ptaille=tailleMain,
+                                                             command=lambda : self.__affichageCadreSoft(2))
+        self.__btnTypeSoftPresentation = self.__arrTK.createButton(self.__cadreSoft, text="Presentation", ppolice="arial", ptaille=tailleMain,
+                                                                   command=lambda : self.__addSoftware(2))
+        self.__btnTypeSoftNavigateur = self.__arrTK.createButton(self.__cadreSoft, text="Navigateur Internet", ppolice="arial", ptaille=tailleMain,
+                                                                 command=lambda : self.__addSoftware(3))
+        self.__btnTypeSoftNote = self.__arrTK.createButton(self.__cadreSoft, text="Note", ppolice="arial", ptaille=tailleMain,
+                                                           command=lambda : self.__addSoftware(4))
+        self.__btnTypeSoftMusique = self.__arrTK.createButton(self.__cadreSoft, text="Musique", ppolice="arial", ptaille=tailleMain,
+                                                              command=lambda : self.__addSoftware(5))
+        self.__btnRetourTypeSoft = self.__arrTK.createButton(self.__cadreSoft,text="Retour",ppolice="arial",ptaille=tailleMain,
+                                                             command=lambda:self.__affichageCadreSoft(1))
+
+        self.__textListSoft = ctk.CTkTextbox(self.__cadreSoft, width=300, height=550,wrap="word",
+                                             state="normal", font=("Arial", 14))
+        self.__btnRetourListeSoft = self.__arrTK.createButton(self.__cadreSoft,text="Retour",ppolice="arial",ptaille=tailleMain
+                                                              ,command=lambda:self.__affichageCadreSoft(1))
+
         # Cadre Internet
         self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreInternet, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAddSite = self.__arrTK.createButton(self.__cadreInternet,text="Enregister un site",
@@ -689,163 +715,121 @@ class CArreraGazelleUIRyleyCopilote :
         2 : Add
         3 : Suppr
         """
+        self.__btnTypeSoftNormal.place_forget()
+        self.__btnTypeSoftPresentation.place_forget()
+        self.__btnTypeSoftNavigateur.place_forget()
+        self.__btnTypeSoftNote.place_forget()
+        self.__btnTypeSoftMusique.place_forget()
+        self.__btnRetourTypeSoft.place_forget()
+        self.__menuSupprSoft.place_forget()
+        self.__entryNameSoft.place_forget()
+        self.__btnAddSoft.place_forget()
+        self.__btnSupprSoft.place_forget()
+        self.__menuSupprSoft.place_forget()
+        self.__btnAddSoft.place_forget()
+        self.__btnSupprSoft.place_forget()
+        self.__entryNameSoft.place_forget()
+        self.__btnValiderSoftAdd.place_forget()
+        self.__btnValiderSoftSuppr.place_forget()
+        self.__textListSoft.place_forget()
+        self.__btnRetourListeSoft.place_forget()
+        self.__btnListSoft.place_forget()
         match mode : 
             case 1 :
                 self.__labelTitreSoftware.configure(text="Gestion des logiciels")
                 self.__btnAnnulerSoft.place_forget()
-                self.__btnValiderSoft.place_forget()
                 self.__btnAddSoft.place(relx=0.5, y=200, anchor="n")
                 self.__btnSupprSoft.place(relx=0.5, y=275, anchor="n")
-                self.__menuSupprSoft.place_forget()
-                self.__menuChoixSoft.place_forget()
-                self.__entryNameSoft.place_forget()
+                self.__btnListSoft.place(relx=0.5, y=350, anchor="n")
+
             case 2 :
                 self.__labelTitreSoftware.configure(text="Ajout de logiciels")
                 self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
-                self.__btnValiderSoft.place(relx=1, rely=1, anchor='se')
-                self.__btnAddSoft.place_forget()
-                self.__btnSupprSoft.place_forget()
-                self.__menuSupprSoft.place_forget()
-                self.__menuChoixSoft.place(x=0,y=100)
+                self.__btnValiderSoftAdd.place(relx=1, rely=1, anchor='se')
                 self.__entryNameSoft.place(relx=0.5, rely=0.5, anchor="center")
-                self.__btnValiderSoft.configure(command=lambda : self.__validerSoft(1))
+
             case 3 :
+
                 listSoft = self.__gazelle.getListSoft()
                 if (len(listSoft)==0):
                     showerror("Parametre","Impossible de supprimer des logiciels avant d'en ajoute")
-                else :
-                    self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var=self.__varSupprSoft,value=listSoft)
-                    self.__varSupprSoft.set(listSoft[0])
+                    return
+                del self.__menuSupprSoft
+                self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var=self.__varSupprSoft,value=listSoft)
+                self.__labelTitreSoftware.configure(text="Suppression de logiciel")
+                self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
+                self.__btnValiderSoftSuppr.place(relx=1, rely=1, anchor='se')
+                self.__menuSupprSoft.place(relx=0.5, rely=0.5, anchor="center")
 
-                    self.__labelTitreSoftware.configure(text="Suppression de logiciel")
-                    self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
-                    self.__btnValiderSoft.place(relx=1, rely=1, anchor='se')
-                    self.__btnAddSoft.place_forget()
-                    self.__btnSupprSoft.place_forget()
-                    self.__menuSupprSoft.place(relx=0.5, rely=0.5, anchor="center")
-                    self.__menuChoixSoft.place_forget()
-                    self.__entryNameSoft.place_forget()
-                    self.__btnValiderSoft.configure(command=lambda : self.__validerSoft(2))
-    
-    def __validerSoft(self,mode:int):
-        """
-        1 : add 
-        2 : suppr
-        """
-        os = self.__gazelle.getOS()
-        match mode :
-            case 1 :
-                type = self.__varChoixSoft.get()
-                if( type == "Autre") :
-                    nameSoft = self.__entryNameSoft.get()
-                    if (os=="windows"):
-                        self.__gazelle.addSoft(1,nameSoft,"")
-                    else :
-                        if (os=="linux") :
-                            self.addSoftLinux(1,nameSoft)
-                        else :
-                            showerror("Parametre","Systeme d'exploitation non reconnu")
-                else : 
-                    if (type=="Traitement de texte"):
-                        if (os=="windows"):
-                            self.__gazelle.addSoft(2,"","")
-                        else :
-                            if (os=="linux") :
-                                self.addSoftLinux(2,"")
-                            else :
-                                showerror("Parametre","Systeme d'exploitation non reconnu")
-                    else :
-                        if (type=="Tableur"):
-                            if (os=="windows"):
-                                self.__gazelle.addSoft(3,"","")
-                            else :
-                                if (os=="linux") :
-                                    self.addSoftLinux(3,"")
-                                else :
-                                    showerror("Parametre","Systeme d'exploitation non reconnu")
-                        else :
-                            if (type=="Presentation"):
-                                if (os=="windows"):
-                                    self.__gazelle.addSoft(4,"","")
-                                else :
-                                    if (os=="linux") :
-                                        self.addSoftLinux(4,"")
-                                    else :
-                                        showerror("Parametre","Systeme d'exploitation non reconnu")
-                            else : 
-                                if (type=="Navigateur Internet"):
-                                    if (os=="windows"):
-                                        self.__gazelle.addSoft(5,"","")
-                                    else :
-                                        if (os=="linux") :
-                                            self.addSoftLinux(5,"")
-                                        else :
-                                            showerror("Parametre","Systeme d'exploitation non reconnu")
-                                else :
-                                    if (type=="Note"):
-                                        if (os=="windows"):
-                                            self.__gazelle.addSoft(7,"","")
-                                        else :
-                                            if (os=="linux") :
-                                                self.addSoftLinux(7,"")
-                                            else :
-                                                showerror("Parametre","Systeme d'exploitation non reconnu")
-                                    else :
-                                        if (type=="Musique"):
-                                            if (os=="windows"):
-                                                self.__gazelle.addSoft(6,"","")
-                                            else :
-                                                if (os=="linux") :
-                                                    self.addSoftLinux(6,"")
-                                                else :
-                                                    showerror("Parametre","Systeme d'exploitation non reconnu")
-                self.__entryNameSoft.delete(0,END)
-                self.__affichageCadreSoft(1)
-            case 2 :
-                soft = self.__varSupprSoft.get()
-                if (soft=="Traitement de texte"):
-                    self.__gazelle.supprSoft(2,"")
+            case 4 :
+                self.__labelTitreSoftware.configure(text="Type du logiciel ajouter")
+                self.__btnTypeSoftNormal.place(relx=0.5, y=100, anchor="n")
+                self.__btnTypeSoftPresentation.place(relx=0.5, y=150, anchor="n")
+                self.__btnTypeSoftNavigateur.place(relx=0.5, y=200, anchor="n")
+                self.__btnTypeSoftNote.place(relx=0.5, y=250, anchor="n")
+                self.__btnTypeSoftMusique.place(relx=0.5, y=300, anchor="n")
+                self.__arrTK.placeBottomCenter(self.__btnRetourTypeSoft)
+
+            case 5 :
+                self.__labelTitreSoftware.configure(text="Liste des logiciels")
+                listSoft = self.__gazelle.getListSoft()
+                if (len(listSoft)==0):
+                    messagebox.showerror("Parametre","Aucun logiciel enregistré")
                 else :
-                    if (soft=="Tableur"):
-                        self.__gazelle.supprSoft(3,"")
-                    else :
-                        if (soft=="Presentation"):
-                            self.__gazelle.supprSoft(4,"")
-                        else :
-                            if (soft=="Navigateur internet"):
-                                self.__gazelle.supprSoft(5,"")
-                            else :
-                                if (soft=="Note"):
-                                    self.__gazelle.supprSoft(7,"")
-                                else :
-                                    if (soft=="Musique"):
-                                        self.__gazelle.supprSoft(6,"")
-                                    else :
-                                        self.__gazelle.supprSoft(1,soft)
-                self.__affichageCadreSoft(1)
-    
-    
-    def addSoftLinux(self,mode:int,name:str):
+                    self.__textListSoft.delete(1.0,END)
+                    self.__textListSoft.configure(state="normal")
+                    for i in range(0, len(listSoft)):
+                        self.__textListSoft.insert(END, listSoft[i] + "\n")
+                    self.__textListSoft.configure(state="disabled")
+
+                self.__arrTK.placeCenter(self.__textListSoft)
+                self.__arrTK.placeBottomCenter(self.__btnRetourListeSoft)
+
+
+    def __addSoftware(self, mode:int):
         """
         1 : normal
-        2 : Traitement de texte
-        3 : Tableur
-        4 : Presentation
-        5 : Navigateur internet
-        6 : Musique
-        7 : Note
+        2 : Presentation
+        3 : Navigateur
+        4 : Note
+        5 : Musique
         """
-        popUP = Toplevel()
-        popUP.title("Parametre")
-        popUP.minsize(300,110)
-        popUP.minsize(300,110)
-        Label(popUP,text="Entrer la commande du logiciel",font=("arial","15")).pack()
-        entryCommand = Entry(popUP,font=("arial","15"),borderwidth=2,relief="solid")
-        entryCommand.place(relx=0.5,rely=0.5,anchor="center")
-        if mode == 1 : 
-            Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(1,name,entryCommand.get()) and popUP.destroy()).pack(side="bottom")
-        else :
-            Button(popUP,text="Valider",font=("arial","15"),command=lambda : self.__gazelle.addSoft(mode,"",entryCommand.get()) and popUP.destroy()).pack(side="bottom")
+        match mode:
+            case 1 :
+                soft = self.__entryNameSoft.get()
+                if (soft==""):
+                    showerror("Parametre","Impossible d'ajouter un logiciel sans nom")
+                else :
+                    self.__gazelle.addSoft(1,soft)
+                    showinfo("Parametre","Logiciel ajouté")
+                    self.__entryNameSoft.delete(0,END)
+            case 2:
+                self.__gazelle.addSoft(2, "presentation")
+            case 3:
+                self.__gazelle.addSoft(3, "navigateur")
+            case 4:
+                self.__gazelle.addSoft(4, "musique")
+            case 5:
+                self.__gazelle.addSoft(5, "note")
+        self.__affichageCadreSoft(1)
+
+    def __supprSoft(self):
+        soft = self.__varSupprSoft.get()
+        if (soft == "Presentation"):
+            self.__gazelle.supprSoft(2, "")
+        else:
+            if (soft == "Navigateur internet"):
+                self.__gazelle.supprSoft(3, "")
+            else:
+                if (soft == "Note"):
+                    self.__gazelle.supprSoft(5, "")
+                else:
+                    if (soft == "Musique"):
+                        self.__gazelle.supprSoft(4, "")
+                    else:
+                        self.__gazelle.supprSoft(1, soft)
+        self.__affichageCadreSoft(1)
+
     
     def __affichageCadreSite(self,mode:int):
         """
