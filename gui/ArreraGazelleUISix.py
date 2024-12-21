@@ -723,27 +723,27 @@ class CArreraGazelleUISix :
         """
         match type:
             case 1:
-                self.__gazelle.addSoft(4,"presentation")
+                self.__gazelle.addSoft(2,"presentation")
             case 2:
-                self.__gazelle.addSoft(5,"navigateur")
+                self.__gazelle.addSoft(3,"navigateur")
             case 3:
-                self.__gazelle.addSoft(6, "musique")
+                self.__gazelle.addSoft(4, "musique")
             case 4:
-                self.__gazelle.addSoft(7, "note")
+                self.__gazelle.addSoft(5, "note")
 
     def __supprSoft(self):
         soft = self.__varSupprSoft.get()
         if soft == "Presentation":
-            self.__gazelle.supprSoft(4,soft)
+            self.__gazelle.supprSoft(2,soft)
         else :
             if soft == "Navigateur internet":
-                self.__gazelle.supprSoft(5,soft)
+                self.__gazelle.supprSoft(3,soft)
             else :
                 if soft == "Musique":
-                    self.__gazelle.supprSoft(6,soft)
+                    self.__gazelle.supprSoft(4,soft)
                 else :
                     if soft == "Note":
-                        self.__gazelle.supprSoft(7,soft)
+                        self.__gazelle.supprSoft(5,soft)
                     else :
                         self.__gazelle.supprSoft(1,soft)
         messagebox.showinfo("Parametre", "Le logiciel a bien été supprimé")
