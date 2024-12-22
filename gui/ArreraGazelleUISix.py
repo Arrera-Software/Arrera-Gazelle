@@ -81,27 +81,41 @@ class CArreraGazelleUISix :
         # Main frame
         btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
         btnAcceuilUser = self.__arrtk.createButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
-                                                   , ppolice="Arial", ptaille=taillePolice-2, pstyle="bold", command= lambda  : self.__viewUserAcceuil())
+                                                   , ppolice="Arial", ptaille=taillePolice-2, pstyle="bold",
+                                                   command= lambda  : self.__viewUserAcceuil())
         btnAcceuilMeteo = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Meteo"
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewMeteoAcceuil())
+                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewMeteoAcceuil())
         btnAcceuilGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="GPS"
-                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda : self.__viewGPSAcceuil())
+                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                  command=lambda : self.__viewGPSAcceuil())
         btnAcceuilRecherche = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Recherche"
-                                                        ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",command=lambda:self.__viewRecherche())
+                                                        ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",
+                                                        command=lambda:self.__viewRecherche())
         btnAcceuilLogiciel = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Logiciel"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewSoftAcceuil())
+                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                       command=lambda:self.__viewSoftAcceuil())
         btnAcceuilInternet = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Internet"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewInternetAcceuil())
+                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                       command=lambda:self.__viewInternetAcceuil())
         btnAcceuilTheme = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Theme"
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewTheme())
+                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewTheme())
         btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                         ,text="Arrera\nWork",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewArreraWork())
+                                                         ,text="Arrera\nWork",ppolice="Arial",
+                                                         ptaille=taillePolice,pstyle="bold",
+                                                         command=lambda:self.__viewArreraWork())
         btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                       ,text="Arrera\nDownload",ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",command=lambda:self.__viewArreraDownload())
+                                                       ,text="Arrera\nDownload",ppolice="Arial",
+                                                       ptaille=taillePolice-2,pstyle="bold",
+                                                       command=lambda:self.__viewArreraDownload())
         btnAcceuilMicro = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                    ,text="Micro",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewMicroAcceuil())
+                                                    ,text="Micro",ppolice="Arial",
+                                                    ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewMicroAcceuil())
         self.__btnRetourAssistant = self.__arrtk.createButton(self.__mainCadre,width=100,
-                                                              height=100,text="Retour",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                              height=100,text="Retour",ppolice="Arial",
+                                                              ptaille=taillePolice,pstyle="bold")
 
         # backFrame
         retourAcceuilBTN = self.__arrtk.createButton(self.__backFrame,text="Retour Acceuil"
@@ -118,17 +132,23 @@ class CArreraGazelleUISix :
                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
         # Button
         btnUserName = self.__arrtk.createButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",ppolice="Arial",
-                                                ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewUserName())
+                                                ptaille=taillePolice,pstyle="bold",
+                                                command=lambda:self.__viewUserName())
         btnUserGenre = self.__arrtk.createButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",ppolice="Arial",
-                                                 ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewUserGenre())
+                                                 ptaille=taillePolice,pstyle="bold",
+                                                 command=lambda:self.__viewUserGenre())
         btnValiderUserName = self.__arrtk.createButton(self.__userName,text="Valider",ppolice="Arial",
-                                                       ptaille=taillePolice,pstyle="normal",command=lambda:self.__saveUserName())
+                                                       ptaille=taillePolice,pstyle="normal",
+                                                       command=lambda:self.__saveUserName())
         btnValiderUserGenre = self.__arrtk.createButton(self.__userGenre,text="Valider",ppolice="Arial",
-                                                        ptaille=taillePolice,pstyle="normal",command=lambda:self.__saveUserGenre())
+                                                        ptaille=taillePolice,pstyle="normal",
+                                                        command=lambda:self.__saveUserGenre())
         btnRetourUserName = self.__arrtk.createButton(self.__userName, text="Retour", ppolice="Arial",
-                                                      ptaille=taillePolice, pstyle="normal",command=lambda:self.__viewUserAcceuil())
+                                                      ptaille=taillePolice, pstyle="normal",
+                                                      command=lambda:self.__viewUserAcceuil())
         btnRetourUserGenre = self.__arrtk.createButton(self.__userGenre, text="Retour", ppolice="Arial",
-                                                       ptaille=taillePolice, pstyle="normal",command=lambda:self.__viewUserAcceuil())
+                                                       ptaille=taillePolice, pstyle="normal",
+                                                       command=lambda:self.__viewUserAcceuil())
         # entry
         self.__entryNameUser = self.__arrtk.createEntry(self.__userName, police="Arial", taille=taillePolice, width=200)
         # option menu
@@ -241,9 +261,12 @@ class CArreraGazelleUISix :
 
         # Recherche Frame
         # Label
-        labelTitleRecherche = self.__arrtk.createLabel(self.__rechercheFrame,text="Gestion du moteur de recherche",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        labelTitleRecherche = self.__arrtk.createLabel(self.__rechercheFrame,text="Gestion du moteur de recherche",
+                                                       ppolice="Arial",ptaille=taillePolice,pstyle="bold")
         # Button
-        btnValiderRecherche = self.__arrtk.createButton(self.__rechercheFrame,text="Valider",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__saveRecherche())
+        btnValiderRecherche = self.__arrtk.createButton(self.__rechercheFrame,text="Valider",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                        command=lambda:self.__saveRecherche())
         # Option Menu
         menuMoteurRecherche = self.__arrtk.createOptionMenu(self.__rechercheFrame,value = listMoteurRecherche,var = self.__varMoteurRecherche)
 
@@ -413,9 +436,11 @@ class CArreraGazelleUISix :
                                                                    command=lambda:self.__changeMicroSound())
 
         btnMicroSoundRetour = self.__arrtk.createButton(self.__microSound, text="Retour", ppolice="Arial",
-                                                        ptaille=taillePolice, pstyle="bold", command=lambda:self.__viewMicroAcceuil())
+                                                        ptaille=taillePolice, pstyle="bold",
+                                                        command=lambda:self.__viewMicroAcceuil())
         btnMicroTigerWordRetour = self.__arrtk.createButton(self.__microTigerWord, text="Retour", ppolice="Arial",
-                                                            ptaille=taillePolice, pstyle="bold", command=lambda:self.__viewMicroAcceuil())
+                                                            ptaille=taillePolice, pstyle="bold",
+                                                            command=lambda:self.__viewMicroAcceuil())
 
         # Frame Arrera Work
         labelTitleArreraWork = self.__arrtk.createLabel(self.__arreraWorkFrame,text="Paramètre Arrera Work",
