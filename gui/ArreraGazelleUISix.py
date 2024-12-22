@@ -50,6 +50,11 @@ class CArreraGazelleUISix :
 
         self.__themeFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
 
+        self.__microFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__microAcceuil = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
+        self.__microSound = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
+        self.__microTigerWord = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -90,7 +95,7 @@ class CArreraGazelleUISix :
         btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
                                                        ,text="Arrera\nDownload",ppolice="Arial",ptaille=taillePolice-2,pstyle="bold")
         btnAcceuilMicro = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                    ,text="Micro",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                    ,text="Micro",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewMicroAcceuil())
         self.__btnRetourAssistant = self.__arrtk.createButton(self.__mainCadre,width=100,
                                                               height=100,text="Retour",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
 
@@ -382,6 +387,33 @@ class CArreraGazelleUISix :
                                                           ptaille=taillePolice,pstyle="bold",
                                                           command=lambda:self.__saveNewTheme())
 
+        # Micro Frame
+        # Label
+        labelTitleMicro = [self.__arrtk.createLabel(self.__microAcceuil,text="Gestion des paramètres micro",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                            self.__arrtk.createLabel(self.__microSound,text="Son émis au déclenchement du micro",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
+                            self.__arrtk.createLabel(self.__microTigerWord,text="Définition du mot de déclenchement du micro",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+
+        # Button
+        btnAcceuilMicroSound = self.__arrtk.createButton(self.__microAcceuil,text="Son\némis",ppolice="Arial",
+                                                            ptaille=taillePolice,pstyle="bold",
+                                                         command=lambda:self.__viewMicroSound())
+        btnAcceuilMicroTigerWord = self.__arrtk.createButton(self.__microAcceuil,text="Mot\nde\ndéclenchement",
+                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                             command=lambda:self.__viewMicroTigerWord())
+
+        self.__btnMicroSoundChangeEtat = self.__arrtk.createButton(self.__microSound,text="",ppolice="Arial",
+                                                                    ptaille=taillePolice,pstyle="bold",
+                                                                   command=lambda:self.__changeMicroSound())
+
+        btnMicroSoundRetour = self.__arrtk.createButton(self.__microSound, text="Retour", ppolice="Arial",
+                                                        ptaille=taillePolice, pstyle="bold", command=lambda:self.__viewMicroAcceuil())
+        btnMicroTigerWordRetour = self.__arrtk.createButton(self.__microTigerWord, text="Retour", ppolice="Arial",
+                                                            ptaille=taillePolice, pstyle="bold", command=lambda:self.__viewMicroAcceuil())
+
+
         # Affichage 
         btnIcon.place(x=20,y=20)
         btnAcceuilUser.place(x=140,y=20)
@@ -514,6 +546,21 @@ class CArreraGazelleUISix :
         self.__arrtk.placeTopCenter(labelTitleTheme)
         self.__arrtk.placeCenter(self.__btnChangeTheme)
 
+        for i in range(0,len(labelTitleMicro)):
+            self.__arrtk.placeTopCenter(labelTitleMicro[i])
+
+        self.__arrtk.placeRightCenter(btnAcceuilMicroSound)
+        self.__arrtk.placeLeftCenter(btnAcceuilMicroTigerWord)
+
+        """
+        self.__arrtk.placeCenter(btnAcceuilMicroSound)
+        """
+
+        self.__arrtk.placeCenter(self.__btnMicroSoundChangeEtat)
+
+        self.__arrtk.placeBottomCenter(btnMicroSoundRetour)
+        self.__arrtk.placeBottomCenter(btnMicroTigerWordRetour)
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -528,6 +575,7 @@ class CArreraGazelleUISix :
         self.__softFrame.pack_forget()
         self.__internetFrame.pack_forget()
         self.__themeFrame.pack_forget()
+        self.__microFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -979,3 +1027,36 @@ class CArreraGazelleUISix :
         else :
             self.__gazelle.changeTheme(self.__listTheme[0])
         self.__backAcceuil()
+
+    # Methode Micro
+
+    def __viewMicroAcceuil(self):
+        self.__clearAll()
+        self.__microFrame.pack()
+        self.__backFrame.pack()
+        self.__microAcceuil.pack()
+        self.__microSound.pack_forget()
+        self.__microTigerWord.pack_forget()
+
+    def __viewMicroSound(self):
+        self.__microAcceuil.pack_forget()
+        self.__microSound.pack()
+        self.__microTigerWord.pack_forget()
+        microEnable = self.__gazelle.getSoundMicroAsEnable()
+        if microEnable:
+            self.__btnMicroSoundChangeEtat.configure(text="Désactiver le son")
+        else :
+            self.__btnMicroSoundChangeEtat.configure(text="Activer le son")
+
+    def __viewMicroTigerWord(self):
+        self.__microAcceuil.pack_forget()
+        self.__microSound.pack_forget()
+        self.__microTigerWord.pack()
+
+    def __changeMicroSound(self):
+        microEnable = self.__gazelle.getSoundMicroAsEnable()
+        if microEnable:
+            self.__gazelle.changeSoundMicro(False)
+        else :
+            self.__gazelle.changeSoundMicro(True)
+        self.__viewMicroAcceuil()
