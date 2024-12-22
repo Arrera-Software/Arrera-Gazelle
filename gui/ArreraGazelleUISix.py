@@ -48,6 +48,8 @@ class CArreraGazelleUISix :
         self.__internetSupprSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
         self.__internetListeSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
 
+        self.__themeFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -56,6 +58,7 @@ class CArreraGazelleUISix :
         # Liste
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listMoteurRecherche = jsonSetting.lectureJSONList("listMoteurRecherche")
+        self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         # Icon Assistant
         iconAssistant = self.__arrtk.createImage(jsonSetting.lectureJSON("iconSoft"),tailleX=95,tailleY=95)
         # String var
@@ -81,7 +84,7 @@ class CArreraGazelleUISix :
         btnAcceuilInternet = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Internet"
                                                        ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewInternetAcceuil())
         btnAcceuilTheme = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Theme"
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewTheme())
         btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
                                                          ,text="Arrera\nWork",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
         btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
@@ -369,6 +372,16 @@ class CArreraGazelleUISix :
         # option menu
         self.__menuSiteWeb = self.__arrtk.createOptionMenu(self.__internetSupprSite,value = ["",""],var = self.__varSupprWeb)
 
+        # Theme Frame
+        # Label
+        labelTitleTheme = self.__arrtk.createLabel(self.__themeFrame,text="Gestion du theme",
+                                                   ppolice="Arial",ptaille=taillePolice,
+                                                   pstyle="bold")
+
+        self.__btnChangeTheme = self.__arrtk.createButton(self.__themeFrame,text="",ppolice="Arial",
+                                                          ptaille=taillePolice,pstyle="bold",
+                                                          command=lambda:self.__saveNewTheme())
+
         # Affichage 
         btnIcon.place(x=20,y=20)
         btnAcceuilUser.place(x=140,y=20)
@@ -498,6 +511,8 @@ class CArreraGazelleUISix :
 
         self.__arrtk.placeBottomCenter(btnRetourInternetListe)
 
+        self.__arrtk.placeTopCenter(labelTitleTheme)
+        self.__arrtk.placeCenter(self.__btnChangeTheme)
 
     # Methode generale
     def active(self):
@@ -512,6 +527,7 @@ class CArreraGazelleUISix :
         self.__rechercheFrame.pack_forget()
         self.__softFrame.pack_forget()
         self.__internetFrame.pack_forget()
+        self.__themeFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -943,3 +959,23 @@ class CArreraGazelleUISix :
             self.__gazelle.supprSite(1,site)
         messagebox.showinfo("Parametre", "Le site a bien été supprimé")
         self.__viewInternetAcceuil()
+
+    # Methode Theme
+
+    def __viewTheme(self):
+        self.__clearAll()
+        self.__themeFrame.pack()
+        self.__backFrame.pack()
+        theme = self.__gazelle.getTheme()
+        if theme == self.__listTheme[0]:
+            self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[1])
+        else :
+            self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[0])
+
+    def __saveNewTheme(self):
+        theme = self.__gazelle.getTheme()
+        if theme == self.__listTheme[0]:
+            self.__gazelle.changeTheme(self.__listTheme[1])
+        else :
+            self.__gazelle.changeTheme(self.__listTheme[0])
+        self.__backAcceuil()

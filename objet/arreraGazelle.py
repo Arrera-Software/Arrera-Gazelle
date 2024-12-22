@@ -338,6 +338,9 @@ class CArreraGazelle :
     def changeTheme(self,theme:str):
         self.__fileJsonAssistant.EcritureJSON("theme",theme)
         return True
+
+    def getTheme(self):
+        return self.__fileJsonAssistant.lectureJSON("theme")
     
     def changeSoundMicro(self,enable:bool):
         if(enable==False):
