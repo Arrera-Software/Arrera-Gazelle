@@ -57,6 +57,8 @@ class CArreraGazelleUISix :
 
         self.__arreraWorkFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
 
+        self.__arreraDownloadFrame = self.__arrtk.createFrame(self.__windows, width=500, height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -95,7 +97,7 @@ class CArreraGazelleUISix :
         btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
                                                          ,text="Arrera\nWork",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewArreraWork())
         btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                       ,text="Arrera\nDownload",ppolice="Arial",ptaille=taillePolice-2,pstyle="bold")
+                                                       ,text="Arrera\nDownload",ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",command=lambda:self.__viewArreraDownload())
         btnAcceuilMicro = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
                                                     ,text="Micro",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewMicroAcceuil())
         self.__btnRetourAssistant = self.__arrtk.createButton(self.__mainCadre,width=100,
@@ -421,7 +423,14 @@ class CArreraGazelleUISix :
 
         btnChooseFolderArreraWork = self.__arrtk.createButton(self.__arreraWorkFrame,text="Choisir un dossier",
                                                                 ppolice="Arial",ptaille=taillePolice,pstyle="bold"
-                                                              ,command=lambda:self.__chooseFolderArreraWork())
+                                                                ,command=lambda:self.__chooseFolderArreraWork())
+
+        # Frame Arrera Download
+        labelTitleArreraDownload = self.__arrtk.createLabel(self.__arreraDownloadFrame,text="Paramètre Arrera Download",
+                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        btnChooseFolderArreraDownload = self.__arrtk.createButton(self.__arreraDownloadFrame,text="Choisir un dossier\nd'Arrera Download",
+                                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                                    command=lambda:self.__chooseFolderArreraDownload())
 
         # Affichage
         btnIcon.place(x=20,y=20)
@@ -573,6 +582,9 @@ class CArreraGazelleUISix :
         self.__arrtk.placeTopCenter(labelTitleArreraWork)
         self.__arrtk.placeCenter(btnChooseFolderArreraWork)
 
+        self.__arrtk.placeTopCenter(labelTitleArreraDownload)
+        self.__arrtk.placeCenter(btnChooseFolderArreraDownload)
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -589,6 +601,7 @@ class CArreraGazelleUISix :
         self.__themeFrame.pack_forget()
         self.__microFrame.pack_forget()
         self.__arreraWorkFrame.pack_forget()
+        self.__arreraDownloadFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -1087,4 +1100,19 @@ class CArreraGazelleUISix :
             messagebox.showinfo("Parametre","Le dossier de travail a bien été enregistré")
         else :
             messagebox.showerror("Erreur","Le dossier de travail n'a pas été enregistré")
+        self.__backAcceuil()
+
+    # Methode Arrera Download
+
+    def __viewArreraDownload(self):
+        self.__clearAll()
+        self.__arreraDownloadFrame.pack()
+        self.__backFrame.pack()
+
+    def __chooseFolderArreraDownload(self):
+        sortie = self.__gazelle.setVideoDownloadFolder()
+        if sortie:
+            messagebox.showinfo("Parametre","Le dossier de téléchargement a bien été enregistré")
+        else :
+            messagebox.showerror("Erreur","Le dossier de téléchargement n'a pas été enregistré")
         self.__backAcceuil()
