@@ -549,11 +549,11 @@ class CArreraGazelleUISix :
         for i in range(0,len(labelTitleMicro)):
             self.__arrtk.placeTopCenter(labelTitleMicro[i])
 
-        self.__arrtk.placeRightCenter(btnAcceuilMicroSound)
-        self.__arrtk.placeLeftCenter(btnAcceuilMicroTigerWord)
+        self.__arrtk.placeCenter(btnAcceuilMicroSound)
 
         """
-        self.__arrtk.placeCenter(btnAcceuilMicroSound)
+        self.__arrtk.placeRightCenter(btnAcceuilMicroSound)
+        self.__arrtk.placeLeftCenter(btnAcceuilMicroTigerWord)
         """
 
         self.__arrtk.placeCenter(self.__btnMicroSoundChangeEtat)
