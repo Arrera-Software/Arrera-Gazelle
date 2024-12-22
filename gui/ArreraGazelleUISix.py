@@ -55,6 +55,8 @@ class CArreraGazelleUISix :
         self.__microSound = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
         self.__microTigerWord = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
 
+        self.__arreraWorkFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+
         self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
 
         # Variable
@@ -91,7 +93,7 @@ class CArreraGazelleUISix :
         btnAcceuilTheme = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Theme"
                                                     ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewTheme())
         btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                         ,text="Arrera\nWork",ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+                                                         ,text="Arrera\nWork",ppolice="Arial",ptaille=taillePolice,pstyle="bold",command=lambda:self.__viewArreraWork())
         btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
                                                        ,text="Arrera\nDownload",ppolice="Arial",ptaille=taillePolice-2,pstyle="bold")
         btnAcceuilMicro = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
@@ -413,8 +415,15 @@ class CArreraGazelleUISix :
         btnMicroTigerWordRetour = self.__arrtk.createButton(self.__microTigerWord, text="Retour", ppolice="Arial",
                                                             ptaille=taillePolice, pstyle="bold", command=lambda:self.__viewMicroAcceuil())
 
+        # Frame Arrera Work
+        labelTitleArreraWork = self.__arrtk.createLabel(self.__arreraWorkFrame,text="Paramètre Arrera Work",
+                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold")
 
-        # Affichage 
+        btnChooseFolderArreraWork = self.__arrtk.createButton(self.__arreraWorkFrame,text="Choisir un dossier",
+                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+                                                              ,command=lambda:self.__chooseFolderArreraWork())
+
+        # Affichage
         btnIcon.place(x=20,y=20)
         btnAcceuilUser.place(x=140,y=20)
         btnAcceuilMeteo.place(x=260,y=20)
@@ -561,6 +570,9 @@ class CArreraGazelleUISix :
         self.__arrtk.placeBottomCenter(btnMicroSoundRetour)
         self.__arrtk.placeBottomCenter(btnMicroTigerWordRetour)
 
+        self.__arrtk.placeTopCenter(labelTitleArreraWork)
+        self.__arrtk.placeCenter(btnChooseFolderArreraWork)
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -576,6 +588,7 @@ class CArreraGazelleUISix :
         self.__internetFrame.pack_forget()
         self.__themeFrame.pack_forget()
         self.__microFrame.pack_forget()
+        self.__arreraWorkFrame.pack_forget()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -1060,3 +1073,18 @@ class CArreraGazelleUISix :
         else :
             self.__gazelle.changeSoundMicro(True)
         self.__viewMicroAcceuil()
+
+    # Methode Arrera Work
+
+    def __viewArreraWork(self):
+        self.__clearAll()
+        self.__arreraWorkFrame.pack()
+        self.__backFrame.pack()
+
+    def __chooseFolderArreraWork(self):
+        sortie = self.__gazelle.setWorkFolder()
+        if sortie:
+            messagebox.showinfo("Parametre","Le dossier de travail a bien été enregistré")
+        else :
+            messagebox.showerror("Erreur","Le dossier de travail n'a pas été enregistré")
+        self.__backAcceuil()
