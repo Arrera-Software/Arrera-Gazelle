@@ -23,6 +23,8 @@ def main():
                                     "FileJSON/configNewSetting.json")
             windows.maxsize(500,400)
             windows.minsize(500,400)
+            gui.passFNCQuit(lambda  : quit(windows))
+            gui.passFNCBTNIcon(lambda  : print("Icon"))
         case other :
             print("Invalid input")
             return
