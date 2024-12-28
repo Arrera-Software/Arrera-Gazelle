@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import webbrowser as wb
 import platform
 import os
+from typing import Union
 
 VERSIONARRERATK = "1.0.0"
 
@@ -38,7 +39,7 @@ class CArreraTK :
         self.__mode = mode
         if mode == 0:
             self.__root = ctk.CTk()
-            self.__root.configure(bg_color=defaultColor)
+            self.__root.configure(fg_color=defaultColor)
         else:
             self.__root = Tk()
         if icon != "":
@@ -145,17 +146,21 @@ class CArreraTK :
                 imageLight = PhotoImage(file=pathLight)
                 return imageLight
 
-    def createLabel(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", ppolice : str = "Arial", ptaille : int = 12,pstyle : str = "normal"):
+    def createLabel(self, screen, text: str = "", image : Union[ctk.CTkImage, PhotoImage] = None, bg : str = "", fg : str = "", ppolice : str = "Arial", ptaille : int = 12,pstyle : str = "normal",width : int = 0,height : int = 0):
         if (self.__mode == 0):
             label = ctk.CTkLabel(screen)
             if (text != ""):
                 label.configure(text=text)
             if (image != None):
                 label.configure(image=image)
-            if (bg != ""):
-                label.configure(bg_color=bg)
             if (fg != ""):
-                label.configure(fg_color=fg)
+                label.configure(text_color=fg)
+            if (bg != ""):
+                label.configure(fg_color=bg)
+            if (width != 0):
+                label.configure(width=width)
+            if (height != 0):
+                label.configure(height=height)
             police = "Arial"
             style = "normal"
             taille = 12
@@ -165,6 +170,8 @@ class CArreraTK :
                 taille = ptaille
             if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
                 style = pstyle
+            if (image != None):
+                label.configure(image=image)
             label.configure(font=(police, taille, style))
         else :
             label = Label(screen)
@@ -176,6 +183,10 @@ class CArreraTK :
                 label.configure(bg=bg)
             if (fg != ""):
                 label.configure(fg=fg)
+            if (width != 0):
+                label.configure(width=width)
+            if (height != 0):
+                label.configure(height=height)
             if (ppolice != "Arial" or ptaille != 12):
                 label.configure(font=(ppolice, ptaille))
         return label
@@ -189,10 +200,10 @@ class CArreraTK :
                 btn.configure(text="")
             if (image != None):
                 btn.configure(image=image)
-            if (bg != ""):
-                btn.configure(bg_color=bg)
             if (fg != ""):
-                btn.configure(fg_color=fg)
+                btn.configure(text_color=fg)
+            if (bg != ""):
+                btn.configure(fg_color=bg)
             if (command != None):
                 btn.configure(command=command)
             if (width != 0):
@@ -235,10 +246,10 @@ class CArreraTK :
     def createEntry(self, screen, bg : str = "", fg : str = "",placeholderText :str = "",police : str = "Arial", taille : int = 12,width : int = 20):
         if (self.__mode == 0):
             entry = ctk.CTkEntry(screen)
-            if (bg != ""):
-                entry.configure(bg_color=bg)
             if (fg != ""):
-                entry.configure(fg_color=fg)
+                entry.configure(text_color=fg)
+            if (bg != ""):
+                entry.configure(fg_color=bg)
             if (placeholderText != ""):
                 entry.configure(placeholder_text=placeholderText)
             if (police != "Arial" or taille != 12):
@@ -307,9 +318,9 @@ class CArreraTK :
             if (height != 0):
                 frame.configure(height=height)
             if (bg != ""):
-                frame.configure(bg_color=bg)
+                frame.configure(fg_color=bg)
             else:
-                frame.configure(bg_color=self.__windowsColor)
+                frame.configure(fg_color=self.__windowsColor)
             if (wightBoder != 0):
                 frame.configure(border_width=wightBoder)
             frame.update()
@@ -515,3 +526,56 @@ class CArreraTK :
 
             btnLinkSource.place(relx=1, rely=1, anchor='se')
             btnLinkWeb.place(relx=0, rely=1, anchor='sw')
+
+    def createTopMenu(self,master:Union[Tk,ctk.CTk, Toplevel, ctk.CTkToplevel,Menu]):
+        newMenu = Menu(master, tearoff=0, bg=self.__windowsColor, fg=self.__textColor)
+        if isinstance(master, (Tk, ctk.CTk, Toplevel, ctk.CTkToplevel)):
+            master.configure(menu=newMenu)
+        return newMenu
+
+    def addCommandTopMenu(self,menu:Menu,command,text:str):
+        menu.add_command(label=text,command=command)
+
+    def addCascadeTopMenu(self, menuMaster:Menu, menuChild:Menu, text:str):
+        menuMaster.add_cascade(label=text, menu=menuChild)
+
+    def createArreraBackgroudImage(self,screen:Union[Tk,ctk.CTk,Toplevel,ctk.CTkToplevel],imageLight:str,imageDark :str = "",height:int = 600,width:int = 800):
+        if (self.__mode == 0):
+            if (imageDark != ""):
+                image = ctk.CTkImage(light_image=Image.open(imageLight),
+                                     dark_image=Image.open(imageDark),
+                                     size=(width, height))
+            else :
+                image = ctk.CTkImage(light_image=Image.open(imageLight)
+                                     ,size=(width, height))
+            frame = ctk.CTkFrame(screen,width=width,height=height,border_width=0)
+            label = ctk.CTkLabel(frame,image=image,text="")
+            label.place(relx=0.5, rely=0.5, anchor='center')
+            return frame
+
+    def labelChangeColor(self,label : Union[Label,ctk.CTkLabel],bg:str = "" ,fg :str = "" ):
+        if isinstance (label,Label):
+            if (bg != ""):
+                label.configure(bg=bg)
+            if (fg != ""):
+                label.configure(fg=fg)
+        else:
+            if (fg != ""):
+                label.configure(text_color=fg)
+            if (bg != ""):
+                label.configure(fg_color=bg)
+
+    def boutonChangeColor(self, button : Union[Button,ctk.CTkButton], bg:str, fg:str):
+        if isinstance (button, Button):
+            if (bg != ""):
+                button.configure(bg=bg)
+            if (fg != ""):
+                button.configure(fg=fg)
+        else:
+            if (fg != ""):
+                button.configure(text_color=fg)
+            if (bg != ""):
+                button.configure(fg_color=bg)
+
+    def getTheme(self):
+        return ctk.get_appearance_mode()
