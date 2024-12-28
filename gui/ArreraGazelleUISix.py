@@ -1,5 +1,5 @@
 from librairy.arrera_tk import *
-from objet.arreraGazelle import*
+from setting.arreraGazelle import*
 from typing import Union
 
 class CArreraGazelleUISix :
@@ -77,7 +77,7 @@ class CArreraGazelleUISix :
         self.__varMoteurRecherche = StringVar(self.__windows)
         self.__varSupprSoft = StringVar(self.__windows)
         self.__varSupprWeb = StringVar(self.__windows)
-        # Widget 
+        # Widget
         # Main frame
         self.__btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
         btnAcceuilUser = self.__arrtk.createButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
@@ -639,6 +639,9 @@ class CArreraGazelleUISix :
     def passFNCBTNIcon(self,fnc):
         self.__btnIcon.configure(command=fnc)
         self.__btnIcon.place(x=20, y=20)
+
+    def clearAllFrame(self):
+        self.__clearAll()
 
     # Methode pour la partie User
     def __viewUserAcceuil(self):
