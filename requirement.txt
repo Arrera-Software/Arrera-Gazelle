@@ -1,2 +1,5 @@
 customtkinter
 pillow
+SpeechRecognition
+pyaudio
+playsound3

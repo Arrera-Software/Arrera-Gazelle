@@ -1,13 +1,17 @@
 from librairy.travailJSON import*
 from librairy.dectectionOS import*
 from librairy.gestionSoftWindows import*
+import speech_recognition as sr
+from playsound3 import playsound as pl
 
 class CArreraGazelle :
-    def __init__(self,emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str):
+    def __init__(self,emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,soundMicro:str=""):
         # Fichier json
         self.__fileJsonUser = jsonWork(emplacementJsonUser)
         self.__fileJsonNeuronNetwork = jsonWork(emplacementJsonNeuronNetwork)
         self.__fileJsonAssistant = jsonWork(emplacementJsonAssistant)
+        self.__soundMicro = soundMicro
+        self.__record = ""
         # Objet 
         objOS = OS()
         self.__windowsOS = objOS.osWindows()
@@ -405,3 +409,37 @@ class CArreraGazelle :
             return True
         else :
             return False
+
+    def recordTrigerWord(self):
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source)
+            if (self.__soundMicro):
+                pl(self.__soundMicro)
+            audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio, language='fr-FR')
+            self.__record = text
+            return True
+        except sr.UnknownValueError:
+            return False
+        except sr.RequestError as e:
+            return False
+
+    def getRecordTrigerWord(self):
+        return self.__record
+
+    def saveRecordTrigerWord(self):
+        self.__fileJsonAssistant.EcritureJSONList("listWord",self.__record)
+        self.__record = ""
+        return True
+
+    def getNbTrigerWord(self):
+        return len(self.__fileJsonAssistant.lectureJSONList("listWord"))
+
+    def supprTrigerWord(self,word:str):
+        self.__fileJsonAssistant.supprJSONList("listWord",word)
+        return True
+
+    def getTrigerWord(self):
+        return self.__fileJsonAssistant.lectureJSONList("listWord")
