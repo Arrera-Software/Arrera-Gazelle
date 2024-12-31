@@ -411,11 +411,11 @@ class CArreraGazelle :
             return False
 
     def recordTrigerWord(self):
+        if (self.__soundMicro):
+            pl(self.__soundMicro)
         r = sr.Recognizer()
         with sr.Microphone() as source:
             r.adjust_for_ambient_noise(source)
-            if (self.__soundMicro):
-                pl(self.__soundMicro)
             audio = r.listen(source)
         try:
             text = r.recognize_google(audio, language='fr-FR')
@@ -437,8 +437,8 @@ class CArreraGazelle :
     def getNbTrigerWord(self):
         return len(self.__fileJsonAssistant.lectureJSONList("listWord"))
 
-    def supprTrigerWord(self,word:str):
-        self.__fileJsonAssistant.supprJSONList("listWord",word)
+    def supprTrigerWord(self,word):
+        self.__fileJsonAssistant.suppressionJsonList("listWord",word)
         return True
 
     def getTrigerWord(self):
