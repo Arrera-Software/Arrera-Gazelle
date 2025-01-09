@@ -48,7 +48,6 @@ class CArreraTK :
                     self.__root.iconbitmap(icon)
             else:
                 if os.path.splitext(icon)[1].lower() == '.png' :
-                    print("bite")
                     self.__root.iconphoto(True, PhotoImage(file=icon))
         self.__root.geometry(f"{width}x{height}")
         self.__root.title(title)
@@ -91,16 +90,21 @@ class CArreraTK :
         else:
             self.__root = Toplevel()
         if icon != "":
-            self.__root.iconbitmap(icon)
+            if platform.system() == "Windows":
+                if os.path.splitext(icon)[1].lower() == '.ico':
+                    self.__root.iconbitmap(icon)
+            else:
+                if os.path.splitext(icon)[1].lower() == '.png':
+                    self.__root.iconphoto(True, PhotoImage(file=icon))
         self.__root.geometry(f"{width}x{height}")
         self.__root.title(title)
         self.__root.resizable(resizable, resizable)
         if bg == "":
-            self.__root.configure(bg=defaultColor)
+            self.__root.configure(fg_color=defaultColor)
             self.__windowsColor = defaultColor
             self.__textColor = defaultTextColor
         else:
-            self.__root.configure(bg=bg)
+            self.__root.configure(fg_color=bg)
             self.__windowsColor = bg
             self.__textColor = fg
 
@@ -146,13 +150,14 @@ class CArreraTK :
                 imageLight = PhotoImage(file=pathLight)
                 return imageLight
 
-    def createLabel(self, screen, text: str = "", image : Union[ctk.CTkImage, PhotoImage] = None, bg : str = "", fg : str = "", ppolice : str = "Arial", ptaille : int = 12,pstyle : str = "normal",width : int = 0,height : int = 0):
+    def createLabel(self, screen, text: str = "", image : Union[ctk.CTkImage, PhotoImage] = None, bg : str = "", fg : str = "", ppolice : str = "Arial", ptaille : int = 12,pstyle : str = "normal",width : int = 0,height : int = 0,pwraplength : int = 0,justify : str = "center"):
         if (self.__mode == 0):
             label = ctk.CTkLabel(screen)
             if (text != ""):
                 label.configure(text=text)
             if (image != None):
                 label.configure(image=image)
+                label.configure(text="")
             if (fg != ""):
                 label.configure(text_color=fg)
             if (bg != ""):
@@ -161,6 +166,8 @@ class CArreraTK :
                 label.configure(width=width)
             if (height != 0):
                 label.configure(height=height)
+            if (pwraplength != 0):
+                label.configure(wraplength=pwraplength)
             police = "Arial"
             style = "normal"
             taille = 12
@@ -172,7 +179,7 @@ class CArreraTK :
                 style = pstyle
             if (image != None):
                 label.configure(image=image)
-            label.configure(font=(police, taille, style))
+            label.configure(font=(police, taille, style),justify=justify)
         else :
             label = Label(screen)
             if (text != ""):
@@ -187,11 +194,13 @@ class CArreraTK :
                 label.configure(width=width)
             if (height != 0):
                 label.configure(height=height)
+            if (pwraplength != 0):
+                label.configure(wraplength=pwraplength)
             if (ppolice != "Arial" or ptaille != 12):
                 label.configure(font=(ppolice, ptaille))
         return label
 
-    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle :str = "normal",width : int = 0,height : int = 0):
+    def createButton(self, screen, text: str = "", image = None, bg : str = "", fg : str = "", command = None,ppolice : str = "Arial", ptaille : int = 12,pstyle :str = "normal",width : int = 0,height : int = 0,hoverbg:str=""):
         if (self.__mode == 0):
             btn = (ctk.CTkButton(screen))
             if (text != ""):
@@ -200,10 +209,13 @@ class CArreraTK :
                 btn.configure(text="")
             if (image != None):
                 btn.configure(image=image)
+                btn.configure(text="")
             if (fg != ""):
                 btn.configure(text_color=fg)
             if (bg != ""):
                 btn.configure(fg_color=bg)
+            if (hoverbg != ""):
+                btn.configure(hover_color=hoverbg)
             if (command != None):
                 btn.configure(command=command)
             if (width != 0):
@@ -219,6 +231,7 @@ class CArreraTK :
                 taille = ptaille
             if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
                 style = pstyle
+
             btn.configure(font=(police,taille,style))
 
         else :
@@ -243,7 +256,7 @@ class CArreraTK :
                 btn.configure(height=height)
         return btn
 
-    def createEntry(self, screen, bg : str = "", fg : str = "",placeholderText :str = "",police : str = "Arial", taille : int = 12,width : int = 20):
+    def createEntry(self, screen, bg : str = "", fg : str = "", placeholderText :str = "", ppolice : str = "Arial", ptaille : int = 12, width : int = 20):
         if (self.__mode == 0):
             entry = ctk.CTkEntry(screen)
             if (fg != ""):
@@ -252,8 +265,8 @@ class CArreraTK :
                 entry.configure(fg_color=bg)
             if (placeholderText != ""):
                 entry.configure(placeholder_text=placeholderText)
-            if (police != "Arial" or taille != 12):
-                entry.configure(font=(police, taille,"normal"))
+            if (ppolice != "Arial" or ptaille != 12):
+                entry.configure(font=(ppolice, ptaille, "normal"))
             if (width != 20):
                 entry.configure(width=width)
         else :
@@ -262,8 +275,8 @@ class CArreraTK :
                 entry.configure(bg=bg)
             if (fg != ""):
                 entry.configure(fg=fg)
-            if (police != "Arial" or taille != 12):
-                entry.configure(font=(police, taille))
+            if (ppolice != "Arial" or ptaille != 12):
+                entry.configure(font=(ppolice, ptaille))
         return entry
 
     def createText(self, screen, bg : str = "", fg : str = ""):
@@ -565,7 +578,7 @@ class CArreraTK :
             if (bg != ""):
                 label.configure(fg_color=bg)
 
-    def boutonChangeColor(self, button : Union[Button,ctk.CTkButton], bg:str, fg:str):
+    def boutonChangeColor(self, button : Union[Button,ctk.CTkButton], bg:str, fg:str ="",hoverbg:str=""):
         if isinstance (button, Button):
             if (bg != ""):
                 button.configure(bg=bg)
@@ -576,6 +589,65 @@ class CArreraTK :
                 button.configure(text_color=fg)
             if (bg != ""):
                 button.configure(fg_color=bg)
+            if (hoverbg != ""):
+                button.configure(hover_color=hoverbg)
 
     def getTheme(self):
         return ctk.get_appearance_mode()
+
+    def createTextBox(self,screen:Union[Tk,ctk.CTk,Toplevel,ctk.CTkToplevel],width:int = 0,height:int = 0,bg:str = "",fg:str = "",ppolice:str="Arial",ptaille:int=12,pstyle:str="normal",wrap:str="word"):
+        if (self.__mode == 0):
+            text = ctk.CTkTextbox(screen)
+            if (fg != ""):
+                text.configure(text_color=fg)
+            if (bg != ""):
+                text.configure(fg_color=bg)
+            if (width != 0):
+                text.configure(width=width)
+            if (height != 0):
+                text.configure(height=height)
+
+            police = "Arial"
+            style = "normal"
+            taille = 12
+
+            if (ppolice != "Arial"):
+                police = ppolice
+            if (ptaille != 12):
+                taille = ptaille
+            if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
+                style = pstyle
+
+            text.configure(font=(police, taille, style),wrap=wrap)
+
+        else :
+            text = Text(screen,width=width,height=height,bg=bg,fg=fg)
+            if (fg != ""):
+                text.configure(fg=fg)
+            if (bg != ""):
+                text.configure(bg=bg)
+            if (width != 0):
+                text.configure(width=width)
+            if (height != 0):
+                text.configure(height=height)
+
+            police = "Arial"
+            style = "normal"
+            taille = 12
+
+            if (ppolice != "Arial"):
+                police = ppolice
+            if (ptaille != 12):
+                taille = ptaille
+            if (pstyle != "normal" and (pstyle == "bold" or pstyle == "italic" or pstyle == "underline")):
+                style = pstyle
+
+            text.configure(font=(police, taille, style))
+
+        text.configure(state="disabled")
+        return text
+
+    def insertTextOnTextBox(self,textbox:Union[Text,ctk.CTkTextbox],text:str):
+        textbox.configure(state="normal")
+        textbox.insert("1.0", text)
+        textbox.configure(state="disabled")
