@@ -982,3 +982,6 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__gazelle.setVideoDownloadFolder()
             case 2 :
                 self.__gazelle.supprVideoDownloadFolder()
+
+    def passApropos(self,aproposFNC):
+        self.__btnApropos.configure(command=aproposFNC)

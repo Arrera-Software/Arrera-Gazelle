@@ -16,6 +16,7 @@ def main():
                                                 "FileJSON/sixConfig.json",
                                                 "FileJSON/configOldSetting.json")
             gui.passQUITFNC(lambda  : quit(windows))
+            gui.passApropos(lambda  : print("Apropos"))
         case 2 :
             gui = CArreraGazelleUISix(arrtk,windows, "FileJSON/configUser.json",
                                     "FileJSON/configNeuron.json",

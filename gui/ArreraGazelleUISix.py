@@ -1,5 +1,5 @@
 from librairy.arrera_tk import *
-from setting.arreraGazelle import*
+from objet.arreraGazelle import*
 from typing import Union
 
 class CArreraGazelleUISix :
