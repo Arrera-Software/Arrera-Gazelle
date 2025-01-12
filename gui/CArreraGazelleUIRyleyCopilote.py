@@ -68,8 +68,7 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createLabel(cadresPresentations[1], text="Gestion meteo", ppolice="Arial", ptaille=17),
             self.__arrTK.createLabel(cadresPresentations[2], text="Gestion GPS", ppolice="Arial", ptaille=17),
             self.__arrTK.createLabel(cadresPresentations[3], text="Gestion des logiciel", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[4], text="Gestion Site internet", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[5], text="Gestion theme", ppolice="Arial", ptaille=17)]
+            self.__arrTK.createLabel(cadresPresentations[4], text="Gestion Site internet", ppolice="Arial", ptaille=17)]
         
         boutonMenu = [
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
@@ -98,7 +97,10 @@ class CArreraGazelleUIRyleyCopilote :
 
         self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Quitter",width=20)
-        
+        imgSoft = self.__arrTK.createImage(jsonSetting.lectureJSON("iconSoft"),
+                                           tailleX=150,tailleY=150)
+
+        self.__btnApropos = self.__arrTK.createButton(cadresPresentations[5],image=imgSoft,width=150,height=150)
         #cadresPresentations
         #0
         menuRecherche1 = self.__arrTK.createOptionMenu(cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
@@ -120,10 +122,6 @@ class CArreraGazelleUIRyleyCopilote :
                                                          ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(2))
         buttonSupprSite = self.__arrTK.createButton(cadresPresentations[4],text="Supprimer"
                                                            ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(3))
-        #5
-        menuTheme1 = self.__arrTK.createOptionMenu(cadresPresentations[5],var=self.__varTheme,value=listeTheme)
-        btnValiderTheme1 = self.__arrTK.createButton(cadresPresentations[5],text="Valider"
-                                                            ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__validerTheme(2))
 
         # Cadre User 
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
@@ -132,7 +130,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
                                                     ,text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
         self.__menuGenre = self.__arrTK.createOptionMenu(self.__cadreUser,var=self.__varGenre,value=listGenre)
-        self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,police="Arial",taille=tailleMain,width=250)
+        self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,ppolice="Arial",ptaille=tailleMain,width=250)
         self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
                                                           text="Valider",width=20)
         self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
@@ -149,7 +147,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__labelListeMeteo = self.__arrTK.createLabel(self.__cadreMeteo, ppolice="Arial", ptaille=tailleTitle)
         self.__menuChoixLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varChoixLieu,value=listChoixLieu)
         self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varSupprLieu,value=listChoixLieu)
-        self.__entryVille = self.__arrTK.createEntry(self.__cadreMeteo,police="Arial",taille=tailleMain)
+        self.__entryVille = self.__arrTK.createEntry(self.__cadreMeteo,ppolice="Arial",ptaille=tailleMain)
         self.__btnvaliderMeteo = self.__arrTK.createButton(self.__cadreMeteo,text="Valider"
                                                            ,ppolice = "arial" , ptaille = tailleMain)
         self.__btnannulerMeteo = self.__arrTK.createButton(self.__cadreMeteo,ppolice = "arial" , ptaille = tailleMain
@@ -168,7 +166,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                            ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerGPS(2,2))
         self.__btnsupprGPS = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer une adresse"
                                                        ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(4))
-        self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,police="Arial",taille=tailleMain)
+        self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,ppolice="Arial",ptaille=tailleMain)
         # Cadre Rechecrhe
         labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche, text="Choisissez votre moteur\nde recherche"
                                                        , ppolice="Arial", ptaille=tailleTitle)
@@ -199,7 +197,7 @@ class CArreraGazelleUIRyleyCopilote :
 
         self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = ["",""])
 
-        self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,police="Arial",taille=15)
+        self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,ppolice="Arial",ptaille=15)
 
         self.__btnTypeSoftNormal = self.__arrTK.createButton(self.__cadreSoft,text="Normal",ppolice="arial",ptaille=tailleMain,
                                                              command=lambda : self.__affichageCadreSoft(2))
@@ -229,8 +227,8 @@ class CArreraGazelleUIRyleyCopilote :
                                                               ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(1))
         self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreInternet,text="Valider",
                                                               ppolice = "arial" , ptaille = tailleMain)
-        self.__entryNameSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=tailleMain)
-        self.__entryLinkSite = self.__arrTK.createEntry(self.__cadreInternet,police="Arial",taille=tailleMain)
+        self.__entryNameSite = self.__arrTK.createEntry(self.__cadreInternet,ppolice="Arial",ptaille=tailleMain)
+        self.__entryLinkSite = self.__arrTK.createEntry(self.__cadreInternet,ppolice="Arial",ptaille=tailleMain)
         self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
         self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varSupprSite,value=listChoixSite)
         # Cardre theme 
@@ -267,14 +265,15 @@ class CArreraGazelleUIRyleyCopilote :
         # Placement widget
         self.__arrTK.placeTopCenter(labelTitreMenu)
         # Cadre acceuil
-        self.__arrTK.placeTopLeft(cadresPresentations[0])
-        self.__arrTK.placeTopRight(cadresPresentations[1])
-        self.__arrTK.placeCenterLeft(cadresPresentations[2])
-        self.__arrTK.placeCenterRight(cadresPresentations[3])
-        self.__arrTK.placeBottomLeft(cadresPresentations[4])
-        self.__arrTK.placeBottomRight(cadresPresentations[5])
+        self.__arrTK.placeCenter(self.__btnApropos)
+        self.__arrTK.placeTopLeft(cadresPresentations[5])
+        self.__arrTK.placeTopRight(cadresPresentations[0])
+        self.__arrTK.placeCenterLeft(cadresPresentations[1])
+        self.__arrTK.placeCenterRight(cadresPresentations[2])
+        self.__arrTK.placeBottomLeft(cadresPresentations[3])
+        self.__arrTK.placeBottomRight(cadresPresentations[4])
 
-        for i in range(0,6):
+        for i in range(0,len(labelcadresPresentations)):
             self.__arrTK.placeTopCenter(labelcadresPresentations[i])
         
         boutonMenu[0].place(relx=0.0,y=50)
@@ -298,8 +297,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeCenter(btnSoftware1)
         self.__arrTK.placeCenter(buttonAddSite)
         self.__arrTK.placeBottomCenter(buttonSupprSite)
-        self.__arrTK.placeCenter(menuTheme1)
-        self.__arrTK.placeBottomCenter(btnValiderTheme1)
 
         self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
@@ -923,6 +920,8 @@ class CArreraGazelleUIRyleyCopilote :
                 theme = self.__varChoixTheme.get()
             case 2 :
                 theme = self.__varTheme.get()
+            case other :
+                return
         self.__gazelle.changeTheme(theme)
         showinfo("Parametre","Theme changer")
         self.__backAcceuil()
