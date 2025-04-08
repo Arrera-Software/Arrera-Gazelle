@@ -323,7 +323,7 @@ class CArreraTK :
             canvas.create_image(0, 0, image=photo, anchor="nw")
         return canvas
 
-    def createFrame(self, screen,width : int = 0 ,height : int = 0,  bg : str = "",wightBoder : int = 0):
+    def createFrame(self, screen,width : int = 0 ,height : int = 0,  bg : str = "",wightBoder : int = 0,corner_radius : int = 1024):
         if (self.__mode == 0):
             frame = ctk.CTkFrame(screen)
             if (width != 0):
@@ -336,6 +336,8 @@ class CArreraTK :
                 frame.configure(fg_color=self.__windowsColor)
             if (wightBoder != 0):
                 frame.configure(border_width=wightBoder)
+            if (corner_radius != 1024):
+                frame.configure(corner_radius=corner_radius)
             frame.update()
         else :
             frame = Frame(screen)
@@ -478,14 +480,14 @@ class CArreraTK :
             apropos.maxsize(400,300)
             apropos.minsize(400,300)
             icon = ctk.CTkImage(light_image=Image.open(iconFile),size=(100,100))
-            mainFrame = ctk.CTkFrame(apropos,width=400,height=250,border_width=0)
-            frameBTN = ctk.CTkFrame(apropos,width=400,height=50,border_width=0)
-            frameLabel = ctk.CTkFrame(apropos,border_width=0)
+            mainFrame = ctk.CTkFrame(apropos,width=400,height=250,border_width=0,fg_color=self.__windowsColor)
+            frameBTN = ctk.CTkFrame(apropos,width=400,height=50,border_width=0,fg_color=self.__windowsColor)
+            frameLabel = ctk.CTkFrame(apropos,border_width=0,fg_color=self.__windowsColor)
 
-            labelIcon = ctk.CTkLabel(mainFrame,image=icon,text="")
-            labelSoft = ctk.CTkLabel(frameLabel,text=nameSoft+" version "+version,font=("Arial",20))
-            labelVersion = ctk.CTkLabel(frameLabel,text="Arrera TK version "+VERSIONARRERATK,font=("Arial",13))
-            labelCopy = ctk.CTkLabel(mainFrame,text=copyright,font=("Arial",13))
+            labelIcon = ctk.CTkLabel(mainFrame,image=icon,text="",fg_color=self.__windowsColor)
+            labelSoft = ctk.CTkLabel(frameLabel,text=nameSoft+" version "+version,font=("Arial",20),fg_color=self.__windowsColor)
+            labelVersion = ctk.CTkLabel(frameLabel,text="Arrera TK version "+VERSIONARRERATK,font=("Arial",13),fg_color=self.__windowsColor)
+            labelCopy = ctk.CTkLabel(mainFrame,text=copyright,font=("Arial",13),fg_color=self.__windowsColor)
 
             btnLinkSource = ctk.CTkButton(frameBTN,text="Source code",command= lambda :  wb.open(linkSource))
             btnLinkWeb = ctk.CTkButton(frameBTN,text="Web site",command= lambda :  wb.open(linkWeb))
