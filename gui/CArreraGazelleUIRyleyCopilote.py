@@ -16,7 +16,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK = atk
 
         # Varriable
-
         tailleTitle = 27
         tailleMain = 23
         self.__varRecherche = StringVar(self.__windows)
@@ -31,6 +30,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixTheme  =  StringVar(self.__windows)
         self.__varChoixMicro =  StringVar(self.__windows)
 
+        # Image
+        imgSoft = self.__arrTK.createImage(jsonSetting.lectureJSON("iconSoft"),
+                                           tailleX=90,tailleY=90)
+
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
@@ -40,8 +43,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__listChoixMicro = ["ON","OFF"]
 
         # Creation des Frame
+        self.__mainFrame = self.__arrTK.createFrame(self.__windows,width=500,height=630,bg="red")
         self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=630)
-        self.__cadreAcceuil = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=630)
@@ -53,22 +56,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreVideoDownload = self.__arrTK.createFrame(self.__windows, width=350, height=630)
         self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
 
-        #cadre interne a l'acceuil
-        cadresPresentations = [
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1),
-            self.__arrTK.createFrame(self.__cadreAcceuil,width=175,height=205,wightBoder=1)]
         #Widget
         labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu, text="Menu", ppolice="arial", ptaille=tailleTitle)
-        labelcadresPresentations = [
-            self.__arrTK.createLabel(cadresPresentations[0], text="Gestion recherche", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[1], text="Gestion meteo", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[2], text="Gestion GPS", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[3], text="Gestion des logiciel", ppolice="Arial", ptaille=17),
-            self.__arrTK.createLabel(cadresPresentations[4], text="Gestion Site internet", ppolice="Arial", ptaille=17)]
         
         boutonMenu = [
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
@@ -95,33 +84,37 @@ class CArreraGazelleUIRyleyCopilote :
                                                   text="Micro",command=self.__showMicroFrame,width=20),#10
         ]
 
+        #mainFrame
+
+        self.__boutonMenuMain = [
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="",image=imgSoft),#0
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nde\nl'utilisateur"),#1
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nmeteo"),#2
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nGPS"),#3
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nde\nrecherche"),#4
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\ndes\nlogiciels"),#5
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\ndes sites\ninternet"),#6
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\ndu\ntheme"),#7
+            self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nArrera\nWork"),#8
+            self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\ndu\nmicro"),  # 9
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\nArrera\nDownload"),#10
+            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Quitter"),#11
+        ]
+
         self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Quitter",width=20)
-        imgSoft = self.__arrTK.createImage(jsonSetting.lectureJSON("iconSoft"),
-                                           tailleX=150,tailleY=150)
-
-        self.__btnApropos = self.__arrTK.createButton(cadresPresentations[5],image=imgSoft,width=150,height=150)
-        #cadresPresentations
-        #0
-        menuRecherche1 = self.__arrTK.createOptionMenu(cadresPresentations[0],var=self.__varRecherche,value=listMoteur)
-        btnValiderMoteur1 = self.__arrTK.createButton(cadresPresentations[0],text="Valider"
-                                                             ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__validerMoteur(2))
-        #1
-        btnMeteo1 = self.__arrTK.createButton(cadresPresentations[1],text="Ajouter\nune ville"
-                                                     ,width=20,ppolice = "arial" , ptaille = tailleMain  ,command = lambda : self.__showMeteoFrame(2))
-        #2
-        btnGPSHome = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde domicile"
-                                                      ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showGPSFrame(2))
-        btnGPSWork = self.__arrTK.createButton(cadresPresentations[2],text="Adresse\nde travail"
-                                                      ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showGPSFrame(3))
-        #3
-        btnSoftware1 = self.__arrTK.createButton(cadresPresentations[3],text="Ajouter\nd'un logiciel"
-                                                        ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda : self.__showSoftFrame(2))
-        #4
-        buttonAddSite = self.__arrTK.createButton(cadresPresentations[4],text="Ajouter"
-                                                         ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(2))
-        buttonSupprSite = self.__arrTK.createButton(cadresPresentations[4],text="Supprimer"
-                                                           ,width=20,ppolice = "arial" , ptaille = tailleMain ,command=lambda :self.__showInternetFrame(3))
 
         # Cadre User 
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
@@ -264,17 +257,6 @@ class CArreraGazelleUIRyleyCopilote :
                                                             ppolice = "arial" , ptaille = tailleMain,command = lambda : self.__validerFolderDownload(2))
         # Placement widget
         self.__arrTK.placeTopCenter(labelTitreMenu)
-        # Cadre acceuil
-        self.__arrTK.placeCenter(self.__btnApropos)
-        self.__arrTK.placeTopLeft(cadresPresentations[5])
-        self.__arrTK.placeTopRight(cadresPresentations[0])
-        self.__arrTK.placeCenterLeft(cadresPresentations[1])
-        self.__arrTK.placeCenterRight(cadresPresentations[2])
-        self.__arrTK.placeBottomLeft(cadresPresentations[3])
-        self.__arrTK.placeBottomRight(cadresPresentations[4])
-
-        for i in range(0,len(labelcadresPresentations)):
-            self.__arrTK.placeTopCenter(labelcadresPresentations[i])
         
         boutonMenu[0].place(relx=0.0,y=50)
         boutonMenu[1].place(relx=0.0,y=100)
@@ -288,15 +270,6 @@ class CArreraGazelleUIRyleyCopilote :
         boutonMenu[9].place(relx=0.0,y=500)
         if (jsonSetting.lectureJSON("gestionMicro")=="1"):
             boutonMenu[10].place(relx=0.0,y=550)
-
-        self.__arrTK.placeCenter(menuRecherche1)
-        self.__arrTK.placeBottomCenter(btnValiderMoteur1)
-        self.__arrTK.placeCenter(btnMeteo1)
-        self.__arrTK.placeCenter(btnGPSHome)
-        self.__arrTK.placeBottomCenter(btnGPSWork)
-        self.__arrTK.placeCenter(btnSoftware1)
-        self.__arrTK.placeCenter(buttonAddSite)
-        self.__arrTK.placeBottomCenter(buttonSupprSite)
 
         self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
@@ -323,16 +296,29 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
         self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
 
-            
-        
+        # Dimensions et espacement
+        x_start = 60    # Position X de départ
+        y_start = 40    # Position Y de départ
+        x_spacing = 150 # Espacement horizontal entre les colonnes
+        y_spacing = 150  # Espacement vertical entre les lignes
+
+        # Boucle pour positionner les boutons
+        for index, bouton in enumerate(self.__boutonMenuMain):
+            x = x_start + (index % 3) * x_spacing  # Calculer la position X (colonne pour 3 boutons par ligne)
+            y = y_start + (index // 3) * y_spacing # Calculer la position Y (ligne)
+            bouton.place(x=x, y=y)
+
+
+
+
     def active(self):
         self.__arrTK.setResizable(False)
         self.__arrTK.setGeometry(500,630)
-        self.__arrTK.packRight(self.__cadreAcceuil)
-        self.__arrTK.packLeft(self.__cadreMenu)
+        self.__mainFrame.pack()
 
     def passQUITFNC(self,quitFNC):
         self.__btnQUIT.configure(command=lambda : self.__fncQuit(quitFNC))
+        self.__boutonMenuMain[11].configure(command=lambda : self.__fncQuit(quitFNC))
         self.__arrTK.placeBottomCenter(self.__btnQUIT)
 
     def __fncQuit(self,quitFnc):
@@ -341,7 +327,7 @@ class CArreraGazelleUIRyleyCopilote :
         quitFnc()
 
     def __backAcceuil(self):
-        self.__arrTK.packRight(self.__cadreAcceuil)
+        self.__mainFrame.pack()
         self.__cadreUser.pack_forget()
         self.__cadreMeteo.pack_forget()
         self.__cadreGPS.pack_forget()
@@ -354,7 +340,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreVideoDownload.pack_forget()
     
     def __disableAllFrame(self):
-        self.__cadreAcceuil.pack_forget()
+        self.__mainFrame.pack_forget()
         self.__cadreUser.pack_forget()
         self.__cadreMeteo.pack_forget()
         self.__cadreGPS.pack_forget()
@@ -984,4 +970,4 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__gazelle.supprVideoDownloadFolder()
 
     def passApropos(self,aproposFNC):
-        self.__btnApropos.configure(command=aproposFNC)
+        self.__boutonMenuMain[0].configure(command=aproposFNC)
