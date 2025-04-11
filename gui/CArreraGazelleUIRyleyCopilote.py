@@ -29,6 +29,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
         self.__varChoixMicro =  StringVar(self.__windows)
+        startX = 60    # Position X de départ
+        startY = 40    # Position Y de départ
+        spacingHorizontal = 150 # Espacement horizontal entre les colonnes
+        spacingVertical = 150  # Espacement vertical entre les lignes
 
         # Image
         imgSoft = self.__arrTK.createImage(jsonSetting.lectureJSON("iconSoft"),
@@ -90,31 +94,28 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="",image=imgSoft),#0
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nde\nl'utilisateur"),#1
+                                      text="Gestion\nde\nl'utilisateur",command=self.__showUserFrame),#1
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nmeteo"),#2
+                                      text="Gestion\nmeteo",command = lambda : self.__showMeteoFrame(1)),#2
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nGPS"),#3
+                                      text="Gestion\nGPS",command=lambda : self.__showGPSFrame(1)),#3
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nde\nrecherche"),#4
+                                      text="Gestion\nde\nrecherche",command=self.__showRechercheFrame),#4
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndes\nlogiciels"),#5
+                                      text="Gestion\ndes\nlogiciels",command=lambda : self.__showSoftFrame(1)),#5
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndes sites\ninternet"),#6
+                                      text="Gestion\ndes sites\ninternet",command=lambda :self.__showInternetFrame(1)),#6
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndu\ntheme"),#7
+                                      text="Gestion\ndu\ntheme",command=self.__showThemeFrame),#7
             self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nArrera\nWork"),#8
+                                      text="Gestion\nArrera\nWork",command=self.__showArreraWorkFolder),#8
             self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndu\nmicro"),  # 9
+                                      text="Gestion\ndu\nmicro",command=self.__showMicroFrame),  # 9
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nArrera\nDownload"),#10
+                                      text="Gestion\nArrera\nDownload",command=self.__showArreraDownloadFolder),#10
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Quitter"),#11
         ]
-
-        self.__btnQUIT = self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
-                                                  text="Quitter",width=20)
 
         # Cadre User 
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
@@ -296,20 +297,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
         self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
 
-        # Dimensions et espacement
-        x_start = 60    # Position X de départ
-        y_start = 40    # Position Y de départ
-        x_spacing = 150 # Espacement horizontal entre les colonnes
-        y_spacing = 150  # Espacement vertical entre les lignes
-
-        # Boucle pour positionner les boutons
         for index, bouton in enumerate(self.__boutonMenuMain):
-            x = x_start + (index % 3) * x_spacing  # Calculer la position X (colonne pour 3 boutons par ligne)
-            y = y_start + (index // 3) * y_spacing # Calculer la position Y (ligne)
+            x = startX + (index % 3) * spacingHorizontal  # Calculer la position X (colonne pour 3 boutons par ligne)
+            y = startY + (index // 3) * spacingVertical # Calculer la position Y (ligne)
             bouton.place(x=x, y=y)
-
-
-
 
     def active(self):
         self.__arrTK.setResizable(False)
@@ -317,9 +308,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__mainFrame.pack()
 
     def passQUITFNC(self,quitFNC):
-        self.__btnQUIT.configure(command=lambda : self.__fncQuit(quitFNC))
         self.__boutonMenuMain[11].configure(command=lambda : self.__fncQuit(quitFNC))
-        self.__arrTK.placeBottomCenter(self.__btnQUIT)
 
     def __fncQuit(self,quitFnc):
         self.__disableAllFrame()
@@ -328,6 +317,7 @@ class CArreraGazelleUIRyleyCopilote :
 
     def __backAcceuil(self):
         self.__mainFrame.pack()
+        self.__cadreMenu.pack_forget()
         self.__cadreUser.pack_forget()
         self.__cadreMeteo.pack_forget()
         self.__cadreGPS.pack_forget()
@@ -351,6 +341,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreMicro.pack_forget()
         self.__cadreArreraWork.pack_forget()
         self.__cadreVideoDownload.pack_forget()
+        self.__cadreMenu.pack(side="left")
     
     def __showUserFrame(self):
         self.__disableAllFrame()
