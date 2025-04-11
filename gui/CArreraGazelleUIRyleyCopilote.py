@@ -47,7 +47,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__listChoixMicro = ["ON","OFF"]
 
         # Creation des Frame
-        self.__mainFrame = self.__arrTK.createFrame(self.__windows,width=500,height=630,bg="red")
+        self.__mainFrame = self.__arrTK.createFrame(self.__windows,width=500,height=630)
         self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=630)
         self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=630)
