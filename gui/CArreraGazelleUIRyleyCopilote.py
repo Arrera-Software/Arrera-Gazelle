@@ -4,7 +4,9 @@ from tkinter.messagebox import*
 from typing import Union
 
 class CArreraGazelleUIRyleyCopilote :
-    def __init__(self,atk:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str):
+    def __init__(self,atk:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],
+                 emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,
+                 emplacementJsonAssistant:str,emplacementConfigSetting:str):
         # Ouverture de l'objet
 
         self.__gazelle = CArreraGazelle(emplacementJsonUser,emplacementJsonNeuronNetwork,emplacementJsonAssistant)
@@ -30,7 +32,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixTheme  =  StringVar(self.__windows)
         self.__varChoixMicro =  StringVar(self.__windows)
         startX = 60    # Position X de départ
-        startY = 40    # Position Y de départ
+        startY = 25 # Position Y de départ
         spacingHorizontal = 150 # Espacement horizontal entre les colonnes
         spacingVertical = 150  # Espacement vertical entre les lignes
 
@@ -44,6 +46,7 @@ class CArreraGazelleUIRyleyCopilote :
         listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listChoixSite = ["Autre","Cloud"]
+
         self.__listChoixMicro = ["ON","OFF"]
 
         # Creation des Frame
@@ -109,13 +112,14 @@ class CArreraGazelleUIRyleyCopilote :
                                       text="Gestion\ndu\ntheme",command=self.__showThemeFrame),#7
             self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nArrera\nWork",command=self.__showArreraWorkFolder),#8
-            self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndu\nmicro",command=self.__showMicroFrame),  # 9
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nArrera\nDownload",command=self.__showArreraDownloadFolder),#10
-            self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Quitter"),#11
+            self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
+                                      text="Gestion\ndu\nmicro",command=self.__showMicroFrame),  # 9
         ]
+
+        self.__btnQuitMainFrame = self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=200,
+                                  text="Quitter")
 
         # Cadre User 
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
@@ -269,8 +273,6 @@ class CArreraGazelleUIRyleyCopilote :
         boutonMenu[7].place(relx=0.0,y=400)
         boutonMenu[8].place(relx=0.0,y=450)
         boutonMenu[9].place(relx=0.0,y=500)
-        if (jsonSetting.lectureJSON("gestionMicro")=="1"):
-            boutonMenu[10].place(relx=0.0,y=550)
 
         self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
@@ -297,10 +299,16 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
         self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
 
+
         for index, bouton in enumerate(self.__boutonMenuMain):
             x = startX + (index % 3) * spacingHorizontal  # Calculer la position X (colonne pour 3 boutons par ligne)
             y = startY + (index // 3) * spacingVertical # Calculer la position Y (ligne)
             bouton.place(x=x, y=y)
+
+        if (jsonSetting.lectureJSON("gestionMicro")=="1"):
+            boutonMenu[10].place(relx=0.0,y=550)
+        else :
+            self.__boutonMenuMain[10].place_forget()
 
     def active(self):
         self.__arrTK.setResizable(False)
@@ -308,7 +316,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__mainFrame.pack()
 
     def passQUITFNC(self,quitFNC):
-        self.__boutonMenuMain[11].configure(command=lambda : self.__fncQuit(quitFNC))
+        self.__btnQuitMainFrame.configure(command=lambda : self.__fncQuit(quitFNC))
+        self.__arrTK.placeBottomCenter(self.__btnQuitMainFrame)
 
     def __fncQuit(self,quitFnc):
         self.__disableAllFrame()
