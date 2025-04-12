@@ -50,18 +50,38 @@ class CArreraGazelleUIRyleyCopilote :
         self.__listChoixMicro = ["ON","OFF"]
 
         # Creation des Frame
+        # Acceuil
         self.__mainFrame = self.__arrTK.createFrame(self.__windows,width=500,height=630)
         self.__cadreMenu = self.__arrTK.createFrame(self.__windows,width=150,height=630)
+
+        # User
         self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+
+        # Meteo
         self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__meteoAcceuil = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
+        self.__meteoDomicile = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
+        self.__meteoWork = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
+        self.__meteoVille = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
+        self.__meteoSuppr = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
+
+        # GPS
         self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        # Recherche
         self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        # Logiciel
         self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        # Internet
         self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        # Theme
         self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=630)
-        self.__cadreArreraWork = self.__arrTK.createFrame(self.__windows, width=350, height=630)
-        self.__cadreVideoDownload = self.__arrTK.createFrame(self.__windows, width=350, height=630)
+        # Micro
         self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        # Arrera Work
+        self.__cadreArreraWork = self.__arrTK.createFrame(self.__windows, width=350, height=630)
+        # Download
+        self.__cadreVideoDownload = self.__arrTK.createFrame(self.__windows, width=350, height=630)
+
 
         #Widget
         labelTitreMenu = self.__arrTK.createLabel(self.__cadreMenu, text="Menu", ppolice="arial", ptaille=tailleTitle)
@@ -71,8 +91,8 @@ class CArreraGazelleUIRyleyCopilote :
                                                   text="Acceuil",command=self.__backAcceuil,width=20),#0
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Utilisateur",command=self.__showUserFrame,width=20),#1
-                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
-                                                  text="Meteo",command=lambda : self.__showMeteoFrame(1),width=20),#2
+                        self.__arrTK.createButton(self.__cadreMenu, ppolice="arial", ptaille=23,
+                                                  text="Meteo", command=lambda : self.__viewMeteo(), width=20),#2
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="GPS",command=lambda : self.__showGPSFrame(1),width=20),#3
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
@@ -99,7 +119,7 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nde\nl'utilisateur",command=self.__showUserFrame),#1
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nmeteo",command = lambda : self.__showMeteoFrame(1)),#2
+                                      text="Gestion\nmeteo",command = lambda : self.__viewMeteo()),#2
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nGPS",command=lambda : self.__showGPSFrame(1)),#3
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
@@ -134,22 +154,45 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
                                                          text="Annuler",command=lambda : self.__affichageCadreUser(1),width=20)
 
-        # Cadre Meteo 
-        self.__labelTitreMeteo = self.__arrTK.createLabel(self.__cadreMeteo, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnListMeteo =  self.__arrTK.createButton(self.__cadreMeteo,text="Liste des villes enregistrées"
-                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(2))
-        self.__btnAddVille =   self.__arrTK.createButton(self.__cadreMeteo,text="Ajouter une ville"
-                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(3))
-        self.__btnSupprVille = self.__arrTK.createButton(self.__cadreMeteo,text="Supprimer une ville"
-                                                         ,ppolice = "arial" , ptaille = tailleMain,command= lambda : self.__affichageCadreMeteo(4))
-        self.__labelListeMeteo = self.__arrTK.createLabel(self.__cadreMeteo, ppolice="Arial", ptaille=tailleTitle)
-        self.__menuChoixLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varChoixLieu,value=listChoixLieu)
-        self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var=self.__varSupprLieu,value=listChoixLieu)
-        self.__entryVille = self.__arrTK.createEntry(self.__cadreMeteo,ppolice="Arial",ptaille=tailleMain)
-        self.__btnvaliderMeteo = self.__arrTK.createButton(self.__cadreMeteo,text="Valider"
-                                                           ,ppolice = "arial" , ptaille = tailleMain)
-        self.__btnannulerMeteo = self.__arrTK.createButton(self.__cadreMeteo,ppolice = "arial" , ptaille = tailleMain
-                                                           ,command= lambda : self.__affichageCadreMeteo(1))
+        # Cadre Meteo
+        labelTitleMainMeteo = self.__arrTK.createLabel(self.__meteoAcceuil, text="Gestion de la meteo"
+                                                       ,ppolice="Arial", ptaille=tailleTitle)
+        btnAddMeteoHome = self.__arrTK.createButton(self.__meteoAcceuil,text="Lieu\nTravail",
+                                                    ppolice = "arial" , ptaille = tailleMain,command=self.__viewMeteoAddWork)
+        btnAddMeteoWork = self.__arrTK.createButton(self.__meteoAcceuil,text="Lieu\nDomicile",
+                                                    ppolice = "arial" , ptaille = tailleMain,command=self.__viewMeteoAddDomicile)
+        btnAddMeteoTown = self.__arrTK.createButton(self.__meteoAcceuil,text="Autre\nVille",
+                                                    ppolice = "arial" , ptaille = tailleMain,command=self.__viewMeteoAddVille)
+        btnSupprMeteo = self.__arrTK.createButton(self.__meteoAcceuil,text="Supprimer\nlieu",
+                                                  ppolice = "arial" , ptaille = tailleMain)
+
+        labelTitleAddWordMeteo = self.__arrTK.createLabel(self.__meteoWork, text="Ajouter le lieu travail"
+                                                          ,ppolice="Arial", ptaille=tailleTitle)
+        self.__entryMeteoWork = self.__arrTK.createEntry(self.__meteoWork,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnAddValideMeteoWork = self.__arrTK.createButton(self.__meteoWork,text="Ajouter",
+                                                        ppolice="Arial",ptaille=tailleMain,command=self.__addMeteoWork)
+        btnCancelMeteoWork = self.__arrTK.createButton(self.__meteoWork,text="Annuler",
+                                                       ppolice="Arial",ptaille=tailleMain,
+                                                       command=lambda : self.__viewMeteo())
+
+        labelTitleAddHomeMeteo = self.__arrTK.createLabel(self.__meteoDomicile, text="Ajouter le lieu domicile"
+                                                          ,ppolice="Arial", ptaille=tailleTitle)
+        self.__entryMeteoDomicile = self.__arrTK.createEntry(self.__meteoDomicile,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnAddMeteoDomicile = self.__arrTK.createButton(self.__meteoDomicile,text="Ajouter",
+                                                        ppolice="Arial",ptaille=tailleMain,command=self.__addMeteoHome)
+        btnCancelMeteoDomicile = self.__arrTK.createButton(self.__meteoDomicile,text="Annuler",
+                                                           ppolice="Arial",ptaille=tailleMain,
+                                                           command=lambda : self.__viewMeteo())
+
+        labelTitleAddTwonMeteo = self.__arrTK.createLabel(self.__meteoVille, text="Ajouter une\nville pour la meteo"
+                                                          ,ppolice="Arial", ptaille=tailleTitle)
+        self.__entryMeteoTwon = self.__arrTK.createEntry(self.__meteoVille,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnAddMeteoTwon = self.__arrTK.createButton(self.__meteoVille,text="Ajouter",
+                                                    ppolice="Arial",ptaille=tailleMain,command=self.__addMeteoVille)
+        btnCancelMeteoTwon = self.__arrTK.createButton(self.__meteoVille,text="Annuler",
+                                                       ppolice="Arial",ptaille=tailleMain,
+                                                       command=lambda : self.__viewMeteo())
+
         # Cadre GPS 
         self.__labelTitreGPS = self.__arrTK.createLabel(self.__cadreGPS, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAdresseDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du domicile"
@@ -276,8 +319,6 @@ class CArreraGazelleUIRyleyCopilote :
 
         self.__arrTK.placeTopCenter(self.__labelTitreUser)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreMeteo)
-
         self.__arrTK.placeTopCenter(self.__labelTitreGPS)
 
         self.__arrTK.placeTopCenter(labelTitreRecherche)
@@ -309,6 +350,28 @@ class CArreraGazelleUIRyleyCopilote :
             boutonMenu[10].place(relx=0.0,y=550)
         else :
             self.__boutonMenuMain[10].place_forget()
+
+        # Cadre Meteo
+        self.__arrTK.placeTopCenter(labelTitleMainMeteo)
+        self.__arrTK.placeCenterOnWidth(btnAddMeteoHome,100)
+        self.__arrTK.placeCenterOnWidth(btnAddMeteoWork,200)
+        self.__arrTK.placeCenterOnWidth(btnAddMeteoTown,300)
+        self.__arrTK.placeCenterOnWidth(btnSupprMeteo,400)
+
+        self.__arrTK.placeTopCenter(labelTitleAddHomeMeteo)
+        self.__arrTK.placeCenter(self.__entryMeteoDomicile)
+        self.__arrTK.placeLeftBottom(btnCancelMeteoDomicile)
+        self.__arrTK.placeRightBottom(btnAddMeteoDomicile)
+
+        self.__arrTK.placeTopCenter(labelTitleAddWordMeteo)
+        self.__arrTK.placeCenter(self.__entryMeteoWork)
+        self.__arrTK.placeLeftBottom(btnCancelMeteoWork)
+        self.__arrTK.placeRightBottom(btnAddValideMeteoWork)
+
+        self.__arrTK.placeTopCenter(labelTitleAddTwonMeteo)
+        self.__arrTK.placeCenter(self.__entryMeteoTwon)
+        self.__arrTK.placeLeftBottom(btnCancelMeteoTwon)
+        self.__arrTK.placeRightBottom(btnAddMeteoTwon)
 
     def active(self):
         self.__arrTK.setResizable(False)
@@ -356,19 +419,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreUser)
         self.__affichageCadreUser(1)
-    
-    def __showMeteoFrame(self,mode:int):
-        """
-        1 : Normal
-        2 : add direct
-        """
-        self.__disableAllFrame()
-        self.__arrTK.packRight(self.__cadreMeteo)
-        match mode :
-            case 1 :
-                self.__affichageCadreMeteo(1)
-            case 2 :
-                self.__affichageCadreMeteo(3)
     
     def __showGPSFrame(self,mode:int):
         """
@@ -488,112 +538,61 @@ class CArreraGazelleUIRyleyCopilote :
                 showinfo("Parametre","genre enregistré")
                 self.__affichageCadreUser(1)
 
-    def __affichageCadreMeteo(self,mode:int):
-        """
-        1 : Acceuil 
-        2 : Liste 
-        3 : Ajout 
-        4 : Suppr
-        """
-        match mode :
-            case 1 :
-                self.__labelTitreMeteo.configure(text="Paramètre Météo")
-                #place(relx=0.2,y=200)
-                self.__arrTK.placeCenterOnWidth(self.__btnListMeteo,y=150)
-                self.__arrTK.placeCenterOnWidth(self.__btnAddVille,y=250)
-                self.__arrTK.placeCenterOnWidth(self.__btnSupprVille,y=350)
-                self.__btnvaliderMeteo.place_forget()
-                self.__btnannulerMeteo.place_forget()
-                self.__entryVille.place_forget()
-                self.__labelListeMeteo.place_forget()
-                self.__menuChoixLieu.place_forget()
-                self.__menuSupprLieu.place_forget()
-            case 2 : 
-                self.__labelTitreMeteo.configure(text="Liste des lieux enregistrés")
-                self.__btnListMeteo.place_forget()
-                self.__btnAddVille.place_forget()
-                self.__btnSupprVille.place_forget()
-                # Recuperation de la liste des ville 
-                self.__btnannulerMeteo.configure(text="Retour")
-                self.__arrTK.placeBottomCenter(self.__btnannulerMeteo)
-                listeVille = self.__gazelle.getMeteoSave()
-                self.__labelListeMeteo.configure(text="")
-                nbVille = len(listeVille)
-                if (nbVille == 0 ) :
-                    self.__labelListeMeteo.configure(text="Aucun lieu enregistré")
-                else :
-                    for i in range(0,nbVille):
-                        texte = self.__labelListeMeteo.cget("text")
-                        self.__labelListeMeteo.configure(text=texte+"\n"+listeVille[i])
+    def __viewMeteo(self):
+        self.__disableAllFrame()
+        self.__meteoDomicile.place_forget()
+        self.__meteoWork.place_forget()
+        self.__meteoVille.place_forget()
+        self.__arrTK.packRight(self.__cadreMeteo)
+        self.__arrTK.placeTopCenter(self.__meteoAcceuil)
+
+    def __viewMeteoAddDomicile(self):
+        self.__meteoAcceuil.place_forget()
+        self.__arrTK.placeCenter(self.__meteoDomicile)
+
+    def __viewMeteoAddWork(self):
+        self.__meteoAcceuil.place_forget()
+        self.__arrTK.placeCenter(self.__meteoWork)
+
+    def __viewMeteoAddVille(self):
+        self.__meteoAcceuil.place_forget()
+        self.__arrTK.placeCenter(self.__meteoVille)
     
-                self.__labelListeMeteo.place(x=0,y=100)
-            case 3 :
-                self.__labelTitreMeteo.configure(text="Ajouter un lieu")
-                self.__btnListMeteo.place_forget()
-                self.__btnAddVille.place_forget()
-                self.__btnSupprVille.place_forget()
-                self.__menuChoixLieu.place(x=0,y=100)
-                self.__btnannulerMeteo.configure(text="Annuler")
-                self.__arrTK.placeBottomRight(self.__btnvaliderMeteo)
-                self.__arrTK.placeBottomLeft(self.__btnannulerMeteo)
-                self.__arrTK.placeCenter(self.__entryVille)
-                self.__btnvaliderMeteo.configure(command=lambda : self.__validerMeteo(1))
-            case 4 : 
-                listeVille = self.__gazelle.getMeteoSave()
-                self.__labelListeMeteo.configure(text="")
-                nbVille = len(listeVille)
-                if (nbVille == 0 ) :
-                    showerror("Parametre","Aucun lieu enregistré")
-                else :
-                    self.__menuSupprLieu = self.__arrTK.createOptionMenu(self.__cadreMeteo,var = self.__varSupprLieu,value=listeVille)
-                    self.__labelTitreMeteo.configure(text="Supprimer un lieu")
-                    self.__btnListMeteo.place_forget()
-                    self.__btnAddVille.place_forget()
-                    self.__btnSupprVille.place_forget()
-                    self.__menuChoixLieu.place_forget()
-                    self.__btnannulerMeteo.configure(text="Annuler")
-                    self.__btnvaliderMeteo.place(relx=1, rely=1, anchor='se')
-                    self.__btnannulerMeteo.place(relx=0, rely=1, anchor='sw')
-                    self.__menuSupprLieu.place(relx=0.5, rely=0.5, anchor="center")
-                    self.__entryVille.place_forget()
-                    self.__btnvaliderMeteo.configure(command=lambda : self.__validerMeteo(2))
-    
-    def __validerMeteo(self,mode:int):
-        """
-        1 : add 
-        2 : suppr
-        """
-        match mode :
-            case 1 :
-                lieu = self.__entryVille.get()
-                if (lieu==""):
-                    showerror("Parametre","Impossible d'ajouter un lieu sans nom.")
-                else :
-                    choix = self.__varChoixLieu.get()
-                    if (choix == "Simple"):
-                        self.__gazelle.ajoutVilleMeteo(3,lieu)
-                    else :
-                        if (choix=="Domicile"):
-                            self.__gazelle.ajoutVilleMeteo(1,lieu)
-                        else :
-                            if (choix=="Travail") :
-                                self.__gazelle.ajoutVilleMeteo(2,lieu) 
-                
-                self.__entryVille.delete(0,END)    
-                self.__affichageCadreMeteo(1)
-            case 2 :
-                choixSuppr = self.__varSupprLieu.get()
-                if (choixSuppr == ""):
-                    showerror("Parametre","Sélectionner le lieu à supprimer")
-                else :
-                    if (choixSuppr=="Lieu d'habitation enregister") :
-                        self.__gazelle.supprVilleMeteo(1,"")
-                    else :
-                        if (choixSuppr=="Lieu de travail enregister") :
-                            self.__gazelle.supprVilleMeteo(2,"")
-                        else :
-                            self.__gazelle.supprVilleMeteo(3,choixSuppr)
-                self.__affichageCadreMeteo(1)
+    def __addMeteoHome(self):
+        home = self.__entryMeteoDomicile.get()
+        if (home==""):
+            showerror("Parametre","Impossible d'enregistrer une ville vide")
+        else :
+            self.__entryMeteoDomicile.delete(0,END)
+            if (self.__gazelle.ajoutVilleMeteo(1,home) == False):
+                showerror("Parametre","Impossible d'enregistrer cette ville")
+            else :
+                showinfo("Parametre","Ville enregistré")
+                self.__viewMeteo()
+
+    def __addMeteoWork(self):
+        work = self.__entryMeteoWork.get()
+        if (work== ""):
+            showerror("Parametre","Impossible d'enregistrer une ville vide")
+        else :
+            self.__entryMeteoWork.delete(0,END)
+            if (self.__gazelle.ajoutVilleMeteo(2, work) == False):
+                showerror("Parametre","Impossible d'enregistrer cette ville")
+            else :
+                showinfo("Parametre","Ville enregistré")
+                self.__viewMeteo()
+
+    def __addMeteoVille(self):
+        twon = self.__entryMeteoTwon.get()
+        if (twon== ""):
+            showerror("Parametre","Impossible d'enregistrer une ville vide")
+        else :
+            self.__entryMeteoTwon.delete(0,END)
+            if (self.__gazelle.ajoutVilleMeteo(3, twon) == False):
+                showerror("Parametre","Impossible d'enregistrer cette ville")
+            else :
+                showinfo("Parametre","Ville enregistré")
+                self.__viewMeteo()
     
     def __affichageCadreGPS(self,mode:int):
         """
