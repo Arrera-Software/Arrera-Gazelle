@@ -57,7 +57,9 @@ class CArreraGazelleUIRyleyCopilote :
 
         # User
         self.__cadreUser = self.__arrTK.createFrame(self.__windows,width=350,height=630)
-
+        self.__userAcceuil = self.__arrTK.createFrame(self.__cadreUser,width=325,height=630)
+        self.__userName = self.__arrTK.createFrame(self.__cadreUser,width=325,height=630)
+        self.__userGenre = self.__arrTK.createFrame(self.__cadreUser,width=325,height=630)
         # Meteo
         self.__cadreMeteo = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__meteoAcceuil = self.__arrTK.createFrame(self.__cadreMeteo,width=325,height=630)
@@ -142,7 +144,15 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnQuitMainFrame = self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=200,
                                   text="Quitter")
 
-        # Cadre User 
+        # Cadre User
+        labelTitleUserAcceuil = self.__arrTK.createLabel(self.__userAcceuil,text="Gestion de l'utilisateur",
+                                                         ppolice="Arial", ptaille=tailleTitle)
+        btnName = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
+                                            ,text="Nom de\nl'utilisateur")
+        btnGenre = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
+                                             ,text="genre de\nl'utilisateur")
+
+
         self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
         self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
                                                      ,text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
