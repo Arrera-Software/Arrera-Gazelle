@@ -44,7 +44,7 @@ class CArreraGazelleUIRyleyCopilote :
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
         listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
-        listGenre = jsonSetting.lectureJSONList("listGenre")
+        self.__listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listChoixSite = ["Autre","Cloud"]
 
@@ -147,23 +147,26 @@ class CArreraGazelleUIRyleyCopilote :
         # Cadre User
         labelTitleUserAcceuil = self.__arrTK.createLabel(self.__userAcceuil,text="Gestion de l'utilisateur",
                                                          ppolice="Arial", ptaille=tailleTitle)
-        btnName = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
-                                            ,text="Nom de\nl'utilisateur")
-        btnGenre = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
-                                             ,text="genre de\nl'utilisateur")
+        btnName = self.__arrTK.createButton(self.__userAcceuil,ppolice = "arial" , ptaille = tailleMain
+                                            ,text="Nom de\nl'utilisateur",command=self.__viewUserName)
+        btnGenre = self.__arrTK.createButton(self.__userAcceuil,ppolice = "arial" , ptaille = tailleMain
+                                             ,text="genre de\nl'utilisateur",command=self.__viewUserGenre)
 
+        labelTitleUserGenre = self.__arrTK.createLabel(self.__userGenre,text="Genre de l'utilisateur",
+                                                         ppolice="Arial", ptaille=tailleTitle)
+        menuSelectGenreUser = self.__arrTK.createOptionMenu(self.__userGenre,var=self.__varGenre,value=self.__listGenre)
+        btnValidateGenreUser = self.__arrTK.createButton(self.__userGenre,text="Valider",
+                                                            ppolice = "arial" , ptaille = tailleMain,command=self.__validerUserGenre)
+        btnCancelGenreUser = self.__arrTK.createButton(self.__userGenre,text="Annuler",
+                                                         ppolice = "arial" , ptaille = tailleMain,command=self.__viewUser)
 
-        self.__labelTitreUser = self.__arrTK.createLabel(self.__cadreUser, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnPrenom = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
-                                                     ,text="Nom de l'utilisateur",command=lambda : self.__affichageCadreUser(2))
-        self.__btnGenre = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain
-                                                    ,text="genre de l'utilisateur",command=lambda : self.__affichageCadreUser(3))
-        self.__menuGenre = self.__arrTK.createOptionMenu(self.__cadreUser,var=self.__varGenre,value=listGenre)
-        self.__entryNameUser = self.__arrTK.createEntry(self.__cadreUser,ppolice="Arial",ptaille=tailleMain,width=250)
-        self.__btnvaliderUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
-                                                          text="Valider",width=20)
-        self.__btnAnulerUser = self.__arrTK.createButton(self.__cadreUser,ppolice = "arial" , ptaille = tailleMain,
-                                                         text="Annuler",command=lambda : self.__affichageCadreUser(1),width=20)
+        labelTitleUserName = self.__arrTK.createLabel(self.__userName,text="Nom de l'utilisateur",
+                                                       ppolice="Arial", ptaille=tailleTitle)
+        self.__entryNameUser = self.__arrTK.createEntry(self.__userName,ppolice="Arial",ptaille=tailleMain,width=250)
+        btnValidateNameUser = self.__arrTK.createButton(self.__userName,text="Valider",
+                                                         ppolice = "arial" , ptaille = tailleMain,command=self.__validerUserName)
+        btnCancelNameUser = self.__arrTK.createButton(self.__userName,text="Annuler",
+                                                       ppolice = "arial" , ptaille = tailleMain,command=self.__viewUser)
 
         # Cadre Meteo
         labelTitleMainMeteo = self.__arrTK.createLabel(self.__meteoAcceuil, text="Gestion de la meteo"
@@ -338,8 +341,6 @@ class CArreraGazelleUIRyleyCopilote :
         boutonMenu[8].place(relx=0.0,y=450)
         boutonMenu[9].place(relx=0.0,y=500)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreUser)
-
         self.__arrTK.placeTopCenter(self.__labelTitreGPS)
 
         self.__arrTK.placeTopCenter(labelTitreRecherche)
@@ -398,6 +399,20 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeLeftBottom(btnCancelSupprMeteo)
         self.__arrTK.placeRightBottom(btnValidateSupprMeteo)
 
+        self.__arrTK.placeTopCenter(labelTitleUserAcceuil)
+        self.__arrTK.placeCenterOnWidth(btnName,100)
+        self.__arrTK.placeCenterOnWidth(btnGenre,200)
+
+        self.__arrTK.placeTopCenter(labelTitleUserGenre)
+        self.__arrTK.placeCenter(menuSelectGenreUser)
+        self.__arrTK.placeLeftBottom(btnCancelGenreUser)
+        self.__arrTK.placeRightBottom(btnValidateGenreUser)
+
+        self.__arrTK.placeTopCenter(labelTitleUserName)
+        self.__arrTK.placeCenter(self.__entryNameUser)
+        self.__arrTK.placeLeftBottom(btnCancelNameUser)
+        self.__arrTK.placeRightBottom(btnValidateNameUser)
+
     def active(self):
         self.__arrTK.setResizable(False)
         self.__arrTK.setGeometry(500,630)
@@ -443,7 +458,7 @@ class CArreraGazelleUIRyleyCopilote :
     def __showUserFrame(self):
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreUser)
-        self.__affichageCadreUser(1)
+        self.__viewUser()
     
     def __showGPSFrame(self,mode:int):
         """
@@ -508,60 +523,39 @@ class CArreraGazelleUIRyleyCopilote :
             self.__varChoixMicro.set(self.__listChoixMicro[1])
        
 
-    def __affichageCadreUser(self,mode:int):
-        """
-        1 : Acceuil
-        2 : Prenom 
-        3 : Genre 
-        """
-        match mode :
-            case 1 :
-                self.__labelTitreUser.configure(text="Parametre de l'utilisateur")
-                self.__btnPrenom.place(relx=0.5, y=200, anchor="n")
-                self.__btnGenre.place(relx=0.5, y=275, anchor="n")
-                self.__menuGenre.place_forget()
-                self.__entryNameUser.place_forget()
-                self.__btnvaliderUser.place_forget()
-                self.__btnAnulerUser.place_forget()
-            case 2 :
-                self.__labelTitreUser.configure(text="Prénom de l'utilisateur")
-                self.__btnPrenom.place_forget()
-                self.__btnGenre.place_forget()
-                self.__menuGenre.place_forget()
-                self.__entryNameUser.place(relx=0.5, rely=0.5, anchor="center")
-                self.__btnvaliderUser.place(relx=1, rely=1, anchor='se')  
-                self.__btnAnulerUser.place(relx=0, rely=1, anchor='sw')
-                self.__btnvaliderUser.configure(command=lambda : self.__validerUser(1))
-            case 3 :
-                self.__labelTitreUser.configure(text="Genre de l'utilisateur")
-                self.__btnPrenom.place_forget()
-                self.__btnGenre.place_forget()
-                self.__menuGenre.place(relx=0.5, rely=0.5, anchor="center")
-                self.__entryNameUser.place_forget()
-                self.__btnvaliderUser.place(relx=1, rely=1, anchor='se')
-                self.__btnAnulerUser.place(relx=0, rely=1, anchor='sw')
-                self.__btnvaliderUser.configure(command=lambda : self.__validerUser(2))
+    def __viewUser(self):
+        self.__arrTK.placeCenter(self.__userAcceuil)
+        self.__userName.place_forget()
+        self.__userGenre.place_forget()
+
+    def __viewUserName(self):
+        self.__entryNameUser.delete(0,END)
+        self.__arrTK.placeCenter(self.__userName)
+        self.__userAcceuil.place_forget()
+        self.__userGenre.place_forget()
+
+    def __viewUserGenre(self):
+        self.__varGenre.set(self.__listGenre[0])
+        self.__arrTK.placeCenter(self.__userGenre)
+        self.__userAcceuil.place_forget()
+        self.__userName.place_forget()
     
-    def __validerUser(self,mode:int):
-        """
-        1 : User 
-        2 : Genre
-        """
-        match mode :
-            case 1 :
-                name = self.__entryNameUser.get()
-                if (name==""):
-                    showerror("Parametre","Vous n'avez pas entré votre prénom")
-                else :
-                    self.__entryNameUser.delete(0,END)
-                    self.__gazelle.changeUserName(name)
-                    showinfo("Parametre","Prénom enregistré")
-                    self.__affichageCadreUser(1)
-            case 2 :
-                genre = self.__varGenre.get()
-                self.__gazelle.changeUserGenre(genre)
-                showinfo("Parametre","genre enregistré")
-                self.__affichageCadreUser(1)
+    def __validerUserName(self):
+        name = self.__entryNameUser.get()
+        self.__entryNameUser.delete(0,END)
+        if (name == ""):
+            showerror("Parametre","Impossible d'enregistrer un nom vide")
+        else :
+            self.__gazelle.changeUserName(name)
+            showinfo("Parametre","Nom enregistré")
+        self.__viewUser()
+
+    def __validerUserGenre(self):
+        genre = self.__varGenre.get()
+        self.__gazelle.changeUserGenre(genre)
+        showinfo("Parametre","Nom enregistré")
+        self.__viewUser()
+
 
     def __viewMeteo(self):
         self.__disableAllFrame()
