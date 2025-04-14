@@ -20,7 +20,6 @@ class CArreraGazelleUIRyleyCopilote :
         # Varriable
         tailleTitle = 27
         tailleMain = 23
-        self.__varRecherche = StringVar(self.__windows)
         self.__varMoteurRecherce = StringVar(self.__windows)
         self.__varTheme = StringVar(self.__windows)
         self.__varGenre = StringVar(self.__windows)
@@ -43,7 +42,7 @@ class CArreraGazelleUIRyleyCopilote :
 
         # Liste
         listeTheme = jsonSetting.lectureJSONList("listeTheme")
-        listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
+        self.__listMoteur = jsonSetting.lectureJSONList("listMoteurRecherche")
         self.__listGenre = jsonSetting.lectureJSONList("listGenre")
         listChoixLieu = ["Simple","Domicile","Travail"]
         listChoixSite = ["Autre","Cloud"]
@@ -235,9 +234,10 @@ class CArreraGazelleUIRyleyCopilote :
         # Cadre Rechecrhe
         labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche, text="Choisissez votre moteur\nde recherche"
                                                        , ppolice="Arial", ptaille=tailleTitle)
-        menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,var = self.__varMoteurRecherce,value = listMoteur)
+        menuMoteurRecherche = self.__arrTK.createOptionMenu(self.__cadreRecherche,
+                                                            var = self.__varMoteurRecherce,value = self.__listMoteur)
         btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
-                                                            ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerMoteur(1))
+                                                            ,ppolice = "arial" , ptaille = tailleMain,command=self.__validerMoteur)
         # Cadre Software 
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
@@ -723,20 +723,12 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__gazelle.supprGPSAdresse(type)
                 self.__affichageCadreGPS(1)
     
-    def __validerMoteur(self,mode:int):
-        """
-        1 : page
-        2 : acceuil
-        """
-        match mode : 
-            case 1 :
-                moteur = self.__varMoteurRecherce.get()
-            case 2 : 
-                moteur = self.__varRecherche.get()
-            case other :
-                return
-        self.__gazelle.changeMoteur(moteur)
-        showinfo("Parametre","Moteur enregistré")
+    def __validerMoteur(self):
+        moteur = self.__varMoteurRecherce.get()
+        if (self.__gazelle.changeMoteur(moteur)):
+            showinfo("Parametre","Moteur enregistré")
+        else :
+            showerror("Parametre","Impossible d'enregistrer le moteur")
         self.__backAcceuil()
 
     def __affichageCadreSoft(self,mode:int):
