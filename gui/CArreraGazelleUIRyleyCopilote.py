@@ -76,6 +76,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Logiciel
         self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__softAcceuil = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
+        self.__softSuppr = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
+        self.__softList = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
+        self.__softSuppr = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         # Internet
         self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Theme
