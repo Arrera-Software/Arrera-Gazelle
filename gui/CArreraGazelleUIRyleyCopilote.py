@@ -144,13 +144,14 @@ class CArreraGazelleUIRyleyCopilote :
                                   text="Quitter")
 
         # Cadre User
+        # Acceuil User
         labelTitleUserAcceuil = self.__arrTK.createLabel(self.__userAcceuil,text="Gestion de l'utilisateur",
                                                          ppolice="Arial", ptaille=tailleTitle)
         btnName = self.__arrTK.createButton(self.__userAcceuil,ppolice = "arial" , ptaille = tailleMain
                                             ,text="Nom de\nl'utilisateur",command=self.__viewUserName)
         btnGenre = self.__arrTK.createButton(self.__userAcceuil,ppolice = "arial" , ptaille = tailleMain
                                              ,text="genre de\nl'utilisateur",command=self.__viewUserGenre)
-
+        # Genre User
         labelTitleUserGenre = self.__arrTK.createLabel(self.__userGenre,text="Genre de l'utilisateur",
                                                          ppolice="Arial", ptaille=tailleTitle)
         menuSelectGenreUser = self.__arrTK.createOptionMenu(self.__userGenre,var=self.__varGenre,value=self.__listGenre)
@@ -158,7 +159,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                             ppolice = "arial" , ptaille = tailleMain,command=self.__validerUserGenre)
         btnCancelGenreUser = self.__arrTK.createButton(self.__userGenre,text="Annuler",
                                                          ppolice = "arial" , ptaille = tailleMain,command=self.__viewUser)
-
+        # Name User
         labelTitleUserName = self.__arrTK.createLabel(self.__userName,text="Nom de l'utilisateur",
                                                        ppolice="Arial", ptaille=tailleTitle)
         self.__entryNameUser = self.__arrTK.createEntry(self.__userName,ppolice="Arial",ptaille=tailleMain,width=250)
@@ -168,6 +169,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                        ppolice = "arial" , ptaille = tailleMain,command=self.__viewUser)
 
         # Cadre Meteo
+        # Acceuil Meteo
         labelTitleMainMeteo = self.__arrTK.createLabel(self.__meteoAcceuil, text="Gestion de la meteo"
                                                        ,ppolice="Arial", ptaille=tailleTitle)
         btnAddMeteoHome = self.__arrTK.createButton(self.__meteoAcceuil,text="Lieu\nTravail",
@@ -178,7 +180,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                     ppolice = "arial" , ptaille = tailleMain,command=self.__viewMeteoAddVille)
         btnSupprMeteo = self.__arrTK.createButton(self.__meteoAcceuil,text="Supprimer\nlieu",
                                                   ppolice = "arial" , ptaille = tailleMain,command=self.__viewMeteoSuppr)
-
+        # Lieu de travail meteo
         labelTitleAddWordMeteo = self.__arrTK.createLabel(self.__meteoWork, text="Ajouter le lieu travail"
                                                           ,ppolice="Arial", ptaille=tailleTitle)
         self.__entryMeteoWork = self.__arrTK.createEntry(self.__meteoWork,ppolice="Arial",ptaille=tailleMain,width=220)
@@ -187,7 +189,7 @@ class CArreraGazelleUIRyleyCopilote :
         btnCancelMeteoWork = self.__arrTK.createButton(self.__meteoWork,text="Annuler",
                                                        ppolice="Arial",ptaille=tailleMain,
                                                        command=lambda : self.__viewMeteo())
-
+        # Lieu de domicile meteo
         labelTitleAddHomeMeteo = self.__arrTK.createLabel(self.__meteoDomicile, text="Ajouter le lieu domicile"
                                                           ,ppolice="Arial", ptaille=tailleTitle)
         self.__entryMeteoDomicile = self.__arrTK.createEntry(self.__meteoDomicile,ppolice="Arial",ptaille=tailleMain,width=220)
@@ -231,6 +233,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnsupprGPS = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer une adresse"
                                                        ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(4))
         self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,ppolice="Arial",ptaille=tailleMain)
+
         # Cadre Rechecrhe
         labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche, text="Choisissez votre moteur\nde recherche"
                                                        , ppolice="Arial", ptaille=tailleTitle)
@@ -238,7 +241,8 @@ class CArreraGazelleUIRyleyCopilote :
                                                             var = self.__varMoteurRecherce,value = self.__listMoteur)
         btnvaliderMoteur = self.__arrTK.createButton(self.__cadreRecherche,text="Valider"
                                                             ,ppolice = "arial" , ptaille = tailleMain,command=self.__validerMoteur)
-        # Cadre Software 
+
+        # Cadre Software
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
                                                           ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(1))
