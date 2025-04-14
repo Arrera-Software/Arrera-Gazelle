@@ -69,6 +69,9 @@ class CArreraGazelleUIRyleyCopilote :
 
         # GPS
         self.__cadreGPS = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__gpsAcceuil = self.__arrTK.createFrame(self.__cadreGPS,width=325,height=630)
+        self.__gpsHome = self.__arrTK.createFrame(self.__cadreGPS,width=325,height=630)
+        self.__gpsWork = self.__arrTK.createFrame(self.__cadreGPS,width=325,height=630)
         # Recherche
         self.__cadreRecherche = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Logiciel
@@ -96,7 +99,7 @@ class CArreraGazelleUIRyleyCopilote :
                         self.__arrTK.createButton(self.__cadreMenu, ppolice="arial", ptaille=23,
                                                   text="Meteo", command=lambda : self.__viewMeteo(), width=20),#2
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
-                                                  text="GPS",command=lambda : self.__showGPSFrame(1),width=20),#3
+                                                  text="GPS",command=lambda : self.__viewGPS(),width=20),#3
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Recherche",command=self.__showRechercheFrame,width=20),#4
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
@@ -123,7 +126,7 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nmeteo",command = lambda : self.__viewMeteo()),#2
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\nGPS",command=lambda : self.__showGPSFrame(1)),#3
+                                      text="Gestion\nGPS",command=lambda : self.__viewGPS()),#3
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nde\nrecherche",command=self.__showRechercheFrame),#4
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
@@ -218,22 +221,30 @@ class CArreraGazelleUIRyleyCopilote :
         btnCancelSupprMeteo = self.__arrTK.createButton(self.__meteoSuppr,text="Annuler",
                                                           ppolice="Arial",ptaille=tailleMain,command=self.__viewMeteo)
 
-        # Cadre GPS 
-        self.__labelTitreGPS = self.__arrTK.createLabel(self.__cadreGPS, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnAdresseDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du domicile"
-                                                              ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(2))
-        self.__btnAdresseWork = self.__arrTK.createButton(self.__cadreGPS,text="Adresse du lieu de travail"
-                                                          ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(3))
-        self.__btnvaliderGPS = self.__arrTK.createButton(self.__cadreGPS,text="Valider",ppolice = "arial" , ptaille = tailleMain)
-        self.__btnretourGPS = self.__arrTK.createButton(self.__cadreGPS,text="Retour",ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(1))
-        self.__btnSupprGPSDomicile = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer l'adresse du domicile"
-                                                               ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerGPS(2,1))
-        self.__btnSupprGPSWork = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer l'adresse du travail"
-                                                           ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerGPS(2,2))
-        self.__btnsupprGPS = self.__arrTK.createButton(self.__cadreGPS,text="Supprimer une adresse"
-                                                       ,ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreGPS(4))
-        self.__btnentryGPS = self.__arrTK.createEntry(self.__cadreGPS,ppolice="Arial",ptaille=tailleMain)
-
+        # Cadre GPS
+        # Acceuil GPS
+        labelTitleGpsAcceuil = self.__arrTK.createLabel(self.__gpsAcceuil, text="Gestion des\nadresses GPS",
+                                                        ppolice="Arial", ptaille=tailleTitle)
+        btnGpsHomeAcceuil = self.__arrTK.createButton(self.__gpsAcceuil,text="Adresse\nDomicile",
+                                                        ppolice = "arial" , ptaille = tailleMain,command=self.__viewGPSHome)
+        btnGpsWorkAcceuil = self.__arrTK.createButton(self.__gpsAcceuil,text="Adresse\nTravail",
+                                                      ppolice = "arial" , ptaille = tailleMain,command=self.__viewGPSWork)
+        # Work GPS
+        labelTitleGpsWork = self.__arrTK.createLabel(self.__gpsWork, text="Adresse de votre\nlieu de travail",
+                                                        ppolice="Arial", ptaille=tailleTitle)
+        self.__entryGpsWork = self.__arrTK.createEntry(self.__gpsWork,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnValideGpsWork = self.__arrTK.createButton(self.__gpsWork,text="Ajouter",
+                                                        ppolice="Arial",ptaille=tailleMain,command=self.__validateGpsWork)
+        btnCancelGpsWork = self.__arrTK.createButton(self.__gpsWork,text="Annuler",
+                                                         ppolice="Arial",ptaille=tailleMain,command=self.__viewGPS)
+        # Home GPS
+        labelTitleGpsHome = self.__arrTK.createLabel(self.__gpsHome, text="Adresse de\nvotre domicile",
+                                                     ppolice="Arial", ptaille=tailleTitle)
+        self.__entryGpsHome = self.__arrTK.createEntry(self.__gpsHome,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnValideGpsHome = self.__arrTK.createButton(self.__gpsHome,text="Ajouter",
+                                                     ppolice="Arial",ptaille=tailleMain,command=self.__validateGpsHome)
+        btnCancelGpsHome = self.__arrTK.createButton(self.__gpsHome,text="Annuler",
+                                                     ppolice="Arial",ptaille=tailleMain,command=self.__viewGPS)
         # Cadre Rechecrhe
         labelTitreRecherche = self.__arrTK.createLabel(self.__cadreRecherche, text="Choisissez votre moteur\nde recherche"
                                                        , ppolice="Arial", ptaille=tailleTitle)
@@ -345,8 +356,6 @@ class CArreraGazelleUIRyleyCopilote :
         boutonMenu[8].place(relx=0.0,y=450)
         boutonMenu[9].place(relx=0.0,y=500)
 
-        self.__arrTK.placeTopCenter(self.__labelTitreGPS)
-
         self.__arrTK.placeTopCenter(labelTitreRecherche)
         self.__arrTK.placeCenter(menuMoteurRecherche)
         self.__arrTK.placeBottomCenter(btnvaliderMoteur)
@@ -417,6 +426,20 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeLeftBottom(btnCancelNameUser)
         self.__arrTK.placeRightBottom(btnValidateNameUser)
 
+        self.__arrTK.placeTopCenter(labelTitleGpsAcceuil)
+        self.__arrTK.placeCenterOnWidth(btnGpsHomeAcceuil,100)
+        self.__arrTK.placeCenterOnWidth(btnGpsWorkAcceuil,200)
+
+        self.__arrTK.placeTopCenter(labelTitleGpsHome)
+        self.__arrTK.placeCenter(self.__entryGpsHome)
+        self.__arrTK.placeLeftBottom(btnCancelGpsHome)
+        self.__arrTK.placeRightBottom(btnValideGpsHome)
+
+        self.__arrTK.placeTopCenter(labelTitleGpsWork)
+        self.__arrTK.placeCenter(self.__entryGpsWork)
+        self.__arrTK.placeLeftBottom(btnCancelGpsWork)
+        self.__arrTK.placeRightBottom(btnValideGpsWork)
+
     def active(self):
         self.__arrTK.setResizable(False)
         self.__arrTK.setGeometry(500,630)
@@ -463,22 +486,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreUser)
         self.__viewUser()
-    
-    def __showGPSFrame(self,mode:int):
-        """
-        1 : Normal
-        2 : Domicile direct
-        3 : Work direct
-        """
-        self.__disableAllFrame()
-        self.__arrTK.packRight(self.__cadreGPS)
-        match mode :
-            case 1 :
-                self.__affichageCadreGPS(1)
-            case 2 :
-                self.__affichageCadreGPS(2)
-            case 3 :
-                self.__affichageCadreGPS(3)
 
     def __showRechercheFrame(self):
         self.__disableAllFrame()
@@ -646,86 +653,46 @@ class CArreraGazelleUIRyleyCopilote :
         self.__menuSupprMeteo = None
         self.__viewMeteo()
     
-    def __affichageCadreGPS(self,mode:int):
-        """
-        1 : Acceuil
-        2 : Domicile
-        3 : Travail
-        """
-        match mode :
-            case 1 :
-                self.__labelTitreGPS.configure(text="Parametre GPS")
-                self.__arrTK.placeCenterOnWidth(self.__btnAdresseDomicile,y=200)
-                self.__arrTK.placeCenterOnWidth(self.__btnAdresseWork,y=275)
-                self.__arrTK.placeCenterOnWidth(self.__btnsupprGPS,y=350)
-                self.__btnvaliderGPS.place_forget()
-                self.__btnretourGPS.place_forget()
-                self.__btnentryGPS.place_forget()
-                self.__btnSupprGPSDomicile.place_forget()
-                self.__btnSupprGPSWork.place_forget()
-            case 2 :
-                self.__labelTitreGPS.configure(text="Adresse du domicile")
-                self.__btnAdresseDomicile.place_forget()
-                self.__btnAdresseWork.place_forget()
-                self.__btnsupprGPS.place_forget()
-                self.__arrTK.placeBottomRight(self.__btnvaliderGPS)
-                self.__arrTK.placeBottomLeft(self.__btnretourGPS)
-
-                self.__btnentryGPS.place(relx=0.5, rely=0.5, anchor="center") 
-                self.__btnvaliderGPS.configure(command=lambda:self.__validerGPS(1,1))
-
-            case 3 : 
-                self.__labelTitreGPS.configure(text="Adresse du lieu de travail")
-                self.__btnAdresseDomicile.place_forget()
-                self.__btnAdresseWork.place_forget()
-                self.__btnsupprGPS.place_forget()
-                self.__btnvaliderGPS.place(relx=1, rely=1, anchor='se')
-                self.__btnretourGPS.place(relx=0, rely=1, anchor='sw')
-                self.__btnentryGPS.place(relx=0.5, rely=0.5, anchor="center") 
-                self.__btnvaliderGPS.configure(command=lambda:self.__validerGPS(1,2))
-
-            case 4 :
-                if (self.__gazelle.getGPSAdresseIsSet(1) == False) and (self.__gazelle.getGPSAdresseIsSet(2) == False):
-                    messagebox.showerror("Parametre","Il n'a aucune adresse enregistrée")
-                else :
-                    self.__labelTitreGPS.configure(text="Suppression d'adresse")
-                    self.__btnAdresseDomicile.place_forget()
-                    self.__btnAdresseWork.place_forget()
-                    self.__btnsupprGPS.place_forget()
-                    self.__arrTK.placeBottomLeft(self.__btnretourGPS)
-
-                    if (self.__gazelle.getGPSAdresseIsSet(1)==True and self.__gazelle.getGPSAdresseIsSet(2) == True):
-                        self.__arrTK.placeCenterOnWidth(self.__btnSupprGPSDomicile,y=200)
-                        self.__arrTK.placeCenterOnWidth(self.__btnSupprGPSWork, y=275)
-                    else :
-                        if (self.__gazelle.getGPSAdresseIsSet(1)==True and self.__gazelle.getGPSAdresseIsSet(2) == False):
-                            self.__arrTK.placeCenterOnWidth(self.__btnSupprGPSDomicile, y=200)
-                        else :
-                            if (self.__gazelle.getGPSAdresseIsSet(1) == False and self.__gazelle.getGPSAdresseIsSet(2) == True):
-                                self.__arrTK.placeCenterOnWidth(self.__btnSupprGPSWork, y=200)
+    def __viewGPS(self):
+        self.__disableAllFrame()
+        self.__gpsWork.place_forget()
+        self.__gpsHome.place_forget()
+        self.__arrTK.packRight(self.__cadreGPS)
+        self.__arrTK.placeCenter(self.__gpsAcceuil)
     
-    def __validerGPS(self,mode:int,type:int):
-        """
-        Mode : 
-        1 : Add 
-        2 : Suppr \n 
-        Type : 
-        1 : Domicile 
-        2 : Travail
-        """
-        
-        match mode :
-            case 1 :
-                adresse = self.__btnentryGPS.get()
-                if (adresse==""):
-                    showerror("Parametre","Entrer une adresse pour l'enregistrer")
-                else :
-                    self.__gazelle.ajoutGPSAdresse(type,adresse)
-                    self.__btnentryGPS.delete(0,END)
-                self.__affichageCadreGPS(1)
-            case 2 : 
-                self.__gazelle.supprGPSAdresse(type)
-                self.__affichageCadreGPS(1)
+    def __viewGPSHome(self):
+        self.__gpsAcceuil.place_forget()
+        self.__gpsWork.place_forget()
+        self.__arrTK.placeCenter(self.__gpsHome)
+
+    def __viewGPSWork(self):
+        self.__gpsAcceuil.place_forget()
+        self.__gpsHome.place_forget()
+        self.__arrTK.placeCenter(self.__gpsWork)
+    
+    def __validateGpsHome(self):
+        home = self.__entryGpsHome.get()
+        if (home == ""):
+            showerror("Parametre","Impossible d'enregistrer une adresse vide")
+        else :
+            self.__entryGpsHome.delete(0,END)
+            if (self.__gazelle.ajoutGPSAdresse(1,home) == False):
+                showerror("Parametre","Impossible d'enregistrer cette adresse")
+            else :
+                showinfo("Parametre","Adresse enregistré")
+        self.__viewGPS()
+
+    def __validateGpsWork(self):
+        work = self.__entryGpsWork.get()
+        if (work == ""):
+            showerror("Parametre","Impossible d'enregistrer une adresse vide")
+        else :
+            self.__entryGpsHome.delete(0,END)
+            if (self.__gazelle.ajoutGPSAdresse(2, work) == False):
+                showerror("Parametre","Impossible d'enregistrer cette adresse")
+            else :
+                showinfo("Parametre","Adresse enregistré")
+        self.__viewGPS()
     
     def __validerMoteur(self):
         moteur = self.__varMoteurRecherce.get()
