@@ -78,8 +78,9 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreSoft = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         self.__softAcceuil = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         self.__softSuppr = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
+        self.__softAdd = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         self.__softList = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
-        self.__softSuppr = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
+        self.__softType = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         # Internet
         self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Theme
@@ -258,6 +259,45 @@ class CArreraGazelleUIRyleyCopilote :
                                                             ,ppolice = "arial" , ptaille = tailleMain,command=self.__validerMoteur)
 
         # Cadre Software
+        # Acceuil Software
+        labelTitleAcceuilSoft = self.__arrTK.createLabel(self.__softAcceuil,text="Gestion des logiciels", ppolice="Arial", ptaille=tailleTitle)
+        btnSupprSoftAcceuil = self.__arrTK.createButton(self.__softAcceuil,text="Supprimer\nlogiciel",ppolice="arial",ptaille=tailleMain)
+        btnListLogicielAcceuil = self.__arrTK.createButton(self.__softAcceuil,text="Liste\nlogiciel",ppolice="arial",ptaille=tailleMain)
+        btnAjoutLogicielAcceuil = self.__arrTK.createButton(self.__softAcceuil,text="Ajout\nlogiciel",ppolice="arial",ptaille=tailleMain)
+        # suppr software
+        labelTitleSupprSoftware = self.__arrTK.createLabel(self.__softSuppr, text="Supprimer un logiciel",
+                                                           ppolice="Arial", ptaille=tailleTitle)
+        self.__menuSupprSoftware = None
+        self.__labelSupprSoftware = self.__arrTK.createLabel(self.__softSuppr,text="Il a pas de logiciel\nenregister dans l'assistant",
+                                                             ppolice="arial",ptaille=tailleMain)
+        btnValidateSupprSoftware = self.__arrTK.createButton(self.__softSuppr,text="Valider",
+                                                             ppolice="arial",ptaille=tailleMain)
+        btnCancelSupprSoftware = self.__arrTK.createButton(self.__softSuppr,text="anuller",
+                                                           ppolice="Arial",ptaille=tailleMain)
+
+        # Liste software
+
+        # Type soft
+        labelTitleTypeSoftware = self.__arrTK.createLabel(self.__softType, text="Choisir le type de logiciel",
+                                                              ppolice="Arial", ptaille=tailleTitle)
+        btnTypeNormal = self.__arrTK.createButton(self.__softType,text="Normal",
+                                                  ppolice="arial",ptaille=tailleMain)
+        btnTypePresentation = self.__arrTK.createButton(self.__softType,text="Presentation",
+                                                        ppolice="arial",ptaille=tailleMain)
+        btnTypeNavigateur = self.__arrTK.createButton(self.__softType,text="Navigateur",
+                                                      ppolice="arial",ptaille=tailleMain)
+        btnTypeMusic = self.__arrTK.createButton(self.__softType,text="Musique",
+                                                 ppolice="arial",ptaille=tailleMain)
+        btnTypeRetour = self.__arrTK.createButton(self.__softType,text="Retour",
+                                                  ppolice="arial",ptaille=tailleMain) 
+        # Ajout software
+        self.__labelTitleAddSoftware = self.__arrTK.createLabel(self.__softAdd,text="")
+        self.__entryNameSoft = self.__arrTK.createEntry(self.__softAdd,ppolice="Arial",ptaille=tailleMain,width=220)
+        btnAddSoftware = self.__arrTK.createButton(self.__softAdd,text="Ajouter",ptaille=tailleMain)
+        btnCancelSoftware = self.__arrTK.createButton(self.__softAdd,text="Annuler",ptaille=tailleMain)
+
+
+
         self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
                                                           ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(1))
