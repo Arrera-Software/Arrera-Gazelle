@@ -276,6 +276,12 @@ class CArreraGazelleUIRyleyCopilote :
                                                            ppolice="Arial",ptaille=tailleMain)
 
         # Liste software
+        labelTitleListSoftware = self.__arrTK.createLabel(self.__softList, text="Liste des logiciels\nenregistrés",
+                                                              ppolice="Arial", ptaille=tailleTitle)
+        self.__listSoftware = ctk.CTkTextbox(self.__softList, width=450, height=250,
+                                             wrap="word", state="normal", font=("Arial", tailleMain))
+        self.__labelNoSoftSave = self.__arrTK.createLabel(self.__softList, text="Aucun logiciel\najouté",
+                                                          ppolice="Arial", ptaille=tailleMain)
 
         # Type soft
         labelTitleTypeSoftware = self.__arrTK.createLabel(self.__softType, text="Choisir le type de logiciel",
