@@ -121,104 +121,64 @@ class CArreraGazelle :
                 return False
 
 
-    def addSoft(self,mode:int,name:str):
+    def addSoft(self, name: str) -> bool:
         """
-        1 : Normal 
-        2 : Presentation
-        3 : Navigateur
-        4 : Musique
-        5 : note
+        Ajoute un logiciel à la liste des logiciels connus par l'assistant.
+
+        Args:
+            name: Le nom du logiciel à ajouter
+
+        Returns:
+            bool: True si le logiciel a été ajouté avec succès, False sinon
         """
-        if ((self.__linuxOS==False)and(self.__windowsOS==True)and(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows")=="")):
-            self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows",self.__softWin.setEmplacementSoft())
-        
-        if ((self.__linuxOS==True)and(self.__windowsOS==False)):
+        # Si on est sous Windows et que l'emplacement des logiciels n'est pas défini
+        if not self.__linuxOS and self.__windowsOS and self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows") == "":
+            self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows", self.__softWin.setEmplacementSoft())
+
+        # Si le nom du logiciel est vide, on ne peut pas continuer
+        if not name:
+            return False
+
+        # Traitement pour Linux
+        if self.__linuxOS and not self.__windowsOS:
+            # Demande à l'utilisateur si le programme est dans son répertoire home
             reponse = messagebox.askquestion(
-                "Choix repertoire",
+                "Choix répertoire",
                 "Le programme se trouve-t-il dans votre répertoire /home ?",
                 icon="question"
             )
-            if reponse == "yes":
-                command = filedialog.askopenfilename(
-                    title="Sélectionner un programme",
-                    initialdir=os.path.expanduser("~"),  # Définit le répertoire initial sur le home de l'utilisateur
-                    filetypes=[("Tous les fichiers", "*")]
-                )
-            else:
-                command = filedialog.askopenfilename(
-                    title="Selectionner un programme",
-                    initialdir="/bin",
-                    filetypes=[("Tous les fichiers", "*")])
 
-            if (command==""):
+            # Définir le répertoire initial en fonction de la réponse
+            initial_dir = os.path.expanduser("~") if reponse == "yes" else "/bin"
+
+            # Boîte de dialogue pour sélectionner le fichier
+            command = filedialog.askopenfilename(
+                title="Sélectionner un programme",
+                initialdir=initial_dir,
+                filetypes=[("Tous les fichiers", "*")]
+            )
+
+            # Si l'utilisateur annule la sélection
+            if not command:
                 return False
-            else :
-                match mode :
-                    case 1 : # Normal 
-                        if (name!=""):
-                            self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux",name,command)
-                            return True
-                    case 2 : # Presentation
-                        self.__fileJsonUser.EcritureJSON("diapoLinux",command)
-                        return True
-                    case 3 : # Navigateur
-                        self.__fileJsonUser.EcritureJSON("browserLinux",command)
-                        return True
-                    case 4 : # Musique
-                        self.__fileJsonUser.EcritureJSON("musicLinux",command)
-                        return True
-                    case 5 : # note
-                        self.__fileJsonUser.EcritureJSON("noteLinux",command)
-                        return True
-        else :
-                
-            if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                match mode :
-                    case 1 : # Normal 
-                        if (name!=""):
-                            self.__softWin.setName(name)
-                            sortie = self.__softWin.saveSoftware()
-                            if (sortie == True) :
-                                self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows",name,self.__softWin.getName())
-                                return True
-                            else :
-                                return False
-                        else :
-                            return False
-                    case 4 : # Presentation
-                        self.__softWin.setName("presentation")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("diapoWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False
-                    case 5 : # Navigateur
-                        self.__softWin.setName("browser")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("browserWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False 
-                    case 6 : # Musique
-                        self.__softWin.setName("musique")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("musicWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False
-                    case 7 :  # note
-                        self.__softWin.setName("note")
-                        sortie = self.__softWin.saveSoftware()
-                        if (sortie == True) :
-                            self.__fileJsonUser.EcritureJSON("noteWindows",self.__softWin.getName())
-                            return True
-                        else :
-                            return False
-                        
-    def supprSoft(self,mode:int,name:str):
+
+            # Enregistrer le logiciel dans le fichier JSON pour Linux
+            self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux", name, command)
+            return True
+
+        # Traitement pour Windows
+        elif not self.__linuxOS and self.__windowsOS:
+            self.__softWin.setName(name)
+            if self.__softWin.saveSoftware():
+                self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows", name, self.__softWin.getName())
+                return True
+            return False
+
+        # Si le système d'exploitation n'est ni Linux ni Windows
+        return False
+
+
+    def supprSoft(self,name:str):
         """
         1 : Normal
         2 : Presentation
@@ -226,66 +186,36 @@ class CArreraGazelle :
         4 : Musique
         5 : note
         """
-        # Creation listFlag 
+        flags = ""
+
         if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-            listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
-        else : 
-            if ((self.__linuxOS==True)and(self.__windowsOS==False)):
-                listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
-            else :
-                return False
-        match mode : 
-            case 1 : # Normal 
-                self.__fileJsonUser.supprJSONList(listFlag[0],name)
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft(name)
-                return True
-            case 2 : # Presentation
-                self.__fileJsonUser.suppressionJson(listFlag[3])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("presentation")
-                return True
-            case 3 : # Navigateur
-                self.__fileJsonUser.suppressionJson(listFlag[4])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("browser")
-                return True
-            case 4 : # Musique
-                self.__fileJsonUser.suppressionJson(listFlag[6])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("note")
-                return True
-            case 5 : # Musique
-                self.__fileJsonUser.suppressionJson(listFlag[5])
-                if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-                    self.__softWin.supprSoft("musique")
-                return True
+            flags = "dictSoftWindows"
+        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+            flags = "dictSoftLinux"
+        else :
+            return False
+
+        self.__fileJsonUser.supprJSONList(flags,name)
+        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
+            self.__softWin.supprSoft(name)
+            return True
+        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+            return True
+
+        return False
         
     def getListSoft(self):
         listSortie = []
         # Creation listFlag 
         if ((self.__linuxOS==False)and(self.__windowsOS==True)):
-            listFlag = ["dictSoftWindows","wordWindows","exelWindows","diapoWindows","browserWindows","noteWindows","musicWindows"]
-        else : 
-            if ((self.__linuxOS==True)and(self.__windowsOS==False)):
-                listFlag = ["dictSoftLinux","wordLinux","exelLinux","diapoLinux","browserLinux","noteLinux","musicLinux"]
-            else :
-                return ["error","error"]
-        
-        if(self.__fileJsonUser.lectureJSON(listFlag[3])!=""):
-            listSortie.append("Presentation")
-        
-        if(self.__fileJsonUser.lectureJSON(listFlag[4])!=""):
-            listSortie.append("Navigateur internet")
-        
-        if(self.__fileJsonUser.lectureJSON(listFlag[5])!=""):
-            listSortie.append("Note")
-        
-        if(self.__fileJsonUser.lectureJSON(listFlag[6])!=""):
-            listSortie.append("Musique")
-        
+            flags = "dictSoftWindows"
+        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+            flags = "dictSoftLinux"
+        else :
+            return ["error","error"]
+
         # Recuperation du dictionnaire
-        dictSoft = self.__fileJsonUser.lectureJSONDict(listFlag[0])
+        dictSoft = self.__fileJsonUser.lectureJSONDict(flags)
 
         if (len(dictSoft)!=0) :
             listSortie = listSortie+(list(dictSoft.keys()))
