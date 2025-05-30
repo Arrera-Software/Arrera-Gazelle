@@ -299,51 +299,6 @@ class CArreraGazelleUIRyleyCopilote :
         btnCancelSoftware = self.__arrTK.createButton(self.__softAdd,text="Annuler",
                                                       ptaille=tailleMain,command=self.__backAcceuilSoft)
 
-
-
-        self.__labelTitreSoftware = self.__arrTK.createLabel(self.__cadreSoft, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnAnnulerSoft = self.__arrTK.createButton(self.__cadreSoft,text="Annuler",
-                                                          ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(1))
-
-        self.__btnValiderSoftAdd = self.__arrTK.createButton(self.__cadreSoft, text="Valider",
-                                                             ppolice = "arial", ptaille = tailleMain,
-                                                             command=lambda : self.__addSoftwareOld(1))
-
-        self.__btnValiderSoftSuppr = self.__arrTK.createButton(self.__cadreSoft, text="Valider",
-                                                             ppolice="arial", ptaille=tailleMain,
-                                                               command=lambda : self.__supprSoft())
-
-        self.__btnAddSoft = self.__arrTK.createButton(self.__cadreSoft,text="Ajouter un logiciel",
-                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(4))
-
-        self.__btnSupprSoft= self.__arrTK.createButton(self.__cadreSoft,text="Supprimer un logiciel",
-                                                       ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(3))
-
-        self.__btnListSoft = self.__arrTK.createButton(self.__cadreSoft,text="Liste des logiciels",
-                                                         ppolice = "arial" , ptaille = tailleMain,command=lambda:self.__affichageCadreSoft(5))
-
-        self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var = self.__varSupprSoft,value = ["",""])
-
-        # self.__entryNameSoft = self.__arrTK.createEntry(self.__cadreSoft,ppolice="Arial",ptaille=15)
-
-        self.__btnTypeSoftNormal = self.__arrTK.createButton(self.__cadreSoft,text="Normal",ppolice="arial",ptaille=tailleMain,
-                                                             command=lambda : self.__affichageCadreSoft(2))
-        self.__btnTypeSoftPresentation = self.__arrTK.createButton(self.__cadreSoft, text="Presentation", ppolice="arial", ptaille=tailleMain,
-                                                                   command=lambda : self.__addSoftwareOld(2))
-        self.__btnTypeSoftNavigateur = self.__arrTK.createButton(self.__cadreSoft, text="Navigateur Internet", ppolice="arial", ptaille=tailleMain,
-                                                                 command=lambda : self.__addSoftwareOld(3))
-        self.__btnTypeSoftNote = self.__arrTK.createButton(self.__cadreSoft, text="Note", ppolice="arial", ptaille=tailleMain,
-                                                           command=lambda : self.__addSoftwareOld(4))
-        self.__btnTypeSoftMusique = self.__arrTK.createButton(self.__cadreSoft, text="Musique", ppolice="arial", ptaille=tailleMain,
-                                                              command=lambda : self.__addSoftwareOld(5))
-        self.__btnRetourTypeSoft = self.__arrTK.createButton(self.__cadreSoft,text="Retour",ppolice="arial",ptaille=tailleMain,
-                                                             command=lambda:self.__affichageCadreSoft(1))
-
-        self.__textListSoft = ctk.CTkTextbox(self.__cadreSoft, width=300, height=550,wrap="word",
-                                             state="normal", font=("Arial", 14))
-        self.__btnRetourListeSoft = self.__arrTK.createButton(self.__cadreSoft,text="Retour",ppolice="arial",ptaille=tailleMain
-                                                              ,command=lambda:self.__affichageCadreSoft(1))
-
         # Cadre Internet
         self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreInternet, ppolice="Arial", ptaille=tailleTitle)
         self.__btnAddSite = self.__arrTK.createButton(self.__cadreInternet,text="Enregister un site",
@@ -551,19 +506,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreRecherche)
 
-    def __showSoftFrame(self,mode:int):
-        """
-        1 : Normal
-        2 : Add direct
-        """
-        self.__disableAllFrame()
-        self.__arrTK.packRight(self.__cadreSoft)
-        match mode :
-            case 1 :
-                self.__affichageCadreSoft(1)
-            case 2 :
-                self.__affichageCadreSoft(2)
-
     def __viewSoft(self):
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreSoft)
@@ -604,7 +546,6 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.placeCenter(self.__labelSupprSoftware)
             self.__arrTK.placeBottomCenter(self.__btnCancelSupprSoftware)
         else :
-            del self.__menuSupprSoft
             self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__softSuppr,listSoft,self.__varSupprSoft)
             self.__arrTK.placeCenter(self.__menuSupprSoft)
             self.__arrTK.placeLeftBottom(self.__btnCancelSupprSoftware)
@@ -841,111 +782,7 @@ class CArreraGazelleUIRyleyCopilote :
             showerror("Parametre","Impossible d'enregistrer le moteur")
         self.__backAcceuil()
 
-    def __affichageCadreSoft(self,mode:int):
-        """
-        1 : Acceuil 
-        2 : Add
-        3 : Suppr
-        """
-        self.__btnTypeSoftNormal.place_forget()
-        self.__btnTypeSoftPresentation.place_forget()
-        self.__btnTypeSoftNavigateur.place_forget()
-        self.__btnTypeSoftNote.place_forget()
-        self.__btnTypeSoftMusique.place_forget()
-        self.__btnRetourTypeSoft.place_forget()
-        self.__menuSupprSoft.place_forget()
-        self.__entryNameSoft.place_forget()
-        self.__btnAddSoft.place_forget()
-        self.__btnSupprSoft.place_forget()
-        self.__menuSupprSoft.place_forget()
-        self.__btnAddSoft.place_forget()
-        self.__btnSupprSoft.place_forget()
-        self.__entryNameSoft.place_forget()
-        self.__btnValiderSoftAdd.place_forget()
-        self.__btnValiderSoftSuppr.place_forget()
-        self.__textListSoft.place_forget()
-        self.__btnRetourListeSoft.place_forget()
-        self.__btnListSoft.place_forget()
-        match mode : 
-            case 1 :
-                self.__labelTitreSoftware.configure(text="Gestion des logiciels")
-                self.__btnAnnulerSoft.place_forget()
-                self.__btnAddSoft.place(relx=0.5, y=200, anchor="n")
-                self.__btnSupprSoft.place(relx=0.5, y=275, anchor="n")
-                self.__btnListSoft.place(relx=0.5, y=350, anchor="n")
 
-            case 2 :
-                self.__labelTitreSoftware.configure(text="Ajout de logiciels")
-                self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
-                self.__btnValiderSoftAdd.place(relx=1, rely=1, anchor='se')
-                self.__entryNameSoft.place(relx=0.5, rely=0.5, anchor="center")
-
-            case 3 :
-
-                listSoft = self.__gazelle.getListSoft()
-                if (len(listSoft)==0):
-                    showerror("Parametre","Impossible de supprimer des logiciels avant d'en ajoute")
-                    return
-                del self.__menuSupprSoft
-                self.__menuSupprSoft = self.__arrTK.createOptionMenu(self.__cadreSoft,var=self.__varSupprSoft,value=listSoft)
-                self.__labelTitreSoftware.configure(text="Suppression de logiciel")
-                self.__btnAnnulerSoft.place(relx=0, rely=1, anchor='sw')
-                self.__btnValiderSoftSuppr.place(relx=1, rely=1, anchor='se')
-                self.__menuSupprSoft.place(relx=0.5, rely=0.5, anchor="center")
-
-            case 4 :
-                self.__labelTitreSoftware.configure(text="Type du logiciel ajouter")
-                self.__btnTypeSoftNormal.place(relx=0.5, y=100, anchor="n")
-                self.__btnTypeSoftPresentation.place(relx=0.5, y=150, anchor="n")
-                self.__btnTypeSoftNavigateur.place(relx=0.5, y=200, anchor="n")
-                self.__btnTypeSoftNote.place(relx=0.5, y=250, anchor="n")
-                self.__btnTypeSoftMusique.place(relx=0.5, y=300, anchor="n")
-                self.__arrTK.placeBottomCenter(self.__btnRetourTypeSoft)
-
-            case 5 :
-                self.__labelTitreSoftware.configure(text="Liste des logiciels")
-                listSoft = self.__gazelle.getListSoft()
-                if (len(listSoft)==0):
-                    messagebox.showerror("Parametre","Aucun logiciel enregistré")
-                else :
-                    self.__textListSoft.delete(1.0,END)
-                    self.__textListSoft.configure(state="normal")
-                    for i in range(0, len(listSoft)):
-                        self.__textListSoft.insert(END, listSoft[i] + "\n")
-                    self.__textListSoft.configure(state="disabled")
-
-                self.__arrTK.placeCenter(self.__textListSoft)
-                self.__arrTK.placeBottomCenter(self.__btnRetourListeSoft)
-
-
-    def __addSoftwareOld(self, mode:int):
-        """
-        1 : normal
-        2 : Presentation
-        3 : Navigateur
-        4 : Note
-        5 : Musique
-        """
-        match mode:
-            case 1 :
-                soft = self.__entryNameSoft.get()
-                if (soft==""):
-                    showerror("Parametre","Impossible d'ajouter un logiciel sans nom")
-                else :
-                    self.__gazelle.addSoft(1,soft)
-                    showinfo("Parametre","Logiciel ajouté")
-                    self.__entryNameSoft.delete(0,END)
-            case 2:
-                self.__gazelle.addSoft(2, "presentation")
-            case 3:
-                self.__gazelle.addSoft(3, "navigateur")
-            case 4:
-                self.__gazelle.addSoft(4, "musique")
-            case 5:
-                self.__gazelle.addSoft(5, "note")
-        self.__affichageCadreSoft(1)
-
-    
     def __affichageCadreSite(self,mode:int):
         """
         1 : Acceuil
