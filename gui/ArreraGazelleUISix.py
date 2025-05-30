@@ -584,8 +584,7 @@ class CArreraGazelleUISix :
             self.__arrtk.placeTopCenter(labelTitleInternet[i])
 
         self.__arrtk.placeRightCenter(btnAcceuilInternetSiteWeb)
-        self.__arrtk.placeLeftCenter(btnAcceuilInternetCloudLink)
-        self.__arrtk.placeCenter(btnAcceuilInternetSupprSite)
+        self.__arrtk.placeLeftCenter(btnAcceuilInternetSupprSite)
         self.__arrtk.placeBottomCenter(btnAcceuilInternetListeSite)
 
         self.__arrtk.placeBottomLeft(btnRetourSiteWeb)
