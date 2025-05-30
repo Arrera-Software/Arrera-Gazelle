@@ -304,15 +304,6 @@ class CArreraGazelleUIRyleyCopilote :
                                                       ptaille=tailleMain,command=self.__backAcceuilSoft)
 
         # Cadre Internet
-        self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreSite, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnAddSite = self.__arrTK.createButton(self.__cadreSite, text="Enregister un site",
-                                                      ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(2))
-        self.__btnSupprSite = self.__arrTK.createButton(self.__cadreSite, text="Supprimer un site",
-                                                        ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(3))
-        self.__btnAnnulerInternet = self.__arrTK.createButton(self.__cadreSite, text="Annuler",
-                                                              ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(1))
-        self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreSite, text="Valider",
-                                                              ppolice = "arial", ptaille = tailleMain)
         # Acceuil Site
         labelTitleAcceuilSite = self.__arrTK.createLabel(self.__acceuilSite, text="Gestion des sites internet",
                                                             ppolice="Arial", ptaille=tailleTitle)
@@ -639,22 +630,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__menuSupprSoft.place_forget()
         self.__menuSupprSoft = None
         self.__backAcceuilSoft()
-    
-    def __showInternetFrame(self,mode:int):
-        """
-        1 : Normal
-        2 : Add direct
-        3 : Suppr direct
-        """
-        self.__disableAllFrame()
-        self.__arrTK.packRight(self.__cadreSite)
-        match mode :
-            case 1 :
-                self.__affichageCadreSite(1)
-            case 2 :
-                self.__affichageCadreSite(2)
-            case 3 : 
-                self.__affichageCadreSite(3)
 
     def __viewSite(self):
         self.__disableAllFrame()
@@ -929,88 +904,6 @@ class CArreraGazelleUIRyleyCopilote :
             showerror("Parametre","Impossible d'enregistrer le moteur")
         self.__backAcceuil()
 
-
-    def __affichageCadreSite(self,mode:int):
-        """
-        1 : Acceuil
-        2 : Add
-        3 : Suppr
-        """
-        match mode :
-            case 1 :
-                self.__labelTitreInternet.configure(text="Gestion des sites\nInternet")
-                self.__btnAddSite.place(relx=0.2,y=200)
-                self.__btnSupprSite.place(relx=0.2,y=275)
-                self.__btnAnnulerInternet.place_forget()
-                self.__btnValiderInternet.place_forget()
-                self.__entryNameSite.place_forget()
-                self.__entryLinkSite.place_forget()
-                self.__menuChoixSite.place_forget()
-                self.__menuSupprSite.place_forget()
-            case 2 : 
-                self.__labelTitreInternet.configure(text="Enregistrement d'un site")
-                self.__btnAddSite.place_forget()
-                self.__btnSupprSite.place_forget()
-                self.__btnAnnulerInternet.place(relx=0, rely=1, anchor='sw')
-                self.__btnValiderInternet.place(relx=1, rely=1, anchor='se')
-                self.__entryNameSite.place(relx=0.2,y=200)
-                self.__entryLinkSite.place(relx=0.2,y=275)
-                self.__menuChoixSite.place(x=0,y=100)
-                self.__menuSupprSite.place_forget()
-                self.__btnValiderInternet.configure(command=lambda:self.__validerSite(1))
-            case 3 : 
-                listSite = self.__gazelle.getListSite()
-                if (len(listSite)==0):
-                    showerror("Parametre","Aucun site enregistré")
-                else :
-                    self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreSite, var=self.__varSupprSite, value=listSite)
-                    self.__labelTitreInternet.configure(text="Enregistrement d'un site")
-                    self.__btnAddSite.place_forget()
-                    self.__btnSupprSite.place_forget()
-                    self.__btnAnnulerInternet.place(relx=0, rely=1, anchor='sw')
-                    self.__btnValiderInternet.place(relx=1, rely=1, anchor='se')
-                    self.__entryNameSite.place_forget()
-                    self.__entryLinkSite.place_forget()
-                    self.__menuChoixSite.place_forget()
-                    self.__menuSupprSite.place(relx=0.5,rely=0.5,anchor="center")
-                    self.__btnValiderInternet.configure(command=lambda:self.__validerSite(2))
-                    self.__varSupprSite.set(listSite[0])
-                    
-
-    
-    def __validerSite(self,mode:int):
-        """
-        1 : add
-        2 : suppr
-        """
-        match mode :
-            case 1 :
-                link = self.__entryLinkSite.get()
-                if (link!="") :
-                    type = self.__varChoixSite.get()
-                    if (type == "Cloud"):
-                        self.__gazelle.addSite(2,"",link)
-                    else :
-                        name = self.__entryNameSite.get()
-                        if(name=="") :
-                            showerror("Parametre","Impossible d'enregistrer un site sans nom")
-                        else :
-                            self.__gazelle.addSite(1,name,link)
-                            showinfo("Parametre","Site enregistré")
-                            self.__affichageCadreSite(1)
-                else :
-                    showerror("Parametre","Impossible d'enregistrer un site sans URL")
-                
-                self.__entryLinkSite.delete(0,END)
-                self.__entryNameSite.delete(0,END)
-            case 2 : 
-                site = self.__varSupprSite.get()
-                if (site == "Cloud") :
-                    self.__gazelle.supprSite(2,"")
-                else :
-                    self.__gazelle.supprSite(1,site)
-                showinfo("Parametre","Site supprimer")
-                self.__affichageCadreSite(1)  
     
     def __validerTheme(self,mode:int):
         """
