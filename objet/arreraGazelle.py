@@ -257,8 +257,10 @@ class CArreraGazelle :
     
     def getListSite(self):
         listSortie = []
+        """
         if (self.__fileJsonUser.lectureJSON("lienCloud")!=""):
             listSortie.append("Cloud")
+        """
         dictSite = self.__fileJsonUser.lectureJSONDict("dictSite")
         if (len(dictSite)==0):
             return listSortie

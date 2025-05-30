@@ -81,7 +81,11 @@ class CArreraGazelleUIRyleyCopilote :
         self.__softAdd = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         self.__softList = self.__arrTK.createFrame(self.__cadreSoft,width=325,height=630)
         # Internet
-        self.__cadreInternet = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__cadreSite = self.__arrTK.createFrame(self.__windows, width=350, height=630)
+        self.__acceuilSite = self.__arrTK.createFrame(self.__cadreSite, width=325, height=630)
+        self.__faddSite = self.__arrTK.createFrame(self.__cadreSite, width=325, height=630)
+        self.__fsupprSite = self.__arrTK.createFrame(self.__cadreSite, width=325, height=630)
+        self.__listSite = self.__arrTK.createFrame(self.__cadreSite, width=325, height=630)
         # Theme
         self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Micro
@@ -109,7 +113,7 @@ class CArreraGazelleUIRyleyCopilote :
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Logiciel",command=lambda : self.__viewSoft(),width=20),#5
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
-                                                  text="Site Web",command=lambda :self.__showInternetFrame(1),width=20),#6
+                                                  text="Site Web",command=self.__viewSite,width=20),#6
                         self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
                                                   text="Theme",command=self.__showThemeFrame,width=20),#7
                         self.__arrTK.createButton(self.__cadreMenu, ppolice="arial",ptaille=23,
@@ -136,7 +140,7 @@ class CArreraGazelleUIRyleyCopilote :
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\ndes\nlogiciels",command=lambda :self.__viewSoft()),#5
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndes sites\ninternet",command=lambda :self.__showInternetFrame(1)),#6
+                                      text="Gestion\ndes sites\ninternet",command=self.__viewSite),#6
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\ndu\ntheme",command=self.__showThemeFrame),#7
             self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
@@ -300,19 +304,57 @@ class CArreraGazelleUIRyleyCopilote :
                                                       ptaille=tailleMain,command=self.__backAcceuilSoft)
 
         # Cadre Internet
-        self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreInternet, ppolice="Arial", ptaille=tailleTitle)
-        self.__btnAddSite = self.__arrTK.createButton(self.__cadreInternet,text="Enregister un site",
-                                                      ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(2))
-        self.__btnSupprSite = self.__arrTK.createButton(self.__cadreInternet,text="Supprimer un site",
-                                                        ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(3))
-        self.__btnAnnulerInternet = self.__arrTK.createButton(self.__cadreInternet,text="Annuler",
-                                                              ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__affichageCadreSite(1))
-        self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreInternet,text="Valider",
-                                                              ppolice = "arial" , ptaille = tailleMain)
-        self.__entryNameSite = self.__arrTK.createEntry(self.__cadreInternet,ppolice="Arial",ptaille=tailleMain)
-        self.__entryLinkSite = self.__arrTK.createEntry(self.__cadreInternet,ppolice="Arial",ptaille=tailleMain)
-        self.__menuChoixSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varChoixSite,value = listChoixSite)
-        self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var = self.__varSupprSite,value=listChoixSite)
+        self.__labelTitreInternet = self.__arrTK.createLabel(self.__cadreSite, ppolice="Arial", ptaille=tailleTitle)
+        self.__btnAddSite = self.__arrTK.createButton(self.__cadreSite, text="Enregister un site",
+                                                      ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(2))
+        self.__btnSupprSite = self.__arrTK.createButton(self.__cadreSite, text="Supprimer un site",
+                                                        ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(3))
+        self.__btnAnnulerInternet = self.__arrTK.createButton(self.__cadreSite, text="Annuler",
+                                                              ppolice = "arial", ptaille = tailleMain, command=lambda : self.__affichageCadreSite(1))
+        self.__btnValiderInternet = self.__arrTK.createButton(self.__cadreSite, text="Valider",
+                                                              ppolice = "arial", ptaille = tailleMain)
+        # Acceuil Site
+        labelTitleAcceuilSite = self.__arrTK.createLabel(self.__acceuilSite, text="Gestion des sites internet",
+                                                            ppolice="Arial", ptaille=tailleTitle)
+        btnAddSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Ajouter un site",
+                                                        ppolice = "arial", ptaille = tailleMain,
+                                                      command=self.__viewAddSite)
+        btnSupprSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Supprimer un site",
+                                                        ppolice = "arial", ptaille = tailleMain,
+                                                        command=self.__viewSupprSite)
+        btnListSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Liste des sites",
+                                                        ppolice = "arial", ptaille = tailleMain,command=self.__viewListSite)
+        # add Site
+        labelTitleAddSite = self.__arrTK.createLabel(self.__faddSite, text="Ajouter un site internet",
+                                                     ppolice="Arial", ptaille=tailleTitle)
+        wNameSite,self.__entryNameSite = self.__arrTK.createEntryLegend(self.__faddSite, text="Nom du site : ", ppolice="Arial", ptaille=tailleMain)
+        wLinkSite,self.__entryLinkSite = self.__arrTK.createEntryLegend(self.__faddSite, text="Lien du site : ", ppolice="Arial", ptaille=tailleMain)
+        btnValidateAddSite = self.__arrTK.createButton(self.__faddSite, text="Valider",
+                                                       ppolice = "arial", ptaille = tailleMain, command=self.__addSite)
+        btnCancelAddSite = self.__arrTK.createButton(self.__faddSite, text="Annuler", command = self.__backAcceuilSite,
+                                                     ppolice = "arial", ptaille = tailleMain)
+        # Suppr Site
+        labelTitleSupprSite = self.__arrTK.createLabel(self.__fsupprSite, text="Supprimer un site internet",
+                                                       ppolice="Arial", ptaille=tailleTitle)
+        self.__menuSupprSite =  None
+        self.__labelNoSite = self.__arrTK.createLabel(self.__fsupprSite, text="Aucun site internet\najouté",
+                                                      ppolice="Arial", ptaille=tailleMain)
+        self.__btnValidateSupprSite = self.__arrTK.createButton(self.__fsupprSite, text="Supprimer",
+                                                                ppolice = "arial", ptaille = tailleMain,
+                                                                command=self.__supprSite)
+        self.__btnCancelSupprSite = self.__arrTK.createButton(self.__fsupprSite, text="Annuler",
+                                                              ppolice = "arial", ptaille = tailleMain,
+                                                              command=self.__backAcceuilSite)
+
+        # List Site
+        labelTitleListSite = self.__arrTK.createLabel(self.__listSite, text="Liste des sites internet\nenregistrés",
+                                                        ppolice="Arial", ptaille=tailleTitle)
+        self.__listSiteInternet = ctk.CTkTextbox(self.__listSite, width=300, height=350,
+                                                    wrap="word", state="normal", font=("Arial", tailleMain))
+        self.__labelNoSiteSave = self.__arrTK.createLabel(self.__listSite, text="Aucun site internet\najouté",
+                                                            ppolice="Arial", ptaille=tailleMain)
+        btnRetourListSite = self.__arrTK.createButton(self.__listSite, text="Retour",command=self.__backAcceuilSite,
+                                                        ppolice="arial", ptaille=tailleMain)
         # Cardre theme 
         labelTitreTheme = self.__arrTK.createLabel(self.__cadreTheme, text="Choix du thème\nde l'interface"
                                                    , ppolice="Arial", ptaille=tailleTitle)
@@ -376,8 +418,6 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeBottomCenter(btnRetourListSoft)
 
         self.__arrTK.placeTopCenter(labelTitleSupprSoftware)
-
-        self.__arrTK.placeTopCenter(self.__labelTitreInternet)
 
         self.__arrTK.placeTopCenter(labelTitreTheme)
         self.__arrTK.placeCenter(menuChoixTheme)
@@ -455,6 +495,22 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeLeftBottom(btnCancelGpsWork)
         self.__arrTK.placeRightBottom(btnValideGpsWork)
 
+        self.__arrTK.placeTopCenter(labelTitleAcceuilSite)
+        self.__arrTK.placeCenterOnWidth(btnAddSiteAcceuil,100)
+        self.__arrTK.placeCenterOnWidth(btnSupprSiteAcceuil,200)
+        self.__arrTK.placeCenterOnWidth(btnListSiteAcceuil,300)
+
+        self.__arrTK.placeTopCenter(labelTitleAddSite)
+        self.__arrTK.placeCenterOnWidth(wNameSite,200)
+        self.__arrTK.placeCenterOnWidth(wLinkSite,300)
+        self.__arrTK.placeLeftBottom(btnCancelAddSite)
+        self.__arrTK.placeRightBottom(btnValidateAddSite)
+
+        self.__arrTK.placeTopCenter(labelTitleSupprSite)
+
+        self.__arrTK.placeTopCenter(labelTitleListSite)
+        self.__arrTK.placeBottomCenter(btnRetourListSite)
+
     def active(self):
         self.__arrTK.setResizable(False)
         self.__arrTK.setGeometry(500,630)
@@ -477,7 +533,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreGPS.pack_forget()
         self.__cadreRecherche.pack_forget()
         self.__cadreSoft.pack_forget()
-        self.__cadreInternet.pack_forget()
+        self.__cadreSite.pack_forget()
         self.__cadreTheme.pack_forget()
         self.__cadreMicro.pack_forget()
         self.__cadreArreraWork.pack_forget()
@@ -490,7 +546,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreGPS.pack_forget()
         self.__cadreRecherche.pack_forget()
         self.__cadreSoft.pack_forget()
-        self.__cadreInternet.pack_forget()
+        self.__cadreSite.pack_forget()
         self.__cadreTheme.pack_forget()
         self.__cadreMicro.pack_forget()
         self.__cadreArreraWork.pack_forget()
@@ -591,7 +647,7 @@ class CArreraGazelleUIRyleyCopilote :
         3 : Suppr direct
         """
         self.__disableAllFrame()
-        self.__arrTK.packRight(self.__cadreInternet)
+        self.__arrTK.packRight(self.__cadreSite)
         match mode :
             case 1 :
                 self.__affichageCadreSite(1)
@@ -599,6 +655,97 @@ class CArreraGazelleUIRyleyCopilote :
                 self.__affichageCadreSite(2)
             case 3 : 
                 self.__affichageCadreSite(3)
+
+    def __viewSite(self):
+        self.__disableAllFrame()
+        self.__arrTK.packRight(self.__cadreSite)
+        self.__arrTK.placeCenter(self.__acceuilSite)
+
+    def __backAcceuilSite(self):
+        self.__disableSiteFrame()
+        self.__arrTK.placeCenter(self.__acceuilSite)
+
+    def __disableSiteFrame(self):
+        self.__acceuilSite.place_forget()
+        self.__faddSite.place_forget()
+        self.__fsupprSite.place_forget()
+        self.__listSite.place_forget()
+
+    def __viewAddSite(self):
+        self.__disableSiteFrame()
+        self.__arrTK.placeCenter(self.__faddSite)
+        self.__entryNameSite.delete(0,END)
+        self.__entryLinkSite.delete(0,END)
+    
+    def __viewSupprSite(self):
+        self.__disableSiteFrame()
+        self.__arrTK.placeCenter(self.__fsupprSite)
+        listSite = self.__gazelle.getListSite()
+        self.__labelNoSite.place_forget()
+        self.__btnCancelSupprSite.place_forget()
+        self.__btnValidateSupprSite.place_forget()
+        if (self.__menuSupprSite != None):
+            self.__menuSupprSite.place_forget()
+            self.__menuSupprSite = None
+        if len(listSite) == 0:
+            self.__arrTK.placeCenter(self.__labelNoSite)
+            self.__arrTK.placeBottomCenter(self.__btnCancelSupprSite)
+        else :
+            self.__menuSupprSite = self.__arrTK.createOptionMenu(self.__fsupprSite,
+                                                                 var = self.__varSupprSite,
+                                                                 value = listSite)
+            self.__arrTK.placeBottomLeft(self.__btnCancelSupprSite)
+            self.__arrTK.placeBottomRight(self.__btnValidateSupprSite)
+            self.__arrTK.placeCenter(self.__menuSupprSite)
+
+
+    def __viewListSite(self):
+        self.__disableSiteFrame()
+        self.__arrTK.placeCenter(self.__listSite)
+
+        self.__labelNoSiteSave.place_forget()
+        self.__listSiteInternet.place_forget()
+
+        self.__listSiteInternet.configure(state="normal")
+        self.__listSiteInternet.delete(1.0, END)
+        listSite = self.__gazelle.getListSite()
+
+        if len(listSite) == 0 :
+            self.__arrTK.placeCenter(self.__labelNoSiteSave)
+        else :
+            for i in range(0,len(listSite)):
+                self.__listSiteInternet.insert(END, listSite[i] + "\n")
+            self.__arrTK.placeCenter(self.__listSiteInternet)
+
+        self.__listSiteInternet.configure(state="disabled")
+
+    def __supprSite(self):
+        site = self.__varSupprSite.get()
+        if (site == ""):
+            showerror("Parametre", "Impossible de supprimer un site sans nom")
+        else:
+            if (self.__gazelle.supprSite(1,site)):
+                showinfo("Parametre", "Site supprimé")
+            else :
+                showerror("Parametre", "Impossible de supprimer ce site")
+
+        self.__menuSupprSite.place_forget()
+        self.__backAcceuilSite()
+
+    def __addSite(self):
+        name = self.__entryNameSite.get()
+        link = self.__entryLinkSite.get()
+        if (name == "" or link == ""):
+            showerror("Parametre", "Impossible d'ajouter un site sans nom ou lien")
+        else:
+            self.__gazelle.addSite(1,name, link)
+            showinfo("Parametre", "Site ajouté")
+            self.__entryNameSite.delete(0, END)
+            self.__entryLinkSite.delete(0, END)
+
+        self.__backAcceuilSite()
+
+
     
     def __showThemeFrame(self):
         self.__disableAllFrame()
@@ -816,7 +963,7 @@ class CArreraGazelleUIRyleyCopilote :
                 if (len(listSite)==0):
                     showerror("Parametre","Aucun site enregistré")
                 else :
-                    self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreInternet,var=self.__varSupprSite,value=listSite)
+                    self.__menuSupprSite =  self.__arrTK.createOptionMenu(self.__cadreSite, var=self.__varSupprSite, value=listSite)
                     self.__labelTitreInternet.configure(text="Enregistrement d'un site")
                     self.__btnAddSite.place_forget()
                     self.__btnSupprSite.place_forget()
