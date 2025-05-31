@@ -1088,14 +1088,13 @@ class CArreraGazelleUISix :
 
         if nbTriger == 0:
             self.__arrtk.placeCenter(self.__btnTrigerWordVoicePrint1)
+        elif nbTriger == 1:
+            self.__arrtk.placeCenterLeft(self.__btnTrigerWordVoicePrint1)
+            self.__arrtk.placeRightCenter(self.__btnTrigerWordVoicePrint2)
         else :
-            if nbTriger == 1:
-                self.__arrtk.placeCenterLeft(self.__btnTrigerWordVoicePrint1)
-                self.__arrtk.placeRightCenter(self.__btnTrigerWordVoicePrint2)
-            else :
-                self.__arrtk.placeCenterLeft(self.__btnTrigerWordVoicePrint1)
-                self.__arrtk.placeCenter(self.__btnTrigerWordVoicePrint2)
-                self.__arrtk.placeRightCenter(self.__btnTrigerWordVoicePrint3)
+            self.__arrtk.placeCenterLeft(self.__btnTrigerWordVoicePrint1)
+            self.__arrtk.placeCenter(self.__btnTrigerWordVoicePrint2)
+            self.__arrtk.placeRightCenter(self.__btnTrigerWordVoicePrint3)
 
 
     def __viewVoicePrint(self,mode:int):
