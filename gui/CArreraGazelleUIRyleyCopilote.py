@@ -21,7 +21,6 @@ class CArreraGazelleUIRyleyCopilote :
         tailleTitle = 27
         tailleMain = 23
         self.__varMoteurRecherce = StringVar(self.__windows)
-        self.__varTheme = StringVar(self.__windows)
         self.__varGenre = StringVar(self.__windows)
         self.__varChoixLieu = StringVar(self.__windows)
         self.__varSupprLieu = StringVar(self.__windows)
@@ -351,7 +350,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                    , ppolice="Arial", ptaille=tailleTitle)
         menuChoixTheme = self.__arrTK.createOptionMenu(self.__cadreTheme,var = self.__varChoixTheme,value=listeTheme)
         btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
-                                                            ppolice = "arial" , ptaille = tailleMain,command=lambda : self.__validerTheme(1))
+                                                            ppolice = "arial" , ptaille = tailleMain,command=self.__validerTheme)
         # Cadre Micro
         labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro, text="Sons au déclenchement\ndu micro",
                                                    ppolice="Arial", ptaille=tailleTitle)
@@ -905,18 +904,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__backAcceuil()
 
     
-    def __validerTheme(self,mode:int):
-        """
-        1 : Page 
-        2 : Acceuil
-        """
-        match mode :
-            case 1 :
-                theme = self.__varChoixTheme.get()
-            case 2 :
-                theme = self.__varTheme.get()
-            case other :
-                return
+    def __validerTheme(self):
+        theme = self.__varChoixTheme.get()
         self.__gazelle.changeTheme(theme)
         showinfo("Parametre","Theme changer")
         self.__backAcceuil()
