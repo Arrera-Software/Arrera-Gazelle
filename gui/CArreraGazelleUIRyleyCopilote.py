@@ -28,7 +28,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__varChoixSite =  StringVar(self.__windows)
         self.__varSupprSite =  StringVar(self.__windows)
         self.__varChoixTheme  =  StringVar(self.__windows)
-        self.__varChoixMicro =  StringVar(self.__windows)
+        self.__varSonsEmis =  StringVar(self.__windows)
         self.__varChoixSupprMeteo = StringVar(self.__windows)
         startX = 60    # Position X de départ
         startY = 25 # Position Y de départ
@@ -89,6 +89,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__cadreTheme = self.__arrTK.createFrame(self.__windows,width=350,height=630)
         # Micro
         self.__cadreMicro = self.__arrTK.createFrame(self.__windows,width=350,height=630)
+        self.__acceuilMicro = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
+        self.__fTigerVoice = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
+        self.__fSonsEmis = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
+        self.__fSaveWord = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
         # Arrera Work
         self.__cadreArreraWork = self.__arrTK.createFrame(self.__windows, width=350, height=630)
         # Download
@@ -119,8 +123,8 @@ class CArreraGazelleUIRyleyCopilote :
                                                 text="Arrera Work", command=self.__showArreraWorkFolder, width=20),#8
                         self.__arrTK.createButton(self.__cadreMenu, ppolice="arial",ptaille=23,
                                       text="Downloader",command=self.__showArreraDownloadFolder, width=20),  # 9
-                        self.__arrTK.createButton(self.__cadreMenu,ppolice="arial",ptaille=23,
-                                                  text="Micro",command=self.__showMicroFrame,width=20),#10
+                        self.__arrTK.createButton(self.__cadreMenu, ppolice="arial", ptaille=23,
+                                                  text="Micro", command=self.__viewMicro, width=20),#10
         ]
 
         #mainFrame
@@ -146,8 +150,8 @@ class CArreraGazelleUIRyleyCopilote :
                                       text="Gestion\nArrera\nWork",command=self.__showArreraWorkFolder),#8
             self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=100,height=100,
                                       text="Gestion\nArrera\nDownload",command=self.__showArreraDownloadFolder),#10
-            self.__arrTK.createButton(self.__mainFrame, ppolice="arial",ptaille=17,width=100,height=100,
-                                      text="Gestion\ndu\nmicro",command=self.__showMicroFrame),  # 9
+            self.__arrTK.createButton(self.__mainFrame, ppolice="arial", ptaille=17, width=100, height=100,
+                                      text="Gestion\ndu\nmicro", command=self.__viewMicro),  # 9
         ]
 
         self.__btnQuitMainFrame = self.__arrTK.createButton(self.__mainFrame,ppolice="arial",ptaille=17,width=200,
@@ -352,14 +356,50 @@ class CArreraGazelleUIRyleyCopilote :
         btnValiderTheme = self.__arrTK.createButton (self.__cadreTheme,text="Valider",
                                                             ppolice = "arial" , ptaille = tailleMain,command=self.__validerTheme)
         # Cadre Micro
-        labelTitreMicro = self.__arrTK.createLabel(self.__cadreMicro, text="Sons au déclenchement\ndu micro",
-                                                   ppolice="Arial", ptaille=tailleTitle)
-        menuChoixMicro = self.__arrTK.createOptionMenu(self.__cadreMicro,
-                                                              var = self.__varChoixMicro,value=self.__listChoixMicro)
-        btnValiderMicro = self.__arrTK.createButton (self.__cadreMicro,text="Valider"
-                                                            ,ppolice = "arial" , ptaille = tailleMain,command=self.__validerMicro)
-
-
+        # Acceuil Micro
+        labelTitreAcceuilMicro = self.__arrTK.createLabel(self.__acceuilMicro, text="Paramètre du micro",
+                                                          ppolice="Arial", ptaille=tailleTitle)
+        btnAcceuilTigerVoice = self.__arrTK.createButton(self.__acceuilMicro, text="Empreinte\nvocale",
+                                                        ppolice = "arial" , ptaille = tailleMain,
+                                                         command=self.__viewTigerVoice)
+        btnAcceuilSonsEmis = self.__arrTK.createButton(self.__acceuilMicro, text="Sons\némis",
+                                                       ppolice = "arial", ptaille = tailleMain,
+                                                       command=self.__viewMicroSound)
+        # Tiger Voice
+        labelTitleTigerWordMicro = self.__arrTK.createLabel(self.__fTigerVoice, text="Empreinte vocale",
+                                                              ppolice="Arial", ptaille=tailleTitle)
+        self.__btnVoicePrint1 = self.__arrTK.createButton(self.__fTigerVoice, text="Empreinte\nVocale 1",
+                                                              ppolice = "arial" , ptaille = tailleMain,
+                                                          command = lambda : self.__viewSaveTigerWord(1))
+        self.__btnVoicePrint2 = self.__arrTK.createButton(self.__fTigerVoice, text="Empreinte\nVocale 2",
+                                                          ppolice = "arial" , ptaille = tailleMain
+                                                          ,command = lambda : self.__viewSaveTigerWord(2))
+        self.__btnVoicePrint3 = self.__arrTK.createButton(self.__fTigerVoice, text="Empreinte\nVocale 3",
+                                                          ppolice = "arial" , ptaille = tailleMain
+                                                          ,command = lambda : self.__viewSaveTigerWord(3))
+        btnBackAcceuilTigerVoice = self.__arrTK.createButton(self.__fTigerVoice, text="Retour",command=self.__backAcceuilMicro,
+                                                                ppolice = "arial" , ptaille = tailleMain)
+        # Sons Emis
+        labelTitleSonsEmisMicro = self.__arrTK.createLabel(self.__fSonsEmis, text="Sons émis par le micro",
+                                                            ppolice="Arial", ptaille=tailleTitle)
+        menuSonsEmis = self.__arrTK.createOptionMenu(self.__fSonsEmis,value=self.__listChoixMicro,var=self.__varSonsEmis)
+        btnValiderSonsEmis = self.__arrTK.createButton(self.__fSonsEmis, text="Valider",
+                                                        ppolice = "arial" , ptaille = tailleMain)
+        btnBackAcceuilSonsEmis = self.__arrTK.createButton(self.__fSonsEmis, text="Retour",
+                                                            ppolice = "arial" , ptaille = tailleMain,command=self.__backAcceuilMicro)
+        # Save Word
+        self.__labelTitleSaveWordMicro = self.__arrTK.createLabel(self.__fSaveWord, text="Sauvegarde des mots",
+                                                            ppolice="Arial", ptaille=tailleTitle)
+        self.__btnSaveWord = self.__arrTK.createButton(self.__fSaveWord, text="Enregistrer",
+                                                        ppolice = "arial" , ptaille = tailleMain)
+        self.__btnSupprWord = self.__arrTK.createButton(self.__fSaveWord, text="Supprimer",
+                                                       ppolice = "arial" , ptaille = tailleMain)
+        self.__labelShowSavedWord = self.__arrTK.createLabel(self.__fSaveWord,ppolice = "arial" , ptaille = tailleMain)
+        
+        self.__btnBackSaveWord = self.__arrTK.createButton(self.__fSaveWord, text="Retour",
+                                                        ppolice = "arial" , ptaille = tailleMain,
+                                                        command=self.__viewTigerVoice)
+        
         # Cader Work folder
         self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
                                                                text="Choisir le dossier\npour Arrera Work",
@@ -413,9 +453,20 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeCenter(menuChoixTheme)
         self.__arrTK.placeBottomCenter(btnValiderTheme)
 
-        self.__arrTK.placeTopCenter(labelTitreMicro)
-        self.__arrTK.placeCenter(menuChoixMicro)
-        self.__arrTK.placeBottomCenter(btnValiderMicro)
+        self.__arrTK.placeTopCenter(labelTitreAcceuilMicro)
+        self.__arrTK.placeCenterOnWidth(btnAcceuilTigerVoice,100)
+        self.__arrTK.placeCenterOnWidth(btnAcceuilSonsEmis,200)
+
+        self.__arrTK.placeTopCenter(labelTitleTigerWordMicro)
+        self.__arrTK.placeBottomCenter(btnBackAcceuilTigerVoice)
+
+        self.__arrTK.placeTopCenter(labelTitleSonsEmisMicro)
+        self.__arrTK.placeCenter(menuSonsEmis)
+        self.__arrTK.placeLeftBottom(btnBackAcceuilSonsEmis)
+        self.__arrTK.placeRightBottom(btnValiderSonsEmis)
+        
+        self.__arrTK.placeTopCenter(self.__labelTitleSaveWordMicro)
+        
 
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
         self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
@@ -724,16 +775,98 @@ class CArreraGazelleUIRyleyCopilote :
     def __showThemeFrame(self):
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreTheme)
-    
-    def __showMicroFrame(self):
+
+    def __backAcceuilMicro(self):
+        self.__disableMicroFrame()
+        self.__arrTK.placeCenter(self.__acceuilMicro)
+
+    def __viewMicro(self):
         self.__disableAllFrame()
         self.__arrTK.packRight(self.__cadreMicro)
+        self.__arrTK.placeCenter(self.__acceuilMicro)
+
+    def __disableMicroFrame(self):
+        self.__acceuilMicro.place_forget()
+        self.__fTigerVoice.place_forget()
+        self.__fSonsEmis.place_forget()
+        self.__fSaveWord.place_forget()
+    
+    def __viewMicroSound(self):
+        self.__disableMicroFrame()
+        self.__arrTK.placeCenter(self.__fSonsEmis)
         etatMicro = self.__gazelle.getSoundMicroAsEnable()
         if (etatMicro==True):
-            self.__varChoixMicro.set(self.__listChoixMicro[0])
+            self.__varSonsEmis.set(self.__listChoixMicro[0])
         else :
-            self.__varChoixMicro.set(self.__listChoixMicro[1])
-       
+            self.__varSonsEmis.set(self.__listChoixMicro[1])
+
+    def __viewTigerVoice(self):
+        self.__disableMicroFrame()
+        self.__arrTK.placeCenter(self.__fTigerVoice)
+
+        self.__btnVoicePrint1.place_forget()
+        self.__btnVoicePrint2.place_forget()
+        self.__btnVoicePrint3.place_forget()
+
+        nbTiger = self.__gazelle.getNbTrigerWord()
+
+        if nbTiger == 0:
+            self.__arrTK.placeCenter(self.__btnVoicePrint1)
+        elif nbTiger == 1:
+            self.__arrTK.placeCenterOnWidth(self.__btnVoicePrint1,150)
+            self.__arrTK.placeCenterOnWidth(self.__btnVoicePrint2,250)
+        else :
+            self.__arrTK.placeCenterOnWidth(self.__btnVoicePrint1,100)
+            self.__arrTK.placeCenterOnWidth(self.__btnVoicePrint2,200)
+            self.__arrTK.placeCenterOnWidth(self.__btnVoicePrint3,300)
+    
+    def __viewSaveTigerWord(self,nbTiger:int):
+        
+        self.__disableMicroFrame()
+        self.__arrTK.placeCenter(self.__fSaveWord)
+
+        listWord = self.__gazelle.getTrigerWord()
+        nb = len(listWord)
+        
+        match nbTiger:
+            case 1:
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 1")
+                
+                if nb == 0:
+                    self.__arrTK.placeCenter(self.__btnSaveWord)
+                    self.__arrTK.placeBottomCenter(self.__btnBackSaveWord)
+                else :
+                    self.__arrTK.placeCenter(self.__labelShowSavedWord)
+                    self.__labelShowSavedWord.configure(text=listWord[0])
+
+                    self.__arrTK.placeRightBottom(self.__btnSupprWord)
+                    self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+            case 2:
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 2")
+                if nb == 1:
+                    self.__arrTK.placeCenter(self.__btnSaveWord)
+                    self.__arrTK.placeBottomCenter(self.__btnBackSaveWord)
+                else :
+                    self.__arrTK.placeCenter(self.__labelShowSavedWord)
+                    self.__labelShowSavedWord.configure(text=listWord[1])
+
+                    self.__arrTK.placeRightBottom(self.__btnSupprWord)
+                    self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+            case 3:
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 3")
+                if nb == 2:
+                    self.__arrTK.placeCenter(self.__btnSaveWord)
+                    self.__arrTK.placeBottomCenter(self.__btnBackSaveWord)
+                else :
+                    self.__arrTK.placeCenter(self.__labelShowSavedWord)
+                    self.__labelShowSavedWord.configure(text=listWord[2])
+
+                    self.__arrTK.placeRightBottom(self.__btnSupprWord)
+                    self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+
+            case other:
+                return
+
 
     def __viewUser(self):
         self.__arrTK.placeCenter(self.__userAcceuil)
@@ -911,7 +1044,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__backAcceuil()
     
     def __validerMicro(self):
-        sortie = self.__varChoixMicro.get()
+        sortie = self.__varSonsEmis.get()
         if (sortie=="ON"):
             self.__gazelle.changeSoundMicro(True)
         else :
