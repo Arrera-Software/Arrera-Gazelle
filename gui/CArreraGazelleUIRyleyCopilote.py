@@ -307,13 +307,13 @@ class CArreraGazelleUIRyleyCopilote :
         # Acceuil Site
         labelTitleAcceuilSite = self.__arrTK.createLabel(self.__acceuilSite, text="Gestion des sites internet",
                                                             ppolice="Arial", ptaille=tailleTitle)
-        btnAddSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Ajouter un site",
+        btnAddSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Ajouter\nun site",
                                                         ppolice = "arial", ptaille = tailleMain,
                                                       command=self.__viewAddSite)
-        btnSupprSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Supprimer un site",
+        btnSupprSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Supprimer\nun site",
                                                         ppolice = "arial", ptaille = tailleMain,
                                                         command=self.__viewSupprSite)
-        btnListSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Liste des sites",
+        btnListSiteAcceuil = self.__arrTK.createButton(self.__acceuilSite, text="Liste\ndes sites",
                                                         ppolice = "arial", ptaille = tailleMain,command=self.__viewListSite)
         # add Site
         labelTitleAddSite = self.__arrTK.createLabel(self.__faddSite, text="Ajouter un site internet",
