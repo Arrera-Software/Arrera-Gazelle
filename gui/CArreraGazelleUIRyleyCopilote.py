@@ -411,7 +411,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                         ppolice = "arial" , ptaille = tailleMain,command=self.__viewTigerVoice)
         
         # Cader Work folder
-        self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
+        labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
                                                                text="Choisir le dossier\npour Arrera Work",
                                                                ppolice="Arial", ptaille=tailleTitle)
         self.__btnFolderArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Choisir le dossier",
@@ -419,7 +419,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnSupprArreraWork = self.__arrTK.createButton(self.__cadreArreraWork, text="Supprimer le dossier",
                                                               ppolice = "arial" , ptaille = tailleMain,command = lambda : self.__validerFolderWork(2))
         # Cadre Download folder
-        self.__labelTitreDownload = self.__arrTK.createLabel(self.__cadreVideoDownload,
+        labelTitreDownload = self.__arrTK.createLabel(self.__cadreVideoDownload,
                                                              text="Choisir le dossier pour\nArrera video download",
                                                              ppolice="Arial", ptaille=tailleTitle)
         self.__btnFolderDownload = self.__arrTK.createButton(self.__cadreVideoDownload, text="Choisir le dossier",
@@ -483,8 +483,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeLeftBottom(btnCancelSavedWord)
         
 
-        self.__arrTK.placeTopCenter(self.__labelTitreDownload)
-        self.__arrTK.placeTopCenter(self.__labelTitreArreraWork)
+        self.__arrTK.placeTopCenter(labelTitreDownload)
+        self.__arrTK.placeTopCenter(labelTitreArreraWork)
 
 
         for index, bouton in enumerate(self.__boutonMenuMain):
