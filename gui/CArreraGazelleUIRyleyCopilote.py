@@ -386,7 +386,7 @@ class CArreraGazelleUIRyleyCopilote :
                                                             ppolice="Arial", ptaille=tailleTitle)
         menuSonsEmis = self.__arrTK.createOptionMenu(self.__fSonsEmis,value=self.__listChoixMicro,var=self.__varSonsEmis)
         btnValiderSonsEmis = self.__arrTK.createButton(self.__fSonsEmis, text="Valider",
-                                                        ppolice = "arial" , ptaille = tailleMain)
+                                                        ppolice = "arial" , ptaille = tailleMain,command=self.__validerSoundMicro)
         btnBackAcceuilSonsEmis = self.__arrTK.createButton(self.__fSonsEmis, text="Retour",
                                                             ppolice = "arial" , ptaille = tailleMain,command=self.__backAcceuilMicro)
         # Save Word
@@ -1087,13 +1087,13 @@ class CArreraGazelleUIRyleyCopilote :
         showinfo("Parametre","Theme changer")
         self.__backAcceuil()
     
-    def __validerMicro(self):
+    def __validerSoundMicro(self):
         sortie = self.__varSonsEmis.get()
         if (sortie=="ON"):
             self.__gazelle.changeSoundMicro(True)
         else :
             self.__gazelle.changeSoundMicro(False)
-        self.__backAcceuil()
+        self.__backAcceuilMicro()
 
     def __showArreraWorkFolder(self):
         folderExist = self.__gazelle.workFolderExist()
