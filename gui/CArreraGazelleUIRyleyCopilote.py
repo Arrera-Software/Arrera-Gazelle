@@ -93,6 +93,8 @@ class CArreraGazelleUIRyleyCopilote :
         self.__fTigerVoice = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
         self.__fSonsEmis = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
         self.__fSaveWord = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
+        self.__fviewWord = self.__arrTK.createFrame(self.__cadreMicro,width=325,height=630)
+
         # Arrera Work
         self.__cadreArreraWork = self.__arrTK.createFrame(self.__windows, width=350, height=630)
         # Download
@@ -391,7 +393,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__labelTitleSaveWordMicro = self.__arrTK.createLabel(self.__fSaveWord, text="Sauvegarde des mots",
                                                             ppolice="Arial", ptaille=tailleTitle)
         self.__btnSaveWord = self.__arrTK.createButton(self.__fSaveWord, text="Enregistrer",
-                                                        ppolice = "arial" , ptaille = tailleMain)
+                                                        ppolice = "arial" , ptaille = tailleMain,command=self.__recordTigerWord)
         self.__btnSupprWord = self.__arrTK.createButton(self.__fSaveWord, text="Supprimer",
                                                        ppolice = "arial" , ptaille = tailleMain)
         self.__labelShowSavedWord = self.__arrTK.createLabel(self.__fSaveWord,ppolice = "arial" , ptaille = tailleMain)
@@ -399,6 +401,14 @@ class CArreraGazelleUIRyleyCopilote :
         self.__btnBackSaveWord = self.__arrTK.createButton(self.__fSaveWord, text="Retour",
                                                         ppolice = "arial" , ptaille = tailleMain,
                                                         command=self.__viewTigerVoice)
+        # view Word
+        labelTitleViewWordMicro = self.__arrTK.createLabel(self.__fviewWord, text="Enregistrement de\nl'empreinte vocale",
+                                                            ppolice="Arial", ptaille=tailleTitle)
+        self.__labelViewWordSave = self.__arrTK.createLabel(self.__fviewWord,ppolice="Arial", ptaille=tailleTitle)
+        self.__btnValidateWordSaved = self.__arrTK.createButton(self.__fviewWord, text="Valider",
+                                                            ppolice = "arial" , ptaille = tailleMain,command=self.__saveTigerWord)
+        btnCancelSavedWord = self.__arrTK.createButton(self.__fviewWord, text="Annuler",
+                                                        ppolice = "arial" , ptaille = tailleMain,command=self.__viewTigerVoice)
         
         # Cader Work folder
         self.__labelTitreArreraWork = self.__arrTK.createLabel(self.__cadreArreraWork,
@@ -466,6 +476,11 @@ class CArreraGazelleUIRyleyCopilote :
         self.__arrTK.placeRightBottom(btnValiderSonsEmis)
         
         self.__arrTK.placeTopCenter(self.__labelTitleSaveWordMicro)
+
+        self.__arrTK.placeTopCenter(labelTitleViewWordMicro)
+        self.__arrTK.placeCenter(self.__labelViewWordSave)
+        self.__arrTK.placeRightBottom(self.__btnValidateWordSaved)
+        self.__arrTK.placeLeftBottom(btnCancelSavedWord)
         
 
         self.__arrTK.placeTopCenter(self.__labelTitreDownload)
@@ -790,6 +805,7 @@ class CArreraGazelleUIRyleyCopilote :
         self.__fTigerVoice.place_forget()
         self.__fSonsEmis.place_forget()
         self.__fSaveWord.place_forget()
+        self.__fviewWord.place_forget()
     
     def __viewMicroSound(self):
         self.__disableMicroFrame()
@@ -825,12 +841,17 @@ class CArreraGazelleUIRyleyCopilote :
         self.__disableMicroFrame()
         self.__arrTK.placeCenter(self.__fSaveWord)
 
+        self.__btnSaveWord.place_forget()
+        self.__btnBackSaveWord.place_forget()
+        self.__labelShowSavedWord.place_forget()
+        self.__btnSupprWord.place_forget()
+
         listWord = self.__gazelle.getTrigerWord()
         nb = len(listWord)
         
         match nbTiger:
             case 1:
-                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 1")
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte\nvocale 1")
                 
                 if nb == 0:
                     self.__arrTK.placeCenter(self.__btnSaveWord)
@@ -841,8 +862,9 @@ class CArreraGazelleUIRyleyCopilote :
 
                     self.__arrTK.placeRightBottom(self.__btnSupprWord)
                     self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+                    self.__btnSupprWord.configure(command=lambda : self.__supprTrigerWord(1))
             case 2:
-                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 2")
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte\nvocale 2")
                 if nb == 1:
                     self.__arrTK.placeCenter(self.__btnSaveWord)
                     self.__arrTK.placeBottomCenter(self.__btnBackSaveWord)
@@ -852,8 +874,9 @@ class CArreraGazelleUIRyleyCopilote :
 
                     self.__arrTK.placeRightBottom(self.__btnSupprWord)
                     self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+                    self.__btnSupprWord.configure(command=lambda : self.__supprTrigerWord(2))
             case 3:
-                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte vocale 3")
+                self.__labelTitleSaveWordMicro.configure(text="Gestion empreinte\nvocale 3")
                 if nb == 2:
                     self.__arrTK.placeCenter(self.__btnSaveWord)
                     self.__arrTK.placeBottomCenter(self.__btnBackSaveWord)
@@ -863,9 +886,30 @@ class CArreraGazelleUIRyleyCopilote :
 
                     self.__arrTK.placeRightBottom(self.__btnSupprWord)
                     self.__arrTK.placeLeftBottom(self.__btnBackSaveWord)
+                    self.__btnSupprWord.configure(command=lambda : self.__supprTrigerWord(3))
 
             case other:
                 return
+
+    def __recordTigerWord(self):
+        sortie = self.__gazelle.recordTrigerWord()
+
+        if sortie:
+            self.__disableMicroFrame()
+            self.__arrTK.placeCenter(self.__fviewWord)
+            self.__labelViewWordSave.configure(text="Mots enregistrer : "+self.__gazelle.getRecordTrigerWord())
+
+    def __saveTigerWord(self):
+        self.__backAcceuilMicro()
+        self.__gazelle.saveRecordTrigerWord()
+        messagebox.showinfo("Parametre","Le mot déclencheur ont bien été enregistrés.")
+
+    def __supprTrigerWord(self,mode:int):
+        self.__backAcceuilMicro()
+
+        word = self.__gazelle.getTrigerWord()[mode-1]
+
+        self.__gazelle.supprTrigerWord(word)
 
 
     def __viewUser(self):
