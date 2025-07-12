@@ -16,8 +16,9 @@ class CArreraGazelle :
         objOS = OS()
         self.__windowsOS = objOS.osWindows()
         self.__linuxOS = objOS.osLinux()
+        self.__appleOS = objOS.osMac()
 
-        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
+        if not self.__linuxOS==False and self.__windowsOS :
             self.__softWin = gestionSoftWindows(self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows"))
     
     def changeUserName(self,newName:str):
@@ -32,15 +33,15 @@ class CArreraGazelle :
         2 : Travail 
         3 : Autre
         """
-        if (mode == 1 ):
+        if mode == 1:
             self.__fileJsonUser.EcritureJSON("lieuDomicile",ville)
             return True
         else :
-            if (mode==2):
+            if mode==2:
                 self.__fileJsonUser.EcritureJSON("lieuTravail",ville)
                 return True
             else :
-                if (mode==3):
+                if mode==3:
                     self.__fileJsonUser.EcritureJSONList("listVille",ville)
                     return True
                 else :
@@ -132,7 +133,9 @@ class CArreraGazelle :
             bool: True si le logiciel a été ajouté avec succès, False sinon
         """
         # Si on est sous Windows et que l'emplacement des logiciels n'est pas défini
-        if not self.__linuxOS and self.__windowsOS and self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows") == "":
+        if (not self.__linuxOS and not self.__appleOS and
+                self.__windowsOS and
+                self.__fileJsonNeuronNetwork.lectureJSON("emplacementSoftWindows") == ""):
             self.__fileJsonNeuronNetwork.EcritureJSON("emplacementSoftWindows", self.__softWin.setEmplacementSoft())
 
         # Si le nom du logiciel est vide, on ne peut pas continuer
@@ -140,7 +143,7 @@ class CArreraGazelle :
             return False
 
         # Traitement pour Linux
-        if self.__linuxOS and not self.__windowsOS:
+        if self.__linuxOS and not self.__windowsOS and not self.__appleOS:
             # Demande à l'utilisateur si le programme est dans son répertoire home
             reponse = messagebox.askquestion(
                 "Choix répertoire",
@@ -167,16 +170,47 @@ class CArreraGazelle :
             return True
 
         # Traitement pour Windows
-        elif not self.__linuxOS and self.__windowsOS:
+        elif not self.__linuxOS and self.__windowsOS and not self.__appleOS:
             self.__softWin.setName(name)
             if self.__softWin.saveSoftware():
                 self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftWindows", name, self.__softWin.getName())
                 return True
             return False
+        elif not self.__linuxOS and not self.__windowsOS and self.__appleOS:
+            reponse = messagebox.askquestion(
+                "Choix répertoire",
+                "Votre application se trouve-t-elle dans le dossier Applications ?",
+                icon="question"
+            )
+            if reponse == "yes":
+                reponse = messagebox.askquestion(
+                    "Choix répertoire",
+                    "Votre application se trouve-t-elle dans le dossier Applications utilisateur ?",
+                    icon="question"
+                )
+                if reponse == "yes":
+                    initial_dir = "/Users/Applications"
+                else :
+                    initial_dir = "/Applications"
+            else:
+                initial_dir = "/"
 
-        # Si le système d'exploitation n'est ni Linux ni Windows
-        return False
+            command = filedialog.askopenfilename(
+                title="Sélectionner un programme",
+                initialdir=initial_dir,
+                filetypes=[("Tous les fichiers", "*")]
+            )
 
+            if not command:
+                return False
+
+            # Enregistrer le logiciel dans le fichier JSON pour Linux
+            self.__fileJsonUser.EcritureJSONDictionnaire("dictSoftLinux", name, command)
+            return True
+
+        else :
+            # Si le système d'exploitation n'est ni Linux ni Windows ou Apple
+            return False
 
     def supprSoft(self,name:str):
         """
