@@ -241,9 +241,9 @@ class CArreraGazelle :
     def getListSoft(self):
         listSortie = []
         # Creation listFlag 
-        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
+        if not self.__linuxOS and self.__windowsOS:
             flags = "dictSoftWindows"
-        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+        elif self.__linuxOS or self.__appleOS and not self.__windowsOS:
             flags = "dictSoftLinux"
         else :
             return ["error","error"]
