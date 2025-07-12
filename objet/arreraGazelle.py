@@ -222,18 +222,18 @@ class CArreraGazelle :
         """
         flags = ""
 
-        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
+        if not self.__linuxOS and self.__windowsOS and not self.__appleOS:
             flags = "dictSoftWindows"
-        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+        elif self.__linuxOS or self.__appleOS and not self.__windowsOS:
             flags = "dictSoftLinux"
         else :
             return False
 
         self.__fileJsonUser.supprJSONList(flags,name)
-        if ((self.__linuxOS==False)and(self.__windowsOS==True)):
+        if not self.__linuxOS and not self.__appleOS and self.__windowsOS:
             self.__softWin.supprSoft(name)
             return True
-        elif ((self.__linuxOS==True)and(self.__windowsOS==False)):
+        elif self.__linuxOS or self.__appleOS and not self.__windowsOS:
             return True
 
         return False
