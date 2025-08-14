@@ -1,4 +1,5 @@
 from librairy.arrera_tk import *
+from librairy.asset_manage import resource_path
 from objet.arreraGazelle import*
 from typing import Union
 
@@ -73,7 +74,7 @@ class CArreraGazelleUISix :
         listMoteurRecherche = jsonSetting.lectureJSONList("listMoteurRecherche")
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         # Icon Assistant
-        iconAssistant = self.__arrtk.createImage(jsonSetting.lectureJSON("iconSoft"),tailleX=95,tailleY=95)
+        iconAssistant = self.__arrtk.createImage(resource_path(jsonSetting.lectureJSON("iconSoft")),tailleX=95,tailleY=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
