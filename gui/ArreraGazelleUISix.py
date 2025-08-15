@@ -644,6 +644,7 @@ class CArreraGazelleUISix :
         self.__microFrame.pack_forget()
         self.__arreraWorkFrame.pack_forget()
         self.__arreraDownloadFrame.pack_forget()
+        self.__windows.update()
 
     def __backAcceuil(self):
         self.__clearAll()
@@ -668,16 +669,19 @@ class CArreraGazelleUISix :
         self.__userAcceuil.pack()
         self.__userFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __viewUserName(self):
         self.__userName.pack()
         self.__userGenre.pack_forget()
         self.__userAcceuil.pack_forget()
+        self.__windows.update()
 
     def __viewUserGenre(self):
         self.__userName.pack_forget()
         self.__userGenre.pack()
         self.__userAcceuil.pack_forget()
+        self.__windows.update()
 
     def __saveUserName(self):
         name = self.__entryNameUser.get()
@@ -708,6 +712,7 @@ class CArreraGazelleUISix :
         self.__meteoAcceuil.pack()
         self.__meteoFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __viewMeteoDomicile(self):
         self.__entryMeteoDomicile.delete(0,END)
@@ -716,6 +721,7 @@ class CArreraGazelleUISix :
         self.__meteoVille.pack_forget()
         self.__meteoAcceuil.pack_forget()
         self.__meteoSuppr.pack_forget()
+        self.__windows.update()
 
     def __viewMeteoTravail(self):
         self.__entryMeteoTravail.delete(0, END)
@@ -724,6 +730,7 @@ class CArreraGazelleUISix :
         self.__meteoVille.pack_forget()
         self.__meteoAcceuil.pack_forget()
         self.__meteoSuppr.pack_forget()
+        self.__windows.update()
 
     def __viewMeteoVille(self):
         self.__entryMeteoVille.delete(0, END)
@@ -732,6 +739,7 @@ class CArreraGazelleUISix :
         self.__meteoVille.pack()
         self.__meteoAcceuil.pack_forget()
         self.__meteoSuppr.pack_forget()
+        self.__windows.update()
 
     def __viewMeteoSuppr(self):
         listVille = self.__gazelle.getMeteoSave()
@@ -800,6 +808,7 @@ class CArreraGazelleUISix :
         self.__gpsAcceuil.pack()
         self.__gpsFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __viewGPSDomicile(self):
         self.__entryGPSDomicile.delete(0,END)
@@ -807,6 +816,7 @@ class CArreraGazelleUISix :
         self.__gpsTravail.pack_forget()
         self.__gpsSuppr.pack_forget()
         self.__gpsAcceuil.pack_forget()
+        self.__windows.update()
 
     def __viewGPSTravail(self):
         self.__entryGPSTravail.delete(0,END)
@@ -814,6 +824,7 @@ class CArreraGazelleUISix :
         self.__gpsTravail.pack()
         self.__gpsSuppr.pack_forget()
         self.__gpsAcceuil.pack_forget()
+        self.__windows.update()
 
     def __viewGPSSuppr(self):
         travailSet = self.__gazelle.getGPSAdresseIsSet(2)
@@ -879,12 +890,14 @@ class CArreraGazelleUISix :
         self.__clearAll()
         self.__rechercheFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __saveRecherche(self):
         moteur = self.__varMoteurRecherche.get()
         self.__gazelle.changeMoteur(moteur)
         messagebox.showinfo("Parametre","Le moteur de recherche a bien été enregistré")
         self.__backAcceuil()
+        self.__windows.update()
 
     # Methode soft
 
@@ -896,12 +909,14 @@ class CArreraGazelleUISix :
         self.__softAdd.pack_forget()
         self.__softSuppr.pack_forget()
         self.__softListe.pack_forget()
+        self.__windows.update()
 
     def __viewSoftAdd(self):
         self.__softAcceuil.pack_forget()
         self.__softAdd.pack_forget()
         self.__softSuppr.pack_forget()
         self.__softAdd.pack()
+        self.__windows.update()
 
     def __viewSoftSuppr(self):
         listSoft = self.__gazelle.getListSoft()
@@ -929,6 +944,7 @@ class CArreraGazelleUISix :
         self.__softSuppr.pack_forget()
         self.__softAdd.pack_forget()
         self.__softListe.pack()
+        self.__windows.update()
 
     def __viewSoftSoft(self):
         self.__softAcceuil.pack_forget()
@@ -965,6 +981,7 @@ class CArreraGazelleUISix :
         self.__internetAcceuil.pack()
         self.__internetFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __viewInternetSiteWeb(self):
         self.__entryNameSiteWeb.delete(0,END)
@@ -973,12 +990,14 @@ class CArreraGazelleUISix :
         self.__internetSupprSite.pack_forget()
         self.__internetAcceuil.pack_forget()
         self.__internetListeSite.pack_forget()
+        self.__windows.update()
 
     def __viewInternetCloudLink(self):
         self.__internetSiteWeb.pack_forget()
         self.__internetSupprSite.pack_forget()
         self.__internetAcceuil.pack_forget()
         self.__internetListeSite.pack_forget()
+        self.__windows.update()
 
     def __viewInternetSupprSite(self):
         listSite = self.__gazelle.getListSite()
@@ -1048,6 +1067,7 @@ class CArreraGazelleUISix :
             self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[1])
         else :
             self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[0])
+        self.__windows.update()
 
     def __saveNewTheme(self):
         theme = self.__gazelle.getTheme()
@@ -1069,6 +1089,7 @@ class CArreraGazelleUISix :
         self.__microVoicePrint.pack_forget()
         self.__microViewSave.pack_forget()
         self.__microViewWordSave.pack_forget()
+        self.__windows.update()
 
     def __viewMicroSound(self):
         self.__microAcceuil.pack_forget()
@@ -1104,6 +1125,7 @@ class CArreraGazelleUISix :
             self.__arrtk.placeCenterLeft(self.__btnTrigerWordVoicePrint1)
             self.__arrtk.placeCenter(self.__btnTrigerWordVoicePrint2)
             self.__arrtk.placeRightCenter(self.__btnTrigerWordVoicePrint3)
+        self.__windows.update()
 
 
     def __viewVoicePrint(self,mode:int):
@@ -1180,6 +1202,7 @@ class CArreraGazelleUISix :
         self.__microVoicePrint.pack_forget()
         self.__microViewSave.pack_forget()
         self.__microViewWordSave.pack()
+        self.__windows.update()
 
         word = self.__gazelle.getTrigerWord()[mode-1]
         self.__labelWordViewSave.configure(text="Le mots enregister est : "+word)
@@ -1212,6 +1235,7 @@ class CArreraGazelleUISix :
         self.__clearAll()
         self.__arreraWorkFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __chooseFolderArreraWork(self):
         sortie = self.__gazelle.setWorkFolder()
@@ -1227,6 +1251,7 @@ class CArreraGazelleUISix :
         self.__clearAll()
         self.__arreraDownloadFrame.pack()
         self.__backFrame.pack()
+        self.__windows.update()
 
     def __chooseFolderArreraDownload(self):
         sortie = self.__gazelle.setVideoDownloadFolder()
