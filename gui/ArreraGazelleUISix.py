@@ -2,6 +2,7 @@ from librairy.arrera_tk import *
 from librairy.asset_manage import resource_path
 from objet.arreraGazelle import*
 from typing import Union
+import threading as th
 
 class CArreraGazelleUISix :
     def __init__(self,arrTK:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str,sound:str = ""):
@@ -11,6 +12,9 @@ class CArreraGazelleUISix :
                                         emplacementJsonAssistant,
                                         sound)
         jsonSetting = jsonWork(emplacementConfigSetting)
+
+        # Var qui contient les thead
+        self.__threadSaveVoicePrint = th.Thread()
 
         # Mise de la fenetre dans un atribut
         self.__windows = windows
@@ -57,6 +61,7 @@ class CArreraGazelleUISix :
         self.__microSound = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
         self.__microTigerWord = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
         self.__microVoicePrint = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
+        self.__microDuringSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
         self.__microViewSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
         self.__microViewWordSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
 
@@ -405,6 +410,8 @@ class CArreraGazelleUISix :
                                                             ppolice="Arial",ptaille=taillePolice,pstyle="bold")
         self.__labelWordViewSave = self.__arrtk.createLabel(self.__microViewWordSave,text="",
                                                             ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        labelDuringSave = self.__arrtk.createLabel(self.__microDuringSave,text="Dites le mots de décellement que vous voulez",
+                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold")
 
         # Button
         btnAcceuilMicroSound = self.__arrtk.createButton(self.__microAcceuil,text="Son\némis",ppolice="Arial",
@@ -602,6 +609,7 @@ class CArreraGazelleUISix :
         self.__arrtk.placeBottomLeft(btnSauvegarderVoicePrint)
         self.__arrtk.placeRightBottom(btnRetourViewWord)
         self.__arrtk.placeCenter(self.__labelWordViewSave)
+        self.__arrtk.placeCenter(labelDuringSave)
 
         #self.__arrtk.placeCenter(btnAcceuilMicroSound)
 
@@ -1136,14 +1144,29 @@ class CArreraGazelleUISix :
                     self.__btnSupprVoicePrint.configure(command=lambda: self.__supprTrigerWord(3))
 
     def __saveVoicePrint(self):
+        self.__threadSaveVoicePrint = th.Thread(target=self.__gazelle.recordTrigerWord)
+        self.__threadSaveVoicePrint.start()
+        self.__microTigerWord.pack_forget()
+        self.__microVoicePrint.pack_forget()
+        self.__microDuringSave.pack_forget()
+        self.__microDuringSave.pack()
+        self.__windows.update()
+        self.__windows.after(100, self.__duringSaveVoicePrint)
 
-        sortie = self.__gazelle.recordTrigerWord()
-
-        if sortie:
-            self.__microTigerWord.pack_forget()
-            self.__microVoicePrint.pack_forget()
-            self.__microViewSave.pack()
-            self.__labelWordVoicePrint.configure(text="Mots enregistrer : "+self.__gazelle.getRecordTrigerWord())
+    def __duringSaveVoicePrint(self):
+        if self.__threadSaveVoicePrint.is_alive():
+            self.__windows.after(100, self.__duringSaveVoicePrint)
+            self.__windows.update()
+        else:
+            sortie = self.__gazelle.getStateRecordTigerWord()
+            if sortie:
+                self.__microTigerWord.pack_forget()
+                self.__microVoicePrint.pack_forget()
+                self.__microDuringSave.pack_forget()
+                self.__microViewSave.pack()
+                self.__labelWordVoicePrint.configure(text="Mots enregistrer : " + self.__gazelle.getRecordTrigerWord())
+            else:
+                self.__microVoicePrint.pack()
 
     def __saveTigerWord(self):
         self.__viewMicroAcceuil()
