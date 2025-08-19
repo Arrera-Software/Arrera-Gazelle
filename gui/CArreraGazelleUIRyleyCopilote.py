@@ -586,10 +586,10 @@ class CArreraGazelleUIRyleyCopilote :
         self.__mainFrame.pack()
 
     def passQUITFNC(self,quitFNC):
-        self.__btnQuitMainFrame.configure(command=lambda : self.__fncQuit(quitFNC))
+        self.__btnQuitMainFrame.configure(command=lambda : self.leaveSetting(quitFNC))
         self.__arrTK.placeBottomCenter(self.__btnQuitMainFrame)
 
-    def __fncQuit(self,quitFnc):
+    def leaveSetting(self, quitFnc):
         self.__disableAllFrame()
         self.__cadreMenu.pack_forget()
         quitFnc()
