@@ -27,6 +27,8 @@ class CArreraGazelleUISix :
         self.__userName = self.__arrtk.createFrame(self.__userFrame,width=500,height=330)
         self.__userGenre = self.__arrtk.createFrame(self.__userFrame,width=500,height=330)
 
+        self.__meteoGPSFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+
         self.__meteoFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
         self.__meteoAcceuil = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
         self.__meteoDomicile = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
@@ -93,10 +95,10 @@ class CArreraGazelleUISix :
         btnAcceuilUser = self.__arrtk.createButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
                                                    , ppolice="Arial", ptaille=taillePolice-2, pstyle="bold",
                                                    command= lambda  : self.__viewUserAcceuil())
-        btnAcceuilMeteo = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Meteo"
+        btnAcceuilMeteoAndGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Meteo\n&\nGPS"
                                                     ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                    command=lambda:self.__viewMeteoAcceuil())
-        btnAcceuilGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="GPS"
+                                                    command=lambda:self.__viewGPSMeteo())
+        btnAcceuilIA = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="IA"
                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
                                                   command=lambda : self.__viewGPSAcceuil())
         btnAcceuilRecherche = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Recherche"
@@ -163,6 +165,18 @@ class CArreraGazelleUISix :
         self.__entryNameUser = self.__arrtk.createEntry(self.__userName, ppolice="Arial", ptaille=taillePolice, width=200)
         # option menu
         menuUserGenre = self.__arrtk.createOptionMenu(self.__userGenre,value = listGenre,var = self.__varNameUser)
+
+        # Meteo GPS Frame
+
+        lTitleGPSAndMeteo = self.__arrtk.createLabel(self.__meteoGPSFrame,text="Meteo & GPS",
+                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+
+        btnViewMeteo = self.__arrtk.createButton(self.__meteoGPSFrame,text="Meteo",width=100,height=100
+                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewMeteoAcceuil())
+        btnViewGPS = self.__arrtk.createButton(self.__meteoGPSFrame,text="GPS",width=100,height=100
+                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+                                                    command=lambda:self.__viewGPSAcceuil())
 
         # meteoFrame
         # Label
@@ -484,8 +498,8 @@ class CArreraGazelleUISix :
         # Affichage
 
         btnAcceuilUser.place(x=140,y=20)
-        btnAcceuilMeteo.place(x=260,y=20)
-        btnAcceuilGPS.place(x=380,y=20)
+        btnAcceuilMeteoAndGPS.place(x=260,y=20)
+        btnAcceuilIA.place(x=380,y=20)
         btnAcceuilRecherche.place(x=20,y=140)
         btnAcceuilLogiciel.place(x=140,y=140)
         btnAcceuilInternet.place(x=260,y=140)
@@ -627,6 +641,10 @@ class CArreraGazelleUISix :
         self.__arrtk.placeTopCenter(labelTitleArreraDownload)
         self.__arrtk.placeCenter(btnChooseFolderArreraDownload)
 
+        self.__arrtk.placeCenterLeft(btnViewMeteo)
+        self.__arrtk.placeCenterRight(btnViewGPS)
+        self.__arrtk.placeTopCenter(lTitleGPSAndMeteo)
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -644,6 +662,7 @@ class CArreraGazelleUISix :
         self.__microFrame.pack_forget()
         self.__arreraWorkFrame.pack_forget()
         self.__arreraDownloadFrame.pack_forget()
+        self.__meteoGPSFrame.pack_forget()
         self.__windows.update()
 
     def __backAcceuil(self):
@@ -700,6 +719,13 @@ class CArreraGazelleUISix :
         messagebox.showinfo("Parametre","Le genre de l'utilisateur a bien été enregistré")
         self.__viewUserAcceuil()
 
+
+    # Methode pour la partie GPS et Meteo
+
+    def __viewGPSMeteo(self):
+        self.__clearAll()
+        self.__meteoGPSFrame.pack()
+        self.__backFrame.pack()
 
     # Methode partie Meteo
 
