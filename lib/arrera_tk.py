@@ -143,8 +143,10 @@ class aLabel(ctk.CTkLabel, placement_Tool_Kit_internet):
         super().__init__(master, text=text, **kwargs)
 
 class aButton(ctk.CTkButton, placement_Tool_Kit_internet):
-    def __init__(self, master, text: str = "Arrera Button", width: int = 140, height: int = 40, command=None, **kwargs):
+    def __init__(self, master, text: str = "Arrera Button", width: int = 140, height: int = 40, command=None,size:int=0, **kwargs):
         super().__init__(master, text=text, width=width, height=height, command=command, **kwargs)
+        if size != 0:
+            self.configure(font=("Roboto",size,"bold"))
 
 class aCheckBox(ctk.CTkCheckBox, placement_Tool_Kit_internet):
     def __init__(self,master,boolean_value:bool, **kwargs):

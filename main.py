@@ -1,16 +1,16 @@
-from gui.CArreraGazelleUIRyleyCopilote import*
+# from gui.CArreraGazelleUIRyleyCopilote import*
 from gui.ArreraGazelleUISix import*
 
 def quit(windows):
     windows.destroy()
 
 def main():
-    arrtk = CArreraTK()
-    windows = arrtk.aTK()
+
     mode = int(input("1. Ryley/Copilote \n2. Six \n# "))
     match mode :
         case 1 :
-            gui = CArreraGazelleUIRyleyCopilote(arrtk,windows,
+            windows = aTk(theme_file="theme/theme_bleu_blanc.json")
+            gui = CArreraGazelleUIRyleyCopilote(windows,
                                                 "FileJSON/configUser.json",
                                                 "FileJSON/configNeuron.json",
                                                 "FileJSON/sixConfig.json",
@@ -18,7 +18,8 @@ def main():
             gui.passQUITFNC(lambda  : quit(windows))
             gui.passApropos(lambda  : print("Apropos"))
         case 2 :
-            gui = CArreraGazelleUISix(arrtk,windows, "FileJSON/configUser.json",
+            windows = aTk(theme_file="asset/theme/theme_bleu_blanc.json")
+            gui = CArreraGazelleUISix(windows, "FileJSON/configUser.json",
                                     "FileJSON/configNeuron.json",
                                     "FileJSON/sixConfig.json",
                                     "FileJSON/configNewSetting.json")

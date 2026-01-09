@@ -1,6 +1,6 @@
-from librairy.travailJSON import*
-from librairy.dectectionOS import*
-from librairy.gestionSoftWindows import*
+from lib.travailJSON import*
+from lib.dectectionOS import*
+from lib.gestionSoftWindows import*
 import speech_recognition as sr
 from playsound3 import playsound as pl
 

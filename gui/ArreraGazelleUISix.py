@@ -1,11 +1,12 @@
-from librairy.arrera_tk import *
-from librairy.asset_manage import resource_path
+from lib.arrera_tk import *
+from tkinter import messagebox
 from objet.arreraGazelle import*
 from typing import Union
 import threading as th
+from lib.travailJSON import *
 
 class CArreraGazelleUISix :
-    def __init__(self,arrTK:CArreraTK,windows:Union[ctk.CTk,ctk.CTkToplevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str,sound:str = ""):
+    def __init__(self,windows:Union[aTk,aTopLevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str,sound:str = ""):
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,
                                         emplacementJsonNeuronNetwork,
@@ -18,60 +19,59 @@ class CArreraGazelleUISix :
 
         # Mise de la fenetre dans un atribut
         self.__windows = windows
-        self.__arrtk = arrTK
         # Declaration des cardre
-        self.__mainCadre = self.__arrtk.createFrame(self.__windows,width=500,height=400)
+        self.__mainCadre = aFrame(self.__windows,width=500,height=400)
 
-        self.__userFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__userAcceuil = self.__arrtk.createFrame(self.__userFrame,width=500,height=330)
-        self.__userName = self.__arrtk.createFrame(self.__userFrame,width=500,height=330)
-        self.__userGenre = self.__arrtk.createFrame(self.__userFrame,width=500,height=330)
+        self.__userFrame = aFrame(self.__windows,width=500,height=330)
+        self.__userAcceuil = aFrame(self.__userFrame,width=500,height=330)
+        self.__userName = aFrame(self.__userFrame,width=500,height=330)
+        self.__userGenre = aFrame(self.__userFrame,width=500,height=330)
 
-        self.__meteoGPSFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__meteoFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__meteoAcceuil = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoDomicile = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoTravail = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoVille = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoSuppr = self.__arrtk.createFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoFrame = aFrame(self.__windows,width=500,height=330)
+        self.__meteoAcceuil = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoDomicile = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoTravail = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoVille = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoSuppr = aFrame(self.__meteoFrame,width=500,height=330)
 
-        self.__gpsFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__gpsAcceuil = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsDomicile = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsTravail = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsSuppr = self.__arrtk.createFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
+        self.__gpsAcceuil = aFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsDomicile = aFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsTravail = aFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsSuppr = aFrame(self.__gpsFrame,width=500,height=330)
 
-        self.__rechercheFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__rechercheFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__softFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__softAcceuil = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
-        self.__softAdd = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
-        self.__softSuppr = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
-        self.__softListe = self.__arrtk.createFrame(self.__softFrame,width=500,height=330)
+        self.__softFrame = aFrame(self.__windows,width=500,height=330)
+        self.__softAcceuil = aFrame(self.__softFrame,width=500,height=330)
+        self.__softAdd = aFrame(self.__softFrame,width=500,height=330)
+        self.__softSuppr = aFrame(self.__softFrame,width=500,height=330)
+        self.__softListe = aFrame(self.__softFrame,width=500,height=330)
 
-        self.__internetFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__internetAcceuil = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
-        self.__internetSiteWeb = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
-        self.__internetSupprSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
-        self.__internetListeSite = self.__arrtk.createFrame(self.__internetFrame,width=500,height=330)
+        self.__internetFrame = aFrame(self.__windows,width=500,height=330)
+        self.__internetAcceuil = aFrame(self.__internetFrame,width=500,height=330)
+        self.__internetSiteWeb = aFrame(self.__internetFrame,width=500,height=330)
+        self.__internetSupprSite = aFrame(self.__internetFrame,width=500,height=330)
+        self.__internetListeSite = aFrame(self.__internetFrame,width=500,height=330)
 
-        self.__themeFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__themeFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__microFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
-        self.__microAcceuil = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microSound = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microTigerWord = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microVoicePrint = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microDuringSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microViewSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
-        self.__microViewWordSave = self.__arrtk.createFrame(self.__microFrame,width=500,height=330)
+        self.__microFrame = aFrame(self.__windows,width=500,height=330)
+        self.__microAcceuil = aFrame(self.__microFrame,width=500,height=330)
+        self.__microSound = aFrame(self.__microFrame,width=500,height=330)
+        self.__microTigerWord = aFrame(self.__microFrame,width=500,height=330)
+        self.__microVoicePrint = aFrame(self.__microFrame,width=500,height=330)
+        self.__microDuringSave = aFrame(self.__microFrame,width=500,height=330)
+        self.__microViewSave = aFrame(self.__microFrame,width=500,height=330)
+        self.__microViewWordSave = aFrame(self.__microFrame,width=500,height=330)
 
-        self.__arreraWorkFrame = self.__arrtk.createFrame(self.__windows,width=500,height=330)
+        self.__arreraWorkFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__arreraDownloadFrame = self.__arrtk.createFrame(self.__windows, width=500, height=330)
+        self.__arreraDownloadFrame = aFrame(self.__windows, width=500, height=330)
 
-        self.__backFrame = self.__arrtk.createFrame(self.__windows,width=500,height=70)
+        self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
         # Variable
         # Taille Police
@@ -81,7 +81,7 @@ class CArreraGazelleUISix :
         listMoteurRecherche = jsonSetting.lectureJSONList("listMoteurRecherche")
         self.__listTheme = jsonSetting.lectureJSONList("listeTheme")
         # Icon Assistant
-        iconAssistant = self.__arrtk.createImage(resource_path(jsonSetting.lectureJSON("iconSoft")),tailleX=95,tailleY=95)
+        iconAssistant = aImage(path_light=jsonSetting.lectureJSON("iconSoft"),width=95,height=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
@@ -91,408 +91,297 @@ class CArreraGazelleUISix :
         self.__varSupprWeb = StringVar(self.__windows)
         # Widget
         # Main frame
-        self.__btnIcon = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,image=iconAssistant)
-        btnAcceuilUser = self.__arrtk.createButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
-                                                   , ppolice="Arial", ptaille=taillePolice-2, pstyle="bold",
-                                                   command= lambda  : self.__viewUserAcceuil())
-        btnAcceuilMeteoAndGPS = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Meteo\n&\nGPS"
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                    command=lambda:self.__viewGPSMeteo())
-        btnAcceuilIA = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="IA"
-                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                  command=lambda : self.__viewGPSAcceuil())
-        btnAcceuilRecherche = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Recherche"
-                                                        ,ppolice="Arial",ptaille=taillePolice-2,pstyle="bold",
-                                                        command=lambda:self.__viewRecherche())
-        btnAcceuilLogiciel = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Logiciel"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                       command=lambda:self.__viewSoftAcceuil())
-        btnAcceuilInternet = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Internet"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                       command=lambda:self.__viewInternetAcceuil())
-        btnAcceuilTheme = self.__arrtk.createButton(self.__mainCadre,width=100,height=100,text="Theme"
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
-                                                    command=lambda:self.__viewTheme())
-        btnAcceuilArreraWork = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                         ,text="Arrera\nWork",ppolice="Arial",
-                                                         ptaille=taillePolice,pstyle="bold",
-                                                         command=lambda:self.__viewArreraWork())
-        btnAcceuilDownload = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                       ,text="Arrera\nDownload",ppolice="Arial",
-                                                       ptaille=taillePolice-2,pstyle="bold",
+        self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=95,height=95)
+        btnAcceuilUser = aButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
+                                                   ,command= lambda  : self.__viewUserAcceuil())
+        btnAcceuilMeteoAndGPS = aButton(self.__mainCadre,width=100,height=100,text="Meteo"
+                                                    ,command=lambda:self.__viewGPSMeteo())
+        btnAcceuilIA = aButton(self.__mainCadre,width=100,height=100,text="IA"
+                                                  ,command=lambda : self.__viewGPSAcceuil())
+        btnAcceuilRecherche = aButton(self.__mainCadre,width=100,height=100,text="Recherche"
+                                                        ,command=lambda:self.__viewRecherche())
+        btnAcceuilLogiciel = aButton(self.__mainCadre,width=100,height=100,text="Logiciel"
+                                                       ,command=lambda:self.__viewSoftAcceuil())
+        btnAcceuilInternet = aButton(self.__mainCadre,width=100,height=100,text="Internet"
+                                                       ,command=lambda:self.__viewInternetAcceuil())
+        btnAcceuilGps = aButton(self.__mainCadre,width=100,height=100,text="GPS"
+                                                    ,command=lambda:self.__viewTheme())
+        btnAcceuilArreraWork = aButton(self.__mainCadre,width=100,height=100
+                                                         ,text="Arrera\nWork",
+                                       command=lambda:self.__viewArreraWork())
+        btnAcceuilDownload = aButton(self.__mainCadre,width=100,height=100
+                                                       ,text="Arrera\nDownload",
                                                        command=lambda:self.__viewArreraDownload())
-        btnAcceuilMicro = self.__arrtk.createButton(self.__mainCadre,width=100,height=100
-                                                    ,text="Micro",ppolice="Arial",
-                                                    ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMicro = aButton(self.__mainCadre,width=100,height=100
+                                                    ,text="Micro",
                                                     command=lambda:self.__viewMicroAcceuil())
-        self.__btnRetourAssistant = self.__arrtk.createButton(self.__mainCadre,width=100,
-                                                              height=100,text="Retour",ppolice="Arial",
-                                                              ptaille=taillePolice,pstyle="bold")
+        self.__btnRetourAssistant = aButton(self.__mainCadre,width=100,
+                                                              height=100,text="Retour")
 
         # backFrame
-        retourAcceuilBTN = self.__arrtk.createButton(self.__backFrame,text="Retour Acceuil"
-                                                     ,ppolice="Arial",ptaille=taillePolice,command=lambda:self.__backAcceuil())
+        retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil"
+                                                     ,command=lambda:self.__backAcceuil())
 
 
         # userFrame
         # Label
-        labelTitleUser = [self.__arrtk.createLabel(self.__userAcceuil,text="Gestion utilisateur"
-                                                  ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                          self.__arrtk.createLabel(self.__userName,text="Nom de l'utilisateur",
-                                                   ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                          self.__arrtk.createLabel(self.__userGenre,text="Genre de l'utilisateur"
-                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+        labelTitleUser = [aLabel(self.__userAcceuil,text="Gestion utilisateur"),
+                          aLabel(self.__userName,text="Nom de l'utilisateur"),
+                          aLabel(self.__userGenre,text="Genre de l'utilisateur")]
         # Button
-        btnUserName = self.__arrtk.createButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",ppolice="Arial",
-                                                ptaille=taillePolice,pstyle="bold",
+        btnUserName = aButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",
                                                 command=lambda:self.__viewUserName())
-        btnUserGenre = self.__arrtk.createButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",ppolice="Arial",
-                                                 ptaille=taillePolice,pstyle="bold",
+        btnUserGenre = aButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",
                                                  command=lambda:self.__viewUserGenre())
-        btnValiderUserName = self.__arrtk.createButton(self.__userName,text="Valider",ppolice="Arial",
-                                                       ptaille=taillePolice,pstyle="normal",
+        btnValiderUserName = aButton(self.__userName,text="Valider",
                                                        command=lambda:self.__saveUserName())
-        btnValiderUserGenre = self.__arrtk.createButton(self.__userGenre,text="Valider",ppolice="Arial",
-                                                        ptaille=taillePolice,pstyle="normal",
+        btnValiderUserGenre = aButton(self.__userGenre,text="Valider",
                                                         command=lambda:self.__saveUserGenre())
-        btnRetourUserName = self.__arrtk.createButton(self.__userName, text="Retour", ppolice="Arial",
-                                                      ptaille=taillePolice, pstyle="normal",
+        btnRetourUserName = aButton(self.__userName, text="Retour",
                                                       command=lambda:self.__viewUserAcceuil())
-        btnRetourUserGenre = self.__arrtk.createButton(self.__userGenre, text="Retour", ppolice="Arial",
-                                                       ptaille=taillePolice, pstyle="normal",
+        btnRetourUserGenre = aButton(self.__userGenre, text="Retour",
                                                        command=lambda:self.__viewUserAcceuil())
         # entry
-        self.__entryNameUser = self.__arrtk.createEntry(self.__userName, ppolice="Arial", ptaille=taillePolice, width=200)
+        self.__entryNameUser = aEntry(self.__userName, width=200)
         # option menu
-        menuUserGenre = self.__arrtk.createOptionMenu(self.__userGenre,value = listGenre,var = self.__varNameUser)
+        menuUserGenre = aOptionMenu(self.__userGenre,value = listGenre)
 
         # Meteo GPS Frame
 
-        lTitleGPSAndMeteo = self.__arrtk.createLabel(self.__meteoGPSFrame,text="Meteo & GPS",
-                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        lTitleGPSAndMeteo = aLabel(self.__meteoGPSFrame,text="Meteo & GPS")
 
-        btnViewMeteo = self.__arrtk.createButton(self.__meteoGPSFrame,text="Meteo",width=100,height=100
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnViewMeteo = aButton(self.__meteoGPSFrame,text="Meteo",width=100,height=100,
                                                     command=lambda:self.__viewMeteoAcceuil())
-        btnViewGPS = self.__arrtk.createButton(self.__meteoGPSFrame,text="GPS",width=100,height=100
-                                                    ,ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnViewGPS = aButton(self.__meteoGPSFrame,text="GPS",width=100,height=100,
                                                     command=lambda:self.__viewGPSAcceuil())
 
         # meteoFrame
         # Label
-        labelTitleMeteo = [self.__arrtk.createLabel(self.__meteoAcceuil,text="Gestion de meteo",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                           self.__arrtk.createLabel(self.__meteoDomicile,text="Lieu Domicile",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                           self.__arrtk.createLabel(self.__meteoTravail,text="Lieu Travail",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                           self.__arrtk.createLabel(self.__meteoVille,text="Autre Ville",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                           self.__arrtk.createLabel(self.__meteoSuppr,text="Supprimer Lieu",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+        labelTitleMeteo = [aLabel(self.__meteoAcceuil,text="Gestion de meteo"),
+                           aLabel(self.__meteoDomicile,text="Lieu Domicile"),
+                           aLabel(self.__meteoTravail,text="Lieu Travail"),
+                           aLabel(self.__meteoVille,text="Autre Ville"),
+                           aLabel(self.__meteoSuppr,text="Supprimer Lieu")]
         # Button
-        btnAcceuilMeteoDomicile = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nDomicile",
-                                                       ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMeteoDomicile = aButton(self.__meteoAcceuil,text="Lieu\nDomicile",
                                                        command=lambda:self.__viewMeteoDomicile())
-        btnAcceuilMeteoTravail = self.__arrtk.createButton(self.__meteoAcceuil,text="Lieu\nTravail",
-                                                      ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMeteoTravail = aButton(self.__meteoAcceuil,text="Lieu\nTravail",
                                                       command=lambda:self.__viewMeteoTravail())
-        btnAcceuiMeteolVille = self.__arrtk.createButton(self.__meteoAcceuil,text="Autre\nVille",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuiMeteolVille = aButton(self.__meteoAcceuil,text="Autre\nVille",
                                                     command=lambda:self.__viewMeteoVille())
-        btnAcceuilMeteoSuppr = self.__arrtk.createButton(self.__meteoAcceuil,text="Supprimer un lieu",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMeteoSuppr = aButton(self.__meteoAcceuil,text="Supprimer un lieu",
                                                     command=lambda:self.__viewMeteoSuppr())
 
-        btnValiderMeteoDomicile = self.__arrtk.createButton(self.__meteoDomicile,text="Valider",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnValiderMeteoDomicile = aButton(self.__meteoDomicile,text="Valider",
                                                             command=lambda:self.__saveMeteoDomicile())
-        btnValiderMeteoTravail = self.__arrtk.createButton(self.__meteoTravail,text="Valider",
-                                                           ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnValiderMeteoTravail = aButton(self.__meteoTravail,text="Valider",
                                                            command=lambda:self.__saveMeteoTravail())
-        btnValiderMeteoVille = self.__arrtk.createButton(self.__meteoVille,text="Valider",
-                                                         ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnValiderMeteoVille = aButton(self.__meteoVille,text="Valider",
                                                          command=lambda:self.__saveMeteoVille())
-        btnValiderMeteoSuppr = self.__arrtk.createButton(self.__meteoSuppr,text="Supprimer",
-                                                         ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnValiderMeteoSuppr = aButton(self.__meteoSuppr,text="Supprimer",
                                                          command=lambda:self.__supprMeteoVille())
 
-        btnRetourMeteoDomicile = self.__arrtk.createButton(self.__meteoDomicile,text="Retour",
-                                                           ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnRetourMeteoDomicile = aButton(self.__meteoDomicile,text="Retour",
                                                            command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoTravail = self.__arrtk.createButton(self.__meteoTravail,text="Retour",
-                                                          ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnRetourMeteoTravail = aButton(self.__meteoTravail,text="Retour",
                                                           command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoVille = self.__arrtk.createButton(self.__meteoVille,text="Retour",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnRetourMeteoVille = aButton(self.__meteoVille,text="Retour",
                                                         command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoSuppr = self.__arrtk.createButton(self.__meteoSuppr,text="Retour",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="normal",
+        btnRetourMeteoSuppr = aButton(self.__meteoSuppr,text="Retour",
                                                         command=lambda:self.__viewMeteoAcceuil())
         # entry
-        self.__entryMeteoDomicile = self.__arrtk.createEntry(self.__meteoDomicile, ppolice="Arial", ptaille=taillePolice, width=300)
-        self.__entryMeteoTravail = self.__arrtk.createEntry(self.__meteoTravail, ppolice="Arial", ptaille=taillePolice, width=300)
-        self.__entryMeteoVille = self.__arrtk.createEntry(self.__meteoVille, ppolice="Arial", ptaille=taillePolice, width=300)
+        self.__entryMeteoDomicile = aEntry(self.__meteoDomicile, width=300)
+        self.__entryMeteoTravail = aEntry(self.__meteoTravail, width=300)
+        self.__entryMeteoVille = aEntry(self.__meteoVille, width=300)
         #option menu
-        self.__menuMeteoSuppr = self.__arrtk.createOptionMenu(self.__meteoSuppr, value = ["", ""], var = self.__varSupprMeteo)
+        self.__menuMeteoSuppr = aOptionMenu(self.__meteoSuppr, value = ["", ""])
 
         # GPS Frame
         # Label
-        labelTitleGPS = [self.__arrtk.createLabel(self.__gpsAcceuil,text="Gestion GPS",
-                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                         self.__arrtk.createLabel(self.__gpsDomicile,text="Lieu Domicile",
-                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                         self.__arrtk.createLabel(self.__gpsTravail,text="Lieu Travail",
-                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                         self.__arrtk.createLabel(self.__gpsSuppr,text="Supprimer Lieu",
-                                                  ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+        labelTitleGPS = [aLabel(self.__gpsAcceuil,text="Gestion GPS"),
+                         aLabel(self.__gpsDomicile,text="Lieu Domicile"),
+                         aLabel(self.__gpsTravail,text="Lieu Travail"),
+                         aLabel(self.__gpsSuppr,text="Supprimer Lieu")]
         # Button
-        btnAcceuilGPSDomicile = self.__arrtk.createButton(self.__gpsAcceuil,text="Lieu\nDomicile",
-                                                          ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+        btnAcceuilGPSDomicile = aButton(self.__gpsAcceuil,text="Lieu\nDomicile",
                                                           command=lambda:self.__viewGPSDomicile())
-        btnAcceuilGPSTravail = self.__arrtk.createButton(self.__gpsAcceuil,text="Lieu\nTravail",
-                                                         ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+        btnAcceuilGPSTravail = aButton(self.__gpsAcceuil,text="Lieu\nTravail",
                                                          command=lambda:self.__viewGPSTravail())
-        btnAcceuilGPSSuppr = self.__arrtk.createButton(self.__gpsAcceuil,text="Supprimer\nun lieu",
-                                                       ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+        btnAcceuilGPSSuppr = aButton(self.__gpsAcceuil,text="Supprimer\nun lieu",
                                                        command=lambda:self.__viewGPSSuppr())
 
-        btnValiderGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Valider",ppolice="Arial",
-                                                          ptaille=taillePolice, pstyle="bold",
+        btnValiderGPSDomicile = aButton(self.__gpsDomicile,text="Valider",
                                                           command=lambda:self.__saveGPSDomicile())
-        btnValiderGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Valider",ppolice="Arial",
-                                                         ptaille=taillePolice, pstyle="bold",
+        btnValiderGPSTravail = aButton(self.__gpsTravail,text="Valider",
                                                          command=lambda:self.__saveGPSTravail())
-        btnValiderGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Supprimer",ppolice="Arial",
-                                                       ptaille=taillePolice, pstyle="bold",
+        btnValiderGPSSuppr = aButton(self.__gpsSuppr,text="Supprimer",
                                                        command=lambda:self.__supprGPSAdresse())
 
-        btnRetourGPSDomicile = self.__arrtk.createButton(self.__gpsDomicile,text="Retour",ppolice="Arial",
-                                                         ptaille=taillePolice, pstyle="bold",
+        btnRetourGPSDomicile = aButton(self.__gpsDomicile,text="Retour",
                                                          command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSTravail = self.__arrtk.createButton(self.__gpsTravail,text="Retour",ppolice="Arial",
-                                                        ptaille=taillePolice, pstyle="bold",
+        btnRetourGPSTravail = aButton(self.__gpsTravail,text="Retour",
                                                         command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSSuppr = self.__arrtk.createButton(self.__gpsSuppr,text="Retour",ppolice="Arial",
-                                                      ptaille=taillePolice, pstyle="bold",
+        btnRetourGPSSuppr = aButton(self.__gpsSuppr,text="Retour",
                                                       command=lambda:self.__viewGPSAcceuil())
 
         # entry
-        self.__entryGPSDomicile = self.__arrtk.createEntry(self.__gpsDomicile, ppolice="Arial", ptaille=taillePolice, width=300)
-        self.__entryGPSTravail = self.__arrtk.createEntry(self.__gpsTravail, ppolice="Arial", ptaille=taillePolice, width=300)
+        self.__entryGPSDomicile = aEntry(self.__gpsDomicile, width=300)
+        self.__entryGPSTravail = aEntry(self.__gpsTravail, width=300)
         #option menu
-        self.__menuGPSSuppr = self.__arrtk.createOptionMenu(self.__gpsSuppr, value = ["", ""], var = self.__varSupprGPS)
+        self.__menuGPSSuppr = aOptionMenu(self.__gpsSuppr, value = ["", ""])
 
         # Recherche Frame
         # Label
-        labelTitleRecherche = self.__arrtk.createLabel(self.__rechercheFrame,text="Gestion du moteur de recherche",
-                                                       ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        labelTitleRecherche = aLabel(self.__rechercheFrame,text="Gestion du moteur de recherche")
         # Button
-        btnValiderRecherche = self.__arrtk.createButton(self.__rechercheFrame,text="Valider",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnValiderRecherche = aButton(self.__rechercheFrame,text="Valider",
                                                         command=lambda:self.__saveRecherche())
         # Option Menu
-        menuMoteurRecherche = self.__arrtk.createOptionMenu(self.__rechercheFrame,value = listMoteurRecherche,var = self.__varMoteurRecherche)
+        menuMoteurRecherche = aOptionMenu(self.__rechercheFrame,value = listMoteurRecherche)
 
         # Soft Frame
         # Label
-        labelTitleSoft = [self.__arrtk.createLabel(self.__softAcceuil,text="Gestion des logiciels"
-                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                          self.__arrtk.createLabel(self.__softAdd,text="Nom du logiciel ajouter"
-                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                          self.__arrtk.createLabel(self.__softSuppr,text="Suppression logiciel"
-                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                          self.__arrtk.createLabel(self.__softListe,text="Liste de logiciel enregistrée"
-                                                   ,ppolice="Arial",ptaille=taillePolice,pstyle="bold")]
+        labelTitleSoft = [aLabel(self.__softAcceuil,text="Gestion des logiciels"),
+                          aLabel(self.__softAdd,text="Nom du logiciel ajouter"),
+                          aLabel(self.__softSuppr,text="Suppression logiciel"),
+                          aLabel(self.__softListe,text="Liste de logiciel enregistrée")]
 
-        self.__listSoftware = ctk.CTkTextbox(self.__softListe, width=450, height=250,
-                                             wrap="word", state="normal", font=("Arial", 14))
+        self.__listSoftware = aText(self.__softListe, width=450, height=250,
+                                             wrap="word", state="normal")
 
         # Button
-        btnAcceuilSoftAdd = self.__arrtk.createButton(self.__softAcceuil,text="Ajout\nlogiciel",
-                                                      ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnAcceuilSoftAdd = aButton(self.__softAcceuil,text="Ajout\nlogiciel"
                                                       ,command=lambda:self.__viewSoftAdd())
-        btnAcceuilSoftSuppr = self.__arrtk.createButton(self.__softAcceuil,text="Suppression\nlogiciel"
-                                                        ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnAcceuilSoftSuppr = aButton(self.__softAcceuil,text="Suppression\nlogiciel"
                                                         ,command=lambda:self.__viewSoftSuppr())
-        btnAcceuilSoftList = self.__arrtk.createButton(self.__softAcceuil,text="Liste\nlogiciel"
-                                                       ,ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnAcceuilSoftList = aButton(self.__softAcceuil,text="Liste\nlogiciel"
                                                        ,command=lambda:self.__viewSoftList())
 
-        btnAddSoftValider = self.__arrtk.createButton(self.__softAdd, text="Valider",
-                                                      ppolice="Arial", ptaille=taillePolice, pstyle="bold"
+        btnAddSoftValider = aButton(self.__softAdd, text="Valider"
                                                       , command=lambda : self.__addSoft())
-        btnAddSoftRetour = self.__arrtk.createButton(self.__softAdd,text="Retour",
-                                                     ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnAddSoftRetour = aButton(self.__softAdd,text="Retour"
                                                      ,command=lambda:self.__viewSoftAcceuil())
 
-        btnSupprSoftValider = self.__arrtk.createButton(self.__softSuppr,text="Valider",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnSupprSoftValider = aButton(self.__softSuppr,text="Valider",
                                                         command=lambda:self.__supprSoft())
-        btnSupprSoftRetour = self.__arrtk.createButton(self.__softSuppr,text="Retour",
-                                                       ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnSupprSoftRetour = aButton(self.__softSuppr,text="Retour",
                                                        command=lambda:self.__viewSoftAcceuil())
-        btnSoftListRetour = self.__arrtk.createButton(self.__softListe,text="Retour",
-                                                      ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnSoftListRetour = aButton(self.__softListe,text="Retour",
                                                       command=lambda:self.__viewSoftAcceuil())
 
         # Entry
-        self.__entryAddSoft = self.__arrtk.createEntry(self.__softAdd, ppolice="Arial", ptaille=taillePolice, width=300)
+        self.__entryAddSoft = aEntry(self.__softAdd, width=300)
 
         # Option Menu
-        self.__menuSoftSuppr = self.__arrtk.createOptionMenu(self.__softSuppr,value = ["",""],var = self.__varSupprSoft)
+        self.__menuSoftSuppr = aOptionMenu(self.__softSuppr,value = ["",""])
 
         # Internet Frame
         # Label
-        labelTitleInternet = [self.__arrtk.createLabel(self.__internetAcceuil,text="Gestion d'internet",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                                self.__arrtk.createLabel(self.__internetSiteWeb,text="Ajouter un site web",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                                self.__arrtk.createLabel(self.__internetSupprSite,text="Supprimer un site",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                                self.__arrtk.createLabel(self.__internetListeSite, text="Liste site enregistrer",
-                                                      ppolice="Arial", ptaille=taillePolice, pstyle="bold")]
+        labelTitleInternet = [aLabel(self.__internetAcceuil,text="Gestion d'internet"),
+                                aLabel(self.__internetSiteWeb,text="Ajouter un site web"),
+                                aLabel(self.__internetSupprSite,text="Supprimer un site"),
+                                aLabel(self.__internetListeSite, text="Liste site enregistrer")]
 
         # Bouton
-        btnAcceuilInternetSiteWeb = self.__arrtk.createButton(self.__internetAcceuil,text="Ajouter un \nSite Web",
-                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilInternetSiteWeb = aButton(self.__internetAcceuil,text="Ajouter un \nSite Web",
                                                                 command=lambda:self.__viewInternetSiteWeb())
-        btnAcceuilInternetCloudLink = self.__arrtk.createButton(self.__internetAcceuil,text="Lien \nde cloud",
-                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnAcceuilInternetCloudLink = aButton(self.__internetAcceuil,text="Lien \nde cloud"
                                                                 ,command=lambda:self.__viewInternetCloudLink())
-        btnAcceuilInternetSupprSite = self.__arrtk.createButton(self.__internetAcceuil,text="Supprimer\nun site",
-                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilInternetSupprSite = aButton(self.__internetAcceuil,text="Supprimer\nun site",
                                                                 command=lambda:self.__viewInternetSupprSite())
-        btnAcceuilInternetListeSite = self.__arrtk.createButton(self.__internetAcceuil,text="Liste des sites enregistrer",
-                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilInternetListeSite = aButton(self.__internetAcceuil,text="Liste des sites enregistrer",
                                                                 command=lambda:self.__viewInternetListeSite())
 
-        btnValiderSiteWeb = self.__arrtk.createButton(self.__internetSiteWeb, text="Valider",
-                                                      ppolice="Arial", ptaille=taillePolice, pstyle="bold",
+        btnValiderSiteWeb = aButton(self.__internetSiteWeb, text="Valider",
                                                       command=lambda:self.__saveSiteWeb(1))
-        btnRetourSiteWeb = self.__arrtk.createButton(self.__internetSiteWeb, text="Retour",
-                                                     ppolice="Arial", ptaille=taillePolice, pstyle="bold"
+        btnRetourSiteWeb = aButton(self.__internetSiteWeb, text="Retour"
                                                      ,command=lambda:self.__viewInternetAcceuil())
 
-        btnInternetValiderSuppr = self.__arrtk.createButton(self.__internetSupprSite,text="Valider",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnInternetValiderSuppr = aButton(self.__internetSupprSite,text="Valider"
                                                             ,command=lambda:self.__supprSiteWeb())
-        btnInternetRetourSuppr = self.__arrtk.createButton(self.__internetSupprSite,text="Retour",
-                                                              ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnInternetRetourSuppr = aButton(self.__internetSupprSite,text="Retour"
                                                            ,command=lambda:self.__viewInternetAcceuil())
 
-        btnRetourInternetListe = self.__arrtk.createButton(self.__internetListeSite,text="Retour",
-                                                              ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnRetourInternetListe = aButton(self.__internetListeSite,text="Retour"
                                                               ,command=lambda:self.__viewInternetAcceuil())
 
-        self.__listSite = ctk.CTkTextbox(self.__internetListeSite, width=450, height=250,
-                                             wrap="word", state="normal", font=("Arial", 14))
+        self.__listSite = aText(self.__internetListeSite, width=450, height=250,
+                                             wrap="word", state="normal")
 
         # Entry
-        self.__entryNameSiteWeb = self.__arrtk.createEntry(self.__internetSiteWeb, ppolice="Arial", ptaille=taillePolice, width=300)
-        self.__entrySiteWeb = self.__arrtk.createEntry(self.__internetSiteWeb, ppolice="Arial", ptaille=taillePolice, width=300)
+        self.__entryNameSiteWeb = aEntry(self.__internetSiteWeb, width=300)
+        self.__entrySiteWeb = aEntry(self.__internetSiteWeb, width=300)
 
 
         # option menu
-        self.__menuSiteWeb = self.__arrtk.createOptionMenu(self.__internetSupprSite,value = ["",""],var = self.__varSupprWeb)
+        self.__menuSiteWeb = aOptionMenu(self.__internetSupprSite,value = ["",""])
 
         # Theme Frame
         # Label
-        labelTitleTheme = self.__arrtk.createLabel(self.__themeFrame,text="Gestion du theme",
-                                                   ppolice="Arial",ptaille=taillePolice,
-                                                   pstyle="bold")
+        labelTitleTheme = aLabel(self.__themeFrame,text="Gestion du theme")
 
-        self.__btnChangeTheme = self.__arrtk.createButton(self.__themeFrame,text="",ppolice="Arial",
-                                                          ptaille=taillePolice,pstyle="bold",
+        self.__btnChangeTheme = aButton(self.__themeFrame,text="",
                                                           command=lambda:self.__saveNewTheme())
 
         # Micro Frame
         # Label
-        labelTitleMicro = [self.__arrtk.createLabel(self.__microAcceuil,text="Gestion des paramètres micro",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                            self.__arrtk.createLabel(self.__microSound,text="Son émis au déclenchement du micro",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                            self.__arrtk.createLabel(self.__microTigerWord,text="Définition du mot de déclenchement du micro",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold")
-                            ,self.__arrtk.createLabel(self.__microViewSave,text="Enregistrement de l'empreinte vocale",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),
-                            self.__arrtk.createLabel(self.__microViewWordSave,text="Mots enregistrer",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"),]
-        self.__labelVoicePrint = self.__arrtk.createLabel(self.__microVoicePrint,text="Empreinte vocale",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold")
-        self.__labelWordVoicePrint = self.__arrtk.createLabel(self.__microViewSave,text="",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold")
-        self.__labelWordViewSave = self.__arrtk.createLabel(self.__microViewWordSave,text="",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold")
-        labelDuringSave = self.__arrtk.createLabel(self.__microDuringSave,text="Dites le mots de décellement que vous voulez",
-                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        labelTitleMicro = [aLabel(self.__microAcceuil,text="Gestion des paramètres micro"),
+                            aLabel(self.__microSound,text="Son émis au déclenchement du micro"),
+                            aLabel(self.__microTigerWord,text="Définition du mot de déclenchement du micro")
+                            ,aLabel(self.__microViewSave,text="Enregistrement de l'empreinte vocale"),
+                            aLabel(self.__microViewWordSave,text="Mots enregistrer"),]
+        self.__labelVoicePrint = aLabel(self.__microVoicePrint,text="Empreinte vocale")
+        self.__labelWordVoicePrint = aLabel(self.__microViewSave,text="")
+        self.__labelWordViewSave = aLabel(self.__microViewWordSave,text="")
+        labelDuringSave = aLabel(self.__microDuringSave,text="Dites le mots de décellement que vous voulez")
 
         # Button
-        btnAcceuilMicroSound = self.__arrtk.createButton(self.__microAcceuil,text="Son\némis",ppolice="Arial",
-                                                            ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMicroSound = aButton(self.__microAcceuil,text="Son\némis",
                                                          command=lambda:self.__viewMicroSound())
-        btnAcceuilMicroTigerWord = self.__arrtk.createButton(self.__microAcceuil,text="Empreinte\nvocale",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        btnAcceuilMicroTigerWord = aButton(self.__microAcceuil,text="Empreinte\nvocale",
                                                              command=lambda:self.__viewMicroTigerWord())
 
-        self.__btnMicroSoundChangeEtat = self.__arrtk.createButton(self.__microSound,text="",ppolice="Arial",
-                                                                    ptaille=taillePolice,pstyle="bold",
+        self.__btnMicroSoundChangeEtat = aButton(self.__microSound,text="",
                                                                    command=lambda:self.__changeMicroSound())
 
-        btnMicroSoundRetour = self.__arrtk.createButton(self.__microSound, text="Retour", ppolice="Arial",
-                                                        ptaille=taillePolice, pstyle="bold",
+        btnMicroSoundRetour = aButton(self.__microSound, text="Retour",
                                                         command=lambda:self.__viewMicroAcceuil())
-        btnMicroTigerWordRetour = self.__arrtk.createButton(self.__microTigerWord, text="Retour", ppolice="Arial",
-                                                            ptaille=taillePolice, pstyle="bold",
+        btnMicroTigerWordRetour = aButton(self.__microTigerWord, text="Retour",
                                                             command=lambda:self.__viewMicroAcceuil())
 
-        self.__btnTrigerWordVoicePrint1 = self.__arrtk.createButton(self.__microTigerWord,text="Empreinte\nvocale 1",
-                                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        self.__btnTrigerWordVoicePrint1 = aButton(self.__microTigerWord,text="Empreinte\nvocale 1"
                                                                     ,command=lambda : self.__viewVoicePrint(1))
-        self.__btnTrigerWordVoicePrint2 = self.__arrtk.createButton(self.__microTigerWord, text="Empreinte\nvocale 2",
-                                                                    ppolice="Arial",ptaille=taillePolice, pstyle="bold"
-                                                                    ,command=lambda : self.__viewVoicePrint(2))
-        self.__btnTrigerWordVoicePrint3 = self.__arrtk.createButton(self.__microTigerWord, text="Empreinte\nvocale 3",
-                                                                    ppolice="Arial",ptaille=taillePolice, pstyle="bold"
+        self.__btnTrigerWordVoicePrint2 = aButton(self.__microTigerWord, text="Empreinte\nvocale 2"
+                                                  ,command=lambda : self.__viewVoicePrint(2))
+        self.__btnTrigerWordVoicePrint3 = aButton(self.__microTigerWord, text="Empreinte\nvocale 3"
                                                                     ,command=lambda : self.__viewVoicePrint(3))
-        btnSauvegarderVoicePrint = self.__arrtk.createButton(self.__microViewSave,text="Sauvegarder",ppolice="Arial",
-                                                             ptaille=taillePolice,pstyle="bold",
+        btnSauvegarderVoicePrint = aButton(self.__microViewSave,text="Sauvegarder",
                                                              command=lambda : self.__saveTigerWord() )
 
-        btnRetourVoicePrint = self.__arrtk.createButton(self.__microVoicePrint, text="Retour", ppolice="Arial",
-                                                        ptaille=taillePolice, pstyle="bold",
+        btnRetourVoicePrint = aButton(self.__microVoicePrint, text="Retour",
                                                         command=lambda:self.__viewMicroTigerWord())
-        btnRetourWordVoicePrint = self.__arrtk.createButton(self.__microViewSave, text="Annuler", ppolice="Arial",
-                                                            ptaille=taillePolice, pstyle="bold",
+        btnRetourWordVoicePrint = aButton(self.__microViewSave, text="Annuler",
                                                             command=lambda:self.__viewMicroAcceuil())
-        btnRetourViewWord = self.__arrtk.createButton(self.__microViewWordSave, text="Retour", ppolice="Arial",
-                                                        ptaille=taillePolice, pstyle="bold",
+        btnRetourViewWord = aButton(self.__microViewWordSave, text="Retour",
                                                         command=lambda:self.__viewMicroTigerWord())
 
-        self.__btnSaveVoicePrint = self.__arrtk.createButton(self.__microVoicePrint,text="Enregister",ppolice="Arial",
-                                                            ptaille=taillePolice,pstyle="bold",
+        self.__btnSaveVoicePrint = aButton(self.__microVoicePrint,text="Enregister",
                                                              command=lambda :self.__saveVoicePrint())
 
-        self.__btnSupprVoicePrint = self.__arrtk.createButton(self.__microVoicePrint,text="Supprimer",ppolice="Arial",
-                                                                ptaille=taillePolice,pstyle="bold")
+        self.__btnSupprVoicePrint = aButton(self.__microVoicePrint,text="Supprimer")
 
-        self.__btnViewVoicePrint = self.__arrtk.createButton(self.__microVoicePrint, text="Voir le mot", ppolice="Arial",
-                                                              ptaille=taillePolice, pstyle="bold")
+        self.__btnViewVoicePrint = aButton(self.__microVoicePrint, text="Voir le mot")
 
 
         # Frame Arrera Work
-        labelTitleArreraWork = self.__arrtk.createLabel(self.__arreraWorkFrame,text="Paramètre Arrera Work",
-                                                        ppolice="Arial",ptaille=taillePolice,pstyle="bold")
+        labelTitleArreraWork = aLabel(self.__arreraWorkFrame,text="Paramètre Arrera Work")
 
-        btnChooseFolderArreraWork = self.__arrtk.createButton(self.__arreraWorkFrame,text="Choisir un dossier",
-                                                                ppolice="Arial",ptaille=taillePolice,pstyle="bold"
+        btnChooseFolderArreraWork = aButton(self.__arreraWorkFrame,text="Choisir un dossier"
                                                                 ,command=lambda:self.__chooseFolderArreraWork())
 
         # Frame Arrera Download
-        labelTitleArreraDownload = self.__arrtk.createLabel(self.__arreraDownloadFrame,text="Paramètre Arrera Download",
-                                                            ppolice="Arial",ptaille=taillePolice,pstyle="bold")
-        btnChooseFolderArreraDownload = self.__arrtk.createButton(self.__arreraDownloadFrame,text="Choisir un dossier\nd'Arrera Download",
-                                                                    ppolice="Arial",ptaille=taillePolice,pstyle="bold",
+        labelTitleArreraDownload = aLabel(self.__arreraDownloadFrame,text="Paramètre Arrera Download")
+        btnChooseFolderArreraDownload = aButton(self.__arreraDownloadFrame,text="Choisir un dossier\nd'Arrera Download",
                                                                     command=lambda:self.__chooseFolderArreraDownload())
 
         # Affichage
@@ -503,147 +392,147 @@ class CArreraGazelleUISix :
         btnAcceuilRecherche.place(x=20,y=140)
         btnAcceuilLogiciel.place(x=140,y=140)
         btnAcceuilInternet.place(x=260,y=140)
-        btnAcceuilTheme.place(x=380,y=140)
+        btnAcceuilGps.place(x=380,y=140)
         btnAcceuilArreraWork.place(x=20,y=260)
         btnAcceuilDownload.place(x=140,y=260)
         btnAcceuilMicro.place(x=260,y=260)
 
         # backFrame
-        self.__arrtk.placeCenterRight(retourAcceuilBTN)
+        retourAcceuilBTN.placeCenterRight()
         # userFrame
         for i in (range(0,len(labelTitleUser))):
-            self.__arrtk.placeTopCenter(labelTitleUser[i])
+            labelTitleUser[i].placeTopCenter()
 
-        self.__arrtk.placeRightCenter(btnUserName)
-        self.__arrtk.placeLeftCenter(btnUserGenre)
+        btnUserName.placeRightCenter()
+        btnUserGenre.placeLeftCenter()
 
-        self.__arrtk.placeBottomLeft(btnValiderUserName)
-        self.__arrtk.placeBottomLeft(btnValiderUserGenre)
-        self.__arrtk.placeBottomRight(btnRetourUserName)
-        self.__arrtk.placeBottomRight(btnRetourUserGenre)
+        btnValiderUserName.placeBottomLeft()
+        btnValiderUserGenre.placeBottomLeft()
+        btnRetourUserName.placeBottomRight()
+        btnRetourUserGenre.placeBottomRight()
 
-        self.__arrtk.placeCenter(self.__entryNameUser)
-        self.__arrtk.placeCenter(menuUserGenre)
+        self.__entryNameUser.placeCenter()
+        menuUserGenre.placeCenter()
 
         # meteoFrame
         for i in (range(0,len(labelTitleMeteo))):
-            self.__arrtk.placeTopCenter(labelTitleMeteo[i])
+            labelTitleMeteo[i].placeTopCenter()
 
-        self.__arrtk.placeRightCenter(btnAcceuilMeteoDomicile)
-        self.__arrtk.placeLeftCenter(btnAcceuilMeteoTravail)
-        self.__arrtk.placeCenter(btnAcceuiMeteolVille)
-        self.__arrtk.placeBottomCenter(btnAcceuilMeteoSuppr)
+        btnAcceuilMeteoDomicile.placeRightCenter()
+        btnAcceuilMeteoTravail.placeLeftCenter()
+        btnAcceuiMeteolVille.placeCenter()
+        btnAcceuilMeteoSuppr.placeBottomCenter()
 
-        self.__arrtk.placeBottomLeft(btnValiderMeteoDomicile)
-        self.__arrtk.placeBottomRight(btnRetourMeteoDomicile)
+        btnValiderMeteoDomicile.placeBottomLeft()
+        btnRetourMeteoDomicile.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnValiderMeteoVille)
-        self.__arrtk.placeBottomRight(btnRetourMeteoVille)
+        btnValiderMeteoVille.placeBottomLeft()
+        btnRetourMeteoVille.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnValiderMeteoTravail)
-        self.__arrtk.placeBottomRight(btnRetourMeteoTravail)
+        btnValiderMeteoTravail.placeBottomLeft()
+        btnRetourMeteoTravail.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnValiderMeteoSuppr)
-        self.__arrtk.placeBottomRight(btnRetourMeteoSuppr)
+        btnValiderMeteoSuppr.placeBottomLeft()
+        btnRetourMeteoSuppr.placeBottomRight()
 
-        self.__arrtk.placeCenter(self.__entryMeteoDomicile)
-        self.__arrtk.placeCenter(self.__entryMeteoTravail)
-        self.__arrtk.placeCenter(self.__entryMeteoVille)
+        self.__entryMeteoDomicile.placeCenter()
+        self.__entryMeteoTravail.placeCenter()
+        self.__entryMeteoVille.placeCenter()
 
         for i in range(0,len(labelTitleGPS)):
-            self.__arrtk.placeTopCenter(labelTitleGPS[i])
+            labelTitleGPS[i].placeTopCenter()
 
-        self.__arrtk.placeRightCenter(btnAcceuilGPSDomicile)
-        self.__arrtk.placeLeftCenter(btnAcceuilGPSTravail)
-        self.__arrtk.placeCenter(btnAcceuilGPSSuppr)
+        btnAcceuilGPSDomicile.placeRightCenter()
+        btnAcceuilGPSTravail.placeLeftCenter()
+        btnAcceuilGPSSuppr.placeCenter()
 
-        self.__arrtk.placeBottomLeft(btnValiderGPSDomicile)
-        self.__arrtk.placeBottomRight(btnRetourGPSDomicile)
+        btnValiderGPSDomicile.placeBottomLeft()
+        btnRetourGPSDomicile.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnValiderGPSTravail)
-        self.__arrtk.placeBottomRight(btnRetourGPSTravail)
+        btnValiderGPSTravail.placeBottomLeft()
+        btnRetourGPSTravail.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnValiderGPSSuppr)
-        self.__arrtk.placeBottomRight(btnRetourGPSSuppr)
+        btnValiderGPSSuppr.placeBottomLeft()
+        btnRetourGPSSuppr.placeBottomRight()
 
-        self.__arrtk.placeCenter(self.__entryGPSTravail)
-        self.__arrtk.placeCenter(self.__entryGPSDomicile)
+        self.__entryGPSTravail.placeCenter()
+        self.__entryGPSDomicile.placeCenter()
 
-        self.__arrtk.placeTopCenter(labelTitleRecherche)
-        self.__arrtk.placeCenter(menuMoteurRecherche)
-        self.__arrtk.placeBottomCenter(btnValiderRecherche)
+        labelTitleRecherche.placeTopCenter()
+        menuMoteurRecherche.placeCenter()
+        btnValiderRecherche.placeBottomCenter()
 
         for i in range(0,len(labelTitleSoft)):
-            self.__arrtk.placeTopCenter(labelTitleSoft[i])
+            labelTitleSoft[i].placeTopCenter()
 
-        self.__arrtk.placeRightCenter(btnAcceuilSoftAdd)
-        self.__arrtk.placeLeftCenter(btnAcceuilSoftSuppr)
-        self.__arrtk.placeCenter(btnAcceuilSoftList)
+        btnAcceuilSoftAdd.placeRightCenter()
+        btnAcceuilSoftSuppr.placeLeftCenter()
+        btnAcceuilSoftList.placeCenter()
 
-        self.__arrtk.placeCenter(self.__entryAddSoft)
-        self.__arrtk.placeBottomLeft(btnAddSoftValider)
-        self.__arrtk.placeBottomRight(btnAddSoftRetour)
+        self.__entryAddSoft.placeCenter()
+        btnAddSoftValider.placeBottomLeft()
+        btnAddSoftRetour.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnSupprSoftValider)
-        self.__arrtk.placeBottomRight(btnSupprSoftRetour)
+        btnSupprSoftValider.placeBottomLeft()
+        btnSupprSoftRetour.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnSoftListRetour)
-        self.__arrtk.placeCenter(self.__listSite)
-        self.__arrtk.placeCenter(self.__listSoftware)
+        btnSoftListRetour.placeBottomLeft()
+        self.__listSite.placeCenter()
+        self.__listSoftware.placeCenter()
 
         for i in range(0,len(labelTitleInternet)):
-            self.__arrtk.placeTopCenter(labelTitleInternet[i])
+            labelTitleInternet[i].placeTopCenter()
 
-        self.__arrtk.placeRightCenter(btnAcceuilInternetSiteWeb)
-        self.__arrtk.placeLeftCenter(btnAcceuilInternetSupprSite)
-        self.__arrtk.placeBottomCenter(btnAcceuilInternetListeSite)
+        btnAcceuilInternetSiteWeb.placeRightCenter()
+        btnAcceuilInternetSupprSite.placeLeftCenter()
+        btnAcceuilInternetListeSite.placeBottomCenter()
 
-        self.__arrtk.placeBottomLeft(btnRetourSiteWeb)
-        self.__arrtk.placeBottomRight(btnValiderSiteWeb)
+        btnRetourSiteWeb.placeBottomLeft()
+        btnValiderSiteWeb.placeBottomRight()
 
-        self.__arrtk.placeBottomLeft(btnInternetValiderSuppr)
-        self.__arrtk.placeCenter(self.__menuSiteWeb)
-        self.__arrtk.placeBottomRight(btnInternetRetourSuppr)
+        btnInternetValiderSuppr.placeBottomLeft()
+        self.__menuSiteWeb.placeCenter()
+        btnInternetRetourSuppr.placeBottomRight()
 
-        self.__arrtk.placeCenterOnWidth(self.__entryNameSiteWeb,y=100)
-        self.__arrtk.placeCenterOnWidth(self.__entrySiteWeb, y=150)
+        self.__entryNameSiteWeb.placeCenterOnWidth(y=100)
+        self.__entrySiteWeb.placeCenterOnWidth(y=150)
 
-        self.__arrtk.placeBottomCenter(btnRetourInternetListe)
+        btnRetourInternetListe.placeBottomCenter()
 
-        self.__arrtk.placeTopCenter(labelTitleTheme)
-        self.__arrtk.placeCenter(self.__btnChangeTheme)
+        labelTitleTheme.placeTopCenter()
+        self.__btnChangeTheme.placeCenter()
 
         for i in range(0,len(labelTitleMicro)):
-            self.__arrtk.placeTopCenter(labelTitleMicro[i])
+            labelTitleMicro[i].placeTopCenter()
 
-        self.__arrtk.placeTopCenter(self.__labelVoicePrint)
-        self.__arrtk.placeRightBottom(btnRetourVoicePrint)
-        self.__arrtk.placeCenter(self.__labelWordVoicePrint)
-        self.__arrtk.placeRightBottom(btnRetourWordVoicePrint)
-        self.__arrtk.placeBottomLeft(btnSauvegarderVoicePrint)
-        self.__arrtk.placeRightBottom(btnRetourViewWord)
-        self.__arrtk.placeCenter(self.__labelWordViewSave)
-        self.__arrtk.placeCenter(labelDuringSave)
+        self.__labelVoicePrint.placeTopCenter()
+        btnRetourVoicePrint.placeBottomRight()
+        self.__labelWordVoicePrint.placeCenter()
+        btnRetourWordVoicePrint.placeBottomRight()
+        btnSauvegarderVoicePrint.placeBottomLeft()
+        btnRetourViewWord.placeBottomRight()
+        self.__labelWordViewSave.placeCenter()
+        labelDuringSave.placeCenter()
 
         #self.__arrtk.placeCenter(btnAcceuilMicroSound)
 
-        self.__arrtk.placeRightCenter(btnAcceuilMicroSound)
-        self.__arrtk.placeLeftCenter(btnAcceuilMicroTigerWord)
+        btnAcceuilMicroSound.placeRightCenter()
+        btnAcceuilMicroTigerWord.placeLeftCenter()
 
-        self.__arrtk.placeCenter(self.__btnMicroSoundChangeEtat)
+        self.__btnMicroSoundChangeEtat.placeCenter()
 
-        self.__arrtk.placeBottomCenter(btnMicroSoundRetour)
-        self.__arrtk.placeBottomCenter(btnMicroTigerWordRetour)
+        btnMicroSoundRetour.placeBottomCenter()
+        btnMicroTigerWordRetour.placeBottomCenter()
 
-        self.__arrtk.placeTopCenter(labelTitleArreraWork)
-        self.__arrtk.placeCenter(btnChooseFolderArreraWork)
+        labelTitleArreraWork.placeTopCenter()
+        btnChooseFolderArreraWork.placeCenter()
 
-        self.__arrtk.placeTopCenter(labelTitleArreraDownload)
-        self.__arrtk.placeCenter(btnChooseFolderArreraDownload)
+        labelTitleArreraDownload.placeTopCenter()
+        btnChooseFolderArreraDownload.placeCenter()
 
-        self.__arrtk.placeCenterLeft(btnViewMeteo)
-        self.__arrtk.placeCenterRight(btnViewGPS)
-        self.__arrtk.placeTopCenter(lTitleGPSAndMeteo)
+        btnViewMeteo.placeCenterLeft()
+        btnViewGPS.placeCenterRight()
+        lTitleGPSAndMeteo.placeTopCenter()
 
     # Methode generale
     def active(self):
@@ -778,8 +667,8 @@ class CArreraGazelleUISix :
         self.__meteoAcceuil.pack_forget()
         self.__meteoSuppr.pack()
         del self.__menuMeteoSuppr
-        self.__menuMeteoSuppr = self.__arrtk.createOptionMenu(self.__meteoSuppr,value = listVille,var = self.__varSupprMeteo)
-        self.__arrtk.placeCenter(self.__menuMeteoSuppr)
+        self.__menuMeteoSuppr = aOptionMenu(self.__meteoSuppr,value = listVille)
+        self.__menuMeteoSuppr.placeCenter()
 
     def __saveMeteoDomicile(self):
         domicile = self.__entryMeteoDomicile.get()
@@ -871,8 +760,8 @@ class CArreraGazelleUISix :
         self.__gpsSuppr.pack()
         self.__gpsAcceuil.pack_forget()
         del self.__menuGPSSuppr
-        self.__menuGPSSuppr = self.__arrtk.createOptionMenu(self.__gpsSuppr,value = listVille,var = self.__varSupprGPS)
-        self.__arrtk.placeCenter(self.__menuGPSSuppr)
+        self.__menuGPSSuppr = aOptionMenu(self.__gpsSuppr,value = listVille)
+        self.__menuGPSSuppr.placeCenter()
 
     def __saveGPSDomicile(self):
         domicile = self.__entryGPSDomicile.get()
@@ -953,8 +842,8 @@ class CArreraGazelleUISix :
         self.__softAdd.pack_forget()
         self.__softSuppr.pack()
         del self.__menuSoftSuppr
-        self.__menuSoftSuppr = self.__arrtk.createOptionMenu(self.__softSuppr,value = listSoft,var = self.__varSupprSoft)
-        self.__arrtk.placeCenter(self.__menuSoftSuppr)
+        self.__menuSoftSuppr = aOptionMenu(self.__softSuppr,value = listSoft)
+        self.__menuSoftSuppr.placeCenter()
 
     def __viewSoftList(self):
         self.__listSoftware.configure(state="normal")
@@ -1034,8 +923,8 @@ class CArreraGazelleUISix :
         self.__internetSupprSite.pack()
         self.__internetAcceuil.pack_forget()
         del self.__menuSiteWeb
-        self.__menuSiteWeb = self.__arrtk.createOptionMenu(self.__internetSupprSite,value = listSite,var = self.__varSupprWeb)
-        self.__arrtk.placeCenter(self.__menuSiteWeb)
+        self.__menuSiteWeb = aOptionMenu(self.__internetSupprSite,value = listSite)
+        self.__menuSiteWeb.placeCenter()
 
     def __viewInternetListeSite(self):
         listSite = self.__gazelle.getListSite()
@@ -1166,28 +1055,28 @@ class CArreraGazelleUISix :
             case 1 :
                 self.__labelVoicePrint.configure(text="Gestion empreinte vocale 1")
                 if (nb == 0):
-                    self.__arrtk.placeCenter(self.__btnSaveVoicePrint)
+                    self.__btnSaveVoicePrint.placeCenter()
                 else :
-                    self.__arrtk.placeLeftCenter(self.__btnSupprVoicePrint)
-                    self.__arrtk.placeRightCenter(self.__btnViewVoicePrint)
+                    self.__btnSupprVoicePrint.placeLeftCenter()
+                    self.__btnViewVoicePrint.placeRightCenter()
                     self.__btnViewVoicePrint.configure(command=lambda : self.__viewSaveWord(1))
                     self.__btnSupprVoicePrint.configure(command=lambda :self.__supprTrigerWord(1))
             case 2 :
                 self.__labelVoicePrint.configure(text="Gestion empreinte vocale 2")
                 if (nb == 1):
-                    self.__arrtk.placeCenter(self.__btnSaveVoicePrint)
+                    self.__btnSaveVoicePrint.placeCenter()
                 else :
-                    self.__arrtk.placeLeftCenter(self.__btnSupprVoicePrint)
-                    self.__arrtk.placeRightCenter(self.__btnViewVoicePrint)
+                    self.__btnSupprVoicePrint.placeLeftCenter()
+                    self.__btnViewVoicePrint.placeRightCenter()
                     self.__btnViewVoicePrint.configure(command=lambda: self.__viewSaveWord(2))
                     self.__btnSupprVoicePrint.configure(command=lambda: self.__supprTrigerWord(2))
             case 3 :
                 self.__labelVoicePrint.configure(text="Gestion empreinte vocale 3")
                 if (nb == 2):
-                    self.__arrtk.placeCenter(self.__btnSaveVoicePrint)
+                    self.__btnSaveVoicePrint.placeCenter()
                 else :
-                    self.__arrtk.placeLeftCenter(self.__btnSupprVoicePrint)
-                    self.__arrtk.placeRightCenter(self.__btnViewVoicePrint)
+                    self.__btnSupprVoicePrint.placeLeftCenter()
+                    self.__btnViewVoicePrint.placeRightCenter()
                     self.__btnViewVoicePrint.configure(command=lambda: self.__viewSaveWord(3))
                     self.__btnSupprVoicePrint.configure(command=lambda: self.__supprTrigerWord(3))
 
