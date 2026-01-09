@@ -125,6 +125,17 @@ class placement_Tool_Kit_internet:
         else:
             self.pack(side="bottom")
 
+# Image
+
+class aImage(ctk.CTkImage):
+    def __init__(self,width:int,height:int,path_light:str,path_dark:str=""):
+        if path_dark != "":
+            super().__init__(light_image=Image.open(resource_path(path_light)),
+                             dark_image=Image.open(resource_path(path_dark)),
+                             size=(width, height))
+        else :
+            super().__init__(light_image=Image.open(resource_path(path_light)),size=(width, height))
+
 # Widget
 
 class aLabel(ctk.CTkLabel, placement_Tool_Kit_internet):
@@ -426,7 +437,7 @@ class aTk(ctk.CTk):
         self.geometry(f"{width}x{height}")
         self.title(title)
         self.resizable(resizable, resizable)
-        
+
         if icon != "":
             icon = resource_path(icon)
             if platform.system() == "Windows":
@@ -438,7 +449,7 @@ class aTk(ctk.CTk):
 class aTopLevel(ctk.CTkToplevel):
     def __init__(self, title: str = "Arrera TopLevel", width: int = 400, height: int = 300, resizable: bool = False, icon: str = "", **kwargs):
         super().__init__(**kwargs)
-        
+
         self.geometry(f"{width}x{height}")
         self.title(title)
         self.resizable(resizable, resizable)
@@ -470,9 +481,9 @@ class windows_about(ctk.CTkToplevel):
         labelCopy = aLabel(mainFrame,text=copyright,font=("Roboto",13))
 
         btnLinkSource = aButton(frameBTN,text="Source code",command= lambda :  wb.open(linkSource),
-                                      font=("Roboto", 13,"bold"))
+                                font=("Roboto", 13,"bold"))
         btnLinkWeb = aButton(frameBTN,text="Web site",command= lambda :  wb.open(linkWeb),
-                                   font=("Roboto", 13,"bold"))
+                             font=("Roboto", 13,"bold"))
 
         labelIcon.placeTopCenter()
         labelSoft.pack()
