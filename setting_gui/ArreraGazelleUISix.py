@@ -2,13 +2,14 @@ from lib.arrera_tk import *
 from tkinter import messagebox
 from typing import Union
 import threading as th
-from lib.travailJSON import *
+from librairy.travailJSON import jsonWork
 from gestionnaire.gestUserSetting import gestUserSetting
 
 class CArreraGazelleUISix :
-    def __init__(self,windows:Union[aTk,aTopLevel],gestUser:gestUserSetting):
+    def __init__(self,windows:Union[aTk,aTopLevel],gestUser:gestUserSetting,file_setting:str):
         # Ouverture de l'objet
         self.__gazelle = None
+        jsonSetting = jsonWork(file_setting)
         # Var qui contient les thead
         self.__threadSaveVoicePrint = th.Thread()
 
@@ -72,11 +73,11 @@ class CArreraGazelleUISix :
         # Taille Police
         taillePolice = 20
         # Liste
-        listGenre = ["",""]#jsonSetting.lectureJSONList("listGenre")
-        listMoteurRecherche = ["",""]#jsonSetting.lectureJSONList("listMoteurRecherche")
-        self.__listTheme = ["",""]#jsonSetting.lectureJSONList("listeTheme")
+        listGenre = jsonSetting.getFlagListJson("listGenre")
+        listMoteurRecherche = jsonSetting.getFlagListJson("listMoteurRecherche")
+        self.__listTheme = jsonSetting.getFlagListJson("listeTheme")
         # Icon Assistant
-        iconAssistant = aImage(path_light="asset/logo-six.png",width=95,height=95)
+        iconAssistant = aImage(path_light=jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
