@@ -139,8 +139,10 @@ class aImage(ctk.CTkImage):
 # Widget
 
 class aLabel(ctk.CTkLabel, placement_Tool_Kit_internet):
-    def __init__(self, master, text: str = "Arrera Label", **kwargs):
+    def __init__(self, master, text: str = "Arrera Label",police_size:int=0, **kwargs):
         super().__init__(master, text=text, **kwargs)
+        if police_size != 0:
+            self.configure(font=("Roboto",police_size,"bold"))
 
 class aButton(ctk.CTkButton, placement_Tool_Kit_internet):
     def __init__(self, master, text: str = "Arrera Button", width: int = 140, height: int = 40, command=None,size:int=0, **kwargs):
