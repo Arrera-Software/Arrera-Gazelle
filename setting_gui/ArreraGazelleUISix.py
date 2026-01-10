@@ -21,6 +21,7 @@ class CArreraGazelleUISix :
 
         self.__userPart()
         self.__partMeteo()
+        self.__partIA()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
@@ -86,7 +87,7 @@ class CArreraGazelleUISix :
         btnAcceuilMeteoAndGPS = aButton(self.__mainCadre,width=100,height=100,text="Meteo"
                                                     ,command=lambda:self.__viewMeteoAcceuil())
         btnAcceuilIA = aButton(self.__mainCadre,width=100,height=100,text="IA"
-                                                  ,command=lambda : self.__viewGPSAcceuil())
+                                                  ,command=lambda : self.__viewIAAcceuil())
         btnAcceuilRecherche = aButton(self.__mainCadre,width=100,height=100,text="Recherche"
                                                         ,command=lambda:self.__viewRecherche())
         btnAcceuilLogiciel = aButton(self.__mainCadre,width=100,height=100,text="Logiciel"
@@ -546,6 +547,55 @@ class CArreraGazelleUISix :
         self.__entryMeteoTravail.placeCenter()
         self.__entryMeteoVille.placeCenter()
 
+    def __partIA(self):
+        self.__iaFrame = aFrame(self.__windows,width=500,height=330)
+
+        self.__iaAcceuil = aFrame(self.__iaFrame,width=500,height=330)
+        self.__iaDownload = aFrame(self.__iaFrame,width=500,height=330)
+        self.__iaChoose = aFrame(self.__iaFrame,width=500,height=330)
+
+        # Widget
+        labelTitleIA = [aLabel(self.__iaAcceuil,text="Gestion des model \nd'intelligence artificielle",police_size=25),
+                        aLabel(self.__iaDownload,text="Choix du model \nd'intelligence artificielle",police_size=25),
+                        aLabel(self.__iaChoose,text="Téléchargement \nd'un model d'intelligence artificielle",police_size=25)]
+
+        btnChoixModel = aButton(self.__iaAcceuil,text="Choix d'un model",command=self.__viewIAChoose)
+        btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un model")
+
+        self.__initBtnEnableIAMode()
+
+        # General
+        backBtnIA = [aButton(self.__iaDownload,text="Terminer",command=lambda:self.__viewIAAcceuil()),
+                     aButton(self.__iaChoose,text="Retour",command=lambda:self.__viewIAAcceuil())]
+
+        # Choose model
+        self.__menuChooseIAModel = aOptionMenu(self.__iaChoose,value=["",""])
+        validerChooseModel = aButton(self.__iaChoose,text="Valider",command=self.__setModelToUse)
+
+        # Download
+        self.__downloadIA = aScrollableFrame(self.__iaDownload)
+
+        # Placement
+        for i in (range(0,len(labelTitleIA))):
+            labelTitleIA[i].placeTopCenter()
+
+        for i in (range(0,len(backBtnIA))):
+            backBtnIA[i].placeBottomLeft()
+
+        btnChoixModel.placeLeftCenter()
+        btnDownloadModel.placeRightCenter()
+
+        self.__menuChooseIAModel.placeCenter()
+        validerChooseModel.placeBottomRight()
+
+    def __initBtnEnableIAMode(self):
+        self.__btnEnableIA = None
+        del self.__btnEnableIA
+        self.__btnEnableIA = aSwicht(self.__iaAcceuil, text="Activer le mode IA",
+                                     default_value=self.__getStateIAMode(),
+                                     command=self.__set_enable_ia_mode)
+        self.__btnEnableIA.placeBottomCenter()
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -553,6 +603,7 @@ class CArreraGazelleUISix :
     def __clearAll(self):
         self.__mainCadre.pack_forget()
         self.__userFrame.pack_forget()
+        self.__iaFrame.pack_forget()
         self.__backFrame.pack_forget()
         self.__meteoFrame.pack_forget()
         self.__gpsFrame.pack_forget()
@@ -1197,3 +1248,53 @@ class CArreraGazelleUISix :
         else :
             messagebox.showerror("Erreur","Le dossier de téléchargement n'a pas été enregistré")
         self.__backAcceuil()
+
+    # Methode IA
+
+    def __viewIAAcceuil(self):
+        self.__clearAll()
+        self.__iaAcceuil.pack()
+        self.__iaDownload.pack_forget()
+        self.__iaChoose.pack_forget()
+        self.__iaFrame.pack()
+        self.__backFrame.pack()
+        self.__windows.update()
+
+    def __viewIAChoose(self):
+        self.__clearAll()
+        self.__iaAcceuil.pack_forget()
+        self.__iaDownload.pack_forget()
+
+        listModel = self.__gestUser.get_model_downloaded()
+        if len(listModel) == 0:
+            messagebox.showerror("Erreur", "Aucun model a été telecharger")
+            self.__viewIAAcceuil()
+
+        del self.__menuChooseIAModel
+        self.__menuChooseIAModel = aOptionMenu(self.__iaChoose,value = listModel)
+        self.__menuChooseIAModel.placeCenter()
+
+        self.__iaChoose.pack()
+        self.__iaFrame.pack()
+        self.__backFrame.pack()
+        self.__windows.update()
+
+    def __setModelToUse(self):
+        model = self.__menuChooseIAModel.getValue()
+        if self.__gestUser.set_ia_model(model):
+            messagebox.showinfo("Parametre","Le model a bien été enregistré")
+        self.__initBtnEnableIAMode()
+        self.__viewIAAcceuil()
+
+    def __getStateIAMode(self):
+        if self.__gestUser.get_use_ia() == 1 :
+            return True
+        else :
+            return False
+
+    def __viewDownloadIA(self):
+
+
+    def __set_enable_ia_mode(self):
+        v = bool(self.__btnEnableIA.getValue())
+        self.__gestUser.set_use_ia(v)
