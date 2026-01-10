@@ -9,19 +9,20 @@ class CArreraGazelleUISix :
     def __init__(self,windows:Union[aTk,aTopLevel],gestUser:gestUserSetting,file_setting:str):
         # Ouverture de l'objet
         self.__gazelle = None
-        jsonSetting = jsonWork(file_setting)
+        self.__gestUser = gestUser
+        self.__jsonSetting = jsonWork(file_setting)
         # Var qui contient les thead
         self.__threadSaveVoicePrint = th.Thread()
 
         # Mise de la fenetre dans un atribut
         self.__windows = windows
+
+        # Declaration des partie
+
+        self.__userPart()
+
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
-
-        self.__userFrame = aFrame(self.__windows,width=500,height=330)
-        self.__userAcceuil = aFrame(self.__userFrame,width=500,height=330)
-        self.__userName = aFrame(self.__userFrame,width=500,height=330)
-        self.__userGenre = aFrame(self.__userFrame,width=500,height=330)
 
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
@@ -73,11 +74,10 @@ class CArreraGazelleUISix :
         # Taille Police
         taillePolice = 20
         # Liste
-        listGenre = jsonSetting.getFlagListJson("listGenre")
-        listMoteurRecherche = jsonSetting.getFlagListJson("listMoteurRecherche")
-        self.__listTheme = jsonSetting.getFlagListJson("listeTheme")
+        listMoteurRecherche = self.__jsonSetting.getFlagListJson("listMoteurRecherche")
+        self.__listTheme = self.__jsonSetting.getFlagListJson("listeTheme")
         # Icon Assistant
-        iconAssistant = aImage(path_light=jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
+        iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
         # String var
         self.__varNameUser = StringVar(self.__windows)
         self.__varSupprMeteo = StringVar(self.__windows)
@@ -119,28 +119,7 @@ class CArreraGazelleUISix :
                                                      ,command=lambda:self.__backAcceuil())
 
 
-        # userFrame
-        # Label
-        labelTitleUser = [aLabel(self.__userAcceuil,text="Gestion utilisateur"),
-                          aLabel(self.__userName,text="Nom de l'utilisateur"),
-                          aLabel(self.__userGenre,text="Genre de l'utilisateur")]
-        # Button
-        btnUserName = aButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",
-                                                command=lambda:self.__viewUserName())
-        btnUserGenre = aButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",
-                                                 command=lambda:self.__viewUserGenre())
-        btnValiderUserName = aButton(self.__userName,text="Valider",
-                                                       command=lambda:self.__saveUserName())
-        btnValiderUserGenre = aButton(self.__userGenre,text="Valider",
-                                                        command=lambda:self.__saveUserGenre())
-        btnRetourUserName = aButton(self.__userName, text="Retour",
-                                                      command=lambda:self.__viewUserAcceuil())
-        btnRetourUserGenre = aButton(self.__userGenre, text="Retour",
-                                                       command=lambda:self.__viewUserAcceuil())
-        # entry
-        self.__entryNameUser = aEntry(self.__userName, width=200)
-        # option menu
-        menuUserGenre = aOptionMenu(self.__userGenre,value = listGenre)
+
 
         # Meteo GPS Frame
 
@@ -395,20 +374,6 @@ class CArreraGazelleUISix :
 
         # backFrame
         retourAcceuilBTN.placeCenterRight()
-        # userFrame
-        for i in (range(0,len(labelTitleUser))):
-            labelTitleUser[i].placeTopCenter()
-
-        btnUserName.placeRightCenter()
-        btnUserGenre.placeLeftCenter()
-
-        btnValiderUserName.placeBottomLeft()
-        btnValiderUserGenre.placeBottomLeft()
-        btnRetourUserName.placeBottomRight()
-        btnRetourUserGenre.placeBottomRight()
-
-        self.__entryNameUser.placeCenter()
-        menuUserGenre.placeCenter()
 
         # meteoFrame
         for i in (range(0,len(labelTitleMeteo))):
@@ -530,6 +495,56 @@ class CArreraGazelleUISix :
         btnViewGPS.placeCenterRight()
         lTitleGPSAndMeteo.placeTopCenter()
 
+    def __userPart(self):
+        self.__userFrame = aFrame(self.__windows,width=500,height=330)
+        self.__userAcceuil = aFrame(self.__userFrame,width=500,height=330)
+        self.__userName = aFrame(self.__userFrame,width=500,height=330)
+        self.__userGenre = aFrame(self.__userFrame,width=500,height=330)
+
+        # userFrame
+        # Label
+        labelTitleUser = [aLabel(self.__userAcceuil,text="Gestion utilisateur",police_size=25),
+                          aLabel(self.__userName,text="Nom de l'utilisateur",police_size=25),
+                          aLabel(self.__userGenre,text="Genre de l'utilisateur",police_size=25)]
+        # entry
+        entryFirstNameUser = aEntryLengend(self.__userName,text="Prénom",bg=self.__userName.cget("fg_color"))
+        entryLastNameUser = aEntryLengend(self.__userName,text="Nom",bg=self.__userName.cget("fg_color"))
+        # option menu
+        listGenre = self.__jsonSetting.getFlagListJson("listGenre")
+        menuUserGenre = aOptionMenu(self.__userGenre,value = listGenre)
+
+        # Button
+        btnUserName = aButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",
+                              command=lambda:self.__viewUserName())
+        btnUserGenre = aButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",
+                               command=lambda:self.__viewUserGenre())
+        btnValiderUserName = aButton(self.__userName,text="Valider",
+                                     command=lambda:
+                                     self.__saveUserName(entryLastNameUser.getEntry(),entryFirstNameUser.getEntry()))
+        btnValiderUserGenre = aButton(self.__userGenre,text="Valider",
+                                      command=lambda:self.__saveUserGenre(menuUserGenre))
+        btnRetourUserName = aButton(self.__userName, text="Retour",
+                                    command=lambda:self.__viewUserAcceuil())
+        btnRetourUserGenre = aButton(self.__userGenre, text="Retour",
+                                     command=lambda:self.__viewUserAcceuil())
+
+
+        # userFrame
+        for i in (range(0,len(labelTitleUser))):
+            labelTitleUser[i].placeTopCenter()
+
+        btnUserName.placeRightCenter()
+        btnUserGenre.placeLeftCenter()
+
+        btnValiderUserName.placeBottomLeft()
+        btnValiderUserGenre.placeBottomLeft()
+        btnRetourUserName.placeBottomRight()
+        btnRetourUserGenre.placeBottomRight()
+
+        entryFirstNameUser.placeCenterOnWidth(60)
+        entryLastNameUser.placeCenterOnWidth(140)
+        menuUserGenre.placeCenter()
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -587,21 +602,31 @@ class CArreraGazelleUISix :
         self.__userAcceuil.pack_forget()
         self.__windows.update()
 
-    def __saveUserName(self):
-        name = self.__entryNameUser.get()
-        if name == "":
+    def __saveUserName(self,eLast:aEntry,eFirst:aEntry):
+        first = str(eFirst.get())
+        last = str(eLast.get())
+        if first == "":
+            messagebox.showerror("Parametre","Le prenom de l'utilisateur ne peut pas etre vide")
+            return
+        else :
+            if self.__gestUser.setFirstnameUser(first):
+                messagebox.showinfo("Parametre","Le prenom de l'utilisateur a bien été enregistré")
+            eFirst.delete(0,END)
+
+        if last == "":
             messagebox.showerror("Parametre","Le nom de l'utilisateur ne peut pas etre vide")
             return
         else :
-            self.__gazelle.changeUserName(name)
-            messagebox.showinfo("Parametre","Le nom de l'utilisateur a bien été enregistré")
-            self.__entryNameUser.delete(0,END)
-            self.__viewUserAcceuil()
+            if self.__gestUser.setLastnameUser(last):
+                messagebox.showinfo("Parametre","Le nom de l'utilisateur a bien été enregistré")
+            eLast.delete(0,END)
 
-    def __saveUserGenre(self):
-        genre = self.__varNameUser.get()
-        self.__gazelle.changeUserGenre(genre)
-        messagebox.showinfo("Parametre","Le genre de l'utilisateur a bien été enregistré")
+        self.__viewUserAcceuil()
+
+    def __saveUserGenre(self,m:aOptionMenu):
+        genre = m.getValue()
+        if self.__gestUser.setGenre(genre):
+            messagebox.showinfo("Parametre","Le genre de l'utilisateur a bien été enregistré")
         self.__viewUserAcceuil()
 
 
