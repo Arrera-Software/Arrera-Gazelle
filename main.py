@@ -1,5 +1,8 @@
-# from gui.CArreraGazelleUIRyleyCopilote import*
+# from setting_gui.CArreraGazelleUIRyleyCopilote import*
 from gui.ArreraGazelleUISix import*
+from test_gui_setting.test_setting import create_conf
+
+user_conf = create_conf()
 
 def quit(windows):
     windows.destroy()
@@ -11,18 +14,15 @@ def main():
         case 1 :
             windows = aTk(theme_file="theme/theme_bleu_blanc.json")
             gui = CArreraGazelleUIRyleyCopilote(windows,
-                                                "FileJSON/configUser.json",
-                                                "FileJSON/configNeuron.json",
-                                                "FileJSON/sixConfig.json",
-                                                "FileJSON/configOldSetting.json")
+                                                "json_conf/configUser.json",
+                                                "json_conf/configNeuron.json",
+                                                "json_conf/sixConfig.json",
+                                                "json_conf/configOldSetting.json")
             gui.passQUITFNC(lambda  : quit(windows))
             gui.passApropos(lambda  : print("Apropos"))
         case 2 :
             windows = aTk(theme_file="asset/theme/theme_bleu_blanc.json")
-            gui = CArreraGazelleUISix(windows, "FileJSON/configUser.json",
-                                    "FileJSON/configNeuron.json",
-                                    "FileJSON/sixConfig.json",
-                                    "FileJSON/configNewSetting.json")
+            gui = CArreraGazelleUISix(windows,user_conf)
             windows.maxsize(500,400)
             windows.minsize(500,400)
             gui.passFNCQuit(lambda  : quit(windows))

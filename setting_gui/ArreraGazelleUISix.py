@@ -4,9 +4,10 @@ from objet.arreraGazelle import*
 from typing import Union
 import threading as th
 from lib.travailJSON import *
+from Arrera_neuron.gestionnaire.gestUserSetting import gestUserSetting
 
 class CArreraGazelleUISix :
-    def __init__(self,windows:Union[aTk,aTopLevel],emplacementJsonUser:str,emplacementJsonNeuronNetwork:str,emplacementJsonAssistant:str,emplacementConfigSetting:str,sound:str = ""):
+    def __init__(self,windows:Union[aTk,aTopLevel],gestUser:gestUserSetting):
         # Ouverture de l'objet
         self.__gazelle = CArreraGazelle(emplacementJsonUser,
                                         emplacementJsonNeuronNetwork,
