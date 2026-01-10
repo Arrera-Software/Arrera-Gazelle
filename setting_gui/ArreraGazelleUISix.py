@@ -20,18 +20,11 @@ class CArreraGazelleUISix :
         # Declaration des partie
 
         self.__userPart()
+        self.__partMeteo()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
-
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
-
-        self.__meteoFrame = aFrame(self.__windows,width=500,height=330)
-        self.__meteoAcceuil = aFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoDomicile = aFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoTravail = aFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoVille = aFrame(self.__meteoFrame,width=500,height=330)
-        self.__meteoSuppr = aFrame(self.__meteoFrame,width=500,height=330)
 
         self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
         self.__gpsAcceuil = aFrame(self.__gpsFrame,width=500,height=330)
@@ -91,7 +84,7 @@ class CArreraGazelleUISix :
         btnAcceuilUser = aButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
                                                    ,command= lambda  : self.__viewUserAcceuil())
         btnAcceuilMeteoAndGPS = aButton(self.__mainCadre,width=100,height=100,text="Meteo"
-                                                    ,command=lambda:self.__viewGPSMeteo())
+                                                    ,command=lambda:self.__viewMeteoAcceuil())
         btnAcceuilIA = aButton(self.__mainCadre,width=100,height=100,text="IA"
                                                   ,command=lambda : self.__viewGPSAcceuil())
         btnAcceuilRecherche = aButton(self.__mainCadre,width=100,height=100,text="Recherche"
@@ -129,47 +122,6 @@ class CArreraGazelleUISix :
                                                     command=lambda:self.__viewMeteoAcceuil())
         btnViewGPS = aButton(self.__meteoGPSFrame,text="GPS",width=100,height=100,
                                                     command=lambda:self.__viewGPSAcceuil())
-
-        # meteoFrame
-        # Label
-        labelTitleMeteo = [aLabel(self.__meteoAcceuil,text="Gestion de meteo"),
-                           aLabel(self.__meteoDomicile,text="Lieu Domicile"),
-                           aLabel(self.__meteoTravail,text="Lieu Travail"),
-                           aLabel(self.__meteoVille,text="Autre Ville"),
-                           aLabel(self.__meteoSuppr,text="Supprimer Lieu")]
-        # Button
-        btnAcceuilMeteoDomicile = aButton(self.__meteoAcceuil,text="Lieu\nDomicile",
-                                                       command=lambda:self.__viewMeteoDomicile())
-        btnAcceuilMeteoTravail = aButton(self.__meteoAcceuil,text="Lieu\nTravail",
-                                                      command=lambda:self.__viewMeteoTravail())
-        btnAcceuiMeteolVille = aButton(self.__meteoAcceuil,text="Autre\nVille",
-                                                    command=lambda:self.__viewMeteoVille())
-        btnAcceuilMeteoSuppr = aButton(self.__meteoAcceuil,text="Supprimer un lieu",
-                                                    command=lambda:self.__viewMeteoSuppr())
-
-        btnValiderMeteoDomicile = aButton(self.__meteoDomicile,text="Valider",
-                                                            command=lambda:self.__saveMeteoDomicile())
-        btnValiderMeteoTravail = aButton(self.__meteoTravail,text="Valider",
-                                                           command=lambda:self.__saveMeteoTravail())
-        btnValiderMeteoVille = aButton(self.__meteoVille,text="Valider",
-                                                         command=lambda:self.__saveMeteoVille())
-        btnValiderMeteoSuppr = aButton(self.__meteoSuppr,text="Supprimer",
-                                                         command=lambda:self.__supprMeteoVille())
-
-        btnRetourMeteoDomicile = aButton(self.__meteoDomicile,text="Retour",
-                                                           command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoTravail = aButton(self.__meteoTravail,text="Retour",
-                                                          command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoVille = aButton(self.__meteoVille,text="Retour",
-                                                        command=lambda:self.__viewMeteoAcceuil())
-        btnRetourMeteoSuppr = aButton(self.__meteoSuppr,text="Retour",
-                                                        command=lambda:self.__viewMeteoAcceuil())
-        # entry
-        self.__entryMeteoDomicile = aEntry(self.__meteoDomicile, width=300)
-        self.__entryMeteoTravail = aEntry(self.__meteoTravail, width=300)
-        self.__entryMeteoVille = aEntry(self.__meteoVille, width=300)
-        #option menu
-        self.__menuMeteoSuppr = aOptionMenu(self.__meteoSuppr, value = ["", ""])
 
         # GPS Frame
         # Label
@@ -375,31 +327,6 @@ class CArreraGazelleUISix :
         # backFrame
         retourAcceuilBTN.placeCenterRight()
 
-        # meteoFrame
-        for i in (range(0,len(labelTitleMeteo))):
-            labelTitleMeteo[i].placeTopCenter()
-
-        btnAcceuilMeteoDomicile.placeRightCenter()
-        btnAcceuilMeteoTravail.placeLeftCenter()
-        btnAcceuiMeteolVille.placeCenter()
-        btnAcceuilMeteoSuppr.placeBottomCenter()
-
-        btnValiderMeteoDomicile.placeBottomLeft()
-        btnRetourMeteoDomicile.placeBottomRight()
-
-        btnValiderMeteoVille.placeBottomLeft()
-        btnRetourMeteoVille.placeBottomRight()
-
-        btnValiderMeteoTravail.placeBottomLeft()
-        btnRetourMeteoTravail.placeBottomRight()
-
-        btnValiderMeteoSuppr.placeBottomLeft()
-        btnRetourMeteoSuppr.placeBottomRight()
-
-        self.__entryMeteoDomicile.placeCenter()
-        self.__entryMeteoTravail.placeCenter()
-        self.__entryMeteoVille.placeCenter()
-
         for i in range(0,len(labelTitleGPS)):
             labelTitleGPS[i].placeTopCenter()
 
@@ -545,6 +472,80 @@ class CArreraGazelleUISix :
         entryLastNameUser.placeCenterOnWidth(140)
         menuUserGenre.placeCenter()
 
+    def __partMeteo(self):
+        self.__meteoFrame = aFrame(self.__windows,width=500,height=330)
+        self.__meteoAcceuil = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoDomicile = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoTravail = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoVille = aFrame(self.__meteoFrame,width=500,height=330)
+        self.__meteoSuppr = aFrame(self.__meteoFrame,width=500,height=330)
+
+        # meteoFrame
+        # Label
+        labelTitleMeteo = [aLabel(self.__meteoAcceuil,text="Gestion de meteo",police_size=25),
+                           aLabel(self.__meteoDomicile,text="Lieu Domicile",police_size=25),
+                           aLabel(self.__meteoTravail,text="Lieu Travail",police_size=25),
+                           aLabel(self.__meteoVille,text="Autre Ville",police_size=25),
+                           aLabel(self.__meteoSuppr,text="Supprimer Lieu",police_size=25)]
+        # Button
+        btnAcceuilMeteoDomicile = aButton(self.__meteoAcceuil,text="Lieu\nDomicile",
+                                          command=lambda:self.__viewMeteoDomicile())
+        btnAcceuilMeteoTravail = aButton(self.__meteoAcceuil,text="Lieu\nTravail",
+                                         command=lambda:self.__viewMeteoTravail())
+        btnAcceuiMeteolVille = aButton(self.__meteoAcceuil,text="Autre\nVille",
+                                       command=lambda:self.__viewMeteoVille())
+        btnAcceuilMeteoSuppr = aButton(self.__meteoAcceuil,text="Supprimer un lieu",
+                                       command=lambda:self.__viewMeteoSuppr())
+
+        btnValiderMeteoDomicile = aButton(self.__meteoDomicile,text="Valider",
+                                          command=lambda:self.__saveMeteoDomicile())
+        btnValiderMeteoTravail = aButton(self.__meteoTravail,text="Valider",
+                                         command=lambda:self.__saveMeteoTravail())
+        btnValiderMeteoVille = aButton(self.__meteoVille,text="Valider",
+                                       command=lambda:self.__saveMeteoVille())
+        btnValiderMeteoSuppr = aButton(self.__meteoSuppr,text="Supprimer",
+                                       command=lambda:self.__supprMeteoVille())
+
+        btnRetourMeteoDomicile = aButton(self.__meteoDomicile,text="Retour",
+                                         command=lambda:self.__viewMeteoAcceuil())
+        btnRetourMeteoTravail = aButton(self.__meteoTravail,text="Retour",
+                                        command=lambda:self.__viewMeteoAcceuil())
+        btnRetourMeteoVille = aButton(self.__meteoVille,text="Retour",
+                                      command=lambda:self.__viewMeteoAcceuil())
+        btnRetourMeteoSuppr = aButton(self.__meteoSuppr,text="Retour",
+                                      command=lambda:self.__viewMeteoAcceuil())
+        # entry
+        self.__entryMeteoDomicile = aEntry(self.__meteoDomicile, width=300)
+        self.__entryMeteoTravail = aEntry(self.__meteoTravail, width=300)
+        self.__entryMeteoVille = aEntry(self.__meteoVille, width=300)
+        #option menu
+        self.__menuMeteoSuppr = aOptionMenu(self.__meteoSuppr, value = ["", ""])
+
+        # meteoFrame
+        for i in (range(0,len(labelTitleMeteo))):
+            labelTitleMeteo[i].placeTopCenter()
+
+        btnAcceuilMeteoDomicile.placeRightCenter()
+        btnAcceuilMeteoTravail.placeLeftCenter()
+        btnAcceuiMeteolVille.placeCenter()
+        btnAcceuilMeteoSuppr.placeBottomCenter()
+
+        btnValiderMeteoDomicile.placeBottomLeft()
+        btnRetourMeteoDomicile.placeBottomRight()
+
+        btnValiderMeteoVille.placeBottomLeft()
+        btnRetourMeteoVille.placeBottomRight()
+
+        btnValiderMeteoTravail.placeBottomLeft()
+        btnRetourMeteoTravail.placeBottomRight()
+
+        btnValiderMeteoSuppr.placeBottomLeft()
+        btnRetourMeteoSuppr.placeBottomRight()
+
+        self.__entryMeteoDomicile.placeCenter()
+        self.__entryMeteoTravail.placeCenter()
+        self.__entryMeteoVille.placeCenter()
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
@@ -678,7 +679,7 @@ class CArreraGazelleUISix :
         self.__windows.update()
 
     def __viewMeteoSuppr(self):
-        listVille = self.__gazelle.getMeteoSave()
+        listVille = self.__gestUser.getTowns()
         if len(listVille) == 0:
             messagebox.showerror("Erreur", "Aucune ville n'a été enregistré")
             return
@@ -697,8 +698,8 @@ class CArreraGazelleUISix :
             messagebox.showerror("Parametre","Le lieu domicile ne peut pas etre vide")
             return
         else :
-            self.__gazelle.ajoutVilleMeteo(1,domicile)
-            messagebox.showinfo("Parametre","Le lieu domicile a bien été enregistré")
+            if self.__gestUser.setLieuDomicile(domicile):
+                messagebox.showinfo("Parametre","Le lieu domicile a bien été enregistré")
             self.__entryMeteoDomicile.delete(0,END)
             self.__viewMeteoAcceuil()
 
@@ -708,8 +709,8 @@ class CArreraGazelleUISix :
             messagebox.showerror("Parametre","Le lieu travail ne peut pas etre vide")
             return
         else :
-            self.__gazelle.ajoutVilleMeteo(2,travail)
-            messagebox.showinfo("Parametre","Le lieu travail a bien été enregistré")
+            if self.__gestUser.setLieuTravail(travail):
+                messagebox.showinfo("Parametre","Le lieu travail a bien été enregistré")
             self.__entryMeteoTravail.delete(0,END)
             self.__viewMeteoAcceuil()
 
@@ -719,19 +720,19 @@ class CArreraGazelleUISix :
             messagebox.showerror("Parametre","Le lieu ville ne peut pas etre vide")
             return
         else :
-            self.__gazelle.ajoutVilleMeteo(3,ville)
-            messagebox.showinfo("Parametre","Le lieu ville a bien été enregistré")
+            if self.__gestUser.addTown(ville):
+                messagebox.showinfo("Parametre","Le lieu ville a bien été enregistré")
             self.__entryMeteoVille.delete(0,END)
             self.__viewMeteoAcceuil()
 
     def __supprMeteoVille(self):
-        ville = self.__varSupprMeteo.get()
+        ville = self.__menuMeteoSuppr.getValue()
         if ville == "":
             messagebox.showerror("Erreur","Aucune ville n'a été selectionné")
             return
         else :
-            self.__gazelle.supprVilleMeteo(3,ville)
-            messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
+            if self.__gestUser.removeTown(ville):
+                messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
             self.__viewMeteoAcceuil()
 
     # Methode partie GPS
