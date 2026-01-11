@@ -23,16 +23,13 @@ class CArreraGazelleUISix :
         self.__userPart()
         self.__partMeteo()
         self.__partIA()
+        self.__partGPS()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
-        self.__gpsAcceuil = aFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsDomicile = aFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsTravail = aFrame(self.__gpsFrame,width=500,height=330)
-        self.__gpsSuppr = aFrame(self.__gpsFrame,width=500,height=330)
+
 
         self.__rechercheFrame = aFrame(self.__windows,width=500,height=330)
 
@@ -96,7 +93,7 @@ class CArreraGazelleUISix :
         btnAcceuilInternet = aButton(self.__mainCadre,width=100,height=100,text="Internet"
                                                        ,command=lambda:self.__viewInternetAcceuil())
         btnAcceuilGps = aButton(self.__mainCadre,width=100,height=100,text="GPS"
-                                                    ,command=lambda:self.__viewTheme())
+                                                    ,command=lambda:self.__viewGPSAcceuil())
         btnAcceuilArreraWork = aButton(self.__mainCadre,width=100,height=100
                                                          ,text="Arrera\nWork",
                                        command=lambda:self.__viewArreraWork())
@@ -125,39 +122,6 @@ class CArreraGazelleUISix :
         btnViewGPS = aButton(self.__meteoGPSFrame,text="GPS",width=100,height=100,
                                                     command=lambda:self.__viewGPSAcceuil())
 
-        # GPS Frame
-        # Label
-        labelTitleGPS = [aLabel(self.__gpsAcceuil,text="Gestion GPS"),
-                         aLabel(self.__gpsDomicile,text="Lieu Domicile"),
-                         aLabel(self.__gpsTravail,text="Lieu Travail"),
-                         aLabel(self.__gpsSuppr,text="Supprimer Lieu")]
-        # Button
-        btnAcceuilGPSDomicile = aButton(self.__gpsAcceuil,text="Lieu\nDomicile",
-                                                          command=lambda:self.__viewGPSDomicile())
-        btnAcceuilGPSTravail = aButton(self.__gpsAcceuil,text="Lieu\nTravail",
-                                                         command=lambda:self.__viewGPSTravail())
-        btnAcceuilGPSSuppr = aButton(self.__gpsAcceuil,text="Supprimer\nun lieu",
-                                                       command=lambda:self.__viewGPSSuppr())
-
-        btnValiderGPSDomicile = aButton(self.__gpsDomicile,text="Valider",
-                                                          command=lambda:self.__saveGPSDomicile())
-        btnValiderGPSTravail = aButton(self.__gpsTravail,text="Valider",
-                                                         command=lambda:self.__saveGPSTravail())
-        btnValiderGPSSuppr = aButton(self.__gpsSuppr,text="Supprimer",
-                                                       command=lambda:self.__supprGPSAdresse())
-
-        btnRetourGPSDomicile = aButton(self.__gpsDomicile,text="Retour",
-                                                         command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSTravail = aButton(self.__gpsTravail,text="Retour",
-                                                        command=lambda:self.__viewGPSAcceuil())
-        btnRetourGPSSuppr = aButton(self.__gpsSuppr,text="Retour",
-                                                      command=lambda:self.__viewGPSAcceuil())
-
-        # entry
-        self.__entryGPSDomicile = aEntry(self.__gpsDomicile, width=300)
-        self.__entryGPSTravail = aEntry(self.__gpsTravail, width=300)
-        #option menu
-        self.__menuGPSSuppr = aOptionMenu(self.__gpsSuppr, value = ["", ""])
 
         # Recherche Frame
         # Label
@@ -328,25 +292,6 @@ class CArreraGazelleUISix :
 
         # backFrame
         retourAcceuilBTN.placeCenterRight()
-
-        for i in range(0,len(labelTitleGPS)):
-            labelTitleGPS[i].placeTopCenter()
-
-        btnAcceuilGPSDomicile.placeRightCenter()
-        btnAcceuilGPSTravail.placeLeftCenter()
-        btnAcceuilGPSSuppr.placeCenter()
-
-        btnValiderGPSDomicile.placeBottomLeft()
-        btnRetourGPSDomicile.placeBottomRight()
-
-        btnValiderGPSTravail.placeBottomLeft()
-        btnRetourGPSTravail.placeBottomRight()
-
-        btnValiderGPSSuppr.placeBottomLeft()
-        btnRetourGPSSuppr.placeBottomRight()
-
-        self.__entryGPSTravail.placeCenter()
-        self.__entryGPSDomicile.placeCenter()
 
         labelTitleRecherche.placeTopCenter()
         menuMoteurRecherche.placeCenter()
@@ -599,6 +544,54 @@ class CArreraGazelleUISix :
 
         self.__downloadIA.placeCenter()
 
+    def __partGPS(self):
+        self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
+        self.__gpsAcceuil = aFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsDomicile = aFrame(self.__gpsFrame,width=500,height=330)
+        self.__gpsTravail = aFrame(self.__gpsFrame,width=500,height=330)
+
+        # GPS Frame
+        # Label
+        labelTitleGPS = [aLabel(self.__gpsAcceuil,text="Gestion de vos adresse",police_size=25),
+                         aLabel(self.__gpsDomicile,text="Adresse de votre Domicile",police_size=25),
+                         aLabel(self.__gpsTravail,text="Adresse de votre Travail",police_size=25)]
+        # Button
+        btnAcceuilGPSDomicile = aButton(self.__gpsAcceuil,text="Adresse\nde\nDomicile",
+                                        command=lambda:self.__viewGPSDomicile())
+        btnAcceuilGPSTravail = aButton(self.__gpsAcceuil,text="Adresse\nde\nTravail",
+                                       command=lambda:self.__viewGPSTravail())
+
+        btnValiderGPS = [aButton(self.__gpsDomicile,text="Valider",
+                                 command=lambda:self.__saveGPSDomicile()),
+                         aButton(self.__gpsTravail,text="Valider",
+                                 command=lambda:self.__saveGPSTravail())]
+
+        btnBackGPS = [aButton(self.__gpsDomicile,text="Retour",
+                              command=lambda:self.__viewGPSAcceuil()),
+                      aButton(self.__gpsTravail,text="Retour",
+                              command=lambda:self.__viewGPSAcceuil())]
+
+        self.__btnSupprGPS = [aButton(self.__gpsDomicile,text="Supprimer l'adresse",
+                                command=self.__supprAdresseDomicile),
+                        aButton(self.__gpsTravail,text="Supprimer l'adresse",
+                                command=self.__supprAdresseWork)]
+
+        # entry
+        self.__entryGPS = [aEntry(self.__gpsDomicile, width=300),
+                           aEntry(self.__gpsTravail, width=300)]
+
+        for i in range(0,len(labelTitleGPS)):
+            labelTitleGPS[i].placeTopCenter()
+
+        btnAcceuilGPSDomicile.placeRightCenter()
+        btnAcceuilGPSTravail.placeLeftCenter()
+
+        for i in btnValiderGPS:
+            i.placeBottomLeft()
+
+        for i in btnBackGPS:
+            i.placeBottomRight()
+
     def __initBtnEnableIAMode(self):
         self.__btnEnableIA = None
         del self.__btnEnableIA
@@ -803,84 +796,73 @@ class CArreraGazelleUISix :
         self.__clearAll()
         self.__gpsDomicile.pack_forget()
         self.__gpsTravail.pack_forget()
-        self.__gpsSuppr.pack_forget()
         self.__gpsAcceuil.pack()
         self.__gpsFrame.pack()
         self.__backFrame.pack()
         self.__windows.update()
 
     def __viewGPSDomicile(self):
-        self.__entryGPSDomicile.delete(0,END)
         self.__gpsDomicile.pack()
+
+        self.__entryGPS[0].place_forget()
+        self.__btnSupprGPS[0].place_forget()
+        if self.__gestUser.getAdresseDomicile() == "":
+            self.__entryGPS[0].delete(0,END)
+            self.__entryGPS[0].placeCenter()
+        else :
+            self.__btnSupprGPS[0].placeCenter()
+
+
         self.__gpsTravail.pack_forget()
-        self.__gpsSuppr.pack_forget()
         self.__gpsAcceuil.pack_forget()
         self.__windows.update()
 
     def __viewGPSTravail(self):
-        self.__entryGPSTravail.delete(0,END)
         self.__gpsDomicile.pack_forget()
         self.__gpsTravail.pack()
-        self.__gpsSuppr.pack_forget()
+
+        self.__entryGPS[1].place_forget()
+        self.__btnSupprGPS[1].place_forget()
+        if self.__gestUser.getAdresseTravail() == "":
+            self.__entryGPS[1].delete(0,END)
+            self.__entryGPS[1].placeCenter()
+        else :
+            self.__btnSupprGPS[1].placeCenter()
+
         self.__gpsAcceuil.pack_forget()
         self.__windows.update()
 
-    def __viewGPSSuppr(self):
-        travailSet = self.__gazelle.getGPSAdresseIsSet(2)
-        domicileSet = self.__gazelle.getGPSAdresseIsSet(1)
-        listVille = []
-
-        if domicileSet:
-            listVille.append("Lieu de Domicile")
-
-        if travailSet:
-            listVille.append("Lieu de Travail")
-
-        if len(listVille) == 0:
-            messagebox.showerror("Erreur", "Aucune ville n'a été enregistré")
-            return
-        self.__gpsDomicile.pack_forget()
-        self.__gpsTravail.pack_forget()
-        self.__gpsSuppr.pack()
-        self.__gpsAcceuil.pack_forget()
-        del self.__menuGPSSuppr
-        self.__menuGPSSuppr = aOptionMenu(self.__gpsSuppr,value = listVille)
-        self.__menuGPSSuppr.placeCenter()
-
     def __saveGPSDomicile(self):
-        domicile = self.__entryGPSDomicile.get()
+        domicile = self.__entryGPS[0].get()
         if domicile == "":
-            messagebox.showerror("Parametre","Le lieu domicile ne peut pas etre vide")
+            messagebox.showerror("Parametre","L'adresse de domicile ne peut pas etre vide")
             return
         else :
-            self.__gazelle.ajoutGPSAdresse(1,domicile)
-            messagebox.showinfo("Parametre","Le lieu domicile a bien été enregistré")
-            self.__entryGPSDomicile.delete(0,END)
+            if self.__gestUser.setAdresseDomicile(domicile):
+                messagebox.showinfo("Parametre","L'adresse de domicile a bien été enregistré")
+            self.__entryGPS[0].delete(0,END)
             self.__viewGPSAcceuil()
 
     def __saveGPSTravail(self):
-        travail = self.__entryGPSTravail.get()
+        travail = self.__entryGPS[1].get()
         if travail == "":
-            messagebox.showerror("Parametre","Le lieu travail ne peut pas etre vide")
+            messagebox.showerror("Parametre","L'adresse de travail ne peut pas etre vide")
             return
         else :
-            self.__gazelle.ajoutGPSAdresse(2,travail)
-            messagebox.showinfo("Parametre","Le lieu travail a bien été enregistré")
-            self.__entryGPSTravail.delete(0,END)
+            if self.__gestUser.setAdresseTravail(travail):
+                messagebox.showinfo("Parametre","L'adresse de travail a bien été enregistré")
+            self.__entryGPS[1].delete(0,END)
             self.__viewGPSAcceuil()
 
-    def __supprGPSAdresse(self):
-        adresse = self.__varSupprGPS.get()
-        if adresse == "":
-            messagebox.showerror("Erreur","Aucune adresse n'a été selectionné")
-            return
-        else :
-            if adresse == "Lieu de Domicile":
-                self.__gazelle.supprGPSAdresse(1)
-            else :
-                self.__gazelle.supprGPSAdresse(2)
-            messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
-            self.__viewGPSAcceuil()
+    def __supprAdresseWork(self):
+        if self.__gestUser.delAdresseTravail():
+            messagebox.showinfo("Parametre","L'adresse de travail a bien été supprimé")
+        self.__viewGPSAcceuil()
+
+    def __supprAdresseDomicile(self):
+        if self.__gestUser.delAdresseDomicile():
+            messagebox.showinfo("Parametre","L'adresse de domicile a bien été supprimé")
+        self.__viewGPSAcceuil()
 
 
     # Methode recherche
