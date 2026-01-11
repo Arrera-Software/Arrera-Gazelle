@@ -24,14 +24,11 @@ class CArreraGazelleUISix :
         self.__partMeteo()
         self.__partIA()
         self.__partGPS()
+        self.__partRecherche()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
-
-
-
-        self.__rechercheFrame = aFrame(self.__windows,width=500,height=330)
 
         self.__softFrame = aFrame(self.__windows,width=500,height=330)
         self.__softAcceuil = aFrame(self.__softFrame,width=500,height=330)
@@ -66,7 +63,6 @@ class CArreraGazelleUISix :
         # Taille Police
         taillePolice = 20
         # Liste
-        listMoteurRecherche = self.__jsonSetting.getFlagListJson("listMoteurRecherche")
         self.__listTheme = self.__jsonSetting.getFlagListJson("listeTheme")
         # Icon Assistant
         iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
@@ -123,14 +119,7 @@ class CArreraGazelleUISix :
                                                     command=lambda:self.__viewGPSAcceuil())
 
 
-        # Recherche Frame
-        # Label
-        labelTitleRecherche = aLabel(self.__rechercheFrame,text="Gestion du moteur de recherche")
-        # Button
-        btnValiderRecherche = aButton(self.__rechercheFrame,text="Valider",
-                                                        command=lambda:self.__saveRecherche())
-        # Option Menu
-        menuMoteurRecherche = aOptionMenu(self.__rechercheFrame,value = listMoteurRecherche)
+
 
         # Soft Frame
         # Label
@@ -293,9 +282,7 @@ class CArreraGazelleUISix :
         # backFrame
         retourAcceuilBTN.placeCenterRight()
 
-        labelTitleRecherche.placeTopCenter()
-        menuMoteurRecherche.placeCenter()
-        btnValiderRecherche.placeBottomCenter()
+
 
         for i in range(0,len(labelTitleSoft)):
             labelTitleSoft[i].placeTopCenter()
@@ -592,6 +579,20 @@ class CArreraGazelleUISix :
         for i in btnBackGPS:
             i.placeBottomRight()
 
+    def __partRecherche(self):
+        listMoteurRecherche = self.__jsonSetting.getFlagListJson("listMoteurRecherche")
+
+        self.__rechercheFrame = aFrame(self.__windows,width=500,height=330)
+
+        labelTitleRecherche = aLabel(self.__rechercheFrame,text="Gestion du moteur de recherche",police_size=25)
+        btnValiderRecherche = aButton(self.__rechercheFrame,text="Valider",
+                                      command=lambda:self.__saveRecherche())
+        self.__mSearch = aOptionMenu(self.__rechercheFrame,value = listMoteurRecherche)
+
+        labelTitleRecherche.placeTopCenter()
+        self.__mSearch.placeCenter()
+        btnValiderRecherche.placeBottomCenter()
+
     def __initBtnEnableIAMode(self):
         self.__btnEnableIA = None
         del self.__btnEnableIA
@@ -874,9 +875,8 @@ class CArreraGazelleUISix :
         self.__windows.update()
 
     def __saveRecherche(self):
-        moteur = self.__varMoteurRecherche.get()
-        self.__gazelle.changeMoteur(moteur)
-        messagebox.showinfo("Parametre","Le moteur de recherche a bien été enregistré")
+        if self.__gestUser.setMoteurRecherche(self.__mSearch.getValue()):
+            messagebox.showinfo("Parametre","Le moteur de recherche a bien été enregistré")
         self.__backAcceuil()
         self.__windows.update()
 
