@@ -13,6 +13,7 @@ class CArreraGazelleUISix :
         self.__jsonSetting = jsonWork(file_setting)
         # Var qui contient les thead
         self.__threadSaveVoicePrint = th.Thread()
+        self.__theardDownloadModel = th.Thread()
 
         # Mise de la fenetre dans un atribut
         self.__windows = windows
@@ -560,7 +561,7 @@ class CArreraGazelleUISix :
                         aLabel(self.__iaChoose,text="Téléchargement \nd'un model d'intelligence artificielle",police_size=25)]
 
         btnChoixModel = aButton(self.__iaAcceuil,text="Choix d'un model",command=self.__viewIAChoose)
-        btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un model")
+        btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un model",command=self.__viewDownloadIA)
 
         self.__initBtnEnableIAMode()
 
@@ -573,7 +574,13 @@ class CArreraGazelleUISix :
         validerChooseModel = aButton(self.__iaChoose,text="Valider",command=self.__setModelToUse)
 
         # Download
-        self.__downloadIA = aScrollableFrame(self.__iaDownload)
+        self.__downloadIA = aScrollableFrame(self.__iaDownload,width=450,corner_radius=0)
+        self.__duringDownloadModel = aFrame(self.__iaFrame,width=500,height=330)
+
+        # During Download Model
+        labelViewDownload = aLabel(self.__duringDownloadModel,
+                                   text="Telechargement d'un model\nen cours...",
+                                   police_size=25)
 
         # Placement
         for i in (range(0,len(labelTitleIA))):
@@ -587,6 +594,10 @@ class CArreraGazelleUISix :
 
         self.__menuChooseIAModel.placeCenter()
         validerChooseModel.placeBottomRight()
+
+        labelViewDownload.placeCenter()
+
+        self.__downloadIA.placeCenter()
 
     def __initBtnEnableIAMode(self):
         self.__btnEnableIA = None
@@ -1256,6 +1267,7 @@ class CArreraGazelleUISix :
         self.__iaAcceuil.pack()
         self.__iaDownload.pack_forget()
         self.__iaChoose.pack_forget()
+        self.__duringDownloadModel.pack_forget()
         self.__iaFrame.pack()
         self.__backFrame.pack()
         self.__windows.update()
@@ -1276,6 +1288,7 @@ class CArreraGazelleUISix :
 
         self.__iaChoose.pack()
         self.__iaFrame.pack()
+        self.__duringDownloadModel.pack_forget()
         self.__backFrame.pack()
         self.__windows.update()
 
@@ -1293,6 +1306,65 @@ class CArreraGazelleUISix :
             return False
 
     def __viewDownloadIA(self):
+        self.__clearAll()
+        self.__iaAcceuil.pack_forget()
+        self.__iaChoose.pack_forget()
+
+        self.__iaDownload.pack()
+
+        for widget in self.__downloadIA.winfo_children():
+            widget.destroy()
+
+        listModel = self.__gestUser.get_list_model_ia_available()
+        modelDownloader = self.__gestUser.get_model_downloaded()
+
+        for i in listModel:
+            if i not in modelDownloader:
+                self.__availableDownloadModel(i)
+
+        self.__iaFrame.pack()
+        self.__backFrame.pack()
+        self.__duringDownloadModel.pack_forget()
+        self.__windows.update()
+
+    def __availableDownloadModel(self,model:str):
+        modelData = self.__gestUser.get_data_model_ia_available(model)
+        l = aFrame(self.__downloadIA,fg_color="#DFE2EB")
+        l.pack(fill="x", padx=5, pady=2)
+
+        title = aLabel(l,text=f"{modelData[0]}\n({model})",police_size=25,justify="left")
+        title.grid(row=0, column=0, sticky="w")
+
+        d = aLabel(l,text=modelData[2],wraplength=300,justify="left")
+        d.grid(row=1, column=0, sticky="w")
+
+        btn = aButton(l,text="Telecharger",command=lambda:self.__downloadModel(model))
+        btn.placeRightCenter()
+
+    def __downloadModel(self,model:str):
+
+        self.__theardDownloadModel = th.Thread(target=self.__gestUser.download_ia_model,args=(model,))
+
+        self.__duringDownloadModel.pack()
+        self.__iaAcceuil.pack_forget()
+        self.__iaDownload.pack_forget()
+        self.__iaChoose.pack_forget()
+        self.__iaFrame.pack()
+        self.__backFrame.pack()
+        self.__windows.update()
+
+        self.__theardDownloadModel.start()
+
+        self.__windows.after(100,self.__updateDownloadModel)
+
+
+    def __updateDownloadModel(self):
+        if self.__theardDownloadModel.is_alive():
+            self.__windows.after(100,self.__updateDownloadModel)
+            self.__windows.update()
+        else :
+            messagebox.showinfo("Parametre","Le model a bien été téléchargé")
+            self.__viewIAAcceuil()
 
 
     def __set_enable_ia_mode(self):
