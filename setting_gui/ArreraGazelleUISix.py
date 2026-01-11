@@ -25,6 +25,7 @@ class CArreraGazelleUISix :
         self.__partIA()
         self.__partGPS()
         self.__partRecherche()
+        self.__partInternet()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
@@ -35,12 +36,6 @@ class CArreraGazelleUISix :
         self.__softAdd = aFrame(self.__softFrame,width=500,height=330)
         self.__softSuppr = aFrame(self.__softFrame,width=500,height=330)
         self.__softListe = aFrame(self.__softFrame,width=500,height=330)
-
-        self.__internetFrame = aFrame(self.__windows,width=500,height=330)
-        self.__internetAcceuil = aFrame(self.__internetFrame,width=500,height=330)
-        self.__internetSiteWeb = aFrame(self.__internetFrame,width=500,height=330)
-        self.__internetSupprSite = aFrame(self.__internetFrame,width=500,height=330)
-        self.__internetListeSite = aFrame(self.__internetFrame,width=500,height=330)
 
         self.__themeFrame = aFrame(self.__windows,width=500,height=330)
 
@@ -86,7 +81,7 @@ class CArreraGazelleUISix :
                                                         ,command=lambda:self.__viewRecherche())
         btnAcceuilLogiciel = aButton(self.__mainCadre,width=100,height=100,text="Logiciel"
                                                        ,command=lambda:self.__viewSoftAcceuil())
-        btnAcceuilInternet = aButton(self.__mainCadre,width=100,height=100,text="Internet"
+        btnAcceuilInternet = aButton(self.__mainCadre,width=100,height=100,text="Raccourcie\nInternet"
                                                        ,command=lambda:self.__viewInternetAcceuil())
         btnAcceuilGps = aButton(self.__mainCadre,width=100,height=100,text="GPS"
                                                     ,command=lambda:self.__viewGPSAcceuil())
@@ -157,46 +152,7 @@ class CArreraGazelleUISix :
         # Option Menu
         self.__menuSoftSuppr = aOptionMenu(self.__softSuppr,value = ["",""])
 
-        # Internet Frame
-        # Label
-        labelTitleInternet = [aLabel(self.__internetAcceuil,text="Gestion d'internet"),
-                                aLabel(self.__internetSiteWeb,text="Ajouter un site web"),
-                                aLabel(self.__internetSupprSite,text="Supprimer un site"),
-                                aLabel(self.__internetListeSite, text="Liste site enregistrer")]
 
-        # Bouton
-        btnAcceuilInternetSiteWeb = aButton(self.__internetAcceuil,text="Ajouter un \nSite Web",
-                                                                command=lambda:self.__viewInternetSiteWeb())
-        btnAcceuilInternetCloudLink = aButton(self.__internetAcceuil,text="Lien \nde cloud"
-                                                                ,command=lambda:self.__viewInternetCloudLink())
-        btnAcceuilInternetSupprSite = aButton(self.__internetAcceuil,text="Supprimer\nun site",
-                                                                command=lambda:self.__viewInternetSupprSite())
-        btnAcceuilInternetListeSite = aButton(self.__internetAcceuil,text="Liste des sites enregistrer",
-                                                                command=lambda:self.__viewInternetListeSite())
-
-        btnValiderSiteWeb = aButton(self.__internetSiteWeb, text="Valider",
-                                                      command=lambda:self.__saveSiteWeb(1))
-        btnRetourSiteWeb = aButton(self.__internetSiteWeb, text="Retour"
-                                                     ,command=lambda:self.__viewInternetAcceuil())
-
-        btnInternetValiderSuppr = aButton(self.__internetSupprSite,text="Valider"
-                                                            ,command=lambda:self.__supprSiteWeb())
-        btnInternetRetourSuppr = aButton(self.__internetSupprSite,text="Retour"
-                                                           ,command=lambda:self.__viewInternetAcceuil())
-
-        btnRetourInternetListe = aButton(self.__internetListeSite,text="Retour"
-                                                              ,command=lambda:self.__viewInternetAcceuil())
-
-        self.__listSite = aText(self.__internetListeSite, width=450, height=250,
-                                             wrap="word", state="normal")
-
-        # Entry
-        self.__entryNameSiteWeb = aEntry(self.__internetSiteWeb, width=300)
-        self.__entrySiteWeb = aEntry(self.__internetSiteWeb, width=300)
-
-
-        # option menu
-        self.__menuSiteWeb = aOptionMenu(self.__internetSupprSite,value = ["",""])
 
         # Theme Frame
         # Label
@@ -299,27 +255,7 @@ class CArreraGazelleUISix :
         btnSupprSoftRetour.placeBottomRight()
 
         btnSoftListRetour.placeBottomLeft()
-        self.__listSite.placeCenter()
         self.__listSoftware.placeCenter()
-
-        for i in range(0,len(labelTitleInternet)):
-            labelTitleInternet[i].placeTopCenter()
-
-        btnAcceuilInternetSiteWeb.placeRightCenter()
-        btnAcceuilInternetSupprSite.placeLeftCenter()
-        btnAcceuilInternetListeSite.placeBottomCenter()
-
-        btnRetourSiteWeb.placeBottomLeft()
-        btnValiderSiteWeb.placeBottomRight()
-
-        btnInternetValiderSuppr.placeBottomLeft()
-        self.__menuSiteWeb.placeCenter()
-        btnInternetRetourSuppr.placeBottomRight()
-
-        self.__entryNameSiteWeb.placeCenterOnWidth(y=100)
-        self.__entrySiteWeb.placeCenterOnWidth(y=150)
-
-        btnRetourInternetListe.placeBottomCenter()
 
         labelTitleTheme.placeTopCenter()
         self.__btnChangeTheme.placeCenter()
@@ -593,6 +529,76 @@ class CArreraGazelleUISix :
         self.__mSearch.placeCenter()
         btnValiderRecherche.placeBottomCenter()
 
+    def __partInternet(self):
+        self.__webFrame = aFrame(self.__windows, width=500, height=330)
+        self.__webAcceuil = aFrame(self.__webFrame, width=500, height=330)
+        self.__webAddShortcut = aFrame(self.__webFrame, width=500, height=330)
+        self.__webDelShortcut = aFrame(self.__webFrame, width=500, height=330)
+        self.__webSavedShortcut = aFrame(self.__webFrame, width=500, height=330)
+
+        # Internet Frame
+        # Label
+        labelTitleInternet = [aLabel(self.__webAcceuil, text="Gestion des raccourcie\ninternet",
+                                     police_size=25),
+                              aLabel(self.__webAddShortcut, text="Ajouter un raccourcie",
+                                     police_size=25),
+                              aLabel(self.__webDelShortcut, text="Supprimer un raccourcie",
+                                     police_size=25),
+                              aLabel(self.__webSavedShortcut, text="Liste des raccourcis enregistrés",
+                                     police_size=25)]
+
+        # Bouton
+        btnAddWebShortcut = aButton(self.__webAcceuil, text="Ajouter\nun raccourcie",
+                                            command=self.__viewInternetSiteWeb, size=15)
+        btnDelWebShortcut = aButton(self.__webAcceuil, text="Supprimer\nun raccourcie",
+                                              command= self.__viewInternetSupprSite, size=15)
+        btnViewWebShortcut = aButton(self.__webAcceuil, text="Raccourcis\nenregistrés",
+                                              command= self.__viewInternetListeSite, size=15)
+
+        btnBackWeb = [aButton(self.__webAddShortcut, text="Retour"
+                              ,command=self.__viewInternetAcceuil),
+                      aButton(self.__webDelShortcut, text="Retour"
+                              , command=self.__viewInternetAcceuil),
+                      aButton(self.__webSavedShortcut, text="Retour"
+                              , command=self.__viewInternetAcceuil)]
+
+        btnValiderSiteWeb = aButton(self.__webAddShortcut, text="Valider",
+                                    command=self.__saveSiteWeb)
+
+        btnInternetValiderSuppr = aButton(self.__webDelShortcut, text="Valider"
+                                          , command=lambda:self.__supprSiteWeb())
+
+        self.__listSite = aText(self.__webSavedShortcut, width=450, height=250,
+                                wrap="word", state="normal")
+
+        # Entry
+        self.__entruWebSortCut = [aEntryLengend(self.__webAddShortcut, text="Nom",width=250),
+                                  aEntryLengend(self.__webAddShortcut, text="URL",width=250)]
+
+
+        # option menu
+        self.__menuSiteWeb = aOptionMenu(self.__webDelShortcut, value = ["", ""])
+
+
+        for i in range(0,len(labelTitleInternet)):
+            labelTitleInternet[i].placeTopCenter()
+
+        btnAddWebShortcut.placeLeftCenter()
+        btnDelWebShortcut.placeRightCenter()
+        btnViewWebShortcut.placeCenter()
+
+        btnValiderSiteWeb.placeBottomRight()
+
+        btnInternetValiderSuppr.placeBottomRight()
+
+        self.__entruWebSortCut[0].placeCenterOnWidth(y=100)
+        self.__entruWebSortCut[1].placeCenterOnWidth(y=150)
+
+        for i in btnBackWeb:
+            i.placeBottomLeft()
+
+        self.__listSite.placeCenter()
+
     def __initBtnEnableIAMode(self):
         self.__btnEnableIA = None
         del self.__btnEnableIA
@@ -614,7 +620,7 @@ class CArreraGazelleUISix :
         self.__gpsFrame.pack_forget()
         self.__rechercheFrame.pack_forget()
         self.__softFrame.pack_forget()
-        self.__internetFrame.pack_forget()
+        self.__webFrame.pack_forget()
         self.__themeFrame.pack_forget()
         self.__microFrame.pack_forget()
         self.__arreraWorkFrame.pack_forget()
@@ -956,85 +962,72 @@ class CArreraGazelleUISix :
 
     def __viewInternetAcceuil(self):
         self.__clearAll()
-        self.__internetSiteWeb.pack_forget()
-        self.__internetSupprSite.pack_forget()
-        self.__internetListeSite.pack_forget()
-        self.__internetAcceuil.pack()
-        self.__internetFrame.pack()
+        self.__webAddShortcut.pack_forget()
+        self.__webDelShortcut.pack_forget()
+        self.__webSavedShortcut.pack_forget()
+        self.__webAcceuil.pack()
+        self.__webFrame.pack()
         self.__backFrame.pack()
         self.__windows.update()
 
     def __viewInternetSiteWeb(self):
-        self.__entryNameSiteWeb.delete(0,END)
-        self.__entrySiteWeb.delete(0,END)
-        self.__internetSiteWeb.pack()
-        self.__internetSupprSite.pack_forget()
-        self.__internetAcceuil.pack_forget()
-        self.__internetListeSite.pack_forget()
-        self.__windows.update()
-
-    def __viewInternetCloudLink(self):
-        self.__internetSiteWeb.pack_forget()
-        self.__internetSupprSite.pack_forget()
-        self.__internetAcceuil.pack_forget()
-        self.__internetListeSite.pack_forget()
+        self.__entruWebSortCut[0].getEntry().delete(0,END)
+        self.__entruWebSortCut[1].getEntry().delete(0,END)
+        self.__webAddShortcut.pack()
+        self.__webDelShortcut.pack_forget()
+        self.__webAcceuil.pack_forget()
+        self.__webSavedShortcut.pack_forget()
         self.__windows.update()
 
     def __viewInternetSupprSite(self):
-        listSite = self.__gazelle.getListSite()
+        listSite = list(self.__gestUser.getSite().keys())
         if len(listSite) == 0:
             messagebox.showerror("Erreur", "Aucun site web n'a été enregistré")
             return
-        self.__internetSiteWeb.pack_forget()
-        self.__internetSupprSite.pack()
-        self.__internetAcceuil.pack_forget()
+        self.__webAddShortcut.pack_forget()
+        self.__webDelShortcut.pack()
+        self.__webAcceuil.pack_forget()
         del self.__menuSiteWeb
-        self.__menuSiteWeb = aOptionMenu(self.__internetSupprSite,value = listSite)
+        self.__menuSiteWeb = aOptionMenu(self.__webDelShortcut, value = listSite)
         self.__menuSiteWeb.placeCenter()
 
     def __viewInternetListeSite(self):
-        listSite = self.__gazelle.getListSite()
+        listSite = list(self.__gestUser.getSite().keys())
         if len(listSite) == 0:
             messagebox.showerror("Erreur", "Aucun site web n'a été enregistré")
             return
-        self.__internetSiteWeb.pack_forget()
-        self.__internetSupprSite.pack_forget()
-        self.__internetAcceuil.pack_forget()
+        self.__webAddShortcut.pack_forget()
+        self.__webDelShortcut.pack_forget()
+        self.__webAcceuil.pack_forget()
         self.__listSite.configure(state="normal")
         self.__listSite.delete(1.0, END)
         for i in range(0,len(listSite)):
             self.__listSite.insert(END, listSite[i] + "\n")
         self.__listSite.configure(state="disabled")
-        self.__internetListeSite.pack()
+        self.__webSavedShortcut.pack()
 
-    def __saveSiteWeb(self, mode:int):
+    def __saveSiteWeb(self):
         """
         :param mode: 1. Site web 2. Cloud Link
         :return:
         """
-        match mode :
-            case 1 :
-                name = self.__entryNameSiteWeb.get()
-                link = self.__entrySiteWeb.get()
-                if name == "" or link == "":
-                    messagebox.showerror("Erreur","Le nom ou le lien ne peut pas etre vide")
-                    return
-                else :
-                    self.__gazelle.addSite(1,name,link)
-                    messagebox.showinfo("Parametre","Le site web a bien été ajouté")
-                    self.__entryNameSiteWeb.delete(0,END)
-                    self.__entrySiteWeb.delete(0,END)
-                    self.__viewInternetAcceuil()
-            case 2 :
-                return
+        name = self.__entruWebSortCut[0].getEntry().get()
+        link = self.__entruWebSortCut[1].getEntry().get()
+
+        if name == "" or link == "":
+            messagebox.showerror("Erreur","Le nom ou le lien ne peut pas etre vide")
+            return
+        else :
+            if self.__gestUser.setSite(name,link):
+                messagebox.showinfo("Parametre","Le site web a bien été ajouté")
+            self.__entruWebSortCut[0].getEntry().delete(0,END)
+            self.__entruWebSortCut[1].getEntry().delete(0,END)
+            self.__viewInternetAcceuil()
 
     def __supprSiteWeb(self):
-        site = self.__varSupprWeb.get()
-        if site == "Cloud":
-            self.__gazelle.supprSite(2, site)
-        else :
-            self.__gazelle.supprSite(1,site)
-        messagebox.showinfo("Parametre", "Le site a bien été supprimé")
+        site = self.__menuSiteWeb.getValue()
+        if self.__gestUser.removeSite(site):
+            messagebox.showinfo("Parametre", "Le site a bien été supprimé")
         self.__viewInternetAcceuil()
 
     # Methode Theme
