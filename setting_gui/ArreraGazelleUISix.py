@@ -26,16 +26,13 @@ class CArreraGazelleUISix :
         self.__partGPS()
         self.__partRecherche()
         self.__partInternet()
+        self.__softPart()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
-        self.__softFrame = aFrame(self.__windows,width=500,height=330)
-        self.__softAcceuil = aFrame(self.__softFrame,width=500,height=330)
-        self.__softAdd = aFrame(self.__softFrame,width=500,height=330)
-        self.__softSuppr = aFrame(self.__softFrame,width=500,height=330)
-        self.__softListe = aFrame(self.__softFrame,width=500,height=330)
+
 
         self.__themeFrame = aFrame(self.__windows,width=500,height=330)
 
@@ -116,41 +113,7 @@ class CArreraGazelleUISix :
 
 
 
-        # Soft Frame
-        # Label
-        labelTitleSoft = [aLabel(self.__softAcceuil,text="Gestion des logiciels"),
-                          aLabel(self.__softAdd,text="Nom du logiciel ajouter"),
-                          aLabel(self.__softSuppr,text="Suppression logiciel"),
-                          aLabel(self.__softListe,text="Liste de logiciel enregistrée")]
 
-        self.__listSoftware = aText(self.__softListe, width=450, height=250,
-                                             wrap="word", state="normal")
-
-        # Button
-        btnAcceuilSoftAdd = aButton(self.__softAcceuil,text="Ajout\nlogiciel"
-                                                      ,command=lambda:self.__viewSoftAdd())
-        btnAcceuilSoftSuppr = aButton(self.__softAcceuil,text="Suppression\nlogiciel"
-                                                        ,command=lambda:self.__viewSoftSuppr())
-        btnAcceuilSoftList = aButton(self.__softAcceuil,text="Liste\nlogiciel"
-                                                       ,command=lambda:self.__viewSoftList())
-
-        btnAddSoftValider = aButton(self.__softAdd, text="Valider"
-                                                      , command=lambda : self.__addSoft())
-        btnAddSoftRetour = aButton(self.__softAdd,text="Retour"
-                                                     ,command=lambda:self.__viewSoftAcceuil())
-
-        btnSupprSoftValider = aButton(self.__softSuppr,text="Valider",
-                                                        command=lambda:self.__supprSoft())
-        btnSupprSoftRetour = aButton(self.__softSuppr,text="Retour",
-                                                       command=lambda:self.__viewSoftAcceuil())
-        btnSoftListRetour = aButton(self.__softListe,text="Retour",
-                                                      command=lambda:self.__viewSoftAcceuil())
-
-        # Entry
-        self.__entryAddSoft = aEntry(self.__softAdd, width=300)
-
-        # Option Menu
-        self.__menuSoftSuppr = aOptionMenu(self.__softSuppr,value = ["",""])
 
 
 
@@ -240,22 +203,7 @@ class CArreraGazelleUISix :
 
 
 
-        for i in range(0,len(labelTitleSoft)):
-            labelTitleSoft[i].placeTopCenter()
 
-        btnAcceuilSoftAdd.placeRightCenter()
-        btnAcceuilSoftSuppr.placeLeftCenter()
-        btnAcceuilSoftList.placeCenter()
-
-        self.__entryAddSoft.placeCenter()
-        btnAddSoftValider.placeBottomLeft()
-        btnAddSoftRetour.placeBottomRight()
-
-        btnSupprSoftValider.placeBottomLeft()
-        btnSupprSoftRetour.placeBottomRight()
-
-        btnSoftListRetour.placeBottomLeft()
-        self.__listSoftware.placeCenter()
 
         labelTitleTheme.placeTopCenter()
         self.__btnChangeTheme.placeCenter()
@@ -599,6 +547,65 @@ class CArreraGazelleUISix :
 
         self.__listSite.placeCenter()
 
+    def __softPart(self):
+        self.__softFrame = aFrame(self.__windows,width=500,height=330)
+        self.__softAcceuil = aFrame(self.__softFrame,width=500,height=330)
+        self.__softAdd = aFrame(self.__softFrame,width=500,height=330)
+        self.__softSuppr = aFrame(self.__softFrame,width=500,height=330)
+        self.__softListe = aFrame(self.__softFrame,width=500,height=330)
+        # Soft Frame
+        # Label
+        labelTitleSoft = [aLabel(self.__softAcceuil,text="Gestion des logiciels",police_size=25),
+                          aLabel(self.__softAdd,text="Nom du logiciel ajouter",police_size=25),
+                          aLabel(self.__softSuppr,text="Suppression logiciel",police_size=25),
+                          aLabel(self.__softListe,text="Liste de logiciel enregistrée",police_size=25)]
+
+        self.__listSoftware = aText(self.__softListe, width=450, height=250,
+                                    wrap="word", state="normal")
+
+        # Button
+        btnAcceuilSoftAdd = aButton(self.__softAcceuil,text="Ajout\nd'un\nlogiciel"
+                                    ,command=self.__viewSoftAdd,size=15)
+        btnAcceuilSoftSuppr = aButton(self.__softAcceuil,text="Suppression\nd'un\nlogiciel"
+                                      ,command=self.__viewSoftSuppr,size=15)
+        btnAcceuilSoftList = aButton(self.__softAcceuil,text="Logiciel\nSauvergarder"
+                                     ,command=self.__viewSoftList,size=15)
+
+        btnAddSoftValider = aButton(self.__softAdd, text="Valider"
+                                    , command=self.__addSoft)
+
+        btnSupprSoftValider = aButton(self.__softSuppr,text="Valider",
+                                      command=self.__supprSoft)
+
+        btnBackSoft = [aButton(self.__softSuppr,text="Retour",
+                               command=self.__viewSoftAcceuil),
+                       aButton(self.__softListe,text="Retour",
+                               command=self.__viewSoftAcceuil),
+                       aButton(self.__softAdd,text="Retour"
+                               ,command=self.__viewSoftAcceuil)]
+
+        # Entry
+        self.__eAddSoft = aEntryLengend(self.__softAdd,text="Nom du logiciel", width=200)
+
+        # Option Menu
+        self.__menuSoftSuppr = aOptionMenu(self.__softSuppr,value = ["",""])
+
+        for i in labelTitleSoft:
+            i.placeTopCenter()
+
+        for i in btnBackSoft:
+            i.placeBottomLeft()
+
+        btnAcceuilSoftAdd.placeLeftCenter()
+        btnAcceuilSoftSuppr.placeRightCenter()
+        btnAcceuilSoftList.placeCenter()
+
+        self.__eAddSoft.placeCenter()
+        btnAddSoftValider.placeBottomRight()
+
+        btnSupprSoftValider.placeBottomRight()
+        self.__listSoftware.placeCenter()
+
     def __initBtnEnableIAMode(self):
         self.__btnEnableIA = None
         del self.__btnEnableIA
@@ -903,10 +910,11 @@ class CArreraGazelleUISix :
         self.__softAdd.pack_forget()
         self.__softSuppr.pack_forget()
         self.__softAdd.pack()
+        self.__eAddSoft.getEntry().delete(0,END)
         self.__windows.update()
 
     def __viewSoftSuppr(self):
-        listSoft = self.__gazelle.getListSoft()
+        listSoft = list(self.__gestUser.getSoft().keys())
         if (len(listSoft) == 0):
             messagebox.showerror("Erreur", "Aucun logiciel n'a été enregistré")
             return
@@ -920,7 +928,7 @@ class CArreraGazelleUISix :
     def __viewSoftList(self):
         self.__listSoftware.configure(state="normal")
         self.__listSoftware.delete(1.0, END)
-        listSoft = self.__gazelle.getListSoft()
+        listSoft = list(self.__gestUser.getSoft().keys())
         if len(listSoft) == 0:
             messagebox.showerror("Erreur", "Aucun logiciel n'a été enregistré")
             return
@@ -937,22 +945,22 @@ class CArreraGazelleUISix :
         self.__softAcceuil.pack_forget()
         self.__softAdd.pack()
         self.__softSuppr.pack_forget()
-        self.__entryAddSoft.delete(0,END)
+        self.__eAddSoft.delete(0, END)
 
     def __addSoft(self):
-        soft = self.__entryAddSoft.get()
+        soft = self.__eAddSoft.getEntry().get()
         if soft == "":
             messagebox.showerror("Erreur","Le nom du logiciel ne peut pas etre vide")
             return
         else :
-            self.__gazelle.addSoft(soft)
-            messagebox.showinfo("Parametre","Le logiciel a bien été ajouté")
-            self.__entryAddSoft.delete(0,END)
+            if self.__gestUser.setSoft(soft):
+                messagebox.showinfo("Parametre","Le logiciel a bien été ajouté")
+            self.__eAddSoft.getEntry().delete(0, END)
             self.__viewSoftAcceuil()
 
     def __supprSoft(self):
-        soft = self.__varSupprSoft.get()
-        if not self.__gazelle.supprSoft(soft):
+        soft = self.__menuSoftSuppr.getValue()
+        if not self.__gestUser.removeSoft(soft):
             messagebox.showinfo("Parametre", "Le logiciel n'a pas pu être supprimé.")
         else :
             messagebox.showinfo("Parametre", "Le logiciel a bien été supprimé")
