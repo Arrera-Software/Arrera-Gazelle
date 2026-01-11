@@ -32,10 +32,6 @@ class CArreraGazelleUISix :
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
         self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
-
-
-        self.__themeFrame = aFrame(self.__windows,width=500,height=330)
-
         self.__microFrame = aFrame(self.__windows,width=500,height=330)
         self.__microAcceuil = aFrame(self.__microFrame,width=500,height=330)
         self.__microSound = aFrame(self.__microFrame,width=500,height=330)
@@ -51,20 +47,8 @@ class CArreraGazelleUISix :
 
         self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
-        # Variable
-        # Taille Police
-        taillePolice = 20
-        # Liste
-        self.__listTheme = self.__jsonSetting.getFlagListJson("listeTheme")
         # Icon Assistant
         iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
-        # String var
-        self.__varNameUser = StringVar(self.__windows)
-        self.__varSupprMeteo = StringVar(self.__windows)
-        self.__varSupprGPS = StringVar(self.__windows)
-        self.__varMoteurRecherche = StringVar(self.__windows)
-        self.__varSupprSoft = StringVar(self.__windows)
-        self.__varSupprWeb = StringVar(self.__windows)
         # Widget
         # Main frame
         self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=95,height=95)
@@ -97,32 +81,6 @@ class CArreraGazelleUISix :
         # backFrame
         retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil"
                                                      ,command=lambda:self.__backAcceuil())
-
-
-
-
-        # Meteo GPS Frame
-
-        lTitleGPSAndMeteo = aLabel(self.__meteoGPSFrame,text="Meteo & GPS")
-
-        btnViewMeteo = aButton(self.__meteoGPSFrame,text="Meteo",width=100,height=100,
-                                                    command=lambda:self.__viewMeteoAcceuil())
-        btnViewGPS = aButton(self.__meteoGPSFrame,text="GPS",width=100,height=100,
-                                                    command=lambda:self.__viewGPSAcceuil())
-
-
-
-
-
-
-
-
-        # Theme Frame
-        # Label
-        labelTitleTheme = aLabel(self.__themeFrame,text="Gestion du theme")
-
-        self.__btnChangeTheme = aButton(self.__themeFrame,text="",
-                                                          command=lambda:self.__saveNewTheme())
 
         # Micro Frame
         # Label
@@ -201,13 +159,6 @@ class CArreraGazelleUISix :
         # backFrame
         retourAcceuilBTN.placeCenterRight()
 
-
-
-
-
-        labelTitleTheme.placeTopCenter()
-        self.__btnChangeTheme.placeCenter()
-
         for i in range(0,len(labelTitleMicro)):
             labelTitleMicro[i].placeTopCenter()
 
@@ -219,8 +170,6 @@ class CArreraGazelleUISix :
         btnRetourViewWord.placeBottomRight()
         self.__labelWordViewSave.placeCenter()
         labelDuringSave.placeCenter()
-
-        #self.__arrtk.placeCenter(btnAcceuilMicroSound)
 
         btnAcceuilMicroSound.placeRightCenter()
         btnAcceuilMicroTigerWord.placeLeftCenter()
@@ -235,10 +184,6 @@ class CArreraGazelleUISix :
 
         labelTitleArreraDownload.placeTopCenter()
         btnChooseFolderArreraDownload.placeCenter()
-
-        btnViewMeteo.placeCenterLeft()
-        btnViewGPS.placeCenterRight()
-        lTitleGPSAndMeteo.placeTopCenter()
 
     def __userPart(self):
         self.__userFrame = aFrame(self.__windows,width=500,height=330)
@@ -1037,27 +982,6 @@ class CArreraGazelleUISix :
         if self.__gestUser.removeSite(site):
             messagebox.showinfo("Parametre", "Le site a bien été supprimé")
         self.__viewInternetAcceuil()
-
-    # Methode Theme
-
-    def __viewTheme(self):
-        self.__clearAll()
-        self.__themeFrame.pack()
-        self.__backFrame.pack()
-        theme = self.__gazelle.getTheme()
-        if theme == self.__listTheme[0]:
-            self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[1])
-        else :
-            self.__btnChangeTheme.configure(text="Passer au mode "+self.__listTheme[0])
-        self.__windows.update()
-
-    def __saveNewTheme(self):
-        theme = self.__gazelle.getTheme()
-        if theme == self.__listTheme[0]:
-            self.__gazelle.changeTheme(self.__listTheme[1])
-        else :
-            self.__gazelle.changeTheme(self.__listTheme[0])
-        self.__backAcceuil()
 
     # Methode Micro
 
