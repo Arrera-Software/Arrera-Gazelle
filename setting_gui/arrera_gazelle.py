@@ -1,3 +1,5 @@
+import webbrowser
+
 from lib.arrera_tk import *
 from tkinter import messagebox
 from typing import Union
@@ -36,6 +38,7 @@ class arrera_gazelle :
         self.__partInternet()
         self.__softPart()
         self.__microPart()
+        self.__githubPart()
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
@@ -58,7 +61,7 @@ class arrera_gazelle :
                       aButton(self.__mainCadre,text="Logiciel\nexterne",command=self.__viewSoftAcceuil),
                       aButton(self.__mainCadre,text="Raccourcie\nInternet",command=self.__viewInternetAcceuil),
                       aButton(self.__mainCadre,text="Adresse\nGPS",command=self.__viewGPSAcceuil),
-                      aButton(self.__mainCadre,text="Github\nIntegration"),#,command=
+                      aButton(self.__mainCadre,text="Github\nIntegration",command=self.__viewGithub),
                       aButton(self.__mainCadre,text="Parametre\ndu\nMicro",command=self.__viewMicroAcceuil)]
 
         for i in btnWelcome:
@@ -617,7 +620,32 @@ class arrera_gazelle :
         for i in btnBackVoicePrint:
             i.placeBottomRight()
 
+    def __githubPart(self):
+        self.__githubFrame = aFrame(self.__windows,width=500,height=330)
 
+        self.__githubAcceuil = aFrame(self.__githubFrame,width=500,height=330)
+        self.__githubToken = aFrame(self.__githubFrame,width=500,height=330)
+
+        l_title_github = [aLabel(self.__githubAcceuil,text="Gestion des accès GitHub",police_size=25),
+                          aLabel(self.__githubToken,text="Ajout du token github",police_size=25)]
+
+        self.__btnToken = aButton(self.__githubAcceuil,size=15)
+
+        self.__eToken = aEntryLengend(self.__githubToken,text="Token github",width=200)
+
+        btnValiderToken = aButton(self.__githubToken,text="Valider",size=15,command=self.__saveToken)
+        btnCancelToken = aButton(self.__githubToken,text="Annuler",size=15,command=self.__viewGithub)
+
+        # Affichage
+        for i in l_title_github:
+            i.placeTopCenter()
+
+        self.__eToken.placeCenter()
+
+        self.__btnToken.placeCenter()
+
+        btnValiderToken.placeBottomLeft()
+        btnCancelToken.placeBottomRight()
 
     def __initBtnEnableIAMode(self):
         if self.__getStateIAMode():
@@ -1392,3 +1420,48 @@ class arrera_gazelle :
     def __set_enable_ia_mode(self):
         v = bool(self.__btnEnableIA.getValue())
         self.__gestUser.set_use_ia(v)
+
+    # Partie github
+
+    def __viewGithub(self):
+        self.__clearAll()
+
+        if self.__gestUser.getTokenGithub() == "":
+            self.__btnToken.configure(text="Enregistrer le token\ngithub",
+                                      command=self.__viewAddTokenGithub)
+        else :
+            self.__btnToken.configure(text="Supprimer le token\ngithub",
+                                      command=self.__delToken)
+
+        self.__githubAcceuil.pack()
+        self.__githubFrame.pack()
+        self.__githubToken.pack_forget()
+        self.__backFrame.pack()
+        self.__windows.update()
+
+    def __viewAddTokenGithub(self):
+        v = messagebox.askyesno("Parametre","Avez-vous generer les token github ?")
+        if not v :
+            webbrowser.open("https://github.com/settings/tokens/new")
+
+        self.__githubAcceuil.pack_forget()
+        self.__githubToken.pack()
+        self.__githubFrame.pack()
+        self.__backFrame.pack()
+        self.__windows.update()
+
+    def __saveToken(self):
+        token = self.__eToken.getEntry().get()
+        if token == "":
+            messagebox.showerror("Erreur","Le token ne peut pas etre vide")
+        else :
+            if self.__gestUser.setTokenGithub(token):
+                messagebox.showinfo("Parametre","Le token a bien été enregistré")
+
+        self.__eToken.getEntry().delete(0,END)
+        self.__viewGithub()
+
+    def __delToken(self):
+        if self.__gestUser.delTokenGithub():
+            messagebox.showinfo("Parametre","Le token github a bien été supprimé")
+        self.__viewGithub()
