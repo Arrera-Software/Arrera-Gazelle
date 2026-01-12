@@ -17,7 +17,10 @@ class CArreraGazelleUISix :
         # Var qui contient les thead
         self.__threadSaveVoicePrint = th.Thread()
         self.__theardDownloadModel = th.Thread()
-
+        # Var BTN
+        github_use = self.__jsonSetting.getContentJsonFlag("github_integration")
+        micro_use = self.__jsonSetting.getContentJsonFlag("micro_use")
+        self.__coordinatedBtnBack = []
         # Var Triger Word
         self.__varOutTriger = 0
         self.__outTexteMicro = ""
@@ -45,36 +48,23 @@ class CArreraGazelleUISix :
 
         self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
-        # Icon Assistant
         iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
-        # Widget
-        # Main frame
         self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=95,height=95)
-        btnAcceuilUser = aButton(self.__mainCadre, width=100, height=100, text="Utilisateur"
-                                                   ,command= lambda  : self.__viewUserAcceuil())
-        btnAcceuilMeteoAndGPS = aButton(self.__mainCadre,width=100,height=100,text="Meteo"
-                                                    ,command=lambda:self.__viewMeteoAcceuil())
-        btnAcceuilIA = aButton(self.__mainCadre,width=100,height=100,text="IA"
-                                                  ,command=lambda : self.__viewIAAcceuil())
-        btnAcceuilRecherche = aButton(self.__mainCadre,width=100,height=100,text="Recherche"
-                                                        ,command=lambda:self.__viewRecherche())
-        btnAcceuilLogiciel = aButton(self.__mainCadre,width=100,height=100,text="Logiciel"
-                                                       ,command=lambda:self.__viewSoftAcceuil())
-        btnAcceuilInternet = aButton(self.__mainCadre,width=100,height=100,text="Raccourcie\nInternet"
-                                                       ,command=lambda:self.__viewInternetAcceuil())
-        btnAcceuilGps = aButton(self.__mainCadre,width=100,height=100,text="GPS"
-                                                    ,command=lambda:self.__viewGPSAcceuil())
-        btnAcceuilArreraWork = aButton(self.__mainCadre,width=100,height=100
-                                                         ,text="Arrera\nWork",
-                                       command=lambda:self.__viewArreraWork())
-        btnAcceuilDownload = aButton(self.__mainCadre,width=100,height=100
-                                                       ,text="Arrera\nDownload",
-                                                       command=lambda:self.__viewArreraDownload())
-        btnAcceuilMicro = aButton(self.__mainCadre,width=100,height=100
-                                                    ,text="Micro",
-                                                    command=lambda:self.__viewMicroAcceuil())
-        self.__btnRetourAssistant = aButton(self.__mainCadre,width=100,
-                                                              height=100,text="Retour")
+        btnWelcome = [aButton(self.__mainCadre,text="Configuration\ngénérale"),#,command=self.__viewUserAcceuil
+                      aButton(self.__mainCadre,text="Utilisateur",command=self.__viewUserAcceuil),
+                      aButton(self.__mainCadre,text="Meteo",command=self.__viewMeteoAcceuil),
+                      aButton(self.__mainCadre,text="IA",command=self.__viewIAAcceuil),
+                      aButton(self.__mainCadre,text="Recherche",command=self.__viewRecherche),
+                      aButton(self.__mainCadre,text="Logiciel",command=self.__viewSoftAcceuil),
+                      aButton(self.__mainCadre,text="Raccourcie\nInternet",command=self.__viewInternetAcceuil),
+                      aButton(self.__mainCadre,text="GPS",command=self.__viewGPSAcceuil),
+                      aButton(self.__mainCadre,text="Github\nIntegration"),#,command=
+                      aButton(self.__mainCadre,text="Micro",command=self.__viewMicroAcceuil)]
+
+        for i in btnWelcome:
+            i.configure(width=100, height=100)
+
+        self.__btnRetourAssistant = aButton(self.__mainCadre,text="Retour",width=100,height=100)
 
         # backFrame
         retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil"
@@ -94,16 +84,32 @@ class CArreraGazelleUISix :
 
         # Affichage
 
-        btnAcceuilUser.place(x=140,y=20)
-        btnAcceuilMeteoAndGPS.place(x=260,y=20)
-        btnAcceuilIA.place(x=380,y=20)
-        btnAcceuilRecherche.place(x=20,y=140)
-        btnAcceuilLogiciel.place(x=140,y=140)
-        btnAcceuilInternet.place(x=260,y=140)
-        btnAcceuilGps.place(x=380,y=140)
-        btnAcceuilArreraWork.place(x=20,y=260)
-        btnAcceuilDownload.place(x=140,y=260)
-        btnAcceuilMicro.place(x=260,y=260)
+        btnWelcome[0].place(x=140,y=20)
+        btnWelcome[1].place(x=260,y=20)
+        btnWelcome[2].place(x=380,y=20)
+        btnWelcome[3].place(x=20,y=140)
+        btnWelcome[4].place(x=140,y=140)
+        btnWelcome[5].place(x=260,y=140)
+        btnWelcome[6].place(x=380,y=140)
+        btnWelcome[7].place(x=20,y=260)
+
+        if github_use == "1":
+            btnWelcome[8].place(x=140,y=260)
+
+        if micro_use == "1":
+            if github_use == "1":
+                btnWelcome[9].place(x=260,y=260)
+            else :
+                btnWelcome[9].place(x=140,y=260)
+
+        if github_use == "1" and  micro_use == "1":
+            self.__coordinatedBtnBack = [380,260]
+        elif ((github_use == "0" and  micro_use == "1") or
+              (github_use == "1" and  micro_use == "0")):
+            self.__coordinatedBtnBack = [260,260]
+        elif github_use == "0" and  micro_use == "0":
+            self.__coordinatedBtnBack = [140,260]
+
 
         # backFrame
         retourAcceuilBTN.placeCenterRight()
@@ -604,7 +610,7 @@ class CArreraGazelleUISix :
 
     def passFNCQuit(self,fnc):
         self.__btnRetourAssistant.configure(command=fnc)
-        self.__btnRetourAssistant.place(x=380, y=260)
+        self.__btnRetourAssistant.place(x=self.__coordinatedBtnBack[0], y=self.__coordinatedBtnBack[1])
 
     def passFNCBTNIcon(self,fnc):
         self.__btnIcon.configure(command=fnc)
