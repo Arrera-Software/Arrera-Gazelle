@@ -20,7 +20,7 @@ class arrera_gazelle :
         # Var BTN
         github_use = self.__jsonSetting.getContentJsonFlag("github_integration")
         micro_use = self.__jsonSetting.getContentJsonFlag("micro_use")
-        self.__coordinatedBtnBack = []
+        self.__coordinated_btn_back = []
         # Var Triger Word
         self.__varOutTriger = 0
         self.__outTexteMicro = ""
@@ -29,83 +29,83 @@ class arrera_gazelle :
         self.__windows = windows
 
         # Declaration des partie
-        self.__mainSetting()
-        self.__userPart()
-        self.__partMeteo()
-        self.__partIA()
-        self.__partGPS()
-        self.__partRecherche()
-        self.__partInternet()
-        self.__softPart()
-        self.__microPart()
-        self.__githubPart()
+        self.__main_setting_display()
+        self.__user_display()
+        self.__meteo_display()
+        self.__ia_display()
+        self.__gps_display()
+        self.__search_display()
+        self.__web_display()
+        self.__software_display()
+        self.__microphone_display()
+        self.__github_display()
 
         # Declaration des cardre
-        self.__mainCadre = aFrame(self.__windows,width=500,height=400)
+        self.__main_frame = aFrame(self.__windows, width=500, height=400)
         self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
         # Configuration du mainframe
         for col in range(4):
-            self.__mainCadre.columnconfigure(col, weight=1)
+            self.__main_frame.columnconfigure(col, weight=1)
 
         for row in range(4):
-            self.__mainCadre.rowconfigure(row, weight=1)
+            self.__main_frame.rowconfigure(row, weight=1)
 
-        iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
-        self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=125, height=125)
-        btnWelcome = [aButton(self.__mainCadre,text="Parametre\ngénérale",command=self.__viewMainSetting),
-                      aButton(self.__mainCadre,text="Parametre\nutilisateur",command=self.__viewUserAcceuil),
-                      aButton(self.__mainCadre,text="Meteo",command=self.__viewMeteoAcceuil),
-                      aButton(self.__mainCadre,text="Inteligence\nartificielle",command=self.__viewIAAcceuil),
-                      aButton(self.__mainCadre,text="Parametre\nde\nrecherche",command=self.__viewRecherche),
-                      aButton(self.__mainCadre,text="Logiciel\nexterne",command=self.__viewSoftAcceuil),
-                      aButton(self.__mainCadre,text="Raccourcie\nInternet",command=self.__viewInternetAcceuil),
-                      aButton(self.__mainCadre,text="Adresse\nGPS",command=self.__viewGPSAcceuil),
-                      aButton(self.__mainCadre,text="Github\nIntegration",command=self.__viewGithub),
-                      aButton(self.__mainCadre,text="Parametre\ndu\nMicro",command=self.__viewMicroAcceuil)]
+        icon_assistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
+        self.__btn_icon = aButton(self.__main_frame, image=icon_assistant, text="", corner_radius=8, width=125, height=125)
+        btn_welcome = [aButton(self.__main_frame, text="Parametre\ngénérale", command=self.__viewMainSetting),
+                      aButton(self.__main_frame, text="Parametre\nutilisateur", command=self.__viewUserAcceuil),
+                      aButton(self.__main_frame, text="Meteo", command=self.__viewMeteoAcceuil),
+                      aButton(self.__main_frame, text="Inteligence\nartificielle", command=self.__viewIAAcceuil),
+                      aButton(self.__main_frame, text="Parametre\nde\nrecherche", command=self.__viewRecherche),
+                      aButton(self.__main_frame, text="Logiciel\nexterne", command=self.__viewSoftAcceuil),
+                      aButton(self.__main_frame, text="Raccourcie\nInternet", command=self.__viewInternetAcceuil),
+                      aButton(self.__main_frame, text="Adresse\nGPS", command=self.__viewGPSAcceuil),
+                      aButton(self.__main_frame, text="Github\nIntegration", command=self.__viewGithub),
+                      aButton(self.__main_frame, text="Parametre\ndu\nMicro", command=self.__viewMicroAcceuil)]
 
-        for i in btnWelcome:
+        for i in btn_welcome:
             i.configure(width=125, height=125,font=("Roboto",13,"normal"))
 
-        self.__btnRetourAssistant = aButton(self.__mainCadre,text="Retour",width=125, height=125)
-        self.__btnRetourAssistant.configure(font=("Roboto",13,"normal"))
+        self.__btn_back_assistant = aButton(self.__main_frame, text="Retour", width=125, height=125)
+        self.__btn_back_assistant.configure(font=("Roboto", 13, "normal"))
 
         # backFrame
-        retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil",command=self.__backAcceuil)
+        btn_back_welcome = aButton(self.__backFrame,text="Retour Acceuil",command=self.__backAcceuil)
 
         # Affichage
-        self.__mainCadre.grid_propagate(False)
+        self.__main_frame.grid_propagate(False)
 
         index = 1
 
         for i in range(8):
             row = index // 4
             col = index % 4
-            btnWelcome[i].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            btn_welcome[i].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
             index += 1
 
         if github_use == "1":
             row = index // 4
             col = index % 4
-            btnWelcome[8].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            btn_welcome[8].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
             index += 1
 
         if micro_use == "1":
             row = index // 4
             col = index % 4
-            btnWelcome[9].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            btn_welcome[9].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
             index += 1
 
         # ✅ Bouton Back (toujours à la bonne place)
         row = index // 4
         col = index % 4
 
-        self.__coordinatedBtnBack = [row,col]
+        self.__coordinated_btn_back = [row, col]
 
         # backFrame
-        retourAcceuilBTN.placeCenterRight()
+        btn_back_welcome.placeCenterRight()
 
-    def __mainSetting(self):
+    def __main_setting_display(self):
         self.__main_setting_frame = aFrame(self.__windows,width=500,height=330)
 
         self.__main_setting_welcome_frame = aFrame(self.__main_setting_frame,width=500,height=330)
@@ -135,7 +135,7 @@ class arrera_gazelle :
         self.__l_state_download_folder = aLabel(self.__download_folder_frame,police_size=15)
         self.__btn_download_folder = aButton(self.__download_folder_frame,size=15)
         # Back
-        btnBackMain = [aButton(self.__work_folder_frame,text="Retour",
+        btn_back_main = [aButton(self.__work_folder_frame,text="Retour",
                                command=self.__viewMainSetting),
                        aButton(self.__download_folder_frame,text="Retour",
                                command=self.__viewMainSetting)]
@@ -144,7 +144,7 @@ class arrera_gazelle :
         for i in l_title_main_setting:
             i.placeTopCenter()
 
-        for i in btnBackMain:
+        for i in btn_back_main:
             i.placeBottomLeft()
 
         btn_folder_work.placeLeftCenter()
@@ -159,15 +159,15 @@ class arrera_gazelle :
 
         self.__initBtnEnableHist()
 
-    def __userPart(self):
-        self.__userFrame = aFrame(self.__windows,width=500,height=330)
-        self.__userAcceuil = aFrame(self.__userFrame,width=500,height=330)
-        self.__userName = aFrame(self.__userFrame,width=500,height=330)
-        self.__userGenre = aFrame(self.__userFrame,width=500,height=330)
+    def __user_display(self):
+        self.__user_frame = aFrame(self.__windows, width=500, height=330)
+        self.__user_welcome_frame = aFrame(self.__user_frame, width=500, height=330)
+        self.__userName = aFrame(self.__user_frame, width=500, height=330)
+        self.__userGenre = aFrame(self.__user_frame, width=500, height=330)
 
         # userFrame
         # Label
-        labelTitleUser = [aLabel(self.__userAcceuil,text="Gestion utilisateur",police_size=25),
+        labelTitleUser = [aLabel(self.__user_welcome_frame, text="Gestion utilisateur", police_size=25),
                           aLabel(self.__userName,text="Nom de l'utilisateur",police_size=25),
                           aLabel(self.__userGenre,text="Genre de l'utilisateur",police_size=25)]
         # entry
@@ -178,9 +178,9 @@ class arrera_gazelle :
         menuUserGenre = aOptionMenu(self.__userGenre,value = listGenre)
 
         # Button
-        btnUserName = aButton(self.__userAcceuil,text="Nom\nde\nl'utilisateur",
+        btnUserName = aButton(self.__user_welcome_frame, text="Nom\nde\nl'utilisateur",
                               command=lambda:self.__viewUserName())
-        btnUserGenre = aButton(self.__userAcceuil,text="Genre\nde\nl'utilisateur",
+        btnUserGenre = aButton(self.__user_welcome_frame, text="Genre\nde\nl'utilisateur",
                                command=lambda:self.__viewUserGenre())
         btnValiderUserName = aButton(self.__userName,text="Valider",
                                      command=lambda:
@@ -209,7 +209,7 @@ class arrera_gazelle :
         entryLastNameUser.placeCenterOnWidth(140)
         menuUserGenre.placeCenter()
 
-    def __partMeteo(self):
+    def __meteo_display(self):
         self.__meteoFrame = aFrame(self.__windows,width=500,height=330)
         self.__meteoAcceuil = aFrame(self.__meteoFrame,width=500,height=330)
         self.__meteoDomicile = aFrame(self.__meteoFrame,width=500,height=330)
@@ -283,7 +283,7 @@ class arrera_gazelle :
         self.__entryMeteoTravail.placeCenter()
         self.__entryMeteoVille.placeCenter()
 
-    def __partIA(self):
+    def __ia_display(self):
         self.__iaFrame = aFrame(self.__windows,width=500,height=330)
 
         self.__iaAcceuil = aFrame(self.__iaFrame,width=500,height=330)
@@ -340,7 +340,7 @@ class arrera_gazelle :
 
         self.__initBtnEnableIAMode()
 
-    def __partGPS(self):
+    def __gps_display(self):
         self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
         self.__gpsAcceuil = aFrame(self.__gpsFrame,width=500,height=330)
         self.__gpsDomicile = aFrame(self.__gpsFrame,width=500,height=330)
@@ -388,7 +388,7 @@ class arrera_gazelle :
         for i in btnBackGPS:
             i.placeBottomRight()
 
-    def __partRecherche(self):
+    def __search_display(self):
         listMoteurRecherche = self.__jsonSetting.getFlagListJson("listMoteurRecherche")
 
         self.__rechercheFrame = aFrame(self.__windows,width=500,height=330)
@@ -402,7 +402,7 @@ class arrera_gazelle :
         self.__mSearch.placeCenter()
         btnValiderRecherche.placeBottomCenter()
 
-    def __partInternet(self):
+    def __web_display(self):
         self.__webFrame = aFrame(self.__windows, width=500, height=330)
         self.__webAcceuil = aFrame(self.__webFrame, width=500, height=330)
         self.__webAddShortcut = aFrame(self.__webFrame, width=500, height=330)
@@ -472,7 +472,7 @@ class arrera_gazelle :
 
         self.__listSite.placeCenter()
 
-    def __softPart(self):
+    def __software_display(self):
         self.__softFrame = aFrame(self.__windows,width=500,height=330)
         self.__softAcceuil = aFrame(self.__softFrame,width=500,height=330)
         self.__softAdd = aFrame(self.__softFrame,width=500,height=330)
@@ -531,7 +531,7 @@ class arrera_gazelle :
         btnSupprSoftValider.placeBottomRight()
         self.__listSoftware.placeCenter()
 
-    def __microPart(self):
+    def __microphone_display(self):
         self.__microFrame = aFrame(self.__windows,width=500,height=330)
         self.__microAcceuil = aFrame(self.__microFrame,width=500,height=330)
         self.__microSound = aFrame(self.__microFrame,width=500,height=330)
@@ -620,7 +620,7 @@ class arrera_gazelle :
         for i in btnBackVoicePrint:
             i.placeBottomRight()
 
-    def __githubPart(self):
+    def __github_display(self):
         self.__githubFrame = aFrame(self.__windows,width=500,height=330)
 
         self.__githubAcceuil = aFrame(self.__githubFrame,width=500,height=330)
@@ -661,12 +661,12 @@ class arrera_gazelle :
 
     # Methode generale
     def active(self):
-        self.__mainCadre.pack()
+        self.__main_frame.pack()
 
     def __clearAll(self):
-        self.__mainCadre.pack_forget()
+        self.__main_frame.pack_forget()
         self.__main_setting_frame.pack_forget()
-        self.__userFrame.pack_forget()
+        self.__user_frame.pack_forget()
         self.__iaFrame.pack_forget()
         self.__backFrame.pack_forget()
         self.__meteoFrame.pack_forget()
@@ -679,17 +679,17 @@ class arrera_gazelle :
 
     def __backAcceuil(self):
         self.__clearAll()
-        self.__mainCadre.pack()
+        self.__main_frame.pack()
 
     def passFNCQuit(self,fnc):
-        self.__btnRetourAssistant.configure(command=fnc)
-        self.__btnRetourAssistant.grid(row=self.__coordinatedBtnBack[0],
-                                       column=self.__coordinatedBtnBack[1],
-                                       padx=10,pady=10,sticky="nsew")
+        self.__btn_back_assistant.configure(command=fnc)
+        self.__btn_back_assistant.grid(row=self.__coordinated_btn_back[0],
+                                       column=self.__coordinated_btn_back[1],
+                                       padx=10, pady=10, sticky="nsew")
 
     def passFNCBTNIcon(self,fnc):
-        self.__btnIcon.configure(command=fnc)
-        self.__btnIcon.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+        self.__btn_icon.configure(command=fnc)
+        self.__btn_icon.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
     def clearAllFrame(self):
         self.__clearAll()
@@ -777,21 +777,21 @@ class arrera_gazelle :
         self.__clearAll()
         self.__userName.pack_forget()
         self.__userGenre.pack_forget()
-        self.__userAcceuil.pack()
-        self.__userFrame.pack()
+        self.__user_welcome_frame.pack()
+        self.__user_frame.pack()
         self.__backFrame.pack()
         self.__windows.update()
 
     def __viewUserName(self):
         self.__userName.pack()
         self.__userGenre.pack_forget()
-        self.__userAcceuil.pack_forget()
+        self.__user_welcome_frame.pack_forget()
         self.__windows.update()
 
     def __viewUserGenre(self):
         self.__userName.pack_forget()
         self.__userGenre.pack()
-        self.__userAcceuil.pack_forget()
+        self.__user_welcome_frame.pack_forget()
         self.__windows.update()
 
     def __saveUserName(self,eLast:aEntry,eFirst:aEntry):
