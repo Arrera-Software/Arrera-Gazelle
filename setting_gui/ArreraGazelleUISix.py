@@ -48,27 +48,34 @@ class CArreraGazelleUISix :
 
         self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
-        iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=95,height=95)
-        self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=95,height=95)
-        btnWelcome = [aButton(self.__mainCadre,text="Configuration\ngénérale"),#,command=self.__viewUserAcceuil
-                      aButton(self.__mainCadre,text="Utilisateur",command=self.__viewUserAcceuil),
+        # Configuration du mainframe
+        for col in range(4):
+            self.__mainCadre.columnconfigure(col, weight=1)
+
+        for row in range(4):
+            self.__mainCadre.rowconfigure(row, weight=1)
+
+        iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
+        self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=125, height=125)
+        btnWelcome = [aButton(self.__mainCadre,text="Parametre\ngénérale"),#,command=self.__viewUserAcceuil
+                      aButton(self.__mainCadre,text="Parametre\nutilisateur",command=self.__viewUserAcceuil),
                       aButton(self.__mainCadre,text="Meteo",command=self.__viewMeteoAcceuil),
-                      aButton(self.__mainCadre,text="IA",command=self.__viewIAAcceuil),
-                      aButton(self.__mainCadre,text="Recherche",command=self.__viewRecherche),
-                      aButton(self.__mainCadre,text="Logiciel",command=self.__viewSoftAcceuil),
+                      aButton(self.__mainCadre,text="Inteligence\nartificielle",command=self.__viewIAAcceuil),
+                      aButton(self.__mainCadre,text="Parametre\nde\nrecherche",command=self.__viewRecherche),
+                      aButton(self.__mainCadre,text="Logiciel\nexterne",command=self.__viewSoftAcceuil),
                       aButton(self.__mainCadre,text="Raccourcie\nInternet",command=self.__viewInternetAcceuil),
-                      aButton(self.__mainCadre,text="GPS",command=self.__viewGPSAcceuil),
+                      aButton(self.__mainCadre,text="Adresse\nGPS",command=self.__viewGPSAcceuil),
                       aButton(self.__mainCadre,text="Github\nIntegration"),#,command=
-                      aButton(self.__mainCadre,text="Micro",command=self.__viewMicroAcceuil)]
+                      aButton(self.__mainCadre,text="Parametre\ndu\nMicro",command=self.__viewMicroAcceuil)]
 
         for i in btnWelcome:
-            i.configure(width=100, height=100)
+            i.configure(width=125, height=125,font=("Roboto",13,"normal"))
 
-        self.__btnRetourAssistant = aButton(self.__mainCadre,text="Retour",width=100,height=100)
+        self.__btnRetourAssistant = aButton(self.__mainCadre,text="Retour",width=125, height=125)
+        self.__btnRetourAssistant.configure(font=("Roboto",13,"normal"))
 
         # backFrame
-        retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil"
-                                                     ,command=lambda:self.__backAcceuil())
+        retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil",command=self.__backAcceuil)
 
 
         # Frame Arrera Work
@@ -83,33 +90,33 @@ class CArreraGazelleUISix :
                                                                     command=lambda:self.__chooseFolderArreraDownload())
 
         # Affichage
+        self.__mainCadre.grid_propagate(False)
 
-        btnWelcome[0].place(x=140,y=20)
-        btnWelcome[1].place(x=260,y=20)
-        btnWelcome[2].place(x=380,y=20)
-        btnWelcome[3].place(x=20,y=140)
-        btnWelcome[4].place(x=140,y=140)
-        btnWelcome[5].place(x=260,y=140)
-        btnWelcome[6].place(x=380,y=140)
-        btnWelcome[7].place(x=20,y=260)
+        index = 1
+
+        for i in range(8):
+            row = index // 4
+            col = index % 4
+            btnWelcome[i].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            index += 1
 
         if github_use == "1":
-            btnWelcome[8].place(x=140,y=260)
+            row = index // 4
+            col = index % 4
+            btnWelcome[8].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            index += 1
 
         if micro_use == "1":
-            if github_use == "1":
-                btnWelcome[9].place(x=260,y=260)
-            else :
-                btnWelcome[9].place(x=140,y=260)
+            row = index // 4
+            col = index % 4
+            btnWelcome[9].grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+            index += 1
 
-        if github_use == "1" and  micro_use == "1":
-            self.__coordinatedBtnBack = [380,260]
-        elif ((github_use == "0" and  micro_use == "1") or
-              (github_use == "1" and  micro_use == "0")):
-            self.__coordinatedBtnBack = [260,260]
-        elif github_use == "0" and  micro_use == "0":
-            self.__coordinatedBtnBack = [140,260]
+        # ✅ Bouton Back (toujours à la bonne place)
+        row = index // 4
+        col = index % 4
 
+        self.__coordinatedBtnBack = [row,col]
 
         # backFrame
         retourAcceuilBTN.placeCenterRight()
@@ -610,11 +617,13 @@ class CArreraGazelleUISix :
 
     def passFNCQuit(self,fnc):
         self.__btnRetourAssistant.configure(command=fnc)
-        self.__btnRetourAssistant.place(x=self.__coordinatedBtnBack[0], y=self.__coordinatedBtnBack[1])
+        self.__btnRetourAssistant.grid(row=self.__coordinatedBtnBack[0],
+                                       column=self.__coordinatedBtnBack[1],
+                                       padx=10,pady=10,sticky="nsew")
 
     def passFNCBTNIcon(self,fnc):
         self.__btnIcon.configure(command=fnc)
-        self.__btnIcon.place(x=20, y=20)
+        self.__btnIcon.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
     def clearAllFrame(self):
         self.__clearAll()
