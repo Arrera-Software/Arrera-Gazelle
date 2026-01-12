@@ -1,5 +1,3 @@
-from numpy.ma.core import size
-
 from lib.arrera_tk import *
 from tkinter import messagebox
 from typing import Union
@@ -42,11 +40,6 @@ class arrera_gazelle :
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
-
-        self.__arreraWorkFrame = aFrame(self.__windows,width=500,height=330)
-
-        self.__arreraDownloadFrame = aFrame(self.__windows, width=500, height=330)
-
         self.__backFrame = aFrame(self.__windows,width=500,height=70)
 
         # Configuration du mainframe
@@ -77,18 +70,6 @@ class arrera_gazelle :
 
         # backFrame
         retourAcceuilBTN = aButton(self.__backFrame,text="Retour Acceuil",command=self.__backAcceuil)
-
-
-        # Frame Arrera Work
-        labelTitleArreraWork = aLabel(self.__arreraWorkFrame,text="Paramètre Arrera Work")
-
-        btnChooseFolderArreraWork = aButton(self.__arreraWorkFrame,text="Choisir un dossier"
-                                                                ,command=lambda:self.__chooseFolderArreraWork())
-
-        # Frame Arrera Download
-        labelTitleArreraDownload = aLabel(self.__arreraDownloadFrame,text="Paramètre Arrera Download")
-        btnChooseFolderArreraDownload = aButton(self.__arreraDownloadFrame,text="Choisir un dossier\nd'Arrera Download",
-                                                                    command=lambda:self.__chooseFolderArreraDownload())
 
         # Affichage
         self.__mainCadre.grid_propagate(False)
@@ -121,12 +102,6 @@ class arrera_gazelle :
 
         # backFrame
         retourAcceuilBTN.placeCenterRight()
-
-        labelTitleArreraWork.placeTopCenter()
-        btnChooseFolderArreraWork.placeCenter()
-
-        labelTitleArreraDownload.placeTopCenter()
-        btnChooseFolderArreraDownload.placeCenter()
 
     def __mainSetting(self):
         self.__main_setting_frame = aFrame(self.__windows,width=500,height=330)
@@ -669,8 +644,6 @@ class arrera_gazelle :
         self.__softFrame.pack_forget()
         self.__webFrame.pack_forget()
         self.__microFrame.pack_forget()
-        self.__arreraWorkFrame.pack_forget()
-        self.__arreraDownloadFrame.pack_forget()
         self.__windows.update()
 
     def __backAcceuil(self):
@@ -1305,38 +1278,6 @@ class arrera_gazelle :
             return False
         else :
             return True
-
-    # Methode Arrera Work
-
-    def __viewArreraWork(self):
-        self.__clearAll()
-        self.__arreraWorkFrame.pack()
-        self.__backFrame.pack()
-        self.__windows.update()
-
-    def __chooseFolderArreraWork(self):
-        sortie = self.__gazelle.setWorkFolder()
-        if sortie:
-            messagebox.showinfo("Parametre","Le dossier de travail a bien été enregistré")
-        else :
-            messagebox.showerror("Erreur","Le dossier de travail n'a pas été enregistré")
-        self.__backAcceuil()
-
-    # Methode Arrera Download
-
-    def __viewArreraDownload(self):
-        self.__clearAll()
-        self.__arreraDownloadFrame.pack()
-        self.__backFrame.pack()
-        self.__windows.update()
-
-    def __chooseFolderArreraDownload(self):
-        sortie = self.__gazelle.setVideoDownloadFolder()
-        if sortie:
-            messagebox.showinfo("Parametre","Le dossier de téléchargement a bien été enregistré")
-        else :
-            messagebox.showerror("Erreur","Le dossier de téléchargement n'a pas été enregistré")
-        self.__backAcceuil()
 
     # Methode IA
 
