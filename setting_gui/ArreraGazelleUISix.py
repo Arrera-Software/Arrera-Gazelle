@@ -30,7 +30,6 @@ class CArreraGazelleUISix :
 
         # Declaration des cardre
         self.__mainCadre = aFrame(self.__windows,width=500,height=400)
-        self.__meteoGPSFrame = aFrame(self.__windows,width=500,height=330)
 
         self.__microFrame = aFrame(self.__windows,width=500,height=330)
         self.__microAcceuil = aFrame(self.__microFrame,width=500,height=330)
@@ -577,7 +576,6 @@ class CArreraGazelleUISix :
         self.__microFrame.pack_forget()
         self.__arreraWorkFrame.pack_forget()
         self.__arreraDownloadFrame.pack_forget()
-        self.__meteoGPSFrame.pack_forget()
         self.__windows.update()
 
     def __backAcceuil(self):
@@ -643,14 +641,6 @@ class CArreraGazelleUISix :
         if self.__gestUser.setGenre(genre):
             messagebox.showinfo("Parametre","Le genre de l'utilisateur a bien été enregistré")
         self.__viewUserAcceuil()
-
-
-    # Methode pour la partie GPS et Meteo
-
-    def __viewGPSMeteo(self):
-        self.__clearAll()
-        self.__meteoGPSFrame.pack()
-        self.__backFrame.pack()
 
     # Methode partie Meteo
 
