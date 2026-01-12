@@ -27,7 +27,6 @@ class arrera_gazelle :
         self.__windows = windows
 
         # Declaration des partie
-
         self.__mainSetting()
         self.__userPart()
         self.__partMeteo()
@@ -296,7 +295,9 @@ class arrera_gazelle :
         btnChoixModel = aButton(self.__iaAcceuil,text="Choix d'un model",command=self.__viewIAChoose)
         btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un model",command=self.__viewDownloadIA)
 
-        self.__initBtnEnableIAMode()
+        self.__btnEnableIA = aSwicht(self.__iaAcceuil, text="Activer le mode IA",
+                                     default_value=False,
+                                     command=self.__set_enable_ia_mode)
 
         # General
         backBtnIA = [aButton(self.__iaDownload,text="Terminer",command=lambda:self.__viewIAAcceuil()),
@@ -331,6 +332,10 @@ class arrera_gazelle :
         labelViewDownload.placeCenter()
 
         self.__downloadIA.placeCenter()
+
+        self.__btnEnableIA.placeBottomCenter()
+
+        self.__initBtnEnableIAMode()
 
     def __partGPS(self):
         self.__gpsFrame = aFrame(self.__windows,width=500,height=330)
@@ -615,12 +620,10 @@ class arrera_gazelle :
 
 
     def __initBtnEnableIAMode(self):
-        self.__btnEnableIA = None
-        del self.__btnEnableIA
-        self.__btnEnableIA = aSwicht(self.__iaAcceuil, text="Activer le mode IA",
-                                     default_value=self.__getStateIAMode(),
-                                     command=self.__set_enable_ia_mode)
-        self.__btnEnableIA.placeBottomCenter()
+        if self.__getStateIAMode():
+            self.__btnEnableIA.setOn()
+        else :
+            self.__btnEnableIA.setOff()
 
     def __initBtnEnableHist(self):
         if self.__gestUser.getHist() == 1 :
