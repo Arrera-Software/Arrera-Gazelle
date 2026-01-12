@@ -30,6 +30,7 @@ class arrera_gazelle :
 
         # Declaration des partie
 
+        self.__mainSetting()
         self.__userPart()
         self.__partMeteo()
         self.__partIA()
@@ -57,7 +58,7 @@ class arrera_gazelle :
 
         iconAssistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
         self.__btnIcon = aButton(self.__mainCadre,image=iconAssistant,text="",corner_radius=8,width=125, height=125)
-        btnWelcome = [aButton(self.__mainCadre,text="Parametre\ngénérale"),#,command=self.__viewUserAcceuil
+        btnWelcome = [aButton(self.__mainCadre,text="Parametre\ngénérale",command=self.__viewMainSetting),
                       aButton(self.__mainCadre,text="Parametre\nutilisateur",command=self.__viewUserAcceuil),
                       aButton(self.__mainCadre,text="Meteo",command=self.__viewMeteoAcceuil),
                       aButton(self.__mainCadre,text="Inteligence\nartificielle",command=self.__viewIAAcceuil),
@@ -126,6 +127,60 @@ class arrera_gazelle :
 
         labelTitleArreraDownload.placeTopCenter()
         btnChooseFolderArreraDownload.placeCenter()
+
+    def __mainSetting(self):
+        self.__main_setting_frame = aFrame(self.__windows,width=500,height=330)
+
+        self.__main_setting_welcome_frame = aFrame(self.__main_setting_frame,width=500,height=330)
+        self.__work_folder_frame = aFrame(self.__main_setting_frame,width=500,height=330)
+        self.__download_folder_frame = aFrame(self.__main_setting_frame,width=500,height=330)
+
+        # Widget
+        l_title_main_setting = [aLabel(self.__main_setting_welcome_frame,text="Paramètre général",police_size=25),
+                                aLabel(self.__work_folder_frame,text="Dossier de travail",police_size=25),
+                                aLabel(self.__download_folder_frame,text="Dossier de téléchargement",police_size=25)]
+
+        # Welcome
+        btn_folder_work = aButton(self.__main_setting_welcome_frame,size=15,
+                                  text="Gestion\ndu\ndossier de\ntravail\nArrera Work",
+                                  command=self.__viewWorkFolder)
+        btn_folder_download = aButton(self.__main_setting_welcome_frame,size=15,
+                                  text="Gestion\ndu\ndossier\nde\ntelechargement",
+                                  command=self.__viewDownloadFolder)
+        self.__btn_enable_hist = aSwicht(self.__main_setting_welcome_frame,
+                                  text="Activer l'historique",default_value=False,
+                                         command=self.__set_hist_state)
+
+        # Work folder
+        self.__l_state_work_folder = aLabel(self.__work_folder_frame,police_size=15)
+        self.__btn_work_folder = aButton(self.__work_folder_frame,size=15)
+        # Download folder
+        self.__l_state_download_folder = aLabel(self.__download_folder_frame,police_size=15)
+        self.__btn_download_folder = aButton(self.__download_folder_frame,size=15)
+        # Back
+        btnBackMain = [aButton(self.__work_folder_frame,text="Retour",
+                               command=self.__viewMainSetting),
+                       aButton(self.__download_folder_frame,text="Retour",
+                               command=self.__viewMainSetting)]
+
+        # Affichage
+        for i in l_title_main_setting:
+            i.placeTopCenter()
+
+        for i in btnBackMain:
+            i.placeBottomLeft()
+
+        btn_folder_work.placeLeftCenter()
+        btn_folder_download.placeRightCenter()
+        self.__btn_enable_hist.placeBottomCenter()
+
+        self.__l_state_work_folder.placeCenter()
+        self.__btn_work_folder.placeBottomCenter()
+
+        self.__l_state_download_folder.placeCenter()
+        self.__btn_download_folder.placeBottomCenter()
+
+        self.__initBtnEnableHist()
 
     def __userPart(self):
         self.__userFrame = aFrame(self.__windows,width=500,height=330)
@@ -592,12 +647,19 @@ class arrera_gazelle :
                                      command=self.__set_enable_ia_mode)
         self.__btnEnableIA.placeBottomCenter()
 
+    def __initBtnEnableHist(self):
+        if self.__gestUser.getHist() == 1 :
+            self.__btn_enable_hist.setOn()
+        else :
+            self.__btn_enable_hist.setOff()
+
     # Methode generale
     def active(self):
         self.__mainCadre.pack()
 
     def __clearAll(self):
         self.__mainCadre.pack_forget()
+        self.__main_setting_frame.pack_forget()
         self.__userFrame.pack_forget()
         self.__iaFrame.pack_forget()
         self.__backFrame.pack_forget()
@@ -627,6 +689,84 @@ class arrera_gazelle :
 
     def clearAllFrame(self):
         self.__clearAll()
+
+    # Methode pour la partie general
+
+    def __viewMainSetting(self):
+        self.__clearAll()
+        self.__main_setting_frame.pack()
+        self.__backFrame.pack()
+        self.__main_setting_welcome_frame.pack()
+        self.__work_folder_frame.pack_forget()
+        self.__download_folder_frame.pack_forget()
+        self.__windows.update()
+
+    def __viewWorkFolder(self):
+        self.__main_setting_welcome_frame.pack_forget()
+        self.__work_folder_frame.pack()
+        self.__download_folder_frame.pack_forget()
+
+        folder = self.__gestUser.getWorkFolder()
+        if folder == "":
+            self.__l_state_work_folder.configure(text="Dossier de travail\nnon configurer",justify="center")
+            self.__btn_work_folder.configure(text="Configurer le dossier\nde travail\nArrera Work",
+                                                 command=self.__addWorkFolder)
+        else :
+            self.__l_state_work_folder.configure(text=f"Emplacement du dossier de travail :\n{folder}",justify="center")
+            self.__btn_work_folder.configure(text="Supprimer le dossier\nde travail\nArrera Work",
+                                                 command=self.__delWorkFolder)
+
+        self.__windows.update()
+
+    def __addWorkFolder(self):
+        if self.__gestUser.setWorkFolder():
+            messagebox.showinfo("Parametre","Le dossier de travail a bien été enregistré")
+
+        self.__viewMainSetting()
+
+    def __delWorkFolder(self):
+        if self.__gestUser.removeWorkFolder():
+            messagebox.showinfo("Parametre","Le dossier de travail a bien été supprimé")
+
+        self.__viewMainSetting()
+
+    def __viewDownloadFolder(self):
+        self.__main_setting_welcome_frame.pack_forget()
+        self.__work_folder_frame.pack_forget()
+        self.__download_folder_frame.pack()
+
+        folder = self.__gestUser.getVideoDownloadFolder()
+        if folder == "":
+            self.__l_state_download_folder.configure(text="Dossier de telechargement\nnon configurer",justify="center")
+            self.__btn_download_folder.configure(text="Configurer le dossier\nde telechargement",
+                                             command=self.__addDownloadFolder)
+        else :
+            self.__l_state_download_folder.configure(text=f"Emplacement du dossier de telechargement :\n{folder}",justify="center")
+            self.__btn_download_folder.configure(text="Supprimer le dossier\nde telechargement",
+                                             command=self.__delDownloadFolder)
+
+        self.__windows.update()
+
+    def __addDownloadFolder(self):
+        if self.__gestUser.setVideoDownloadFolder():
+            messagebox.showinfo("Parametre","Le dossier de telechargement a bien été enregistré")
+
+        self.__viewMainSetting()
+
+    def __delDownloadFolder(self):
+        if self.__gestUser.removeVideoDownloadFolder():
+            messagebox.showinfo("Parametre","Le dossier de telechargement a bien été supprimé")
+
+        self.__viewMainSetting()
+
+
+    def __set_hist_state(self):
+        b = bool(self.__btn_enable_hist.get())
+        print(b)
+        if self.__gestUser.setHist(b):
+            messagebox.showinfo("Parametre","L'etat de l'historique a bien été enregistré")
+
+        self.__initBtnEnableHist()
 
     # Methode pour la partie User
     def __viewUserAcceuil(self):
