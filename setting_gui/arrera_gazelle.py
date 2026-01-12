@@ -7,7 +7,7 @@ import threading as th
 from librairy.travailJSON import jsonWork
 from gestionnaire.gestion import gestionnaire
 
-class CArreraGazelleUISix :
+class arrera_gazelle :
     def __init__(self,windows:Union[aTk,aTopLevel],gest:gestionnaire,file_setting:str):
         # Ouverture de l'objet
         self.__gazelle = None

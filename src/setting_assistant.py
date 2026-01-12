@@ -30,10 +30,10 @@ def create_conf():
 
     return gestionnaire(conf)
 
-def six_setting():
-    from setting_gui.ArreraGazelleUISix import CArreraGazelleUISix
+def launch_setting():
+    from setting_gui.arrera_gazelle import arrera_gazelle
     windows = aTk(theme_file="asset/theme/theme_bleu_blanc.json")
-    gui = CArreraGazelleUISix(windows,create_conf(),"json_conf/configNewSetting.json")
+    gui = arrera_gazelle(windows, create_conf(), "json_conf/configNewSetting.json")
     windows.maxsize(500,400)
     windows.minsize(500,400)
     gui.passFNCQuit(lambda  : windows.destroy())
