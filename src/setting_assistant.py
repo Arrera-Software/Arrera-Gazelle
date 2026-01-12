@@ -40,7 +40,3 @@ def six_setting():
     gui.passFNCBTNIcon(lambda  : print("Icon"))
     gui.active()
     windows.mainloop()
-
-
-def ryley_copilote_setting():
-    pass
