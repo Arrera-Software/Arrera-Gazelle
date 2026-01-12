@@ -28,8 +28,7 @@ def create_conf():
                       fichierKeyword="keyword/",
                       voiceAssistant=True)
 
-    gest = gestionnaire(conf)
-    return gest.getUserConf()
+    return gestionnaire(conf)
 
 def six_setting():
     from setting_gui.ArreraGazelleUISix import CArreraGazelleUISix
