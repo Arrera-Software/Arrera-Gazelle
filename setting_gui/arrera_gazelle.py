@@ -53,16 +53,16 @@ class arrera_gazelle :
 
         icon_assistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
         self.__btn_icon = aButton(self.__main_frame, image=icon_assistant, text="", corner_radius=8, width=125, height=125)
-        btn_welcome = [aButton(self.__main_frame, text="Parametre\ngénérale", command=self.__viewMainSetting),
-                      aButton(self.__main_frame, text="Parametre\nutilisateur", command=self.__viewUserAcceuil),
-                      aButton(self.__main_frame, text="Meteo", command=self.__viewMeteoAcceuil),
-                      aButton(self.__main_frame, text="Inteligence\nartificielle", command=self.__viewIAAcceuil),
-                      aButton(self.__main_frame, text="Parametre\nde\nrecherche", command=self.__viewRecherche),
-                      aButton(self.__main_frame, text="Logiciel\nexterne", command=self.__viewSoftAcceuil),
-                      aButton(self.__main_frame, text="Raccourcie\nInternet", command=self.__viewInternetAcceuil),
-                      aButton(self.__main_frame, text="Adresse\nGPS", command=self.__viewGPSAcceuil),
-                      aButton(self.__main_frame, text="Github\nIntegration", command=self.__viewGithub),
-                      aButton(self.__main_frame, text="Parametre\ndu\nMicro", command=self.__viewMicroAcceuil)]
+        btn_welcome = [aButton(self.__main_frame, text="Paramètres\ngénéraux", command=self.__viewMainSetting),
+                      aButton(self.__main_frame, text="Paramètres\nutilisateur", command=self.__viewUserAcceuil),
+                      aButton(self.__main_frame, text="Météo", command=self.__viewMeteoAcceuil),
+                      aButton(self.__main_frame, text="Intelligence\nartificielle", command=self.__viewIAAcceuil),
+                      aButton(self.__main_frame, text="Paramètres\nde\nrecherche", command=self.__viewRecherche),
+                      aButton(self.__main_frame, text="Logiciels\nexternes", command=self.__viewSoftAcceuil),
+                      aButton(self.__main_frame, text="Raccourcis\nInternet", command=self.__viewInternetAcceuil),
+                      aButton(self.__main_frame, text="Adresses\nGPS", command=self.__viewGPSAcceuil),
+                      aButton(self.__main_frame, text="Intégration\nGitHub", command=self.__viewGithub),
+                      aButton(self.__main_frame, text="Paramètres\ndu\nMicro", command=self.__viewMicroAcceuil)]
 
         for i in btn_welcome:
             i.configure(width=125, height=125,font=("Roboto",13,"normal"))
@@ -71,7 +71,7 @@ class arrera_gazelle :
         self.__btn_back_assistant.configure(font=("Roboto", 13, "normal"))
 
         # backFrame
-        btn_back_welcome = aButton(self.__backFrame,text="Retour Acceuil",command=self.__backAcceuil)
+        btn_back_welcome = aButton(self.__backFrame,text="Retour Accueil",command=self.__backAcceuil)
 
         # Affichage
         self.__main_frame.grid_propagate(False)
@@ -113,7 +113,7 @@ class arrera_gazelle :
         self.__download_folder_frame = aFrame(self.__main_setting_frame,width=500,height=330)
 
         # Widget
-        l_title_main_setting = [aLabel(self.__main_setting_welcome_frame,text="Paramètre général",police_size=25),
+        l_title_main_setting = [aLabel(self.__main_setting_welcome_frame,text="Paramètres généraux",police_size=25),
                                 aLabel(self.__work_folder_frame,text="Dossier de travail",police_size=25),
                                 aLabel(self.__download_folder_frame,text="Dossier de téléchargement",police_size=25)]
 
@@ -122,7 +122,7 @@ class arrera_gazelle :
                                   text="Gestion\ndu\ndossier de\ntravail\nArrera Work",
                                   command=self.__viewWorkFolder)
         btn_folder_download = aButton(self.__main_setting_welcome_frame,size=15,
-                                  text="Gestion\ndu\ndossier\nde\ntelechargement",
+                                  text="Gestion\ndu\ndossier\nde\ntéléchargement",
                                   command=self.__viewDownloadFolder)
         self.__btn_enable_hist = aSwicht(self.__main_setting_welcome_frame,
                                   text="Activer l'historique",default_value=False,
@@ -219,11 +219,11 @@ class arrera_gazelle :
 
         # meteoFrame
         # Label
-        labelTitleMeteo = [aLabel(self.__meteoAcceuil,text="Gestion de meteo",police_size=25),
+        labelTitleMeteo = [aLabel(self.__meteoAcceuil,text="Gestion de la météo",police_size=25),
                            aLabel(self.__meteoDomicile,text="Lieu Domicile",police_size=25),
                            aLabel(self.__meteoTravail,text="Lieu Travail",police_size=25),
                            aLabel(self.__meteoVille,text="Autre Ville",police_size=25),
-                           aLabel(self.__meteoSuppr,text="Supprimer Lieu",police_size=25)]
+                           aLabel(self.__meteoSuppr,text="Supprimer un lieu",police_size=25)]
         # Button
         btnAcceuilMeteoDomicile = aButton(self.__meteoAcceuil,text="Lieu\nDomicile",
                                           command=lambda:self.__viewMeteoDomicile())
@@ -291,12 +291,12 @@ class arrera_gazelle :
         self.__iaChoose = aFrame(self.__iaFrame,width=500,height=330)
 
         # Widget
-        labelTitleIA = [aLabel(self.__iaAcceuil,text="Gestion des model \nd'intelligence artificielle",police_size=25),
-                        aLabel(self.__iaDownload,text="Choix du model \nd'intelligence artificielle",police_size=25),
-                        aLabel(self.__iaChoose,text="Téléchargement \nd'un model d'intelligence artificielle",police_size=25)]
+        labelTitleIA = [aLabel(self.__iaAcceuil,text="Gestion des modèles \nd'intelligence artificielle",police_size=25),
+                        aLabel(self.__iaDownload,text="Choix du modèle \nd'intelligence artificielle",police_size=25),
+                        aLabel(self.__iaChoose,text="Téléchargement \nd'un modèle d'intelligence artificielle",police_size=25)]
 
-        btnChoixModel = aButton(self.__iaAcceuil,text="Choix d'un model",command=self.__viewIAChoose)
-        btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un model",command=self.__viewDownloadIA)
+        btnChoixModel = aButton(self.__iaAcceuil,text="Choix d'un modèle",command=self.__viewIAChoose)
+        btnDownloadModel = aButton(self.__iaAcceuil,text="Téléchargement d'un modèle",command=self.__viewDownloadIA)
 
         self.__btnEnableIA = aSwicht(self.__iaAcceuil, text="Activer le mode IA",
                                      default_value=False,
@@ -316,7 +316,7 @@ class arrera_gazelle :
 
         # During Download Model
         labelViewDownload = aLabel(self.__duringDownloadModel,
-                                   text="Telechargement d'un model\nen cours...",
+                                   text="Téléchargement d'un modèle\nen cours...",
                                    police_size=25)
 
         # Placement
@@ -348,7 +348,7 @@ class arrera_gazelle :
 
         # GPS Frame
         # Label
-        labelTitleGPS = [aLabel(self.__gpsAcceuil,text="Gestion de vos adresse",police_size=25),
+        labelTitleGPS = [aLabel(self.__gpsAcceuil,text="Gestion de vos adresses",police_size=25),
                          aLabel(self.__gpsDomicile,text="Adresse de votre Domicile",police_size=25),
                          aLabel(self.__gpsTravail,text="Adresse de votre Travail",police_size=25)]
         # Button
@@ -411,19 +411,19 @@ class arrera_gazelle :
 
         # Internet Frame
         # Label
-        labelTitleInternet = [aLabel(self.__webAcceuil, text="Gestion des raccourcie\ninternet",
+        labelTitleInternet = [aLabel(self.__webAcceuil, text="Gestion des raccourcis\ninternet",
                                      police_size=25),
-                              aLabel(self.__webAddShortcut, text="Ajouter un raccourcie",
+                              aLabel(self.__webAddShortcut, text="Ajouter un raccourci",
                                      police_size=25),
-                              aLabel(self.__webDelShortcut, text="Supprimer un raccourcie",
+                              aLabel(self.__webDelShortcut, text="Supprimer un raccourci",
                                      police_size=25),
                               aLabel(self.__webSavedShortcut, text="Liste des raccourcis enregistrés",
                                      police_size=25)]
 
         # Bouton
-        btnAddWebShortcut = aButton(self.__webAcceuil, text="Ajouter\nun raccourcie",
+        btnAddWebShortcut = aButton(self.__webAcceuil, text="Ajouter\nun raccourci",
                                             command=self.__viewInternetSiteWeb, size=15)
-        btnDelWebShortcut = aButton(self.__webAcceuil, text="Supprimer\nun raccourcie",
+        btnDelWebShortcut = aButton(self.__webAcceuil, text="Supprimer\nun raccourci",
                                               command= self.__viewInternetSupprSite, size=15)
         btnViewWebShortcut = aButton(self.__webAcceuil, text="Raccourcis\nenregistrés",
                                               command= self.__viewInternetListeSite, size=15)
@@ -481,9 +481,9 @@ class arrera_gazelle :
         # Soft Frame
         # Label
         labelTitleSoft = [aLabel(self.__softAcceuil,text="Gestion des logiciels",police_size=25),
-                          aLabel(self.__softAdd,text="Nom du logiciel ajouter",police_size=25),
-                          aLabel(self.__softSuppr,text="Suppression logiciel",police_size=25),
-                          aLabel(self.__softListe,text="Liste de logiciel enregistrée",police_size=25)]
+                          aLabel(self.__softAdd,text="Nom du logiciel à ajouter",police_size=25),
+                          aLabel(self.__softSuppr,text="Suppression d'un logiciel",police_size=25),
+                          aLabel(self.__softListe,text="Liste des logiciels enregistrés",police_size=25)]
 
         self.__listSoftware = aText(self.__softListe, width=450, height=250,
                                     wrap="word", state="normal")
@@ -493,7 +493,7 @@ class arrera_gazelle :
                                     ,command=self.__viewSoftAdd,size=15)
         btnAcceuilSoftSuppr = aButton(self.__softAcceuil,text="Suppression\nd'un\nlogiciel"
                                       ,command=self.__viewSoftSuppr,size=15)
-        btnAcceuilSoftList = aButton(self.__softAcceuil,text="Logiciel\nSauvergarder"
+        btnAcceuilSoftList = aButton(self.__softAcceuil,text="Logiciels\nSauvegardés"
                                      ,command=self.__viewSoftList,size=15)
 
         btnAddSoftValider = aButton(self.__softAdd, text="Valider"
@@ -545,20 +545,20 @@ class arrera_gazelle :
         # Label
         labelTitleMicro = [aLabel(self.__microAcceuil,text="Gestion du microphone",
                                   police_size=25),
-                           aLabel(self.__microSound,text="Son émis a l'ecoute du micro",
+                           aLabel(self.__microSound,text="Son émis à l'écoute du micro",
                                   police_size=25),
                            aLabel(self.__microTigerWord,text="Définition du mot\nde déclenchement du micro",
                                   police_size=25),
                            aLabel(self.__microViewSave,text="Enregistrement de l'empreinte vocale",
                                   police_size=25),
-                           aLabel(self.__microViewWordSave,text="Mots enregistrer"),]
+                           aLabel(self.__microViewWordSave,text="Mots enregistrés"),]
         self.__labelVoicePrint = aLabel(self.__microVoicePrint,text="Empreinte vocale",
                                         police_size=25)
         self.__labelWordVoicePrint = aLabel(self.__microViewSave,text="",
                                             police_size=20)
         self.__labelWordViewSave = aLabel(self.__microViewWordSave,text="",
                                           police_size=15)
-        labelDuringSave = aLabel(self.__microDuringSave,text="Dites le mots de décellement que vous voulez",
+        labelDuringSave = aLabel(self.__microDuringSave,text="Dites le mot de déclenchement que vous voulez",
                                  police_size=15)
 
         # Button
@@ -592,7 +592,7 @@ class arrera_gazelle :
         btnRetourViewWord = aButton(self.__microViewWordSave, text="Retour",
                                     command=lambda:self.__viewMicroTigerWord())
 
-        self.__btnSaveVoicePrint = aButton(self.__microVoicePrint,text="Enregister",
+        self.__btnSaveVoicePrint = aButton(self.__microVoicePrint,text="Enregistrer",
                                            command=lambda :self.__saveVoicePrint())
 
         self.__btnSupprVoicePrint = aButton(self.__microVoicePrint,text="Supprimer")
@@ -627,11 +627,11 @@ class arrera_gazelle :
         self.__githubToken = aFrame(self.__githubFrame,width=500,height=330)
 
         l_title_github = [aLabel(self.__githubAcceuil,text="Gestion des accès GitHub",police_size=25),
-                          aLabel(self.__githubToken,text="Ajout du token github",police_size=25)]
+                          aLabel(self.__githubToken,text="Ajout du token GitHub",police_size=25)]
 
         self.__btnToken = aButton(self.__githubAcceuil,size=15)
 
-        self.__eToken = aEntryLengend(self.__githubToken,text="Token github",width=200)
+        self.__eToken = aEntryLengend(self.__githubToken,text="Token GitHub",width=200)
 
         btnValiderToken = aButton(self.__githubToken,text="Valider",size=15,command=self.__saveToken)
         btnCancelToken = aButton(self.__githubToken,text="Annuler",size=15,command=self.__viewGithub)
@@ -712,7 +712,7 @@ class arrera_gazelle :
 
         folder = self.__gestUser.getWorkFolder()
         if folder == "":
-            self.__l_state_work_folder.configure(text="Dossier de travail\nnon configurer",justify="center")
+            self.__l_state_work_folder.configure(text="Dossier de travail\nnon configuré",justify="center")
             self.__btn_work_folder.configure(text="Configurer le dossier\nde travail\nArrera Work",
                                                  command=self.__addWorkFolder)
         else :
@@ -724,13 +724,13 @@ class arrera_gazelle :
 
     def __addWorkFolder(self):
         if self.__gestUser.setWorkFolder():
-            messagebox.showinfo("Parametre","Le dossier de travail a bien été enregistré")
+            messagebox.showinfo("Paramètres","Le dossier de travail a bien été enregistré")
 
         self.__viewMainSetting()
 
     def __delWorkFolder(self):
         if self.__gestUser.removeWorkFolder():
-            messagebox.showinfo("Parametre","Le dossier de travail a bien été supprimé")
+            messagebox.showinfo("Paramètres","Le dossier de travail a bien été supprimé")
 
         self.__viewMainSetting()
 
@@ -741,25 +741,25 @@ class arrera_gazelle :
 
         folder = self.__gestUser.getVideoDownloadFolder()
         if folder == "":
-            self.__l_state_download_folder.configure(text="Dossier de telechargement\nnon configurer",justify="center")
-            self.__btn_download_folder.configure(text="Configurer le dossier\nde telechargement",
+            self.__l_state_download_folder.configure(text="Dossier de téléchargement\nnon configuré",justify="center")
+            self.__btn_download_folder.configure(text="Configurer le dossier\nde téléchargement",
                                              command=self.__addDownloadFolder)
         else :
-            self.__l_state_download_folder.configure(text=f"Emplacement du dossier de telechargement :\n{folder}",justify="center")
-            self.__btn_download_folder.configure(text="Supprimer le dossier\nde telechargement",
+            self.__l_state_download_folder.configure(text=f"Emplacement du dossier de téléchargement :\n{folder}",justify="center")
+            self.__btn_download_folder.configure(text="Supprimer le dossier\nde téléchargement",
                                              command=self.__delDownloadFolder)
 
         self.__windows.update()
 
     def __addDownloadFolder(self):
         if self.__gestUser.setVideoDownloadFolder():
-            messagebox.showinfo("Parametre","Le dossier de telechargement a bien été enregistré")
+            messagebox.showinfo("Paramètres","Le dossier de téléchargement a bien été enregistré")
 
         self.__viewMainSetting()
 
     def __delDownloadFolder(self):
         if self.__gestUser.removeVideoDownloadFolder():
-            messagebox.showinfo("Parametre","Le dossier de telechargement a bien été supprimé")
+            messagebox.showinfo("Paramètres","Le dossier de téléchargement a bien été supprimé")
 
         self.__viewMainSetting()
 
@@ -768,7 +768,7 @@ class arrera_gazelle :
         b = bool(self.__btn_enable_hist.get())
         print(b)
         if self.__gestUser.setHist(b):
-            messagebox.showinfo("Parametre","L'etat de l'historique a bien été enregistré")
+            messagebox.showinfo("Paramètres","L'état de l'historique a bien été enregistré")
 
         self.__initBtnEnableHist()
 
@@ -798,19 +798,19 @@ class arrera_gazelle :
         first = str(eFirst.get())
         last = str(eLast.get())
         if first == "":
-            messagebox.showerror("Parametre","Le prenom de l'utilisateur ne peut pas etre vide")
+            messagebox.showerror("Paramètres","Le prénom de l'utilisateur ne peut pas être vide")
             return
         else :
             if self.__gestUser.setFirstnameUser(first):
-                messagebox.showinfo("Parametre","Le prenom de l'utilisateur a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le prénom de l'utilisateur a bien été enregistré")
             eFirst.delete(0,END)
 
         if last == "":
-            messagebox.showerror("Parametre","Le nom de l'utilisateur ne peut pas etre vide")
+            messagebox.showerror("Paramètres","Le nom de l'utilisateur ne peut pas être vide")
             return
         else :
             if self.__gestUser.setLastnameUser(last):
-                messagebox.showinfo("Parametre","Le nom de l'utilisateur a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le nom de l'utilisateur a bien été enregistré")
             eLast.delete(0,END)
 
         self.__viewUserAcceuil()
@@ -818,7 +818,7 @@ class arrera_gazelle :
     def __saveUserGenre(self,m:aOptionMenu):
         genre = m.getValue()
         if self.__gestUser.setGenre(genre):
-            messagebox.showinfo("Parametre","Le genre de l'utilisateur a bien été enregistré")
+            messagebox.showinfo("Paramètres","Le genre de l'utilisateur a bien été enregistré")
         self.__viewUserAcceuil()
 
     # Methode partie Meteo
@@ -864,7 +864,7 @@ class arrera_gazelle :
     def __viewMeteoSuppr(self):
         listVille = self.__gestUser.getTowns()
         if len(listVille) == 0:
-            messagebox.showerror("Erreur", "Aucune ville n'a été enregistré")
+            messagebox.showerror("Erreur", "Aucune ville n'a été enregistrée")
             return
         self.__meteoDomicile.pack_forget()
         self.__meteoTravail.pack_forget()
@@ -878,44 +878,44 @@ class arrera_gazelle :
     def __saveMeteoDomicile(self):
         domicile = self.__entryMeteoDomicile.get()
         if domicile == "":
-            messagebox.showerror("Parametre","Le lieu domicile ne peut pas etre vide")
+            messagebox.showerror("Paramètres","Le lieu domicile ne peut pas être vide")
             return
         else :
             if self.__gestUser.setLieuDomicile(domicile):
-                messagebox.showinfo("Parametre","Le lieu domicile a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le lieu domicile a bien été enregistré")
             self.__entryMeteoDomicile.delete(0,END)
             self.__viewMeteoAcceuil()
 
     def __saveMeteoTravail(self):
         travail = self.__entryMeteoTravail.get()
         if travail == "":
-            messagebox.showerror("Parametre","Le lieu travail ne peut pas etre vide")
+            messagebox.showerror("Paramètres","Le lieu travail ne peut pas être vide")
             return
         else :
             if self.__gestUser.setLieuTravail(travail):
-                messagebox.showinfo("Parametre","Le lieu travail a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le lieu travail a bien été enregistré")
             self.__entryMeteoTravail.delete(0,END)
             self.__viewMeteoAcceuil()
 
     def __saveMeteoVille(self):
         ville = self.__entryMeteoVille.get()
         if ville == "":
-            messagebox.showerror("Parametre","Le lieu ville ne peut pas etre vide")
+            messagebox.showerror("Paramètres","Le lieu ville ne peut pas être vide")
             return
         else :
             if self.__gestUser.addTown(ville):
-                messagebox.showinfo("Parametre","Le lieu ville a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le lieu ville a bien été enregistré")
             self.__entryMeteoVille.delete(0,END)
             self.__viewMeteoAcceuil()
 
     def __supprMeteoVille(self):
         ville = self.__menuMeteoSuppr.getValue()
         if ville == "":
-            messagebox.showerror("Erreur","Aucune ville n'a été selectionné")
+            messagebox.showerror("Erreur","Aucune ville n'a été sélectionnée")
             return
         else :
             if self.__gestUser.removeTown(ville):
-                messagebox.showinfo("Parametre","Le lieu a bien été supprimé")
+                messagebox.showinfo("Paramètres","Le lieu a bien été supprimé")
             self.__viewMeteoAcceuil()
 
     # Methode partie GPS
@@ -963,33 +963,33 @@ class arrera_gazelle :
     def __saveGPSDomicile(self):
         domicile = self.__entryGPS[0].get()
         if domicile == "":
-            messagebox.showerror("Parametre","L'adresse de domicile ne peut pas etre vide")
+            messagebox.showerror("Paramètres","L'adresse de domicile ne peut pas être vide")
             return
         else :
             if self.__gestUser.setAdresseDomicile(domicile):
-                messagebox.showinfo("Parametre","L'adresse de domicile a bien été enregistré")
+                messagebox.showinfo("Paramètres","L'adresse de domicile a bien été enregistrée")
             self.__entryGPS[0].delete(0,END)
             self.__viewGPSAcceuil()
 
     def __saveGPSTravail(self):
         travail = self.__entryGPS[1].get()
         if travail == "":
-            messagebox.showerror("Parametre","L'adresse de travail ne peut pas etre vide")
+            messagebox.showerror("Paramètres","L'adresse de travail ne peut pas être vide")
             return
         else :
             if self.__gestUser.setAdresseTravail(travail):
-                messagebox.showinfo("Parametre","L'adresse de travail a bien été enregistré")
+                messagebox.showinfo("Paramètres","L'adresse de travail a bien été enregistrée")
             self.__entryGPS[1].delete(0,END)
             self.__viewGPSAcceuil()
 
     def __supprAdresseWork(self):
         if self.__gestUser.delAdresseTravail():
-            messagebox.showinfo("Parametre","L'adresse de travail a bien été supprimé")
+            messagebox.showinfo("Paramètres","L'adresse de travail a bien été supprimée")
         self.__viewGPSAcceuil()
 
     def __supprAdresseDomicile(self):
         if self.__gestUser.delAdresseDomicile():
-            messagebox.showinfo("Parametre","L'adresse de domicile a bien été supprimé")
+            messagebox.showinfo("Paramètres","L'adresse de domicile a bien été supprimée")
         self.__viewGPSAcceuil()
 
 
@@ -1003,7 +1003,7 @@ class arrera_gazelle :
 
     def __saveRecherche(self):
         if self.__gestUser.setMoteurRecherche(self.__mSearch.getValue()):
-            messagebox.showinfo("Parametre","Le moteur de recherche a bien été enregistré")
+            messagebox.showinfo("Paramètres","Le moteur de recherche a bien été enregistré")
         self.__backAcceuil()
         self.__windows.update()
 
@@ -1064,20 +1064,20 @@ class arrera_gazelle :
     def __addSoft(self):
         soft = self.__eAddSoft.getEntry().get()
         if soft == "":
-            messagebox.showerror("Erreur","Le nom du logiciel ne peut pas etre vide")
+            messagebox.showerror("Erreur","Le nom du logiciel ne peut pas être vide")
             return
         else :
             if self.__gestUser.setSoft(soft):
-                messagebox.showinfo("Parametre","Le logiciel a bien été ajouté")
+                messagebox.showinfo("Paramètres","Le logiciel a bien été ajouté")
             self.__eAddSoft.getEntry().delete(0, END)
             self.__viewSoftAcceuil()
 
     def __supprSoft(self):
         soft = self.__menuSoftSuppr.getValue()
         if not self.__gestUser.removeSoft(soft):
-            messagebox.showinfo("Parametre", "Le logiciel n'a pas pu être supprimé.")
+            messagebox.showinfo("Paramètres", "Le logiciel n'a pas pu être supprimé.")
         else :
-            messagebox.showinfo("Parametre", "Le logiciel a bien été supprimé")
+            messagebox.showinfo("Paramètres", "Le logiciel a bien été supprimé")
         self.__viewSoftAcceuil()
 
     # Methode internet
@@ -1137,11 +1137,11 @@ class arrera_gazelle :
         link = self.__entruWebSortCut[1].getEntry().get()
 
         if name == "" or link == "":
-            messagebox.showerror("Erreur","Le nom ou le lien ne peut pas etre vide")
+            messagebox.showerror("Erreur","Le nom ou le lien ne peut pas être vide")
             return
         else :
             if self.__gestUser.setSite(name,link):
-                messagebox.showinfo("Parametre","Le site web a bien été ajouté")
+                messagebox.showinfo("Paramètres","Le site web a bien été ajouté")
             self.__entruWebSortCut[0].getEntry().delete(0,END)
             self.__entruWebSortCut[1].getEntry().delete(0,END)
             self.__viewInternetAcceuil()
@@ -1149,7 +1149,7 @@ class arrera_gazelle :
     def __supprSiteWeb(self):
         site = self.__menuSiteWeb.getValue()
         if self.__gestUser.removeSite(site):
-            messagebox.showinfo("Parametre", "Le site a bien été supprimé")
+            messagebox.showinfo("Paramètres", "Le site a bien été supprimé")
         self.__viewInternetAcceuil()
 
     # Methode Micro
@@ -1266,7 +1266,7 @@ class arrera_gazelle :
                 self.__microVoicePrint.pack_forget()
                 self.__microDuringSave.pack_forget()
                 self.__microViewSave.pack()
-                self.__labelWordVoicePrint.configure(text="Mots enregistrer : " + self.__outTexteMicro)
+                self.__labelWordVoicePrint.configure(text="Mot enregistré : " + self.__outTexteMicro)
             else:
                 self.__microVoicePrint.pack()
             self.__threadSaveVoicePrint = th.Thread()
@@ -1274,7 +1274,7 @@ class arrera_gazelle :
     def __saveTigerWord(self):
         self.__viewMicroAcceuil()
         if self.__gestUser.addWord(self.__outTexteMicro):
-            messagebox.showinfo("Parametre","Le mot déclencheur ont bien été enregistrés.")
+            messagebox.showinfo("Paramètres","Le mot déclencheur a bien été enregistré.")
 
     def __viewSaveWord(self,mode:int):
         self.__microAcceuil.pack_forget()
@@ -1286,7 +1286,7 @@ class arrera_gazelle :
         self.__windows.update()
 
         word = self.__gestUser.getListWord()[mode-1]
-        self.__labelWordViewSave.configure(text="Le mots enregister est : "+word)
+        self.__labelWordViewSave.configure(text="Le mot enregistré est : "+word)
 
     def __supprTrigerWord(self,mode:int):
         self.__viewMicroAcceuil()
@@ -1329,7 +1329,7 @@ class arrera_gazelle :
 
         listModel = self.__gestUser.get_model_downloaded()
         if len(listModel) == 0:
-            messagebox.showerror("Erreur", "Aucun model a été telecharger")
+            messagebox.showerror("Erreur", "Aucun modèle n'a été téléchargé")
             self.__viewIAAcceuil()
 
         del self.__menuChooseIAModel
@@ -1345,7 +1345,7 @@ class arrera_gazelle :
     def __setModelToUse(self):
         model = self.__menuChooseIAModel.getValue()
         if self.__gestUser.set_ia_model(model):
-            messagebox.showinfo("Parametre","Le model a bien été enregistré")
+            messagebox.showinfo("Paramètres","Le modèle a bien été enregistré")
         self.__initBtnEnableIAMode()
         self.__viewIAAcceuil()
 
@@ -1388,7 +1388,7 @@ class arrera_gazelle :
         d = aLabel(l,text=modelData[2],wraplength=300,justify="left")
         d.grid(row=1, column=0, sticky="w")
 
-        btn = aButton(l,text="Telecharger",command=lambda:self.__downloadModel(model))
+        btn = aButton(l,text="Télécharger",command=lambda:self.__downloadModel(model))
         btn.placeRightCenter()
 
     def __downloadModel(self,model:str):
@@ -1413,7 +1413,7 @@ class arrera_gazelle :
             self.__windows.after(100,self.__updateDownloadModel)
             self.__windows.update()
         else :
-            messagebox.showinfo("Parametre","Le model a bien été téléchargé")
+            messagebox.showinfo("Paramètres","Le modèle a bien été téléchargé")
             self.__viewIAAcceuil()
 
 
@@ -1427,10 +1427,10 @@ class arrera_gazelle :
         self.__clearAll()
 
         if self.__gestUser.getTokenGithub() == "":
-            self.__btnToken.configure(text="Enregistrer le token\ngithub",
+            self.__btnToken.configure(text="Enregistrer le token\nGitHub",
                                       command=self.__viewAddTokenGithub)
         else :
-            self.__btnToken.configure(text="Supprimer le token\ngithub",
+            self.__btnToken.configure(text="Supprimer le token\nGitHub",
                                       command=self.__delToken)
 
         self.__githubAcceuil.pack()
@@ -1440,7 +1440,7 @@ class arrera_gazelle :
         self.__windows.update()
 
     def __viewAddTokenGithub(self):
-        v = messagebox.askyesno("Parametre","Avez-vous generer les token github ?")
+        v = messagebox.askyesno("Paramètres","Avez-vous généré le token GitHub ?")
         if not v :
             webbrowser.open("https://github.com/settings/tokens/new")
 
@@ -1453,15 +1453,15 @@ class arrera_gazelle :
     def __saveToken(self):
         token = self.__eToken.getEntry().get()
         if token == "":
-            messagebox.showerror("Erreur","Le token ne peut pas etre vide")
+            messagebox.showerror("Erreur","Le token ne peut pas être vide")
         else :
             if self.__gestUser.setTokenGithub(token):
-                messagebox.showinfo("Parametre","Le token a bien été enregistré")
+                messagebox.showinfo("Paramètres","Le token a bien été enregistré")
 
         self.__eToken.getEntry().delete(0,END)
         self.__viewGithub()
 
     def __delToken(self):
         if self.__gestUser.delTokenGithub():
-            messagebox.showinfo("Parametre","Le token github a bien été supprimé")
+            messagebox.showinfo("Paramètres","Le token GitHub a bien été supprimé")
         self.__viewGithub()
