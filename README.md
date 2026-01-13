@@ -1,18 +1,18 @@
-# Arrera-Gazelle
- 
-Arrera Gazelle est l'interface graphique utilisant Arrera TK en version 2 qui a pour but d'etre l'interface graphique des parametre pour l'Arrera Neuron Network
+# Arrera Gazelle
 
-Son but final est d'etre l'interface graphique des assistant Arrera SIX, Arrera Ryley et Arrera Copilote
+Arrera Gazelle est l'interface graphique utilisant Arrera TK en version 2 qui a pour but d'être l'interface graphique des paramètres pour l'Arrera Neuron Network.
 
-## Integration  
+Son but final est d'être l'interface graphique des assistants Arrera SIX, Arrera Ryley et Arrera Copilote.
 
-Pour intégrer Arrera Gazelle a votre projet d'assistant il faut : 
+## Intégration
 
-Telecharger l'archive qui contient un dossier `lib` ou se trouve la version d'Arrera TK,le fichier python `arrera_gazelle.py` qui est le fichier qui contient l'inteface des parametre et enfin le fichier json  `conf-setting.json` qui est le fichier de configuartion d'Arrera Gazelle
+Pour intégrer Arrera Gazelle à votre projet d'assistant, il faut :
 
-/!\ Arrera Gazelle n'utilise pas la meme version de Arrera TK que Arrera Neuron Network (V1 pour Arrera Neuron Network et V2 pour Arrera Gazelle)
+Télécharger l'archive qui contient un dossier `lib` où se trouve la version d'Arrera TK, le fichier Python `arrera_gazelle.py` qui est le fichier qui contient l'interface des paramètres, et enfin le fichier JSON `conf-setting.json` qui est le fichier de configuration d'Arrera Gazelle.
 
-### Explication du fichier de configuration 
+/!\ Arrera Gazelle n'utilise pas la même version de Arrera TK que Arrera Neuron Network (V1 pour Arrera Neuron Network et V2 pour Arrera Gazelle).
+
+### Explication du fichier de configuration
 
 ```json
 {
