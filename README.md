@@ -1,5 +1,7 @@
 # Arrera Gazelle
 
+[English version](README_en.md)
+
 Arrera Gazelle est l'interface graphique utilisant Arrera TK en version 2 qui a pour but d'être l'interface graphique des paramètres pour l'Arrera Neuron Network.
 
 Son but final est d'être l'interface graphique des assistants Arrera SIX, Arrera Ryley et Arrera Copilote.
