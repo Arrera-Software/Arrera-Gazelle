@@ -1,5 +1,4 @@
 {
-    "listeTheme":["Dark","Light"],
     "listGenre":["monsieur","madame","maitre"],
     "iconSoft": "asset/logo-six.png",
     "listMoteurRecherche": ["google","brave","duckduckgo","qwant","ecosia","bing","perplexity"],

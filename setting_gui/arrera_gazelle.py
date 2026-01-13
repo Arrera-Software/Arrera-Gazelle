@@ -65,10 +65,10 @@ class arrera_gazelle :
                       aButton(self.__main_frame, text="Paramètres\ndu\nMicro", command=self.__viewMicroAcceuil)]
 
         for i in btn_welcome:
-            i.configure(width=125, height=125,font=("Roboto",13,"normal"))
+            i.configure(width=125, height=125,font=("Roboto",12.5,"bold"))
 
         self.__btn_back_assistant = aButton(self.__main_frame, text="Retour", width=125, height=125)
-        self.__btn_back_assistant.configure(font=("Roboto", 13, "normal"))
+        self.__btn_back_assistant.configure(font=("Roboto",12.5,"bold"))
 
         # backFrame
         btn_back_welcome = aButton(self.__backFrame,text="Retour Accueil",command=self.__backAcceuil)
