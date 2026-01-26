@@ -53,15 +53,15 @@ class arrera_gazelle :
         icon_assistant = aImage(path_light=self.__jsonSetting.getContentJsonFlag("iconSoft"),width=85,height=85)
         self.__btn_icon = aButton(self.__main_frame, image=icon_assistant, text="", corner_radius=8, width=125, height=125)
         btn_welcome = [aButton(self.__main_frame, text="Paramètres\ngénéraux", command=self.__viewMainSetting),
-                       aButton(self.__main_frame, text="Paramètres\nutilisateur", command=self.__viewUserAcceuil),
-                       aButton(self.__main_frame, text="Météo", command=self.__viewMeteoAcceuil),
-                       aButton(self.__main_frame, text="Intelligence\nartificielle", command=self.__viewIAAcceuil),
-                       aButton(self.__main_frame, text="Paramètres\nde\nrecherche", command=self.__viewRecherche),
-                       aButton(self.__main_frame, text="Logiciels\nexternes", command=self.__viewSoftAcceuil),
-                       aButton(self.__main_frame, text="Raccourcis\nInternet", command=self.__viewInternetAcceuil),
-                       aButton(self.__main_frame, text="Adresses\nGPS", command=self.__viewGPSAcceuil),
-                       aButton(self.__main_frame, text="Intégration\nGitHub", command=self.__viewGithub),
-                       aButton(self.__main_frame, text="Paramètres\ndu\nMicro", command=self.__viewMicroAcceuil)]
+                      aButton(self.__main_frame, text="Paramètres\nutilisateur", command=self.__viewUserAcceuil),
+                      aButton(self.__main_frame, text="Météo", command=self.__viewMeteoAcceuil),
+                      aButton(self.__main_frame, text="Intelligence\nartificielle", command=self.__viewIAAcceuil),
+                      aButton(self.__main_frame, text="Paramètres\nde\nrecherche", command=self.__viewRecherche),
+                      aButton(self.__main_frame, text="Logiciels\nexternes", command=self.__viewSoftAcceuil),
+                      aButton(self.__main_frame, text="Raccourcis\nInternet", command=self.__viewInternetAcceuil),
+                      aButton(self.__main_frame, text="Adresses\nGPS", command=self.__viewGPSAcceuil),
+                      aButton(self.__main_frame, text="Intégration\nGitHub", command=self.__viewGithub),
+                      aButton(self.__main_frame, text="Paramètres\ndu\nMicro", command=self.__viewMicroAcceuil)]
 
         for i in btn_welcome:
             i.configure(width=125, height=125,font=("Roboto",12.5,"bold"))
@@ -121,10 +121,10 @@ class arrera_gazelle :
                                   text="Gestion\ndu\ndossier de\ntravail\nArrera Work",
                                   command=self.__viewWorkFolder)
         btn_folder_download = aButton(self.__main_setting_welcome_frame,size=15,
-                                      text="Gestion\ndu\ndossier\nde\ntéléchargement",
-                                      command=self.__viewDownloadFolder)
+                                  text="Gestion\ndu\ndossier\nde\ntéléchargement",
+                                  command=self.__viewDownloadFolder)
         self.__btn_enable_hist = aSwicht(self.__main_setting_welcome_frame,
-                                         text="Activer l'historique",default_value=False,
+                                  text="Activer l'historique",default_value=False,
                                          command=self.__set_hist_state)
 
         # Work folder
@@ -135,9 +135,9 @@ class arrera_gazelle :
         self.__btn_download_folder = aButton(self.__download_folder_frame,size=15)
         # Back
         btn_back_main = [aButton(self.__work_folder_frame,text="Retour",
-                                 command=self.__viewMainSetting),
-                         aButton(self.__download_folder_frame,text="Retour",
-                                 command=self.__viewMainSetting)]
+                               command=self.__viewMainSetting),
+                       aButton(self.__download_folder_frame,text="Retour",
+                               command=self.__viewMainSetting)]
 
         # Affichage
         for i in l_title_main_setting:
@@ -367,9 +367,9 @@ class arrera_gazelle :
                               command=lambda:self.__viewGPSAcceuil())]
 
         self.__btnSupprGPS = [aButton(self.__gpsDomicile,text="Supprimer l'adresse",
-                                      command=self.__supprAdresseDomicile),
-                              aButton(self.__gpsTravail,text="Supprimer l'adresse",
-                                      command=self.__supprAdresseWork)]
+                                command=self.__supprAdresseDomicile),
+                        aButton(self.__gpsTravail,text="Supprimer l'adresse",
+                                command=self.__supprAdresseWork)]
 
         # entry
         self.__entryGPS = [aEntry(self.__gpsDomicile, width=300),
@@ -421,11 +421,11 @@ class arrera_gazelle :
 
         # Bouton
         btnAddWebShortcut = aButton(self.__webAcceuil, text="Ajouter\nun raccourci",
-                                    command=self.__viewInternetSiteWeb, size=15)
+                                            command=self.__viewInternetSiteWeb, size=15)
         btnDelWebShortcut = aButton(self.__webAcceuil, text="Supprimer\nun raccourci",
-                                    command= self.__viewInternetSupprSite, size=15)
+                                              command= self.__viewInternetSupprSite, size=15)
         btnViewWebShortcut = aButton(self.__webAcceuil, text="Raccourcis\nenregistrés",
-                                     command= self.__viewInternetListeSite, size=15)
+                                              command= self.__viewInternetListeSite, size=15)
 
         btnBackWeb = [aButton(self.__webAddShortcut, text="Retour"
                               ,command=self.__viewInternetAcceuil),
@@ -713,11 +713,11 @@ class arrera_gazelle :
         if folder == "":
             self.__l_state_work_folder.configure(text="Dossier de travail\nnon configuré",justify="center")
             self.__btn_work_folder.configure(text="Configurer le dossier\nde travail\nArrera Work",
-                                             command=self.__addWorkFolder)
+                                                 command=self.__addWorkFolder)
         else :
             self.__l_state_work_folder.configure(text=f"Emplacement du dossier de travail :\n{folder}",justify="center")
             self.__btn_work_folder.configure(text="Supprimer le dossier\nde travail\nArrera Work",
-                                             command=self.__delWorkFolder)
+                                                 command=self.__delWorkFolder)
 
         self.__windows.update()
 
@@ -742,11 +742,11 @@ class arrera_gazelle :
         if folder == "":
             self.__l_state_download_folder.configure(text="Dossier de téléchargement\nnon configuré",justify="center")
             self.__btn_download_folder.configure(text="Configurer le dossier\nde téléchargement",
-                                                 command=self.__addDownloadFolder)
+                                             command=self.__addDownloadFolder)
         else :
             self.__l_state_download_folder.configure(text=f"Emplacement du dossier de téléchargement :\n{folder}",justify="center")
             self.__btn_download_folder.configure(text="Supprimer le dossier\nde téléchargement",
-                                                 command=self.__delDownloadFolder)
+                                             command=self.__delDownloadFolder)
 
         self.__windows.update()
 
